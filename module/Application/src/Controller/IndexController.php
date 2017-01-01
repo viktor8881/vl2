@@ -23,13 +23,10 @@ class IndexController extends AbstractActionController
         $this->dataNow = $dataNow;
     }
 
-
-
-
     public function indexAction()
     {
-        var_dump($this->access()->checkAccess('index'));
-        var_dump($this->dataNow->format('d.m.Y H:i:s'));
+//        var_dump($this->access()->checkAccess('index'));
+//        var_dump($this->dataNow->format('d.m.Y H:i:s'));
 //        var_dump($this->getPluginManager());
         return new ViewModel();
     }

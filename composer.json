@@ -13,6 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.6 || ^7.0",
+        "phpunit/phpunit": "3.7.*",
         "zendframework/zend-component-installer": "^1.0 || ^0.3 || ^1.0.0-dev@dev",
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
@@ -21,7 +22,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Model\\": "model/",
+            "Application\\": "module/Application/src/",
+            "Exchange\\": "module/Exchange/src/"
         }
     },
     "autoload-dev": {

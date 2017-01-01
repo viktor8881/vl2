@@ -20,8 +20,8 @@ class Module
         $eventManager = $manager->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
         // Регистрируем метод-обработчик.
-        $sharedEventManager->attach(__NAMESPACE__, 'dispatch', [$this, 'onDispatch'], 100);
-        pr('Module::init');
+//        $sharedEventManager->attach(__NAMESPACE__, 'dispatch', [$this, 'onDispatch'], 100);
+//        pr('Module::init');
     }
 
     // Обработчик события.
@@ -39,7 +39,7 @@ class Module
             $viewModel = $event->getViewModel();
             $viewModel->setTemplate('layout/alt-layout');
         }
-        pr('Module::onDispatch');
+//        pr('Module::onDispatch');
     }
 
     public function onBootstrap(MvcEvent $event)
@@ -50,12 +50,12 @@ class Module
         // Следующая строка инстанцирует SessionManager и автоматически
         // делает его выбираемым 'по умолчанию'.
 //        $sessionMana  ger = $serviceManager->get(SessionManager::class);
-        pr('Module::onBootstrap');
+//        pr('Module::onBootstrap');
     }
 
     public function getConfig()
     {
-        pr('Module::getConfig');
+//        pr('Module::getConfig');
         return include __DIR__ . '/../config/module.config.php';
     }
 }

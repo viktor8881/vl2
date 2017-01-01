@@ -42,6 +42,6 @@ Application::init($appConfig)->run();
 function pr($val)
 {
     echo '<pre>';
-    var_dump($val);
+    \Doctrine\Common\Util\Debug::dump($val);
     echo '</pre>';
 }

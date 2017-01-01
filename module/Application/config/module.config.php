@@ -8,11 +8,13 @@
 namespace Application;
 
 use Application\Factory\IndexControllerFactory;
+use Application\Factory\MetalControllerFactory;
 use Application\Factory\ViewHelperMenuFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Mvc\Controller\LazyControllerAbstractFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'router' => [
@@ -47,13 +49,26 @@ return [
                     ],
                 ],
             ],
+
+            'metal' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/metal[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\MetalController::class,
+                        'action'     => 'list',
+                    ],
+                ],
+            ],
+
         ],
     ],
     'controllers' => [
         'factories' => [
 //            Controller\IndexController::class => InvokableFactory::class,
-            Controller\IndexController::class => IndexControllerFactory::class
 //            Controller\IndexController::class =>  LazyControllerAbstractFactory::class,
+            Controller\IndexController::class => IndexControllerFactory::class,
+            Controller\MetalController::class => MetalControllerFactory::class,
         ],
     ],
     'controller_plugins' => [
@@ -63,6 +78,14 @@ return [
         'aliases' => [
             'access' => Controller\Plugin\AccessPlugin::class,
         ]
+    ],
+    'service_manager'=>[
+        'factories' => [
+            Service\Metal::class => Service\Factory\MetalFactory::class,
+        ],
+        'aliases' => [
+            'ServiceMetal' => Service\Metal::class
+        ],
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
@@ -85,10 +108,30 @@ return [
 //            View\Helper\Menu::class => InvokableFactory::class,
             View\Helper\Menu::class => ViewHelperMenuFactory::class,
             View\Helper\Breadcrumbs::class => InvokableFactory::class,
+            View\Helper\ItemsNotFound::class => InvokableFactory::class,
         ],
         'aliases' => [
             'mainMenu' => View\Helper\Menu::class,
-            'pageBreadcrumbs' => View\Helper\Breadcrumbs::class
+            'pageBreadcrumbs' => View\Helper\Breadcrumbs::class,
+            'notFound' => View\Helper\ItemsNotFound::class,
         ]
-    ]
+    ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../src/Entity',
+                    __DIR__ . '/../../../model'
+                ]
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+                    'Model' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ],
 ];
