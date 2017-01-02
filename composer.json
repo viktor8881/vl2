@@ -18,13 +18,17 @@
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
         "zendframework/zend-mvc-form": "^1.0",
-        "doctrine/doctrine-orm-module": "^1.1"
+        "doctrine/doctrine-orm-module": "^1.1",
+        "zendframework/zend-crypt": "^3.2",
+        "zendframework/zend-session": "^2.7",
+        "zendframework/zend-authentication": "^2.5"
     },
     "autoload": {
         "psr-4": {
-            "Model\\": "model/",
             "Application\\": "module/Application/src/",
-            "Exchange\\": "module/Exchange/src/"
+            "Exchange\\": "module/Exchange/src/",
+            "User\\": "module/User/src/",
+            "Balance\\": "module/Balance/src/"
         }
     },
     "autoload-dev": {

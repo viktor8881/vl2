@@ -123,7 +123,7 @@ return [
                 'cache' => 'array',
                 'paths' => [
                     __DIR__ . '/../src/Entity',
-                    __DIR__ . '/../../../model'
+                    __DIR__ . '/../../../_model'
                 ]
             ],
             'orm_default' => [

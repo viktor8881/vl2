@@ -3,7 +3,7 @@
 namespace Exchange\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Model\Exchange\Manager as ManagerExchange;
+use Exchange\Service\ExchangeManager as ManagerExchange;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController

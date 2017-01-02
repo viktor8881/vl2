@@ -6,14 +6,13 @@
  * Time: 16:42
  */
 
-namespace Model\Exchange;
-
+namespace Exchange\Service;
 
 
 use Doctrine\ORM\EntityRepository;
-use Model\AbstractManager;
+use Exchange\Entity\Exchange;
 
-class Manager extends AbstractManager
+class ExchangeManager
 {
 
     private $repositoryEntity;
@@ -25,12 +24,12 @@ class Manager extends AbstractManager
 
     public function fetchAllMetal()
     {
-        return $this->repositoryEntity->findBy(['type' => Entity::TYPE_METAl]);
+        return $this->repositoryEntity->findBy(['type' => Exchange::TYPE_METAl]);
     }
 
     public function fetchAllCurrency()
     {
-        return $this->repositoryEntity->findBy(['type' => Entity::TYPE_CURRENCY]);
+        return $this->repositoryEntity->findBy(['type' => Exchange::TYPE_CURRENCY]);
     }
 
 }

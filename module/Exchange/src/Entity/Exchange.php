@@ -6,16 +6,15 @@
  * Time: 16:32
  */
 
-namespace Model\Exchange;
+namespace Exchange\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Model\AbstractEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="exchange")
  */
-class Entity extends AbstractEntity
+class Exchange
 {
 
     const TYPE_METAl = 1;
