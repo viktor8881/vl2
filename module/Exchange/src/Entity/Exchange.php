@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="exchange")
+ * @ORM\Table(name="exchange" )
  */
 class Exchange
 {
@@ -23,22 +23,15 @@ class Exchange
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="id", type="integer")
      */
     protected $id;
 
-    /**
-     * @ORM\Column(name="type")
-     */
+    /** @ORM\Column(name="type", type="smallint") */
     protected $type;
-
-    /**
-     * @ORM\Column(name="code")
-     */
+    /** @ORM\Column(name="code", type="string", length=20) */
     protected $code;
-    /**
-     * @ORM\Column(name="name")
-     */
+    /** @ORM\Column(name="name", type="string", length=255) */
     protected $name;
 
     /**
@@ -50,7 +43,7 @@ class Exchange
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return $this
      */
     public function setId($id)
@@ -68,25 +61,33 @@ class Exchange
     }
 
     /**
-     * @param mixed $type
+     * @param int $type
+     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isMetal()
     {
         return $this->getType() == self::TYPE_METAl;
     }
 
+    /**
+     * @return bool
+     */
     public function isCurrency()
     {
         return $this->getType() == self::TYPE_CURRENCY;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCode()
     {
@@ -94,7 +95,7 @@ class Exchange
     }
 
     /**
-     * @param mixed $code
+     * @param string $code
      * @return $this
      */
     public function setCode($code)
@@ -112,7 +113,7 @@ class Exchange
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function setName($name)

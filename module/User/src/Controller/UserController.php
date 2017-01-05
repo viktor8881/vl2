@@ -1,6 +1,8 @@
 <?php
 namespace User\Controller;
 
+use Doctrine\ORM\EntityManager;
+use User\Service\UserManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use User\Entity\User;
@@ -16,13 +18,13 @@ class UserController extends AbstractActionController
 {
     /**
      * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
     private $entityManager;
 
     /**
      * User manager.
-     * @var User\Service\UserManager
+     * @var UserManager
      */
     private $userManager;
 
@@ -327,7 +329,7 @@ class UserController extends AbstractActionController
                 $data = $form->getData();
 
                 // Set new password for the user.
-                if ($this->userManager->setPasswordByToken($token, $data['password'])) {
+                if ($this->userManager->setNewPasswordByToken($token, $data['password'])) {
 
                     // Redirect to "message" page
                     return $this->redirect()->toRoute('user',

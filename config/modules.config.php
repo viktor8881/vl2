@@ -22,4 +22,5 @@ return [
     'User',
     'Exchange',
     'Balance',
+    'Course',
 ];

@@ -49,7 +49,6 @@ return [
                     ],
                 ],
             ],
-
             'metal' => [
                 'type'    => Segment::class,
                 'options' => [

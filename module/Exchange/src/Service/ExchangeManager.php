@@ -22,6 +22,24 @@ class ExchangeManager
         $this->repositoryEntity = $repositoryEntity;
     }
 
+    public function getMetalById($id)
+    {
+        $item = $this->repositoryEntity->find($id);
+        if ($item && $item->isMetal()) {
+            return $item;
+        }
+        return null;
+    }
+
+    public function getCurrencyById($id)
+    {
+        $item = $this->repositoryEntity->find($id);
+        if ($item && $item->isCurrency()) {
+            return $item;
+        }
+        return null;
+    }
+
     public function fetchAllMetal()
     {
         return $this->repositoryEntity->findBy(['type' => Exchange::TYPE_METAl]);

@@ -1,50 +1,44 @@
 <?php
-namespace Exchange;
+namespace Course;
 
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Course\Factory\IndexControllerFactory;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => Factory\IndexControllerFactory::class,
+            Controller\IndexController::class => IndexControllerFactory::class,
         ],
     ],
     'router' => [
         'routes' => [
-            'metal/list' => [
-                'type' => 'Literal',
+            'course/currency' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/metal/list',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'metal',
+                    'route' => '/course/:action/:id',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]*',
                     ],
-                ]
-            ],
-            'currency/list' => [
-                'type' => 'Literal',
-                'options' => [
-                    'route' => '/currency/list',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action' => 'currency',
                     ],
-                ]
+                ],
             ],
         ],
     ],
-
     'service_manager' => [
         'factories' => [
-            Service\ExchangeManager::class => Service\Factory\ExchangeManagerFactory::class,
+            Service\CourseManager::class => Service\Factory\CourseManagerFactory::class,
+            Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
         ]
     ],
 
     'view_manager' => [
         'template_path_stack' => [
-            'Exchange' => __DIR__ . '/../view',
+            'Course' => __DIR__ . '/../view',
         ],
     ],
 
