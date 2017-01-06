@@ -17,8 +17,7 @@ class CourseManagerFactory implements FactoryInterface
     {
         /** @var EntityManager $entityManager */
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        $repository = $entityManager->getRepository(Course::class);
-        $service = new CourseManager($repository);
+        $service = new CourseManager($entityManager, self::ENTITY_NAME);
         return $service;
     }
 

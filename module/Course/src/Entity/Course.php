@@ -8,6 +8,7 @@
 
 namespace Course\Entity;
 
+use Core\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
 
@@ -15,7 +16,7 @@ use Exchange\Entity\Exchange;
  * @ORM\Entity
  * @ORM\Table(name="course")
  */
-class Course
+class Course extends AbstractEntity
 {
 
     /**
@@ -35,10 +36,13 @@ class Course
     /** @ORM\Column(name="nominal", type="integer") */
     protected $nominal;
 
-    /** @ORM\Column(name="value", type="decimal", precision=6, scale=20) */
-    protected $value;
+    /** @ORM\Column(name="buy", type="decimal", precision=6, scale=20) */
+    protected $buy;
 
-    /** @Column(name="date_create", type="date") */
+    /** @ORM\Column(name="sell", type="decimal", precision=6, scale=20) */
+    protected $sell;
+
+    /** @ORM\Column(name="date_create", type="date") */
     protected $dateCreate;
 
     /**
@@ -94,21 +98,40 @@ class Course
     }
 
     /**
-     * @return float
+     * @return mixed
      */
-    public function getValue()
+    public function getBuy()
     {
-        return $this->value;
+        return $this->buy;
     }
 
     /**
-     * @param float $value
-     * @return Course
+     * @param mixed $buy
      */
-    public function setValue($value)
+    public function setBuy($buy)
     {
-        $this->value = $value;
-        return $this;
+        $this->buy = $buy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSell()
+    {
+        return $this->sell;
+    }
+
+    /**
+     * @param mixed $sell
+     */
+    public function setSell($sell)
+    {
+        $this->sell = $sell;
+    }
+
+    public function getValue()
+    {
+        return $this->getBuy();
     }
 
     /**
@@ -117,6 +140,16 @@ class Course
     public function getDateCreate()
     {
         return $this->dateCreate;
+    }
+
+    public function getDate()
+    {
+        return $this->getDateCreate();
+    }
+
+    public function getDateFormatDMY()
+    {
+        return $this->getDateCreate()->format('d.m.Y');
     }
 
     /**

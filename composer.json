@@ -29,7 +29,9 @@
             "Exchange\\": "module/Exchange/src/",
             "User\\": "module/User/src/",
             "Balance\\": "module/Balance/src/",
-            "Course\\": "module/Course/src/"
+            "Course\\": "module/Course/src/",
+            "Core\\": "module/Core/src/",
+            "Task\\": "module/Task/src/"
         }
     },
     "autoload-dev": {

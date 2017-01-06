@@ -20,30 +20,23 @@ class InputFilter extends \Zend\InputFilter\InputFilter
 
         $date_start = new Input('date_start');
         $date_start->getValidatorChain()
-            ->attach(new Date('d.m.Y'));
+            ->attach(new Date('d.m.Y'))
+            ->attach(new LsDate(new \DateTime()));
+
 
         $date_end = new Input('date_end');
         $date_end->getValidatorChain()
-            ->attach(new DateStep(['format' => 'd.m.Y', 'baseValue' => date('d.m.Y')]));
+            ->attach(new Date('d.m.Y'));
 
-        $percent = new Input('percent');
-        $percent->getValidatorChain()
-            ->attach(new IsFloat());
+//        $percent = new Input('percent');
+//        $percent->getValidatorChain()
+//            ->attach(new IsFloat());
 
         $this->add($id)
             ->add($date_start)
             ->add($date_end)
-            ->add($percent)
+//            ->add($percent)
             ->setData($data);
-    }
-
-    public function getStringMessages()
-    {
-        $result = '';
-        foreach ($this->getMessages() as $mess) {
-            $result .= implode(" ", $mess);
-        }
-        return $result;
     }
 
 }

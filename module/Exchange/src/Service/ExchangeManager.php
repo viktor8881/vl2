@@ -9,6 +9,7 @@
 namespace Exchange\Service;
 
 
+use Core\Service\AbstractManager;
 use Doctrine\ORM\EntityRepository;
 use Exchange\Entity\Exchange;
 
@@ -22,9 +23,14 @@ class ExchangeManager
         $this->repositoryEntity = $repositoryEntity;
     }
 
+    public function get($id)
+    {
+        return $this->repositoryEntity->find($id);
+    }
+
     public function getMetalById($id)
     {
-        $item = $this->repositoryEntity->find($id);
+        $item = $this->get($id);
         if ($item && $item->isMetal()) {
             return $item;
         }
@@ -33,7 +39,7 @@ class ExchangeManager
 
     public function getCurrencyById($id)
     {
-        $item = $this->repositoryEntity->find($id);
+        $item = $this->get($id);
         if ($item && $item->isCurrency()) {
             return $item;
         }

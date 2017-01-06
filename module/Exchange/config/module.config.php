@@ -13,7 +13,7 @@ return [
     ],
     'router' => [
         'routes' => [
-            'metal/list' => [
+            'metal.list' => [
                 'type' => 'Literal',
                 'options' => [
                     'route' => '/metal/list',
@@ -23,7 +23,7 @@ return [
                     ],
                 ]
             ],
-            'currency/list' => [
+            'currency.list' => [
                 'type' => 'Literal',
                 'options' => [
                     'route' => '/currency/list',

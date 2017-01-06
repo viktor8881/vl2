@@ -18,11 +18,15 @@ class IndexController extends AbstractActionController
 
     public function metalAction()
     {
-        return new ViewModel(['items' => $this->managerExchange->fetchAllMetal()]);
+        return new ViewModel(
+            ['items' => $this->managerExchange->fetchAllMetal()]
+        );
     }
 
     public function currencyAction()
     {
-        return new ViewModel(['items' => $this->managerExchange->fetchAllCurrency()]);
+        return new ViewModel(
+            ['items' => $this->managerExchange->fetchAllCurrency()]
+        );
     }
 }

@@ -1,0 +1,40 @@
+<?= $this->headerExchange($this->exchanges, $this->currentExchange, $this->period) ?>
+
+<div id="chart_div"></div>
+
+<?php
+    $lisChart = array();
+    $i = 0;
+    foreach ($this->courses as $course) {
+        $date = $course->getDate();
+        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),'
+            . $course->getValue() . ']';
+    }
+
+    $this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
+    $this->headScript()->captureStart();
+    echo "
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawBasic);
+    
+    function drawBasic() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'X');
+        data.addColumn('number', 'X');
+        data.addRows([" . implode(',', $lisChart) . "]);
+        var options = {
+            'height':500,
+            'language': 'ru',
+            hAxis: {
+              title: 'Time'
+            },
+            vAxis: {
+              title: '  '
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    ";
+    $this->headScript()->captureEnd();
+?>

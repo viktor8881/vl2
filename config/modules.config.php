@@ -18,9 +18,11 @@ return [
     'Zend\Form',
     'Zend\Router',
     'Zend\Validator',
+    'Core',
     'Application',
     'User',
     'Exchange',
     'Balance',
     'Course',
+    'Task',
 ];

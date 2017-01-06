@@ -4,6 +4,7 @@ namespace Course;
 use Course\Factory\IndexControllerFactory;
 use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'controllers' => [
@@ -13,10 +14,10 @@ return [
     ],
     'router' => [
         'routes' => [
-            'course/currency' => [
+            'courses' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/course/:action/:id',
+                    'route' => '/course/:action[/:id]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]*',
@@ -40,6 +41,15 @@ return [
         'template_path_stack' => [
             'Course' => __DIR__ . '/../view',
         ],
+    ],
+
+    'view_helpers' => [
+        'factories' => [
+            View\Helper\HeaderExchange::class => InvokableFactory::class,
+        ],
+        'aliases' => [
+            'headerExchange' => View\Helper\HeaderExchange::class,
+        ]
     ],
 
     'doctrine' => [

@@ -1,6 +1,13 @@
-<strong>Module:</strong>        Exchange &raquo;
-<strong>Controller:</strong>    Index &raquo;
-<strong>Action:</strong>        Index
+<?php
+$this->headTitle('List currencies');
+
+$this->mainMenu()->setActiveItemId('currencies');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'List currency' => $this->url('currency.list')
+]);
+?>
 
 
 <h1>Список валют</h1>
