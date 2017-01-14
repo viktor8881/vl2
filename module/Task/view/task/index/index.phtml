@@ -1,5 +1,32 @@
-<strong>Module:</strong>        Task &raquo;
-<strong>Controller:</strong>    Index &raquo;
-<strong>Action:</strong>        index
+<div class="btn-group pull-right h__margin_bottom10 h__margin_right10" role="group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?=$this->iconAdd()?> <?=_('Создать')?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="/tasks/percent/add"><?=_('Процент за период')?></a></li>
+        <li><a href="/tasks/overtime/add"><?=_('Последовательный рост/падение')?></a></li>
+    </ul>
+</div>
 
-<h1><?=$this->item?></h1>
+<table class="table table-bordered">
+    <tr>
+        <th><?=_('Название')?></th>
+        <th><?=_('Действия')?></th>
+    </tr>
+    <tbody>
+    <?php
+    if (count($this->tasks)) {
+        foreach ($this->tasks as $task) {
+            echo '<tr>';
+            echo '<td>'.$this->taskName($task).'</td>';
+            echo '<td>'.$this->linkEdit($task).' '
+                .$this->linkDelete($task).'</td>';
+            echo '</tr>';
+        }
+    }else{
+        echo '<tr><td colspan="3"><p class="text-center text-muted">'._('Нет заданий').'</p></td></tr>';
+    }
+    ?>
+    </tbody>
+</table>

@@ -1,0 +1,106 @@
+<?php
+$this->headTitle('Add Task Percent');
+
+$this->mainMenu()->setActiveItemId('task');
+
+$this->pageBreadcrumbs()->setItems(
+    [
+        'Home'             => $this->url('home'),
+        'Tasks'            => $this->url('tasks'),
+        'Add Percent Task' => $this->url('task-percent', ['action' => 'add'])
+    ]
+);
+
+/**
+ * @var $form \Zend\Form\Form
+ */
+//$form->setAttribute('class', 'form-horizontal');
+//$form->get('mode')->setAttributes(
+//    [
+//        'class' => 'form-control',
+//    ]
+//);
+//$form->get('mode')->setOptions(
+//    ['label_attributes' => ['class' => 'col-sm-3 control-label'],]
+//
+//);
+//$form->get('percent')->setAttributes(
+//    [
+//        'class' => 'form-control',
+//    ]
+//);
+
+//$form->get('period')->setAttributes(
+//    [
+//        'class'     => 'form-control',
+//        'min'       => 0,
+//        'max'       => 99,
+//        'maxlength' => 2,
+//    ]
+//);
+
+//$form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+
+$form->prepare();
+
+//echo $this->form($form);
+
+//pr($form->get('metals')->getValidator());
+?>
+
+<h1>Add Percent Task</h1>
+
+<p>
+    Please fill out the following form and click the <i>Create</i> button.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('mode')); ?>
+            <div class="col-sm-9">
+                <?= $this->formElement($form->get('mode')); ?>
+                <?= $this->formElementErrors($form->get('mode')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('percent')); ?>
+            <div class="col-sm-9">
+                <?= $this->formElement($form->get('percent')); ?>
+                <?= $this->formElementErrors($form->get('percent')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('period')); ?>
+            <div class="col-sm-9">
+                <?= $this->formElement($form->get('period')); ?>
+                <?= $this->formElementErrors($form->get('period')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('metals')); ?>
+            <div class="col-sm-9">
+                <?= $this->formElement($form->get('metals')); ?>
+                <?= $this->formElementErrors($form->get('metals')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('currencies')); ?>
+            <div class="col-sm-9">
+                <?= $this->formElement($form->get('currencies')); ?>
+                <?= $this->formElementErrors($form->get('currencies')); ?>
+            </div>
+        </div>
+
+        <?= $this->formElement($form->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>   
+

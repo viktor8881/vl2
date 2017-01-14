@@ -25,6 +25,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+
 //        var_dump($this->access()->checkAccess('index'));
 //        var_dump($this->dataNow->format('d.m.Y H:i:s'));
 //        var_dump($this->getPluginManager());

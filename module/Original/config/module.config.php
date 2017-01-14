@@ -63,6 +63,35 @@ return [
             'access' => Controller\Plugin\AccessPlugin::class,
         ]
     ],
+
+//     Регистрация сервисов под этим ключом
+//    'service_manager' => [
+//        'services' => [
+//            // Регистрация экземпляров классов сервисов
+//            //...
+//        ],
+//        'invokables' => [
+//            // Регистрация вызываемых классов
+//            //...
+//        ],
+//        'factories' => [
+//            // Регистрация фабрик
+//            //...
+//        ],
+//        'abstract_factories' => [
+//            // Регистрация абстрактных фабрик
+//            //...
+//        ],
+//        'aliases' => [
+//            // Регистрация псевдонимов сервисов
+//            //...
+//        ],
+//        'shared' => [
+//            // Укажите какие сервисы должны быть non-shared
+//        ]
+//    ],
+
+
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

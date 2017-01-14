@@ -38,31 +38,31 @@ abstract class AbstractManager implements IManager
     public function fetchAll(Paginator $paginator = null,
         OrderCollection $orders = null
     ) {
-        $limit = ($paginator->getCurrentPageNumber() - 1)
-            * $paginator->getItemCountPerPage();
-        $offset = $paginator->getItemCountPerPage();
-        return $this->em->getRepository($this->entityName)->findBy(
-            [], $orders->toArray(), $limit, $offset
-        );
+        return $this->fetchAllByCriteria(null, $paginator, $orders);
     }
 
-    public function fetchAllByCriteria(CriterionCollection $criterions = null, Paginator $paginator = null, OrderCollection $orders = null )
-    {
-        $qb = $this->em->createQueryBuilder();//('SELECT '.$this->entityName.' FROM '.$this->entityName.' '.$this->entityName);
+    public function fetchAllByCriteria(CriterionCollection $criterions = null,
+        Paginator $paginator = null, OrderCollection $orders = null
+    ) {
+        $qb = $this->em->createQueryBuilder();
         $qb->select($this->entityName)
             ->from($this->entityName, $this->entityName);
         if ($criterions) {
             $this->criterionsToString($criterions, $qb);
         }
-        $orderBy=null;
+        $orderBy = null;
         if ($orders) {
             $this->ordersToString($orders, $qb);
         }
-        if ($paginator){
-            $qb->setFirstResult(($paginator->getCurrentPageNumber()-1)* $paginator->getItemCountPerPage())
+        if ($paginator) {
+            $qb->setFirstResult(
+                ($paginator->getCurrentPageNumber() - 1)
+                * $paginator->getItemCountPerPage()
+            )
                 ->setMaxResults($paginator->getItemCountPerPage());
         }
         $query = $qb->getQuery();
+//        pr($query->getDQL()); exit;
         return $query->getResult();
 
 //
@@ -127,8 +127,9 @@ abstract class AbstractManager implements IManager
         return new $this->entityName($values);
     }
 
-    protected function criterionsToString(CriterionCollection $criterions = null, QueryBuilder $qb)
-    {
+    protected function criterionsToString(CriterionCollection $criterions = null,
+        QueryBuilder $qb
+    ) {
         $result = array();
         foreach ($criterions as $criterion) {
             if ($criterion->countValue()) {
@@ -138,7 +139,7 @@ abstract class AbstractManager implements IManager
         return implode(' AND ', $result);
     }
 
-    protected function ordersToString(OrderCollection $orders = null)
+    protected function ordersToString(OrderCollection $orders = null, QueryBuilder $qb)
     {
         $result = array();
         foreach ($orders as $order) {
@@ -147,7 +148,12 @@ abstract class AbstractManager implements IManager
         return implode(',', $result);
     }
 
-    abstract protected function criterionToString(AbstractCriterion $criterion, QueryBuilder $qb);
-    abstract protected function orderToString(AbstractOrder $order, QueryBuilder $qb);
+    abstract protected function criterionToString(AbstractCriterion $criterion,
+        QueryBuilder $qb
+    );
+
+    abstract protected function orderToString(AbstractOrder $order,
+        QueryBuilder $qb
+    );
 
 }
