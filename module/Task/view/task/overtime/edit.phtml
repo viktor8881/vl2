@@ -7,16 +7,13 @@ $this->pageBreadcrumbs()->setItems(
     [
         'Home'             => $this->url('home'),
         'Tasks'            => $this->url('tasks'),
-        'Add Percent Task' => $this->url('task.percent', ['action' => 'add'])
+        'Edit Percent Task' => $this->url('task.percent', ['action' => 'edit'])
     ]
 );
 ?>
 
 <h1>Add Percent Task</h1>
 
-<p>
-    Please fill out the following form and click the <i>Create</i> button.
-</p>
 
 <div class="row">
     <div class="col-md-6">

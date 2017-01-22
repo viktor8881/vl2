@@ -27,7 +27,7 @@ abstract class AbstractManager implements IManager
         return $this->em->getRepository($this->entityName)->find($id);
     }
 
-    public function getByCriteria(CriterionCollection $criterions = null,
+    public function getByCriterons(CriterionCollection $criterions = null,
         OrderCollection $orders = null
     ) {
         return $this->em->getRepository($this->entityName)->findOneBy(
@@ -38,21 +38,21 @@ abstract class AbstractManager implements IManager
     public function fetchAll(Paginator $paginator = null,
         OrderCollection $orders = null
     ) {
-        return $this->fetchAllByCriteria(null, $paginator, $orders);
+        return $this->fetchAllByCriterions(null, $paginator, $orders);
     }
 
-    public function fetchAllByCriteria(CriterionCollection $criterions = null,
+    public function fetchAllByCriterions(CriterionCollection $criterions = null,
         Paginator $paginator = null, OrderCollection $orders = null
     ) {
         $qb = $this->em->createQueryBuilder();
         $qb->select($this->entityName)
             ->from($this->entityName, $this->entityName);
         if ($criterions) {
-            $this->criterionsToString($criterions, $qb);
+            $this->addCriterions($criterions, $qb);
         }
         $orderBy = null;
         if ($orders) {
-            $this->ordersToString($orders, $qb);
+            $this->addOrders($orders, $qb);
         }
         if ($paginator) {
             $qb->setFirstResult(
@@ -62,43 +62,23 @@ abstract class AbstractManager implements IManager
                 ->setMaxResults($paginator->getItemCountPerPage());
         }
         $query = $qb->getQuery();
-//        pr($query->getDQL()); exit;
         return $query->getResult();
-
-//
-//        $limit = null;
-//        $offset = null;
-//        if ($paginator) {
-//            $limit = ($paginator->getCurrentPageNumber() - 1)
-//                * $paginator->getItemCountPerPage();
-//            $offset = $paginator->getItemCountPerPage();
-//        }
-////        pr($criterions->toArray()); exit;
-//        return $this->em->getRepository($this->entityName)->findBy(
-//            $this->criteriaToArray($criterions), $this->ordersToArray($orders), $limit, $offset
-//        );
     }
 
     public function count()
     {
-        $query = $this->em->createQuery(
-            'SELECT COUNT(' . $this->entityName . '.id) FROM '
-            . $this->entityName . ' ' . $this->entityName
-        );
-        return $query->getSingleScalarResult();
+        return $this->countByCriteria();
     }
 
     public function countByCriteria(CriterionCollection $criterions = null)
     {
-        $whereBy = null;
-//        if ($filters) {
-//            $whereBy = ' WHERE '.$this->_conditionByFilters($filters);
-//        }
-        $query = $this->em->createQuery(
-            'SELECT COUNT(' . $this->entityName . '.id) FROM '
-            . $this->entityName . ' ' . $this->entityName . ' ' . $whereBy
-        );
-        return $query->getSingleScalarResult();
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('COUNT(' . $this->entityName . '.id) as count_item')
+            ->from($this->entityName, $this->entityName);
+        if ($criterions) {
+            $this->addCriterions($criterions, $qb);
+        }
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function insert(IEmpty $model)
@@ -127,32 +107,28 @@ abstract class AbstractManager implements IManager
         return new $this->entityName($values);
     }
 
-    protected function criterionsToString(CriterionCollection $criterions = null,
+    protected function addCriterions(CriterionCollection $criterions = null,
         QueryBuilder $qb
     ) {
-        $result = array();
         foreach ($criterions as $criterion) {
             if ($criterion->countValue()) {
-                $result[] = $this->criterionToString($criterion, $qb);
+                $this->addCriterion($criterion, $qb);
             }
         }
-        return implode(' AND ', $result);
     }
 
-    protected function ordersToString(OrderCollection $orders = null, QueryBuilder $qb)
+    protected function addOrders(OrderCollection $orders = null, QueryBuilder $qb)
     {
-        $result = array();
         foreach ($orders as $order) {
-            $result[] = $this->orderToString($order, $qb);
+            $this->addOrder($order, $qb);
         }
-        return implode(',', $result);
     }
 
-    abstract protected function criterionToString(AbstractCriterion $criterion,
+    abstract protected function addCriterion(AbstractCriterion $criterion,
         QueryBuilder $qb
     );
 
-    abstract protected function orderToString(AbstractOrder $order,
+    abstract protected function addOrder(AbstractOrder $order,
         QueryBuilder $qb
     );
 

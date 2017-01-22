@@ -1,5 +1,4 @@
 <?php
-
 namespace Core\Entity;
 
 abstract class AbstractCriterion

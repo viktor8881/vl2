@@ -28,11 +28,11 @@ class TaskPercent extends Task
     }
 
     /**
-     * @param mixed $percent
+     * @param mixed $period
      */
-    public function setPercent($percent)
+    public function setPercent($period)
     {
-        $this->percent = $percent;
+        $this->percent = $period;
     }
 
 }

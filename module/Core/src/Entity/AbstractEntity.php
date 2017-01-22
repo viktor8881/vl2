@@ -4,18 +4,36 @@ namespace Core\Entity;
 
 use Zend\Filter\StaticFilter;
 
+/**
+ * Class AbstractEntity
+ *
+ * @package Core\Entity
+ */
 abstract class AbstractEntity implements IEmpty
 {
 
+    private $filter;
+
+    /**
+     * AbstractEntity constructor.
+     *
+     * @param array|null $options
+     */
     public function __construct(array $options = null)
     {
         if ($options) {
-            $this->setToArray($options);
+            $this->setOptions($options);
         }
     }
 
-    public function setToArray(array $options = array())
+    /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions(array $options = array())
     {
+        $this->filter = new \Zend\Filter\Word\UnderscoreToCamelCase();
         $methods = get_class_methods($this);
         foreach ($options as $key => $value) {
             $method = $this->getMethodName($key);
@@ -26,17 +44,28 @@ abstract class AbstractEntity implements IEmpty
         return $this;
     }
 
+    /**
+     * @param $key
+     *
+     * @return string
+     */
     private function getMethodName($key)
     {
-        $key = StaticFilter::execute($key, 'Word_UnderscoreToCamelCase');
+        $key = $this->filter->filter($key);
         return 'set' . ucfirst($key);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [];
     }
 
+    /**
+     * @return mixed
+     */
     abstract public function getId();
 
 }

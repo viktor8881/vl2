@@ -9,6 +9,7 @@
     <option name="skippedFunctions">
       <list>
         <option value="Zend\Validator\DateStep-&gt;isValid" />
+        <option value="Core\View\Helper\FormHelper-&gt;__invoke" />
       </list>
     </option>
   </component>

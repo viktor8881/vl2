@@ -4,8 +4,8 @@
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-        <li><a href="/tasks/percent/add"><?=_('Процент за период')?></a></li>
-        <li><a href="/tasks/overtime/add"><?=_('Последовательный рост/падение')?></a></li>
+        <li><a href="<?= $this->url('task.percent', ['action' => 'add']) ?>"><?=_('Процент за период')?></a></li>
+        <li><a href="<?= $this->url('task.overtime', ['action' => 'add']) ?>"><?=_('Последовательный рост/падение')?></a></li>
     </ul>
 </div>
 

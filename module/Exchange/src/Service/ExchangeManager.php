@@ -9,23 +9,26 @@
 namespace Exchange\Service;
 
 
+//use Core\Entity\AbstractCriterion;
+use Core\Entity\AbstractCriterion;
+use Core\Entity\AbstractOrder;
 use Core\Service\AbstractManager;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+//use Exchange\Entity\Criteria\ExchangeId;
+//use Exchange\Entity\Criteria\ExchangeType;
 use Exchange\Entity\Exchange;
+use Core\Entity\CriterionCollection;
+use Exchange\Entity\Criterion\ExchangeId;
+use Exchange\Entity\Criterion\ExchangeType;
 
-class ExchangeManager
+class ExchangeManager extends AbstractManager
 {
 
-    private $repositoryEntity;
-
-    public function __construct(EntityRepository $repositoryEntity)
+    public function fetchAllByListId(array $list)
     {
-        $this->repositoryEntity = $repositoryEntity;
-    }
-
-    public function get($id)
-    {
-        return $this->repositoryEntity->find($id);
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeId($list));
+        return $this->fetchAllByCriterions($criterions);
     }
 
     public function getMetalById($id)
@@ -48,12 +51,45 @@ class ExchangeManager
 
     public function fetchAllMetal()
     {
-        return $this->repositoryEntity->findBy(['type' => Exchange::TYPE_METAl]);
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeType(Exchange::TYPE_METAl));
+        return $this->fetchAllByCriterions($criterions);
     }
 
     public function fetchAllCurrency()
     {
-        return $this->repositoryEntity->findBy(['type' => Exchange::TYPE_CURRENCY]);
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeType(Exchange::TYPE_CURRENCY));
+        return $this->fetchAllByCriterions($criterions);
     }
+
+    protected function addCriterion(AbstractCriterion $criterion,
+        QueryBuilder $qb
+    ) {
+        switch (get_class($criterion)) {
+            case ExchangeId::class:
+                $qb->andWhere($this->entityName . '.id IN (:id)')
+                    ->setParameter('id', $criterion->getValues());
+                break;
+            case ExchangeType::class:
+                $qb->andWhere($this->entityName . '.type IN (:type_id)')
+                    ->setParameter('type_id', $criterion->getValues());
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
+    {
+//        switch (get_class($order)) {
+//            case 'Question_Order_Status':
+//                $result = $prefix.'.status '.$order->getTypeOrder();
+//                break;
+//            default:
+//                break;
+//        }
+    }
+
 
 }

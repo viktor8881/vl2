@@ -3,20 +3,20 @@
 namespace Task\Controller;
 
 use Exchange\Service\ExchangeManager;
-use Task\Form\PercentForm;
-use Task\Entity\TaskPercent;
-use Task\Service\TaskPercentManager;
+use Task\Form\OvertimeForm;
+use Task\Entity\TaskOvertime;
+use Task\Service\TaskOvertimeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class PercentController extends AbstractActionController
+class OvertimeController extends AbstractActionController
 {
 
     private $taskManager;
     private $exchangeManager;
 
 
-    public function __construct(TaskPercentManager $taskManager,
+    public function __construct(TaskOvertimeManager $taskManager,
         ExchangeManager $exchangeManager
     ) {
         $this->taskManager = $taskManager;
@@ -25,7 +25,7 @@ class PercentController extends AbstractActionController
 
     public function addAction()
     {
-        $form = new PercentForm(
+        $form = new OvertimeForm(
             $this->exchangeManager->fetchAllMetal(),
             $this->exchangeManager->fetchAllCurrency()
         );
@@ -33,7 +33,7 @@ class PercentController extends AbstractActionController
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
                 $data = $form->getDataForItem();
-                /** @var TaskPercent $task */
+                /** @var TaskOvertime $task */
                 $task = $this->taskManager->createEntity($data);
                 $task->setExchanges(
                     $this->exchangeManager->fetchAllByListId($data['exchanges'])
@@ -52,14 +52,14 @@ class PercentController extends AbstractActionController
 
     public function editAction()
     {
-        /** @var TaskPercent $task */
+        /** @var TaskOvertime $task */
         $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
-        if (!$task or !$task->isPercent()) {
+        if (!$task  or !$task->isOvertime()) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
 
-        $form = new PercentForm(
+        $form = new OvertimeForm(
             $this->exchangeManager->fetchAllMetal(),
             $this->exchangeManager->fetchAllCurrency()
         );
@@ -81,7 +81,6 @@ class PercentController extends AbstractActionController
             $form->setData(
                 array(
                     'mode'       => $task->getMode(),
-                    'percent'    => $task->getPercent(),
                     'period'     => $task->getPeriod(),
                     'metals'     => $task->listMetalId(),
                     'currencies' => $task->listCurrencyId()
@@ -99,9 +98,9 @@ class PercentController extends AbstractActionController
 
     public function deleteAction()
     {
-        /** @var TaskPercent $task */
+        /** @var TaskOvertime $task */
         $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
-        if (!$task or !$task->isPercent()) {
+        if (!$task  or !$task->isOvertime()) {
             $this->getResponse()->setStatusCode(404);
             return;
         }

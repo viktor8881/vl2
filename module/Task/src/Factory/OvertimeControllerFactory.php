@@ -3,19 +3,18 @@ namespace Task\Factory;
 
 use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
-use Task\Controller\PercentController;
-use Task\Service\TaskManager;
-use Task\Service\TaskPercentManager;
+use Task\Controller\OvertimeController;
+use Task\Service\TaskOvertimeManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class PercentControllerFactory implements FactoryInterface
+class OvertimeControllerFactory implements FactoryInterface
 {
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $taskManager = $container->get(TaskPercentManager::class);
+        $taskManager = $container->get(TaskOvertimeManager::class);
         $exchangeManager = $container->get(ExchangeManager::class);
-        $controller = new PercentController($taskManager, $exchangeManager);
+        $controller = new OvertimeController($taskManager, $exchangeManager);
         return $controller;
     }
 

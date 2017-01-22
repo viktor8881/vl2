@@ -9,7 +9,7 @@ use Task\Entity\Task;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputFilter;
 
-class PercentForm extends Form
+class OvertimeForm extends Form
 {
 
     private $metals;
@@ -21,7 +21,7 @@ class PercentForm extends Form
         $this->metals = $listMetal;
         $this->currencies = $listCurrency;
 
-        parent::__construct('task_percent-form');
+        parent::__construct('task_overtime-form');
 
         $this->addElements();
         $this->addInputFilter();
@@ -49,19 +49,6 @@ class PercentForm extends Form
 
         $this->add(
             [
-                'type'       => 'text',
-                'name'       => 'percent',
-                'attributes' => array(
-                    'required' => 'required',
-                ),
-                'options'    => [
-                    'label' => 'Percent',
-                ],
-            ]
-        );
-
-        $this->add(
-            [
                 'type'       => 'Number',
                 'name'       => 'period',
                 'attributes' => array(
@@ -71,7 +58,7 @@ class PercentForm extends Form
                     'maxlength' => 2,
                 ),
                 'options'    => [
-                    'label' => 'Period',
+                    'label' => 'Duration',
                 ],
             ]
         );
@@ -124,19 +111,6 @@ class PercentForm extends Form
     {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
-
-        $inputFilter->add(
-            [
-                'name'       => 'percent',
-                'required'   => true,
-                'filters'    => [
-                    new ToFloat()
-                ],
-                'validators' => [
-                    new FloatPositive()
-                ],
-            ]
-        );
 
         $inputFilter->add(
             [
@@ -196,7 +170,6 @@ class PercentForm extends Form
         $result = [];
         $data = parent::getData();
         $result['mode'] = $data['mode'];
-        $result['percent'] = $data['percent'];
         $result['period'] = $data['period'];
         if (!is_array($data['metals'])) {
             $data['metals'] = [];

@@ -6,45 +6,36 @@ use Core\Entity\AbstractOrder;
 use Core\Entity\OrderCollection;
 use Core\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
-use Task\Entity\Criteria\CriterionType;
+use Task\Entity\Criterion\ExchangeType;
 use Task\Entity\Order\OrderType;
 use Task\Entity\Order\OrderId;
 
-class TaskManager extends AbstractManager
+abstract class TaskManager extends AbstractManager
 {
 
     public function fetchAllOrderById()
     {
         $orderColl = new OrderCollection();
-        $orderColl->append(new OrderId(AbstractOrder::DESC));
+        $orderColl->append(new OrderId(AbstractOrder::ASC));
         return $this->fetchAll(null, $orderColl);
     }
 
-    protected function criterionToString(AbstractCriterion $criterion,
+    protected function addCriterion(AbstractCriterion $criterion,
         QueryBuilder $qb
     ) {
         $result = '';
         switch (get_class($criterion)) {
-            case CriterionType::class:
+            case ExchangeType::class:
                 $qb->andWhere($this->entityName.'.type IN (:type)')
                     ->setParameter('type',  $criterion->getValues());
                 break;
-//            case CriterionPeriod::class:
-//                $qb->andWhere($this->entityName.'.dateCreate BETWEEN :start AND :end')
-//                    ->setParameter('start', $criterion->getFirstValue()->format('Y-m-d'))
-//                    ->setParameter('end', $criterion->getSecondValue()->format('Y-m-d'));
-//                break;
-//            case CriterionPercent::class:
-//                $qb->andWhere($this->entityName.'.percent IN (:percent)')
-//                    ->setParameter('percent',  $criterion->getValues());
-//                break;
             default:
                 break;
         }
         return $result;
     }
 
-    protected function orderToString(AbstractOrder $order, QueryBuilder $qb)
+    protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
         switch (get_class($order)) {
             case OrderType::class:
@@ -55,6 +46,5 @@ class TaskManager extends AbstractManager
                 break;
         }
     }
-
 
 }

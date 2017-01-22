@@ -23,11 +23,26 @@ use Exchange\Entity\Exchange;
 abstract class Task extends AbstractEntity
 {
 
+    /**
+     *
+     */
     const TYPE_PERCENT = 1;
+    /**
+     *
+     */
     const TYPE_OVER_TIME = 2;
 
+    /**
+     *
+     */
     const MODE_ONLY_UP = 1;
+    /**
+     *
+     */
     const MODE_ONLY_DOWN = 2;
+    /**
+     *
+     */
     const MODE_UP_DOWN = 3;
 
     /**
@@ -41,7 +56,7 @@ abstract class Task extends AbstractEntity
     protected $mode;
 
     /** @ORM\Column(name="period", type="float") */
-    protected $percent;
+    protected $period;
 
     /**
      * @ORM\ManyToMany(targetEntity="\Exchange\Entity\Exchange")
@@ -53,20 +68,28 @@ abstract class Task extends AbstractEntity
      */
     protected $exchanges;
 
-    /** @ORM\Column(name="body", type="json_array") */
-    protected $body;
 
-
+    /**
+     * @return array
+     */
     static public function listTypeCustom()
     {
         return array(self::TYPE_PERCENT, self::TYPE_OVER_TIME);
     }
 
+    /**
+     * @return array
+     */
     static public function listModes()
     {
         return array(self::TYPE_PERCENT, self::TYPE_OVER_TIME);
     }
 
+    /**
+     * Task constructor.
+     *
+     * @param array|null $options
+     */
     public function __construct(array $options = null)
     {
         $this->exchanges = new ArrayCollection();
@@ -108,17 +131,17 @@ abstract class Task extends AbstractEntity
     /**
      * @return mixed
      */
-    public function getPercent()
+    public function getPeriod()
     {
-        return $this->percent;
+        return $this->period;
     }
 
     /**
-     * @param mixed $percent
+     * @param mixed $period
      */
-    public function setPercent($percent)
+    public function setPeriod($period)
     {
-        $this->percent = $percent;
+        $this->period = $period;
     }
 
     /**
@@ -138,46 +161,48 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @param mixed $body
+     * @return bool
      */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
     public function isPercent()
     {
         return $this->getType() == self::TYPE_PERCENT;
     }
 
+    /**
+     * @return bool
+     */
     public function isOvertime()
     {
         return $this->getType() == self::TYPE_OVER_TIME;
     }
 
+    /**
+     * @return bool
+     */
     public function isModeOnlyUp()
     {
         return $this->getMode() == self::MODE_ONLY_UP;
     }
 
+    /**
+     * @return bool
+     */
     public function isModeOnlyDown()
     {
         return $this->getMode() == self::MODE_ONLY_DOWN;
     }
 
+    /**
+     * @return bool
+     */
     public function isModeUpDown()
     {
         return $this->getMode() == self::MODE_UP_DOWN;
     }
 
+    /**
+     * @return array
+     */
     public function getListMetal()
     {
         $result = [];
@@ -190,11 +215,17 @@ abstract class Task extends AbstractEntity
         return $result;
     }
 
+    /**
+     * @return int
+     */
     public function countMetal()
     {
         return count($this->getListMetal());
     }
 
+    /**
+     * @return array
+     */
     public function getListCurrency()
     {
         $result = [];
@@ -207,11 +238,47 @@ abstract class Task extends AbstractEntity
         return $result;
     }
 
+    /**
+     * @return int
+     */
     public function countCurrency()
     {
         return count($this->getListCurrency());
     }
 
+    /**
+     * @return array
+     */
+    public function listMetalId()
+    {
+        $result = [];
+        /** @var Exchange $exchange */
+        foreach ($this->getExchanges() as $exchange) {
+            if ($exchange->isMetal()) {
+                $result[] = $exchange->getId();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function listCurrencyId()
+    {
+        $result = [];
+        /** @var Exchange $exchange */
+        foreach ($this->getExchanges() as $exchange) {
+            if ($exchange->isCurrency()) {
+                $result[] = $exchange->getId();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @return mixed
+     */
     abstract public function getType();
 
 }

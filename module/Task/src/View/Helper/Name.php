@@ -19,9 +19,9 @@ class Name extends AbstractHelper
             $modeName = _('Pост/понижение');
         }
         if ($model->isPercent()) {
-            $xhtml .= '<div class="col-sm-12">'.sprintf(_('%1$s на %2$s за %3$s'), $modeName, $this->view->formatPercent($model->getPercent(), true), $this->view->pluralDays($model->getPercent(), true)).'</div>';
+            $xhtml .= '<div class="col-sm-12">'.sprintf(_('%1$s на %2$s за %3$s'), $modeName, $this->view->formatPercent($model->getPercent(), true), $this->view->pluralDays($model->getPeriod(), true)).'</div>';
         }elseif ($model->isOvertime()) {
-            $xhtml .= '<div class="col-sm-12">'.sprintf(_('%1$s в течении %2$s'), $modeName, $this->view->pluralDaysGenitive($model->getPercent(), true)).'</div>';
+            $xhtml .= '<div class="col-sm-12">'.sprintf(_('%1$s в течении %2$s'), $modeName, $this->view->pluralDaysGenitive($model->getPeriod(), true)).'</div>';
         }
         $listMetal = $model->getListMetal();
         if (count($listMetal)) {

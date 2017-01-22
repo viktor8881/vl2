@@ -28,12 +28,12 @@ class ViewHelperMenuFactory implements FactoryInterface
                 'link'  => $url->__invoke('about')
             ],
             [
-                'id'    => 'Users',
+                'id'    => 'users',
                 'label' => 'Users',
                 'link'  => $url->__invoke('users')
             ],
             [
-                'id'       => 'Exchange',
+                'id'       => 'exchange',
                 'label'    => 'Exchange',
                 'dropdown' => [[
                                    'id'    => 'List_Metal',
@@ -47,22 +47,28 @@ class ViewHelperMenuFactory implements FactoryInterface
                                ]]
             ],
             [
-                'id'       => 'Cources',
+                'id'       => 'cources',
                 'label'    => 'Cources',
                 'dropdown' => [[
-                                   'id'    => 'Cources_Metal',
+                                   'id'    => 'cources_Metal',
                                    'label' => 'Metal',
                                    'link'  => $url->__invoke(
                                        'courses', ['action' => 'metal']
                                    )
                                ],
                                [
-                                   'id'    => 'Cources_Currency',
+                                   'id'    => 'cources_Currency',
                                    'label' => 'Currency',
                                    'link'  => $url->__invoke(
                                        'courses', ['action' => 'currency']
                                    )
-                               ]]
+                               ]],
+
+            ],
+            [
+                'id'    => 'tasks',
+                'label' => 'Tasks',
+                'link'  => $url->__invoke('tasks')
             ],
         ];
         $helper = new Menu($items);

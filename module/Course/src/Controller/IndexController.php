@@ -4,9 +4,9 @@
 namespace Course\Controller;
 
 use Core\Entity\CriterionCollection;
-use Course\Entity\Criteria\CriterionExchange;
-use Course\Entity\Criteria\CriterionPercent;
-use Course\Entity\Criteria\CriterionPeriod;
+use Course\Entity\Criterion\CriterionExchange;
+use Course\Entity\Criterion\CriterionPercent;
+use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
 use Exchange\Service\ExchangeManager;
 use Course\Validator\InputFilter;
@@ -69,7 +69,9 @@ class IndexController extends AbstractActionController
              'currentExchange' => $currentItem,
              'period'          => ['start' => $values['date_start'],
                                    'end'   => $values['date_end']],
-             'courses' => $this->courseManager->fetchAllByCriteria($criteria)]
+             'courses'         => $this->courseManager->fetchAllByCriterions(
+                 $criteria
+             )]
         );
     }
 
@@ -108,7 +110,8 @@ class IndexController extends AbstractActionController
              'currentExchange' => $metalItem,
              'period'          => ['start' => $values['date_start'],
                                    'end'   => $values['date_end']],
-             'courses' => $this->courseManager->fetchAllByCriteria($criteria)]
+             'courses'  => $this->courseManager->fetchAllByCriterions($criteria)
+            ]
         );
     }
 }

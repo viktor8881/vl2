@@ -11,9 +11,9 @@ namespace Course\Service;
 
 use Core\Entity\AbstractCriterion;
 use Core\Entity\AbstractOrder;
-use Course\Entity\Criteria\CriterionExchange;
-use Course\Entity\Criteria\CriterionPercent;
-use Course\Entity\Criteria\CriterionPeriod;
+use Course\Entity\Criterion\CriterionExchange;
+use Course\Entity\Criterion\CriterionPercent;
+use Course\Entity\Criterion\CriterionPeriod;
 use Core\Service\AbstractManager;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\QueryBuilder;
@@ -21,7 +21,7 @@ use Doctrine\ORM\QueryBuilder;
 class CacheCourseManager extends AbstractManager
 {
 
-    protected function criterionToString(AbstractCriterion $criterion, QueryBuilder $qb)
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb)
     {
         $result = '';
         switch (get_class($criterion)) {
@@ -44,7 +44,7 @@ class CacheCourseManager extends AbstractManager
         return $result;
     }
 
-    protected function orderToString(AbstractOrder $order, QueryBuilder $qb)
+    protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
         $result = '';
 //        switch (get_class($order)) {

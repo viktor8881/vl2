@@ -1,6 +1,6 @@
 <?php
 
-namespace Course\Entity\Criteria;
+namespace Course\Entity\Criterion;
 
 use Core\Entity\AbstractCriterion;
 

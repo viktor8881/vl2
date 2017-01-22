@@ -1,5 +1,4 @@
 <?php
-
 namespace Core\Entity;
 
 use Zend\Stdlib\ArrayObject;

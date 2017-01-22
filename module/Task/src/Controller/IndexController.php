@@ -2,23 +2,29 @@
 
 namespace Task\Controller;
 
-use Task\Service\TaskManager;
+use Task\Service\TaskOvertimeManager;
+use Task\Service\TaskPercentManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
 {
 
-    private $taskManager;
+    private $taskPercentManager;
+    private $taskOvertimeManager;
 
 
-    public function __construct(TaskManager $taskManager)
-    {
-        $this->taskManager = $taskManager;
+    public function __construct(TaskPercentManager $taskPercentManager,
+        TaskOvertimeManager $taskOvertimeManager
+    ) {
+        $this->taskPercentManager = $taskPercentManager;
+        $this->taskOvertimeManager = $taskOvertimeManager;
     }
 
     public function indexAction()
     {
-        return ['tasks' => $this->taskManager
-            ->fetchAllOrderById()];
+        return ['tasks' => array_merge(
+            $this->taskOvertimeManager->fetchAllOrderById(),
+            $this->taskPercentManager->fetchAllOrderById()
+        )];
     }
 }
