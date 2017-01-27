@@ -20,7 +20,7 @@ return [
     'Zend\Form',
     'Zend\Router',
     'Zend\Validator',
-    'Core',
+    'Base',
     'Application',
     'User',
     'Exchange',

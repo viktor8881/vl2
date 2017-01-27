@@ -8,7 +8,7 @@
 
 namespace Task\Entity;
 
-use Core\Entity\AbstractEntity;
+use Base\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
 

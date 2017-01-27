@@ -9,12 +9,12 @@
 namespace Course\Service;
 
 
-use Core\Entity\AbstractCriterion;
-use Core\Entity\AbstractOrder;
+use Base\Entity\AbstractCriterion;
+use Base\Entity\AbstractOrder;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;
-use Core\Service\AbstractManager;
+use Base\Service\AbstractManager;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\QueryBuilder;
 

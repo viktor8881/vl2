@@ -9,15 +9,15 @@
 namespace Exchange\Service;
 
 
-//use Core\Entity\AbstractCriterion;
-use Core\Entity\AbstractCriterion;
-use Core\Entity\AbstractOrder;
-use Core\Service\AbstractManager;
+//use Base\Entity\AbstractCriterion;
+use Base\Entity\AbstractCriterion;
+use Base\Entity\AbstractOrder;
+use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
 //use Exchange\Entity\Criteria\ExchangeId;
 //use Exchange\Entity\Criteria\ExchangeType;
 use Exchange\Entity\Exchange;
-use Core\Entity\CriterionCollection;
+use Base\Entity\CriterionCollection;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeType;
 

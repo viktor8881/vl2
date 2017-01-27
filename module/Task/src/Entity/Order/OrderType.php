@@ -1,7 +1,7 @@
 <?php
 namespace Task\Entity\Order;
 
-use Core\Entity\AbstractOrder;
+use Base\Entity\AbstractOrder;
 
 class OrderType extends AbstractOrder
 {

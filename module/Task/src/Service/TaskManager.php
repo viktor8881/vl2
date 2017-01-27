@@ -1,10 +1,10 @@
 <?php
 namespace Task\Service;
 
-use Core\Entity\AbstractCriterion;
-use Core\Entity\AbstractOrder;
-use Core\Entity\OrderCollection;
-use Core\Service\AbstractManager;
+use Base\Entity\AbstractCriterion;
+use Base\Entity\AbstractOrder;
+use Base\Service\AbstractManager;
+use Base\Entity\OrderCollection;
 use Doctrine\ORM\QueryBuilder;
 use Task\Entity\Criterion\ExchangeType;
 use Task\Entity\Order\OrderType;

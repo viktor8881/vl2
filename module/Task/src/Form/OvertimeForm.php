@@ -1,9 +1,9 @@
 <?php
 namespace Task\Form;
 
-use Core\Filter\ToFloat;
-use Core\Form\Form;
-use Core\Validator\FloatPositive;
+use Base\Filter\ToFloat;
+use Base\Form\Form;
+use Base\Validator\FloatPositive;
 use Exchange\Service\ExchangeManager;
 use Task\Entity\Task;
 use Zend\Form\FormInterface;

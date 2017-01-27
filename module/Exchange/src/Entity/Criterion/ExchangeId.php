@@ -2,7 +2,7 @@
 
 namespace Exchange\Entity\Criterion;
 
-use Core\Entity\AbstractCriterion;
+use Base\Entity\AbstractCriterion;
 
 class ExchangeId extends AbstractCriterion
 {

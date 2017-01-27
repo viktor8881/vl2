@@ -32,7 +32,7 @@
             "User\\": "module/User/src/",
             "Balance\\": "module/Balance/src/",
             "Course\\": "module/Course/src/",
-            "Core\\": "module/Core/src/",
+            "Base\\": "module/Base/src/",
             "Task\\": "module/Task/src/"
         }
     },

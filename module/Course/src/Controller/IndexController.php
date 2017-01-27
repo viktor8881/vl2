@@ -3,7 +3,7 @@
 
 namespace Course\Controller;
 
-use Core\Entity\CriterionCollection;
+use Base\Entity\CriterionCollection;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;

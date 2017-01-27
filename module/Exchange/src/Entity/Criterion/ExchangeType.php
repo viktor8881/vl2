@@ -1,7 +1,7 @@
 <?php
 namespace Exchange\Entity\Criterion;
 
-use Core\Entity\AbstractCriterion;
+use Base\Entity\AbstractCriterion;
 
 class ExchangeType extends AbstractCriterion
 {
