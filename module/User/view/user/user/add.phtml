@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Add User');
+$this->pageHeader()->setTitle('Add User');
 
 $this->mainMenu()->setActiveItemId('users');
 
@@ -35,8 +35,6 @@ $form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
 
 $form->prepare();
 ?>
-
-<h1>Add User</h1>
 
 <p>
     Please fill out the following form and click the <i>Create</i> button.

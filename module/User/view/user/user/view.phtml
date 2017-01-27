@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('View User');
+$this->pageHeader()->setTitle('View User');
 
 $this->mainMenu()->setActiveItemId('users');
 
@@ -14,7 +14,6 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
-<h1>View User</h1>
 
 <div class="row">
     <div class="col-md-6">

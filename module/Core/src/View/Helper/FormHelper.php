@@ -1,6 +1,7 @@
 <?php
 namespace Core\View\Helper;
 
+use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\Submit;
@@ -19,10 +20,14 @@ class FormHelper extends AbstractHelper
         $xhtml = '<div class="row"><div class="col-md-12">';
         $xhtml .= $this->view->form()->openTag($form);
 
+        /** @var ElementInterface $element */
         foreach ($form->getElements() as $element) {
-            $xhtml .= '<div class="form-group">';
+            $class = (count($element->getMessages())) ? ' has-error' : '';
+            $xhtml .= '<div class="form-group' .$class. '">';
             if ($element->getLabel()) {
-                $element->setLabelAttributes(['class' => 'col-sm-3 control-label']);
+                $element->setLabelAttributes(
+                    ['class' => 'col-sm-3 control-label']
+                );
                 $xhtml .= $this->view->formLabel($element);
             }
             $xhtml .= '<div class="col-sm-9">';

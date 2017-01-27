@@ -7,12 +7,15 @@
 
 namespace Core;
 
-
+use Core\View\Helper\Factory\ViewHelperMenuFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'view_helpers' => [
         'factories' => [
+            View\Helper\Menu::class               => ViewHelperMenuFactory::class,
+            View\Helper\Breadcrumbs::class        => InvokableFactory::class,
+            View\Helper\PageHeader::class         => InvokableFactory::class,
             View\Helper\IconAdd::class            => InvokableFactory::class,
             View\Helper\IconDelete::class         => InvokableFactory::class,
             View\Helper\IconDown::class           => InvokableFactory::class,
@@ -28,8 +31,12 @@ return [
             View\Helper\PluralDays::class         => InvokableFactory::class,
             View\Helper\PluralDaysGenitive::class => InvokableFactory::class,
             View\Helper\FormHelper::class         => InvokableFactory::class,
+            View\Helper\PageMessage::class        => InvokableFactory::class,
         ],
         'aliases'   => [
+            'mainMenu'           => View\Helper\Menu::class,
+            'pageBreadcrumbs'    => View\Helper\Breadcrumbs::class,
+            'pageHeader'         => View\Helper\PageHeader::class,
             'iconAdd'            => View\Helper\IconAdd::class,
             'iconDelete'         => View\Helper\IconDelete::class,
             'iconDown'           => View\Helper\IconDown::class,
@@ -45,6 +52,7 @@ return [
             'pluralDays'         => View\Helper\PluralDays::class,
             'pluralDaysGenitive' => View\Helper\PluralDaysGenitive::class,
             'formHelper'         => View\Helper\FormHelper::class,
+            'pageMessage'         => View\Helper\PageMessage::class,
         ]
     ],
 

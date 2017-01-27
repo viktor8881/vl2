@@ -5,6 +5,7 @@ namespace Task\Controller;
 use Task\Service\TaskOvertimeManager;
 use Task\Service\TaskPercentManager;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
@@ -22,9 +23,11 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        return ['tasks' => array_merge(
+        $view = new ViewModel(['tasks' => array_merge(
             $this->taskOvertimeManager->fetchAllOrderById(),
             $this->taskPercentManager->fetchAllOrderById()
-        )];
+        )]);
+//        $view->pageHeader()->setTitle('Задания2');
+        return $view;
     }
 }

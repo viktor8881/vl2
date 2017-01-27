@@ -204,7 +204,7 @@ class PercentForm extends Form
         if (!is_array($data['currencies'])) {
             $data['currencies'] = [];
         }
-        $result['exchanges'] = array_merge($data['metals'], $data['currencies']);
+        $result['listIdExchanges'] = array_merge($data['metals'], $data['currencies']);
         return $result;
     }
 

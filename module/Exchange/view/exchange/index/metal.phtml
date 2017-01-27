@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('List metals');
+$this->pageHeader()->setTitle('List metals');
 
 $this->mainMenu()->setActiveItemId('metal');
 
@@ -8,8 +8,6 @@ $this->pageBreadcrumbs()->setItems([
     'List metal' => $this->url('metal.list')
 ]);
 ?>
-
-<h1>Список металов</h1>
 
 <table class="table table-bordered">
     <thead>

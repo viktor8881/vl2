@@ -33,13 +33,16 @@ class PercentController extends AbstractActionController
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
                 $data = $form->getDataForItem();
+                $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
+                    $data['listIdExchanges']
+                );
                 /** @var TaskPercent $task */
                 $task = $this->taskManager->createEntity($data);
-                $task->setExchanges(
-                    $this->exchangeManager->fetchAllByListId($data['exchanges'])
-                );
                 $this->taskManager->insert($task);
 
+                $this->flashMessenger()->addSuccessMessage(
+                    'Задача добавлена.'
+                );
                 return $this->redirect()->toRoute('tasks');
             }
         }
@@ -53,7 +56,9 @@ class PercentController extends AbstractActionController
     public function editAction()
     {
         /** @var TaskPercent $task */
-        $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
+        $task = $this->taskManager->get(
+            (int)$this->params()->fromRoute('id', -1)
+        );
         if (!$task or !$task->isPercent()) {
             $this->getResponse()->setStatusCode(404);
             return;
@@ -69,11 +74,15 @@ class PercentController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $data = $form->getDataForItem();
-                $task->setOptions($data);
-                $task->setExchanges(
-                    $this->exchangeManager->fetchAllByListId($data['exchanges'])
+                $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
+                    $data['listIdExchanges']
                 );
+                $task->setOptions($data);
                 $this->taskManager->update($task);
+
+                $this->flashMessenger()->addSuccessMessage(
+                    'Задача изменена.'
+                );
 
                 return $this->redirect()->toRoute('tasks');
             }
@@ -100,12 +109,17 @@ class PercentController extends AbstractActionController
     public function deleteAction()
     {
         /** @var TaskPercent $task */
-        $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
+        $task = $this->taskManager->get(
+            (int)$this->params()->fromRoute('id', -1)
+        );
         if (!$task or !$task->isPercent()) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
         $this->taskManager->delete($task);
+        $this->flashMessenger()->addSuccessMessage(
+            'Задача удалена.'
+        );
         return $this->redirect()->toRoute('tasks');
     }
 }

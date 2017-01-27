@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Edit User');
+$this->pageHeader()->setTitle(sprintf(_('Edit User %s'), $user->getEmail()));
 
 $this->mainMenu()->setActiveItemId('users');
 
@@ -30,7 +30,6 @@ $form->get('submit')
 $form->prepare();
 ?>
 
-<h1>Edit User <?= $this->escapeHtml($user->getEmail()) ?></h1>
 
 <div class="row">
     <div class="col-md-6">

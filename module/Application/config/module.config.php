@@ -104,14 +104,11 @@ return [
     ],
     'view_helpers' => [
         'factories' => [
-//            View\Helper\Menu::class => InvokableFactory::class,
-            View\Helper\Menu::class => ViewHelperMenuFactory::class,
-            View\Helper\Breadcrumbs::class => InvokableFactory::class,
+
             View\Helper\ItemsNotFound::class => InvokableFactory::class,
         ],
         'aliases' => [
-            'mainMenu' => View\Helper\Menu::class,
-            'pageBreadcrumbs' => View\Helper\Breadcrumbs::class,
+
             'notFound' => View\Helper\ItemsNotFound::class,
         ]
     ],
