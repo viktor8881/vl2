@@ -43,6 +43,14 @@ abstract class AbstractCriterion
         return $this->values;
     }
 
+    /**
+     * @param array $values
+     */
+    public function setValues($values)
+    {
+        $this->values = $values;
+    }
+
     public function getFirstValue()
     {
         if (count($this->values)) {
@@ -58,14 +66,6 @@ abstract class AbstractCriterion
             return isset($this->values[1]) ? $this->values[1] : null;
         }
         return null;
-    }
-
-    /**
-     * @param array $values
-     */
-    public function setValues($values)
-    {
-        $this->values = $values;
     }
 
     public function countValue()

@@ -10,7 +10,7 @@ class NamesExchange extends AbstractHelper
 
     /**
      * @param Exchange[] $exchanges
-     * @param string $separate
+     * @param string     $separate
      *
      * @return string
      */
@@ -20,10 +20,10 @@ class NamesExchange extends AbstractHelper
         /**
          * @var $exchange Exchange
          */
-        foreach($exchanges as $exchange) {
+        foreach ($exchanges as $exchange) {
             $result[] = $this->view->escapeHtml($exchange->getName());
         }
         return implode($separate, $result);
     }
-        
+
 }

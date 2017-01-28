@@ -27,7 +27,6 @@ class IndexController extends AbstractActionController
             $this->taskOvertimeManager->fetchAllOrderById(),
             $this->taskPercentManager->fetchAllOrderById()
         )]);
-//        $view->pageHeader()->setTitle('Задания2');
         return $view;
     }
 }

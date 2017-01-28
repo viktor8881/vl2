@@ -23,19 +23,13 @@ class InputFilter extends \Zend\InputFilter\InputFilter
             ->attach(new Date('d.m.Y'))
             ->attach(new LsDate(new \DateTime()));
 
-
         $date_end = new Input('date_end');
         $date_end->getValidatorChain()
             ->attach(new Date('d.m.Y'));
 
-//        $percent = new Input('percent');
-//        $percent->getValidatorChain()
-//            ->attach(new IsFloat());
-
         $this->add($id)
             ->add($date_start)
             ->add($date_end)
-//            ->add($percent)
             ->setData($data);
     }
 

@@ -14,6 +14,7 @@ class Plural extends AbstractHelper
      * @param int   $n
      * @param array $array     - массив значений
      * @param bool  $viewCount - показывать ли само значение
+     *
      * @return string
      */
     public function __invoke($n, array $array, $viewCount = true)

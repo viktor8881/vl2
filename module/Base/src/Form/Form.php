@@ -17,7 +17,7 @@ class Form extends \Zend\Form\Form
             ->setAttribute('class', 'form-horizontal');
 
         if (!isset($options['token']) or false !== $options['token']) {
-            // добавление токкена к форме
+            // add token
             $this->add(
                 [
                     'type'    => 'csrf',
@@ -74,8 +74,8 @@ class Form extends \Zend\Form\Form
                 'name'       => $buttonCancelName,
                 'options'    => ['class' => 'btn'],
                 'attributes' => [
-                    'value' => 'Cancel',
-                    'class' => 'btn btn-link',
+                    'value'   => 'Cancel',
+                    'class'   => 'btn btn-link',
                     'onClick' => 'window.history.back();'
                 ],
             ], $options['cancel']

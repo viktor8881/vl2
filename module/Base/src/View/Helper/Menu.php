@@ -14,7 +14,7 @@ class Menu extends AbstractHelper
     protected $activeItemId = '';
 
     // Конструктор.
-    public function __construct($items=[])
+    public function __construct($items = [])
     {
         $this->items = $items;
     }
@@ -34,8 +34,9 @@ class Menu extends AbstractHelper
     // Визуализация меню.
     public function render()
     {
-        if (count($this->items)==0)
-            return ''; // Do nothing if there are no items.
+        if (count($this->items) == 0) {
+            return '';
+        } // Do nothing if there are no items.
 
         $result = '';
         $result .= '<ul class="nav navbar-nav">';
@@ -51,16 +52,17 @@ class Menu extends AbstractHelper
     protected function renderItem($item)
     {
         $id = isset($item['id']) ? $item['id'] : '';
-        $isActive = ($id==$this->activeItemId);
+        $isActive = ($id == $this->activeItemId);
         $label = isset($item['label']) ? $item['label'] : '';
 
         $result = '';
 
-        if(isset($item['dropdown'])) {
+        if (isset($item['dropdown'])) {
 
             $dropdownItems = $item['dropdown'];
 
-            $result .= '<li class="dropdown ' . ($isActive?'active':'') . '">';
+            $result .= '<li class="dropdown ' . ($isActive ? 'active' : '')
+                . '">';
             $result .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
             $result .= $label . ' <b class="caret"></b>';
             $result .= '</a>';
@@ -72,7 +74,7 @@ class Menu extends AbstractHelper
                 $label = isset($item['label']) ? $item['label'] : '';
 
                 $result .= '<li>';
-                $result .= '<a href="'.$link.'">'.$label.'</a>';
+                $result .= '<a href="' . $link . '">' . $label . '</a>';
                 $result .= '</li>';
             }
 
@@ -83,8 +85,8 @@ class Menu extends AbstractHelper
         } else {
             $link = isset($item['link']) ? $item['link'] : '#';
 
-            $result .= $isActive?'<li class="active">':'<li>';
-            $result .= '<a href="'.$link.'">'.$label.'</a>';
+            $result .= $isActive ? '<li class="active">' : '<li>';
+            $result .= '<a href="' . $link . '">' . $label . '</a>';
             $result .= '</li>';
         }
 

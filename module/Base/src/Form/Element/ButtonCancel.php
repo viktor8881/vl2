@@ -6,7 +6,8 @@ use Zend\Form\Element\Button;
 class ButtonCancel extends Button
 {
 
-    public function   __construct($spec, $options = null) {        
+    public function __construct($spec, $options = null)
+    {
         if (!isset($options['class'])) {
             $options['class'] = 'btn';
         }
@@ -16,8 +17,9 @@ class ButtonCancel extends Button
         if (!isset($options['onclick'])) {
             if (empty($options['returnUrl'])) {
                 $options['onclick'] = 'history.back();';
-            }else{
-                $options['onclick'] = 'window.location.href = "'.$options['returnUrl'].'";';
+            } else {
+                $options['onclick'] = 'window.location.href = "'
+                    . $options['returnUrl'] . '";';
                 unset($options['returnUrl']);
             }
         }

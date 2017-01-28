@@ -23,7 +23,7 @@ class FormHelper extends AbstractHelper
         /** @var ElementInterface $element */
         foreach ($form->getElements() as $element) {
             $class = (count($element->getMessages())) ? ' has-error' : '';
-            $xhtml .= '<div class="form-group' .$class. '">';
+            $xhtml .= '<div class="form-group' . $class . '">';
             if ($element->getLabel()) {
                 $element->setLabelAttributes(
                     ['class' => 'col-sm-3 control-label']

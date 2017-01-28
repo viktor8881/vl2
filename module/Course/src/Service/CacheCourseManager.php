@@ -23,7 +23,6 @@ class CacheCourseManager extends AbstractManager
 
     protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb)
     {
-        $result = '';
         switch (get_class($criterion)) {
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName.'.id IN (:id)')
@@ -41,20 +40,15 @@ class CacheCourseManager extends AbstractManager
             default:
                 break;
         }
-        return $result;
     }
 
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-        $result = '';
 //        switch (get_class($order)) {
 //            case 'Question_Order_Status':
 //                $result = $prefix.'.status '.$order->getTypeOrder();
 //                break;
-//            default:
-//                break;
 //        }
-        return $result;
     }
 
 

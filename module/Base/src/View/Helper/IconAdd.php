@@ -8,7 +8,7 @@ class IconAdd extends AbstractHelper
 
     public function __invoke($title = null)
     {
-        $title = ($title) ? 'title="' . _($this->view->escape($title)) . '"'
+        $title = ($title) ? 'title="' . _($this->view->escapeHtml($title)) . '"'
             : null;
         return '<span class="glyphicon glyphicon-plus" ' . _($title)
             . '></span>';

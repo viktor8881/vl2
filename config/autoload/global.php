@@ -16,35 +16,6 @@ use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
 
 return [
-//    'doctrine' => [
-//        'connection' => [
-//            'orm_default' => [
-//                'driverClass' => PDOMySqlDriver::class,
-//                'params'    => [
-//                    'host'     => '127.0.0.1',
-//                    'user'     => 'root',
-//                    'password' => '',
-//                    'dbname'   => 'zf3_investment',
-//                    'charset'  => 'utf8',
-//                ]
-//            ],
-//        ],
-//        'driver' => [
-//            __NAMESPACE__ . '_driver' => [
-//                'class' => AnnotationDriver::class,
-//                'cache' => 'array',
-//                'paths' => [
-//                    __DIR__ . '/../../model'
-//                ]
-//            ],
-//            'orm_default' => [
-//                'drivers' => [
-//                    'Model' => __NAMESPACE__ . '_driver'
-//                ]
-//            ]
-//        ]
-//    ],
-
     // Session configuration.
     'session_config' => [
         'cookie_lifetime'     => 60*60*1, // Session cookie will expire in 1 hour.

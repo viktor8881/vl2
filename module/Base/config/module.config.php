@@ -52,7 +52,7 @@ return [
             'pluralDays'         => View\Helper\PluralDays::class,
             'pluralDaysGenitive' => View\Helper\PluralDaysGenitive::class,
             'formHelper'         => View\Helper\FormHelper::class,
-            'pageMessage'         => View\Helper\PageMessage::class,
+            'pageMessage'        => View\Helper\PageMessage::class,
         ]
     ],
 

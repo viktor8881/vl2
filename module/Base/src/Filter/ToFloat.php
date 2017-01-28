@@ -7,8 +7,8 @@ class ToFloat implements FilterInterface
 {
 
     public function filter($value)
-    {        
-        $value = str_replace(',', '.', $value);        
+    {
+        $value = str_replace(',', '.', $value);
         return $value;
     }
 

@@ -49,41 +49,11 @@ return [
                     ],
                 ],
             ],
-            'metal' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/metal[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\MetalController::class,
-                        'action'     => 'list',
-                    ],
-                ],
-            ],
-
         ],
     ],
     'controllers' => [
         'factories' => [
-//            Controller\IndexController::class => InvokableFactory::class,
-//            Controller\IndexController::class =>  LazyControllerAbstractFactory::class,
             Controller\IndexController::class => IndexControllerFactory::class,
-            Controller\MetalController::class => MetalControllerFactory::class,
-        ],
-    ],
-    'controller_plugins' => [
-        'factories' => [
-            Controller\Plugin\AccessPlugin::class => InvokableFactory::class,
-        ],
-        'aliases' => [
-            'access' => Controller\Plugin\AccessPlugin::class,
-        ]
-    ],
-    'service_manager'=>[
-        'factories' => [
-            Service\Metal::class => Service\Factory\MetalFactory::class,
-        ],
-        'aliases' => [
-            'ServiceMetal' => Service\Metal::class
         ],
     ],
     'view_manager' => [
@@ -102,32 +72,5 @@ return [
             __DIR__ . '/../view',
         ],
     ],
-    'view_helpers' => [
-        'factories' => [
 
-            View\Helper\ItemsNotFound::class => InvokableFactory::class,
-        ],
-        'aliases' => [
-
-            'notFound' => View\Helper\ItemsNotFound::class,
-        ]
-    ],
-    'doctrine' => [
-        'driver' => [
-            __NAMESPACE__ . '_driver' => [
-                'class' => AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [
-                    __DIR__ . '/../src/Entity',
-                    __DIR__ . '/../../../_model'
-                ]
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
-                    'Model' => __NAMESPACE__ . '_driver'
-                ]
-            ]
-        ]
-    ],
 ];

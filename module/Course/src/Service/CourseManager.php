@@ -23,7 +23,6 @@ class CourseManager extends AbstractManager
 
     protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb)
     {
-        $result = '';
         switch (get_class($criterion)) {
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName.'.exchange IN (:exchange_id)')
@@ -34,19 +33,11 @@ class CourseManager extends AbstractManager
                     ->setParameter('start', $criterion->getFirstValue()->format('Y-m-d'))
                     ->setParameter('end', $criterion->getSecondValue()->format('Y-m-d'));
                 break;
-//            case CriterionPercent::class:
-//                $qb->andWhere($this->entityName.'.percent IN (:percent)')
-//                    ->setParameter('percent',  $criterion->getValues());
-//                break;
-            default:
-                break;
         }
-        return $result;
     }
 
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-        $result = '';
 //        switch (get_class($order)) {
 //            case 'Question_Order_Status':
 //                $result = $prefix.'.status '.$order->getTypeOrder();
@@ -54,7 +45,6 @@ class CourseManager extends AbstractManager
 //            default:
 //                break;
 //        }
-        return $result;
     }
 
 

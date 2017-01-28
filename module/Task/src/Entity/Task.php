@@ -23,26 +23,12 @@ use Exchange\Entity\Exchange;
 abstract class Task extends AbstractEntity
 {
 
-    /**
-     *
-     */
+
     const TYPE_PERCENT = 1;
-    /**
-     *
-     */
     const TYPE_OVER_TIME = 2;
 
-    /**
-     *
-     */
     const MODE_ONLY_UP = 1;
-    /**
-     *
-     */
     const MODE_ONLY_DOWN = 2;
-    /**
-     *
-     */
     const MODE_UP_DOWN = 3;
 
     /**

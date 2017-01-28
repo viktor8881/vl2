@@ -12,11 +12,17 @@ interface IManager
 
     public function get($id);
 
-    public function getByCriterons(CriterionCollection $criteria = null, OrderCollection $orders  = null);
+    public function getByCriterons(CriterionCollection $criteria = null,
+        OrderCollection $orders = null
+    );
 
-    public function fetchAll(Paginator $paginator = null, OrderCollection $orders  = null);
+    public function fetchAll(Paginator $paginator = null,
+        OrderCollection $orders = null
+    );
 
-    public function fetchAllByCriterions(CriterionCollection $criteria = null, Paginator $paginator = null, OrderCollection $orders  = null);
+    public function fetchAllByCriterions(CriterionCollection $criteria = null,
+        Paginator $paginator = null, OrderCollection $orders = null
+    );
 
     public function count();
 
