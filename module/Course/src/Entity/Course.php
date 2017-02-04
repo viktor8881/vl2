@@ -26,9 +26,8 @@ class Course extends AbstractEntity
      */
     protected $id;
     /**
-     * @ORM\ManyToOne(targetEntity="Exchange")
+     * @ORM\ManyToOne(targetEntity="\Exchange\Entity\Exchange")
      * @ORM\JoinColumn(name="exchange_id", referencedColumnName="id")
-     * @ORM\Column(name="exchange_id")
      * @var Exchange
      */
     protected $exchange;

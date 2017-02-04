@@ -56,12 +56,21 @@ abstract class AbstractManager implements IManager
      *
      * @return null|AbstractEntity
      */
-    public function getByCriterons(CriterionCollection $criterions = null,
+    public function getByCriterions(CriterionCollection $criterions = null,
         OrderCollection $orders = null
     ) {
-        return $this->em->getRepository($this->entityName)->findOneBy(
-            $criterions->toArray(), $orders->toArray()
-        );
+        $qb = $this->em->createQueryBuilder();
+        $qb->select($this->entityName)
+            ->from($this->entityName, $this->entityName);
+
+        $this->addCriterions($criterions, $qb);
+        $this->addOrders($orders, $qb);
+
+        $qb->setFirstResult(0)
+            ->setMaxResults(1);
+
+        $query = $qb->getQuery();
+        return $query->getSingleResult();
     }
 
     /**
@@ -89,18 +98,14 @@ abstract class AbstractManager implements IManager
         $qb = $this->em->createQueryBuilder();
         $qb->select($this->entityName)
             ->from($this->entityName, $this->entityName);
-        if ($criterions) {
-            $this->addCriterions($criterions, $qb);
-        }
-        $orderBy = null;
-        if ($orders) {
-            $this->addOrders($orders, $qb);
-        }
+
+        $this->addCriterions($criterions, $qb);
+        $this->addOrders($orders, $qb);
+
         if ($paginator) {
             $qb->setFirstResult(
-                ($paginator->getCurrentPageNumber() - 1)
-                * $paginator->getItemCountPerPage()
-            )
+                ($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage()
+                                )
                 ->setMaxResults($paginator->getItemCountPerPage());
         }
         $query = $qb->getQuery();
@@ -114,8 +119,8 @@ abstract class AbstractManager implements IManager
     protected function addCriterions(CriterionCollection $criterions = null,
         QueryBuilder $qb
     ) {
-        foreach ($criterions as $criterion) {
-            if ($criterion->countValue()) {
+        if ($criterions) {
+            foreach ($criterions as $criterion) {
                 $this->addCriterion($criterion, $qb);
             }
         }
@@ -138,20 +143,19 @@ abstract class AbstractManager implements IManager
     protected function addOrders(OrderCollection $orders = null,
         QueryBuilder $qb
     ) {
-        foreach ($orders as $order) {
-            $this->addOrder($order, $qb);
+        if ($orders) {
+            foreach ($orders as $order) {
+                $this->addOrder($order, $qb);
+            }
         }
     }
 
     /**
      * @param AbstractOrder $order
      * @param QueryBuilder  $qb
-     *
      * @return mixed
      */
-    abstract protected function addOrder(AbstractOrder $order,
-        QueryBuilder $qb
-    );
+    abstract protected function addOrder(AbstractOrder $order, QueryBuilder $qb);
 
     /**
      * @return mixed

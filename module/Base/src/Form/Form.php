@@ -48,12 +48,17 @@ class Form extends \Zend\Form\Form
         } else {
             $buttonSubmitName = 'buttonsubmit';
         }
+        $buttonSubmitValue = 'Add';
+        if (isset($options['submit']['value'])) {
+            $buttonSubmitValue = $options['submit']['value'];
+            unset($options['submit']['value']);
+        }
         $buttonSubmit = array_merge(
             [
                 'type'       => 'submit',
                 'name'       => $buttonSubmitName,
                 'attributes' => [
-                    'value' => 'Add',
+                    'value' => $buttonSubmitValue,
                     'class' => 'btn btn-primary'
                 ],
             ], $options['submit']
@@ -68,13 +73,19 @@ class Form extends \Zend\Form\Form
         } else {
             $buttonCancelName = 'buttoncancel';
         }
+        if (isset($options['cancel']['value'])) {
+            $buttonCancelValue = $options['cancel']['value'];
+            unset($options['cancel']['value']);
+        } else {
+            $buttonCancelValue = 'Отмена';
+        }
         $buttonCancel = array_merge(
             [
                 'type'       => 'button',
                 'name'       => $buttonCancelName,
                 'options'    => ['class' => 'btn'],
                 'attributes' => [
-                    'value'   => 'Cancel',
+                    'value'   => $buttonCancelValue,
                     'class'   => 'btn btn-link',
                     'onClick' => 'window.history.back();'
                 ],
@@ -96,5 +107,11 @@ class Form extends \Zend\Form\Form
     {
         return $this->buttonsAction;
     }
+
+    public function getDataForEntity()
+    {
+        // TODO: Implement getDataForEntity() method.
+    }
+
 
 }

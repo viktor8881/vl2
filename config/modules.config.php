@@ -24,7 +24,8 @@ return [
     'Application',
     'User',
     'Exchange',
-    'Balance',
+    'Account',
     'Course',
     'Task',
+    'Investments',
 ];

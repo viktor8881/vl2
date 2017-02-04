@@ -32,7 +32,7 @@ class OvertimeController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
-                $data = $form->getDataForItem();
+                $data = $form->getDataForEntity();
                 /** @var TaskOvertime $task */
                 $task = $this->taskManager->createEntity($data);
                 $task->setExchanges(
@@ -68,7 +68,7 @@ class OvertimeController extends AbstractActionController
             $data = $this->params()->fromPost();
             $form->setData($data);
             if ($form->isValid()) {
-                $data = $form->getDataForItem();
+                $data = $form->getDataForEntity();
                 $task->setOptions($data);
                 $task->setExchanges(
                     $this->exchangeManager->fetchAllByListId($data['exchanges'])

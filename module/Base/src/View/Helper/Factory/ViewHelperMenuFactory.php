@@ -66,6 +66,11 @@ class ViewHelperMenuFactory implements FactoryInterface
 
             ],
             [
+                'id'    => 'investments',
+                'label' => 'Investments',
+                'link'  => $url->__invoke('investments')
+            ],
+            [
                 'id'    => 'tasks',
                 'label' => 'Tasks',
                 'link'  => $url->__invoke('tasks')

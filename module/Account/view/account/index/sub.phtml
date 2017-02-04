@@ -1,0 +1,29 @@
+<?php
+
+$this->pageHeader()->setTitle(_('Списать со счета'));
+
+$this->mainMenu()->setActiveItemId('account');
+
+?>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-sm-3" for="balance">
+                <?=_('Текущий баланс')?>
+            </label>
+            <div class="col-sm-9">
+                <h3><?= $this->formatMoney($account->getBalance(), $account->getExchange()) ?></h3>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->formHelper($form) ?>
+    </div>
+</div>
+

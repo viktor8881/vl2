@@ -6,12 +6,14 @@ abstract class AbstractCriterion
     protected $fieldName;
     protected $values;
 
-    public function __construct($values)
+    public function __construct($values = null)
     {
-        if (!is_array($values)) {
-            $values = [$values];
+        if (!is_null($values)) {
+            if (!is_array($values)) {
+                $values = [$values];
+            }
+            $this->values = $values;
         }
-        $this->values = $values;
     }
 
     public function add($value)

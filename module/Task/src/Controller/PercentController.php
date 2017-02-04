@@ -32,7 +32,7 @@ class PercentController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
-                $data = $form->getDataForItem();
+                $data = $form->getDataForEntity();
                 $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
                     $data['listIdExchanges']
                 );
@@ -73,7 +73,7 @@ class PercentController extends AbstractActionController
             $data = $this->params()->fromPost();
             $form->setData($data);
             if ($form->isValid()) {
-                $data = $form->getDataForItem();
+                $data = $form->getDataForEntity();
                 $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
                     $data['listIdExchanges']
                 );

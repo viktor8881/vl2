@@ -64,15 +64,12 @@ class IndexController extends AbstractActionController
             )
         );
 
-        return new ViewModel(
-            ['exchanges'       => $this->exchangeManager->fetchAllCurrency(),
-             'currentExchange' => $currentItem,
-             'period'          => ['start' => $values['date_start'],
-                                   'end'   => $values['date_end']],
-             'courses'         => $this->courseManager->fetchAllByCriterions(
-                 $criteria
-             )]
-        );
+        return ['exchanges'       => $this->exchangeManager->fetchAllCurrency(),
+                'currentExchange' => $currentItem,
+                'period'          => ['start' => $values['date_start'],
+                                      'end'   => $values['date_end']],
+                'courses'         => $this->courseManager->fetchAllByCriterions($criteria)
+                ];
     }
 
 
@@ -110,7 +107,9 @@ class IndexController extends AbstractActionController
              'currentExchange' => $metalItem,
              'period'          => ['start' => $values['date_start'],
                                    'end'   => $values['date_end']],
-             'courses'  => $this->courseManager->fetchAllByCriterions($criteria)
+             'courses'         => $this->courseManager->fetchAllByCriterions(
+                 $criteria
+             )
             ]
         );
     }

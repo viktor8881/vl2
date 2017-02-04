@@ -13,10 +13,10 @@ use Zend\View\Helper\AbstractHelper;
  * $this->flashMessenger()->addInfoMessage('INFO the password successfully.');
  *
  * In View through this class
- * $this->pageMessage()->addError('error');
- * $this->pageMessage()->addWarning('warning');
- * $this->pageMessage()->addInfo('info');
- * $this->pageMessage()->addSuccess('success');
+ * $this->pageMessage()->addErrorMessage('error');
+ * $this->pageMessage()->addWarningMessage('warning');
+ * $this->pageMessage()->addInfoMessage('info');
+ * $this->pageMessage()->addSuccessMessage('success');
  *
  * @package Base\View\Helper
  */
@@ -28,22 +28,22 @@ class PageMessage extends AbstractHelper
            'info'  => [], 'success' => [],];
 
 
-    public function addError($mess)
+    public function addErrorMessage($mess)
     {
         $this->items['error'][] = $mess;
     }
 
-    public function addWarning($mess)
+    public function addWarningMessage($mess)
     {
         $this->items['warning'][] = $mess;
     }
 
-    public function addInfo($mess)
+    public function addInfoMessage($mess)
     {
         $this->items['info'][] = $mess;
     }
 
-    public function addSuccess($mess)
+    public function addSuccessMessage($mess)
     {
         $this->items['success'][] = $mess;
     }

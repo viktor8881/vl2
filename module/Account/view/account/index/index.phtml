@@ -1,0 +1,58 @@
+<?php
+    if (!$this->main) {
+        return '';
+    }
+?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="pull-right">
+                    <?= $this->linkAdd('Пополнить') ?>
+                </div>
+                <h3><?=_('Доступный баланс')?>: <?=$this->formatMoney($this->main->getBalance(), $this->main->getExchange())?></h3>
+                <div class="pull-right">
+                    <?= $this->linkSub('Списать') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h3><?=_('Currencies')?></h3>
+        <?php
+        if (count($this->currencyAccounts)) {
+            foreach ($this->currencyAccounts as $account) {
+                echo '<div class="panel panel-default">';
+                echo '<div class="panel-body">';
+                echo '<p>'.$this->escapeHtml($account->getExchangeName()).' '.$this->cardMetalIconBalance($account).'</p>';
+                echo '<p>'._('Баланс').': '.$this->formatMoney($account->getBalance()).'</p>';
+                echo '<p>'._('Сумма инвестиций').': --- </p>';
+                echo '<p>'._('Текущий курс').':  --- </p>';
+                echo '<p>'._('Сумма текущей продажи').':  --- </p>';
+                echo '</div></div>';
+            }
+        }
+        ?>
+    </div>
+    <div class="col-sm-6">
+        <h3><?=_('Metals')?></h3>
+        <?php
+        if (count($this->metalAccounts)) {
+            foreach ($this->metalAccounts as $account) {
+                echo '<div class="panel panel-default">';
+                echo '<div class="panel-body">';
+                echo '<p>'.$this->escapeHtml($account->getExchangeName()).' '.$this->cardMetalIconBalance($account).'</p>';
+                echo '<p>'._('Баланс').': '.$this->formatMoney($account->getBalance()).'</p>';
+                echo '<p>'._('Сумма инвестиций').': --- </p>';
+                echo '<p>'._('Текущий курс').':  --- </p>';
+                echo '<p>'._('Сумма текущей продажи').':  --- </p>';
+                echo '</div></div>';
+            }
+        }
+        ?>
+    </div>
+</div>

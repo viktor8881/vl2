@@ -12,7 +12,7 @@ use Zend\Filter\StaticFilter;
 abstract class AbstractEntity implements IEmpty
 {
 
-    private $filter;
+    private $filterMethodName;
 
     /**
      * AbstractEntity constructor.
@@ -33,7 +33,7 @@ abstract class AbstractEntity implements IEmpty
      */
     public function setOptions(array $options = array())
     {
-        $this->filter = new \Zend\Filter\Word\UnderscoreToCamelCase();
+        $this->filterMethodName = new \Zend\Filter\Word\UnderscoreToCamelCase();
         $methods = get_class_methods($this);
         foreach ($options as $key => $value) {
             $method = $this->getMethodName($key);
@@ -51,7 +51,7 @@ abstract class AbstractEntity implements IEmpty
      */
     private function getMethodName($key)
     {
-        $key = $this->filter->filter($key);
+        $key = $this->filterMethodName->filter($key);
         return 'set' . ucfirst($key);
     }
 

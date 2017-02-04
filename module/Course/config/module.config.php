@@ -30,18 +30,24 @@ return [
             ],
         ],
     ],
-    'service_manager' => [
-        'factories' => [
-            Service\CourseManager::class => Service\Factory\CourseManagerFactory::class,
-            Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
-        ]
-    ],
 
     'view_manager' => [
         'template_path_stack' => [
             'Course' => __DIR__ . '/../view',
         ],
     ],
+
+    'service_manager' => [
+        'factories' => [
+            Service\CourseManager::class => Service\Factory\CourseManagerFactory::class,
+            Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
+        ]
+    ],
+//    'view_manager' => [
+//        'template_path_stack' => [
+//            'Course' => __DIR__ . '/../view',
+//        ],
+//    ],
 
     'view_helpers' => [
         'factories' => [

@@ -33,6 +33,8 @@ class Exchange
     protected $code;
     /** @ORM\Column(name="name", type="string", length=255) */
     protected $name;
+    /** @ORM\Column(name="short_name", type="string", length=255) */
+    protected $shortName;
 
     /**
      * @return mixed
@@ -120,6 +122,22 @@ class Exchange
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * @param mixed $shortName
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
     }
 
 }

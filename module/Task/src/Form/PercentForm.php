@@ -191,7 +191,7 @@ class PercentForm extends Form
     /**
      * @return array
      */
-    public function getDataForItem()
+    public function getDataForEntity()
     {
         $result = [];
         $data = parent::getData();

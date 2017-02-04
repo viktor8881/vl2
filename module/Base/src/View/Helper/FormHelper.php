@@ -20,6 +20,7 @@ class FormHelper extends AbstractHelper
         $xhtml = '<div class="row"><div class="col-md-12">';
         $xhtml .= $this->view->form()->openTag($form);
 
+//        pr($form->getElements()); exit;
         /** @var ElementInterface $element */
         foreach ($form->getElements() as $element) {
             $class = (count($element->getMessages())) ? ' has-error' : '';

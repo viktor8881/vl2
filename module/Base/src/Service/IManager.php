@@ -12,7 +12,7 @@ interface IManager
 
     public function get($id);
 
-    public function getByCriterons(CriterionCollection $criteria = null,
+    public function getByCriterions(CriterionCollection $criteria = null,
         OrderCollection $orders = null
     );
 
