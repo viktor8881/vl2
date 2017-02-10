@@ -26,7 +26,7 @@ interface IManager
 
     public function count();
 
-    public function countByCriteria(CriterionCollection $criteria = null);
+    public function countByCriterions(CriterionCollection $criteria = null);
 
     public function insert(IEmpty $model);
 

@@ -19,13 +19,10 @@ use Zend\Paginator\Paginator;
  */
 abstract class AbstractManager implements IManager
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     protected $em;
-    /**
-     * @var
-     */
+
+    /** @var string */
     protected $entityName;
 
     /**
@@ -38,6 +35,14 @@ abstract class AbstractManager implements IManager
     {
         $this->em = $em;
         $this->entityName = $entityName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return $this->entityName;
     }
 
     /**
@@ -162,7 +167,7 @@ abstract class AbstractManager implements IManager
      */
     public function count()
     {
-        return $this->countByCriteria();
+        return $this->countByCriterions();
     }
 
     /**
@@ -170,7 +175,7 @@ abstract class AbstractManager implements IManager
      *
      * @return mixed
      */
-    public function countByCriteria(CriterionCollection $criterions = null)
+    public function countByCriterions(CriterionCollection $criterions = null)
     {
         $qb = $this->em->createQueryBuilder();
         $qb->select('COUNT(' . $this->entityName . '.id) as count_item')

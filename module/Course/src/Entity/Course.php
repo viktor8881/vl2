@@ -76,6 +76,7 @@ class Course extends AbstractEntity
     public function setExchange(Exchange $exchange)
     {
         $this->exchange = $exchange;
+        return $this;
     }
 
     /**
@@ -110,6 +111,7 @@ class Course extends AbstractEntity
     public function setBuy($buy)
     {
         $this->buy = $buy;
+        return $this;
     }
 
     /**
@@ -126,6 +128,7 @@ class Course extends AbstractEntity
     public function setSell($sell)
     {
         $this->sell = $sell;
+        return $this;
     }
 
     public function getValue()

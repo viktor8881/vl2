@@ -39,7 +39,7 @@ class HeaderExchange extends AbstractHelper
         $xhtml .= '</h3>';
 
         $url = $this->view->url(
-            'courses',
+            'course',
             ['action' => $currentExchange->isMetal() ? 'metal' : 'currency']
         );
 

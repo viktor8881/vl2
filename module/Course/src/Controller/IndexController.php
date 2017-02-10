@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Course\Controller;
 
 use Base\Entity\CriterionCollection;
@@ -9,6 +7,7 @@ use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
 use Exchange\Service\ExchangeManager;
+use Exchange\Entity\Exchange;
 use Course\Validator\InputFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -30,9 +29,7 @@ class IndexController extends AbstractActionController
         $this->exchangeManager = $exchangeManager;
         $this->courseManager = $courseManager;
         $dateNow = new \DateTime();
-        self::$DATA_DEF = $dateNow->sub(new \DateInterval('P1Y'))->format(
-            'd.m.Y'
-        );
+        self::$DATA_DEF = $dateNow->sub(new \DateInterval('P1Y'))->format('d.m.Y');
     }
 
     public function currencyAction()
@@ -77,9 +74,7 @@ class IndexController extends AbstractActionController
     {
         $data = [
             'id'         => $this->params()->fromRoute('id', 1),
-            'date_start' => $this->params()->fromQuery(
-                'start', self::$DATA_DEF
-            ),
+            'date_start' => $this->params()->fromQuery('start', self::$DATA_DEF),
             'date_end'   => $this->params()->fromQuery('end', date('d.m.Y'))
         ];
         $fInput = new InputFilter($data);

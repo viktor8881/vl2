@@ -1,8 +1,10 @@
 <?php
 namespace Course;
 
+use Course\Factory\CacheControllerFactory;
 use Course\Factory\IndexControllerFactory;
 use Zend\Router\Http\Segment;
+use Zend\Router\Http\Literal;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -10,11 +12,12 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => IndexControllerFactory::class,
+            Controller\CronController::class  => CronControllerFactory::class,
         ],
     ],
     'router' => [
         'routes' => [
-            'courses' => [
+            'course' => [
                 'type' => Segment::class,
                 'options' => [
                     'route' => '/course/:action[/:id]',
@@ -41,13 +44,10 @@ return [
         'factories' => [
             Service\CourseManager::class => Service\Factory\CourseManagerFactory::class,
             Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
+            Service\CourseService::class => Service\Factory\CourseServiceFactory::class,
+            Service\CacheCourseService::class => InvokableFactory::class,
         ]
     ],
-//    'view_manager' => [
-//        'template_path_stack' => [
-//            'Course' => __DIR__ . '/../view',
-//        ],
-//    ],
 
     'view_helpers' => [
         'factories' => [

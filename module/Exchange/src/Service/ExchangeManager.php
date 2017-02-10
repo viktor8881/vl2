@@ -24,6 +24,14 @@ use Exchange\Entity\Criterion\ExchangeType;
 class ExchangeManager extends AbstractManager
 {
 
+    public function fetchAllIndexCode() {
+        $result = [];
+        foreach ($this->fetchAll() as $exchange) {
+            $result[$exchange->getCode()] = $exchange;
+        }
+        return $result;
+    }
+
     public function fetchAllByListId(array $list)
     {
         $criterions = new CriterionCollection();

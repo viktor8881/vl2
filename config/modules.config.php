@@ -28,4 +28,5 @@ return [
     'Course',
     'Task',
     'Investments',
+    'Cron',
 ];

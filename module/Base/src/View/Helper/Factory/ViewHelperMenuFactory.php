@@ -53,14 +53,14 @@ class ViewHelperMenuFactory implements FactoryInterface
                                    'id'    => 'cources_Metal',
                                    'label' => 'Metal',
                                    'link'  => $url->__invoke(
-                                       'courses', ['action' => 'metal']
+                                       'course', ['action' => 'metal']
                                    )
                                ],
                                [
                                    'id'    => 'cources_Currency',
                                    'label' => 'Currency',
                                    'link'  => $url->__invoke(
-                                       'courses', ['action' => 'currency']
+                                       'course', ['action' => 'currency']
                                    )
                                ]],
 

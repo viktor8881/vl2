@@ -2,7 +2,7 @@
 namespace Course\Service\Factory;
 
 use Course\Entity\CacheCourse;
-use Course\Service\CourseManager;
+use Course\Service\CacheCourseManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Doctrine\ORM\EntityManager;
