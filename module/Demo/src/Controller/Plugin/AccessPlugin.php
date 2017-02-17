@@ -6,7 +6,7 @@
  * Time: 4:40
  */
 
-namespace Application\Controller\Plugin;
+namespace Demo\Controller\Plugin;
 
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;

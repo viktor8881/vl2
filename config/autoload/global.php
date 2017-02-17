@@ -34,4 +34,6 @@ return [
         'type' => SessionArrayStorage::class
     ],
 
+    'tmp_dir' => 'data/tmp/',
+
 ];

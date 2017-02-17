@@ -1,8 +1,8 @@
 <?php
-namespace Application\Factory;
+namespace Demo\Factory;
 
 
-use Application\Controller\IndexController;
+use Demo\Controller\IndexController;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

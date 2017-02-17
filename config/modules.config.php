@@ -29,4 +29,5 @@ return [
     'Task',
     'Investments',
     'Cron',
+    'Analysis',
 ];

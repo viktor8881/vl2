@@ -24,14 +24,34 @@ use Exchange\Entity\Criterion\ExchangeType;
 class ExchangeManager extends AbstractManager
 {
 
+    /**
+     * @return Exchange[]
+     */
     public function fetchAllIndexCode() {
         $result = [];
+        /** @var Exchange[] $exchange */
         foreach ($this->fetchAll() as $exchange) {
             $result[$exchange->getCode()] = $exchange;
         }
         return $result;
     }
 
+    /**
+     * @return Exchange[]
+     */
+    public function fetchAllIndexId()
+    {
+        $result = [];
+        foreach ($this->fetchAll() as $exchange) {
+            $result[$exchange->getId()] = $exchange;
+        }
+        return $result;
+    }
+
+    /**
+     * @param Int[]
+     * @return Exchange[]
+     */
     public function fetchAllByListId(array $list)
     {
         $criterions = new CriterionCollection();
@@ -39,8 +59,14 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
+    /**
+     * @param $id
+     *
+     * @return \Base\Entity\AbstractEntity|null
+     */
     public function getMetalById($id)
     {
+        /** @var Exchange $item */
         $item = $this->get($id);
         if ($item && $item->isMetal()) {
             return $item;

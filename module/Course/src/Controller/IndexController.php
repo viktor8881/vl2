@@ -3,11 +3,9 @@ namespace Course\Controller;
 
 use Base\Entity\CriterionCollection;
 use Course\Entity\Criterion\CriterionExchange;
-use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
 use Exchange\Service\ExchangeManager;
-use Exchange\Entity\Exchange;
 use Course\Validator\InputFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -32,6 +30,10 @@ class IndexController extends AbstractActionController
         self::$DATA_DEF = $dateNow->sub(new \DateInterval('P1Y'))->format('d.m.Y');
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function currencyAction()
     {
         $data = [
@@ -69,7 +71,10 @@ class IndexController extends AbstractActionController
                 ];
     }
 
-
+    /**
+     * @return ViewModel
+     * @throws \Exception
+     */
     public function metalAction()
     {
         $data = [

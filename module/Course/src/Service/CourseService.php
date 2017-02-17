@@ -11,7 +11,6 @@ namespace Course\Service;
 
 use Course\Entity\Course;
 use Exchange\Entity\Exchange;
-use Doctrine\ORM\EntityManager;
 
 class CourseService
 {
@@ -21,21 +20,27 @@ class CourseService
     /** @var CourseManager */
     private $courseManager;
 
-    /** @var EntityManager*/
-    private $em;
-
-    public function __construct(CourseManager $courseManager, EntityManager $em)
+    /**
+     * @param CourseManager $courseManager
+     */
+    public function __construct(CourseManager $courseManager)
     {
         $this->courseManager = $courseManager;
-        $this->em = $em;
     }
 
     /**
-     * @param DateTime $date
-     * @param array  Exchange[] $exchenges
+     * @param \DateTime  $date
+     * @param Exchange[] $list
+     *
+     * @return Course[]
      */
-    public function receiveByDateToListCourse(\DateTime $date, array $listExchange)
+    public function receiveByDateToListCourse(\DateTime $date, array $list)
     {
+        $listExchange = [];
+        foreach ($list as $exchange) {
+            $listExchange[$exchange->getCode()] = $exchange;
+        }
+
         $listCourse = [];
         $receivedData = $this->receiveByDateToArray($date);
         if (count($receivedData)) {
@@ -60,7 +65,7 @@ class CourseService
      * @param \DateTime $date
      * @return array
      */
-    private function receiveByDateToArray(\DateTime $date)
+    public function receiveByDateToArray(\DateTime $date)
     {
         $result = [];
         $xmlstr = file_get_contents(

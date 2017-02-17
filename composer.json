@@ -35,7 +35,8 @@
             "Base\\": "module/Base/src/",
             "Task\\": "module/Task/src/",
             "Investments\\": "module/Investments/src/",
-            "Cron\\": "module/Cron/src/"
+            "Cron\\": "module/Cron/src/",
+            "Analysis\\": "module/Analysis/src/"
         }
     },
     "autoload-dev": {

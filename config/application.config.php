@@ -46,6 +46,7 @@ return [
         // The path in which to cache merged configuration.
         'cache_dir' => 'data/cache/',
 
+
         // Whether or not to enable modules dependency checking.
         // Enabled by default, prevents usage of modules that depend on other modules
         // that weren't loaded.

@@ -13,16 +13,19 @@ use Exchange\Entity\Exchange;
 class CacheCourse extends AbstractEntity
 {
 
+    const TREND_UP = 1;
+    const TREND_DOWN = 0;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(name="id", type="integer")
      */
     protected $id;
+
     /**
-     * @ORM\ManyToOne(targetEntity="Exchange")
+     * @ORM\ManyToOne(targetEntity="\Exchange\Entity\Exchange")
      * @ORM\JoinColumn(name="exchange_id", referencedColumnName="id")
-     * @ORM\Column(name="exchange_id")
      * @var Exchange
      */
     protected $exchange;
@@ -41,6 +44,8 @@ class CacheCourse extends AbstractEntity
 
     /** @ORM\Column(name="percent", type="decimal", precision=2, scale=4) */
     protected $percent;
+
+
 
     /**
      * @return int
@@ -115,6 +120,24 @@ class CacheCourse extends AbstractEntity
     }
 
     /**
+     * @param \DateTime $date
+     * @param           $value
+     * @return $this
+     */
+    public function addDataValue(\DateTime $date,  $value) {
+        $this->dataValue[] = array('data' => $date->format('d.m.Y'), 'value' => $value);
+        return $this;
+    }
+
+    /**
+     * @param Course $model
+     * @return CacheCourse
+     */
+    public function addDataValueByCourse(Course $model) {
+        return $this->addDataValue($model->getDate(), $model->getValue());
+    }
+
+    /**
      * @return float
      */
     public function getLastValue()
@@ -182,6 +205,14 @@ class CacheCourse extends AbstractEntity
     public function isCurrency()
     {
         return $this->getExchange()->isCurrency();
+    }
+
+    public function isUpTrend() {
+        return $this->getTypeTrend() == self::TREND_UP;
+    }
+
+    public function isDownTrend() {
+        return $this->getTypeTrend() == self::TREND_DOWN;
     }
 
 }

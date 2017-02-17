@@ -47,8 +47,7 @@ abstract class AbstractManager implements IManager
 
     /**
      * @param $id
-     *
-     * @return null|AbstractEntity
+     * @return AbstractEntity|null
      */
     public function get($id)
     {
@@ -59,7 +58,7 @@ abstract class AbstractManager implements IManager
      * @param CriterionCollection|null $criterions
      * @param OrderCollection|null     $orders
      *
-     * @return null|AbstractEntity
+     * @return AbstractEntity|null
      */
     public function getByCriterions(CriterionCollection $criterions = null,
         OrderCollection $orders = null
@@ -108,11 +107,10 @@ abstract class AbstractManager implements IManager
         $this->addOrders($orders, $qb);
 
         if ($paginator) {
-            $qb->setFirstResult(
-                ($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage()
-                                )
+            $qb->setFirstResult(($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage())
                 ->setMaxResults($paginator->getItemCountPerPage());
         }
+//        pr($qb->getDQL()); exit;
         $query = $qb->getQuery();
         return $query->getResult();
     }
