@@ -4,11 +4,23 @@ namespace Cron;
 
 use Cron\Factory\CacheCourseControllerFactory;
 use Cron\Factory\CourseControllerFactory;
+use Cron\Factory\IndexControllerFactory;
 use Zend\Router\Http\Literal;
 
 return [
     'router' => [
         'routes' => [
+            'cron' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+
             'course.receive' => [
                 'type' => Literal::class,
                 'options' => [
@@ -64,6 +76,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
+            Controller\IndexController::class => IndexControllerFactory::class,
             Controller\CourseController::class => CourseControllerFactory::class,
             Controller\CacheCourseController::class => CacheCourseControllerFactory::class
         ],
