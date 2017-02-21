@@ -23,7 +23,6 @@ abstract class TaskManager extends AbstractManager
     protected function addCriterion(AbstractCriterion $criterion,
         QueryBuilder $qb
     ) {
-        $result = '';
         switch (get_class($criterion)) {
             case ExchangeType::class:
                 $qb->andWhere($this->entityName.'.type IN (:type)')
@@ -32,7 +31,6 @@ abstract class TaskManager extends AbstractManager
             default:
                 break;
         }
-        return $result;
     }
 
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)

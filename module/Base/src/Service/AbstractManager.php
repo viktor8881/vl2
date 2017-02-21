@@ -46,6 +46,30 @@ abstract class AbstractManager implements IManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function beginTransaction()
+    {
+        $this->em->beginTransaction();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function commit()
+    {
+        $this->em->commit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rollBack()
+    {
+        $this->em->rollBack();
+    }
+
+    /**
      * @param $id
      * @return AbstractEntity|null
      */
@@ -73,8 +97,11 @@ abstract class AbstractManager implements IManager
         $qb->setFirstResult(0)
             ->setMaxResults(1);
 
-        $query = $qb->getQuery();
-        return $query->getSingleResult();
+        $result = $qb->getQuery()->getResult();
+        if ($result) {
+            return current($result);
+        }
+        return null;
     }
 
     /**

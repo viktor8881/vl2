@@ -7,8 +7,11 @@
 
 namespace Base;
 
+use Base\Queue\Adapter\Doctrine\Service\Factory\QueueManagerFactory;
+use Base\Queue\Adapter\Doctrine\Service\QueueManager;
 use Base\View\Helper\Factory\ViewHelperMenuFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'view_helpers' => [
@@ -56,6 +59,12 @@ return [
         ]
     ],
 
+    'service_manager' => [
+        'factories' => [
+            QueueManager::class => QueueManagerFactory::class,
+        ]
+    ],
+
     'controller_plugins' => [
         'factories' => [
             Controller\Plugin\AccessPlugin::class => InvokableFactory::class,
@@ -65,5 +74,36 @@ return [
         ]
     ],
 
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Queue/Adapter/Doctrine/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ .'\Queue\Adapter\Doctrine\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ],
+
+//    'doctrine' => array(
+//        'driver' => array(
+//
+//            'application_entities' => array(
+//                'class' => AnnotationDriver::class,
+//                'cache' => 'array',
+//                'paths' => array(__DIR__ . '/../src/Queue/Adapter/Doctrine/Entity')
+//            ),
+//
+//            'orm_default' => array(
+//                'drivers' => array(
+//                    'Application\Entity' => 'application_entities',
+//                ),
+//            ),
+//        )
+//    ),
 
 ];

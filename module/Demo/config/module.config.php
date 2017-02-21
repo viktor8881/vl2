@@ -40,6 +40,9 @@ return [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/application[/:action]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z]*',
+                    ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',

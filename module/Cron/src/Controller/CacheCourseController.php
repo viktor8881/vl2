@@ -108,19 +108,13 @@ class CacheCourseController extends AbstractActionController
         if (is_null($dateNow)) {
             $dateNow = new \DateTime('14.02.2017');
         }
-//        pr($dateNow->format('d.m.Y'));
         if ($this->courseManager->hasByDate($dateNow)) {
             try {
-//                die('ada');
                 $listExchange = $this->exchangeManager->fetchAllMetal();
                 foreach($this->courseManager->fetchAllByListIdAndDate($listExchange, $dateNow) as $cacheCourse)
                 {
                     $this->cacheCourseService->fillingCache($dateNow, $cacheCourse);
                 }
-
-                // tasks to queue
-//                    $queue = $this->getQueue('analysis');
-//                    $queue->sendFillData(true);
             } catch (\Exception $exception) {
                 pr($exception); exit;
                 $this->getResponse()->setStatusCode(500);

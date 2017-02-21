@@ -74,7 +74,7 @@ class CourseController extends AbstractActionController
     public function receiveAction($date = null)
     {
         if (is_null($date)) {
-            $date = new \DateTime('14.02.2017');
+            $date = new \DateTime('15.02.2017');
         }
         if (!$this->courseManager->hasByDate($date)) {
             try {
@@ -84,10 +84,6 @@ class CourseController extends AbstractActionController
                     $date, $exchanges
                 );
                 $this->courseManager->insertList($listCourse);
-
-                // tasks to queue
-//                    $queue = $this->getQueue('analysis');
-//                    $queue->sendFillData(true);
                 echo 'ok!';
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);

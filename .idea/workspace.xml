@@ -4,11 +4,20 @@
     <option name="ANALYZE_TEST_SOURCES" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38c1ea9f-92f3-4e2f-aefd-d53011e6ad17" name="Default" comment="Add module cron">
+    <list default="true" id="38c1ea9f-92f3-4e2f-aefd-d53011e6ad17" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Application/config/module.config.php" afterPath="$PROJECT_DIR$/module/Application/config/module.config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Base/config/module.config.php" afterPath="$PROJECT_DIR$/module/Base/config/module.config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php" afterPath="$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php" afterPath="$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php" afterPath="$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php" afterPath="$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php" afterPath="$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Demo/config/module.config.php" afterPath="$PROJECT_DIR$/module/Demo/config/module.config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Exchange/config/module.config.php" afterPath="$PROJECT_DIR$/module/Exchange/config/module.config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Exchange/src/Entity/Exchange.php" afterPath="$PROJECT_DIR$/module/Exchange/src/Entity/Exchange.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module/Task/src/Service/TaskManager.php" afterPath="$PROJECT_DIR$/module/Task/src/Service/TaskManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php" afterPath="$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,93 +46,20 @@
       <file leaf-file-name="IndexController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+            <state relative-caret-position="240">
+              <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
               <folding>
-                <element signature="e#34#83#0#PHP" expanded="true" />
-                <marker date="1487575686020" expanded="true" signature="225:287" ph="..." />
+                <element signature="e#34#66#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="composer.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/composer.json">
+      <file leaf-file-name="IndexControllerFactory.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Queue.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Queue.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2499">
-              <caret line="156" column="44" lean-forward="false" selection-start-line="156" selection-start-column="44" selection-end-line="156" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Db.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="21" column="2" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-              <folding>
-                <element signature="e#365#386#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Message.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db/Message.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvalidArgumentException.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Exception/InvalidArgumentException.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayAdapter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/ArrayAdapter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractAdapter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/AbstractAdapter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1445">
-              <caret line="96" column="36" lean-forward="false" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mysql.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db/mysql.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="49" column="36" lean-forward="false" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
+              <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -133,40 +69,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>addSuccess(</find>
-      <find>'courses'</find>
-      <find>courses</find>
-      <find>cachecourse</find>
-      <find>CacheCourseController</find>
-      <find>$dateNow</find>
-      <find>Application</find>
-      <find>$this-&gt;getManager('cacheCourseMetal')-&gt;</find>
-      <find>getLastValue</find>
-      <find>isUpTrend</find>
-      <find>Demo</find>
-      <find>Core_Math::compareMoney(</find>
-      <find>SURE_TREND</find>
-      <find>Service_GraphAnalysis</find>
-      <find>setCacheDir</find>
-      <find>$this-&gt;pathTmp</find>
-      <find>pathTmp</find>
-      <find>DateTime</find>
-      <find>DateInterval</find>
-      <find>\Base\Entity\AbstractEntity</find>
-      <find>null|AbstractEntity</find>
-      <find>dateCreate</find>
-      <find>fetchAllByListIdAndDate</find>
       <find>CacheCourseManager</find>
       <find>$this-&gt;tmpDir</find>
       <find>COUNT_RUN_AT_TIME</find>
       <find>CacheControllerFactory</find>
       <find>FOR_</find>
-      <find>getQueueId</find>
       <find>FOR</find>
+      <find>$this-&gt;_options</find>
+      <find>$this-&gt;_queues</find>
+      <find>setQueue</find>
+      <find>Update</find>
+      <find>return array(             'create'        =&gt; true,             'delete'        =&gt; true,             'send'          =&gt; true,             'receive'       =&gt; true,             'deleteMessage' =&gt; true,             'getQueues'     =&gt; true,             'count'         =&gt; true,             'isExists'      =&gt; true,         );</find>
+      <find>getCapabilities</find>
+      <find>Base\Queue\Doctrine</find>
+      <find>crea</find>
+      <find>create(</find>
+      <find>_adapter</find>
+      <find>getQueueId</find>
+      <find>timeout+30</find>
+      <find>timeout</find>
+      <find>$self::ENTITY_MESSAGE</find>
+      <find>Message::class</find>
+      <find>setCre</find>
+      <find>set(</find>
+      <find>-&gt;set(</find>
+      <find>getMessageByHandleForUpdate</find>
+      <find>deleteMessageByHandle</find>
+      <find>QueueHandle</find>
+      <find>deleteMessage</find>
+      <find>setParameter</find>
+      <find>forward</find>
     </findStrings>
     <replaceStrings>
-      <replace>IndexController</replace>
-      <replace>Task</replace>
       <replace>TaskOvertime</replace>
       <replace>echo $this-&gt;pageHeader()-&gt;setTitle</replace>
       <replace>addSuccessMessage</replace>
@@ -195,6 +129,8 @@
       <replace>CacheCourse</replace>
       <replace>Course</replace>
       <replace>AbstractEntity|null</replace>
+      <replace>Base\Queue\Adapter\Doctrine</replace>
+      <replace>self::ENTITY_MESSAGE</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\projects\php\valuta.zf3.local\module\Application</dir>
@@ -222,6 +158,7 @@
       <dir>D:\projects\php\valuta.zf3.local\module\Demo</dir>
       <dir>D:\projects\php\valuta.zf3.local\module\Analysis</dir>
       <dir>D:\projects\php\valuta.zf3.local\vendor</dir>
+      <dir>D:\projects\php\valuta.zf3.local\module\Base\src\Queue</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -235,40 +172,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/module/Course/src/Controller/CourseController.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Factory/IndexControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Factory/CacheCourseControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Controller/CacheCourseController.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Factory/CacheControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/CacheService.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Controller/CacheController.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Controller/CronController.php" />
-        <option value="$PROJECT_DIR$/module/User/src/Controller/Factory/AuthControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Demo/config/module.config.php" />
-        <option value="$PROJECT_DIR$/module/Demo/src/Controller/IndexController.php" />
-        <option value="$PROJECT_DIR$/module/Demo/src/Controller/Plugin/AccessPlugin.php" />
-        <option value="$PROJECT_DIR$/module/Demo/src/Factory/IndexControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/Factory/CourseManagerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/Factory/CacheCourseManagerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/Factory/CourseServiceFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/Factory/CacheCourseServiceFactory.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Entity/Criterion/CriterionCode.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Entity/Order/OrderId.php" />
-        <option value="$PROJECT_DIR$/module/Base/src/Service/Math.php" />
-        <option value="$PROJECT_DIR$/module/Analysis/src/Service/TechnicalAnalysis.php" />
-        <option value="$PROJECT_DIR$/config/modules.config.php" />
-        <option value="$PROJECT_DIR$/config/application.config.php" />
-        <option value="$PROJECT_DIR$/config/autoload/global.php" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Factory/CourseControllerFactory.php" />
-        <option value="$PROJECT_DIR$/data/tmp/date-metal.tmp" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Factory/CacheCourseControllerFactory.php" />
-        <option value="$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Entity/CacheCourse.php" />
-        <option value="$PROJECT_DIR$/module/Course/src/Service/CacheCourseService.php" />
         <option value="$PROJECT_DIR$/data/tmp/tmp1.tmp" />
         <option value="$PROJECT_DIR$/data/tmp/tmp.tmp" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php" />
         <option value="$PROJECT_DIR$/module/Analysis/view/error/404.phtml" />
         <option value="$PROJECT_DIR$/module/Demo/view/error/404.phtml" />
         <option value="$PROJECT_DIR$/module/Analysis/test/Controller/IndexControllerTest.php" />
@@ -281,11 +186,43 @@
         <option value="$PROJECT_DIR$/module/Demo/test/Controller/IndexControllerTest.php" />
         <option value="$PROJECT_DIR$/module/Exchange/src/Service/ExchangeManager.php" />
         <option value="$PROJECT_DIR$/module/Base/src/Service/Date.php" />
-        <option value="$PROJECT_DIR$/module/Cron/config/module.config.php" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php" />
         <option value="$PROJECT_DIR$/module/Cron/src/Entity/SimpleQueue.php" />
-        <option value="$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php" />
         <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Queue.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Message.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/Factory/QueueFactory.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/Queue.php" />
+        <option value="$PROJECT_DIR$/module/Exchange/src/Entity/Criterion/ExchangeType.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/ExchangeType.php" />
+        <option value="$PROJECT_DIR$/module/Task/src/Service/TaskManager.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/QueueId.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/QueueName.php" />
+        <option value="$PROJECT_DIR$/module/Exchange/src/Entity/Exchange.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Queue.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/MessageQueue.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/MessageHandle.php" />
+        <option value="$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Service/QueueService.php" />
+        <option value="$PROJECT_DIR$/module/Exchange/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Task/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Entity/Message.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Entity/Queue.php" />
+        <option value="$PROJECT_DIR$/module/Base/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/Factory/QueueManagerFactory.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/QueueHandle.php" />
+        <option value="$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Message/MessageIterator.php" />
+        <option value="$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Message.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Message.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine.php" />
+        <option value="$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/QueueManager.php" />
+        <option value="$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php" />
+        <option value="$PROJECT_DIR$/module/Cron/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Demo/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Application/config/module.config.php" />
+        <option value="$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php" />
+        <option value="$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php" />
+        <option value="$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php" />
       </list>
     </option>
   </component>
@@ -386,6 +323,170 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cron" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cron" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cron" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Factory" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cron" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Base" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="valuta.zf3.local" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
@@ -401,19 +502,19 @@
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/vendor/zendframework/zend-form" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\projects\php\valuta.zf3.local\module\Cron\src\Entity" />
-      <recent name="D:\projects\php\valuta.zf3.local\data\tmp" />
-      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Service" />
-      <recent name="D:\projects\php\valuta.zf3.local\module" />
-      <recent name="D:\projects\php\valuta.zf3.local\module\Cron\src\Factory" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Queue\Adapter\Doctrine\Entity" />
       <recent name="D:\projects\php\valuta.zf3.local\module\Investments\src" />
       <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Controller\Plugin" />
       <recent name="D:\projects\php\valuta.zf3.local\module\Course\src\Service" />
       <recent name="D:\projects\php\valuta.zf3.local\module\Exchange\src" />
-      <recent name="D:\projects\php\valuta.zf3.local\model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Queue\Adapter\Doctrine\Entity\Criterion" />
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Entity" />
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Service" />
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Queue\Adapter\Doctrine\Entity" />
+      <recent name="D:\projects\php\valuta.zf3.local\module\Base\src\Queue\Adapter\Doctrine\Service" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Web Application.valuta.zf3.local">
@@ -543,7 +644,7 @@
       <workItem from="1487016664357" duration="4942000" />
       <workItem from="1487324284374" duration="3641000" />
       <workItem from="1487516849725" duration="6937000" />
-      <workItem from="1487578643426" duration="28000" />
+      <workItem from="1487578643426" duration="38826000" />
     </task>
     <task id="LOCAL-00001" summary="Remove old code">
       <created>1485563997114</created>
@@ -566,7 +667,14 @@
       <option name="project" value="LOCAL" />
       <updated>1486765615633</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add zendframework/zend-queue">
+      <created>1487578718813</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1487578718813</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -599,32 +707,32 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="412188000" />
+    <option name="totallyTimeSpent" value="450986000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1924" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20064378" sideWeight="0.44748858" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20064378" sideWeight="0.45287108" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.50263506" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938075" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49736497" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19849785" sideWeight="0.5525114" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5254605" sideWeight="0.49736497" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20064378" sideWeight="0.5471289" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5254605" sideWeight="0.49736497" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40520042" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40520042" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -655,7 +763,8 @@
     <MESSAGE value="Remove old code" />
     <MESSAGE value="Add module Core. method receiveAction" />
     <MESSAGE value="Add module cron" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add module cron" />
+    <MESSAGE value="Add zendframework/zend-queue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add zendframework/zend-queue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -675,327 +784,212 @@
           <line>48</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/vendor/zendframework/zend-servicemanager/src/ServiceManager.php</url>
+          <line>764</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine.php</url>
+          <line>209</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Queue.php</url>
+          <line>296</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="85" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="index.php">
-        <watch expression="$item" language="PHP" />
-        <watch expression="$result" language="PHP" />
+        <watch expression="$ex" language="PHP" />
+        <watch expression="$mess" language="PHP" />
       </configuration>
       <configuration name="PhpWebAppRunConfigurationType">
-        <watch expression="$date" language="PHP" />
+        <watch expression="$options" language="PHP" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/Base/src/Service/Math.php">
+    <entry file="file://$PROJECT_DIR$/module/Exchange/src/Entity/Exchange.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="23" />
+        <state relative-caret-position="306">
+          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <folding>
+            <element signature="e#36#67#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/tmp/date-metal.tmp" />
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Factory/CacheCourseControllerFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="54" lean-forward="false" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/DoctrineORMModule/Proxy/__CG__ExchangeEntityExchange.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4537">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/PDO.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="1107" column="20" lean-forward="false" selection-start-line="1107" selection-start-column="20" selection-end-line="1107" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="1465" column="54" lean-forward="true" selection-start-line="1465" selection-start-column="54" selection-end-line="1465" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Entity/Course.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="31" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="193" column="35" lean-forward="true" selection-start-line="193" selection-start-column="35" selection-end-line="193" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Entity/Criterion/CourseEqDate.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-stdlib/src/ArrayObject.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="149" column="20" lean-forward="false" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Entity/CacheCourse.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="42" column="23" lean-forward="false" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Service/CacheCourseService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="45" column="64" lean-forward="false" selection-start-line="45" selection-start-column="64" selection-end-line="45" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/tmp/tmp.tmp" />
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Factory/CourseControllerFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/tmp/tmp1.tmp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/tmp/tmp.tmp" />
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="739">
-          <caret line="76" column="46" lean-forward="false" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Analysis/test/Controller/IndexControllerTest.php" />
-    <entry file="file://$PROJECT_DIR$/module/Analysis/view/error/404.phtml" />
-    <entry file="file://$PROJECT_DIR$/module/Analysis/view/error/index.phtml" />
-    <entry file="file://$PROJECT_DIR$/module/Analysis/src/Service/TechnicalAnalysis.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="124" column="35" lean-forward="true" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Demo/view/error/404.phtml" />
-    <entry file="file://$PROJECT_DIR$/module/Course/config/module.config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Controller/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Service/CacheCourseManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="103" column="40" lean-forward="true" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Service/CourseService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="91" column="70" lean-forward="false" selection-start-line="91" selection-start-column="70" selection-end-line="91" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Analysis/config/module.config.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/MessageQueue.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Demo/src/Controller/Plugin/AccessPlugin.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/MessageHandle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/LockMode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <caret line="29" column="6" lean-forward="false" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Course/src/Service/CourseManager.php">
+    <entry file="file://$PROJECT_DIR$/module/Exchange/src/Service/Factory/ExchangeManagerFactory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="13" column="36" lean-forward="false" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Demo/test/Controller/IndexControllerTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="20" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Exchange/src/Service/ExchangeManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
+        <state relative-caret-position="861">
           <caret line="68" column="32" lean-forward="false" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Base/src/Service/Date.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Service/QueueService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4726">
-          <caret line="278" column="0" lean-forward="true" selection-start-line="278" selection-start-column="0" selection-end-line="278" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php">
+    <entry file="file://$PROJECT_DIR$/module/Exchange/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Account/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="45" column="6" lean-forward="true" selection-start-line="41" selection-start-column="4" selection-end-line="45" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Account/src/Entity/Account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-servicemanager/src/ServiceManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="764" column="0" lean-forward="false" selection-start-line="764" selection-start-column="0" selection-end-line="764" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Task/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="78" column="55" lean-forward="true" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/User/config/module.config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="597">
-          <caret line="125" column="30" lean-forward="false" selection-start-line="125" selection-start-column="30" selection-end-line="125" selection-end-column="30" />
+          <caret line="113" column="53" lean-forward="false" selection-start-line="113" selection-start-column="47" selection-end-line="113" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Cron/config/module.config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="78" column="68" lean-forward="false" selection-start-line="78" selection-start-column="68" selection-end-line="78" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Entity/SimpleQueue.php" />
-    <entry file="file://$PROJECT_DIR$/config/modules.config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Message.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/Criterion/QueueId.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-paginator/src/Module.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Null.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db/mysql.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="36" lean-forward="false" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Queue.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/IEmpty.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2499">
-          <caret line="156" column="44" lean-forward="false" selection-start-line="156" selection-start-column="44" selection-end-line="156" selection-end-column="44" />
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Exception/InvalidArgumentException.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/Message.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/ArrayAdapter.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/Queue.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/AbstractAdapter.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/Criterion/MessageHandle.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="96" column="36" lean-forward="false" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+        <state relative-caret-position="17">
+          <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/Factory/QueueManagerFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="85" column="96" lean-forward="true" selection-start-line="85" selection-start-column="96" selection-end-line="85" selection-end-column="96" />
+          <folding>
+            <element signature="e#290#358#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/AbstractQuery.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="20" column="19" lean-forward="false" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding>
-            <element signature="e#34#83#0#PHP" expanded="true" />
-            <marker date="1487575686020" expanded="true" signature="225:287" ph="..." />
-          </folding>
+          <caret line="808" column="0" lean-forward="true" selection-start-line="808" selection-start-column="0" selection-end-line="808" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php">
+    <entry file="file://$PROJECT_DIR$/module/Course/src/Entity/Course.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="2" lean-forward="false" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-          <folding>
-            <element signature="e#365#386#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="29" column="40" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,10 +1001,237 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/QueueId.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="54" lean-forward="true" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Entity/AbstractEntity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="60" column="4" lean-forward="false" selection-start-line="60" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/ArrayAdapter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="167" column="40" lean-forward="true" selection-start-line="162" selection-start-column="8" selection-end-line="167" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="176" column="70" lean-forward="false" selection-start-line="176" selection-start-column="70" selection-end-line="176" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/AbstractAdapter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="142" column="7" lean-forward="true" selection-start-line="142" selection-start-column="7" selection-end-line="142" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Adapter/Db.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="361" column="53" lean-forward="false" selection-start-line="361" selection-start-column="53" selection-end-line="361" selection-end-column="53" />
+          <folding>
+            <element signature="e#365#386#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/QueryBuilder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="1029" column="21" lean-forward="false" selection-start-line="1029" selection-start-column="15" selection-end-line="1029" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Criterion/QueueHandle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/ClassLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="302" column="0" lean-forward="false" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-mvc/src/DispatchListener.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/EntityManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="602" column="0" lean-forward="false" selection-start-line="602" selection-start-column="0" selection-end-line="602" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Message/MessageIterator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="230" column="0" lean-forward="false" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="101" column="7" lean-forward="true" selection-start-line="101" selection-start-column="7" selection-end-line="101" selection-end-column="7" />
+          <folding>
+            <element signature="e#54#85#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-queue/library/ZendQueue/Queue.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="234" column="0" lean-forward="false" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Entity/Queue.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-287">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Service/AbstractManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="210" column="56" lean-forward="true" selection-start-line="204" selection-start-column="8" selection-end-line="210" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="170" column="48" lean-forward="false" selection-start-line="170" selection-start-column="48" selection-end-line="170" selection-end-column="48" />
+          <folding>
+            <element signature="e#366#419#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Base/src/Queue/Adapter/Doctrine/Service/QueueManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="141" column="28" lean-forward="true" selection-start-line="141" selection-start-column="28" selection-end-line="141" selection-end-column="28" />
+          <folding>
+            <element signature="e#55#89#0#PHP" expanded="true" />
+            <marker date="1487663486694" expanded="true" signature="2691:2763" ph="update m set... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-mvc/src/Controller/AbstractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="30" column="43" lean-forward="false" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/zendframework/zend-mvc/src/Controller/Plugin/Forward.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="117" column="46" lean-forward="true" selection-start-line="117" selection-start-column="46" selection-end-line="117" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/CourseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="767">
+          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Cron/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-219">
+          <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Demo/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="43" column="56" lean-forward="false" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/config/module.config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="43" column="63" lean-forward="true" selection-start-line="43" selection-start-column="63" selection-end-line="43" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/CacheCourseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="116" column="17" lean-forward="false" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Cron/src/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+          <folding>
+            <element signature="e#34#66#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Cron/src/Factory/IndexControllerFactory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+          <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
           <folding />
         </state>
       </provider>

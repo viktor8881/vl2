@@ -1,20 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Viktor
- * Date: 18.12.2016
- * Time: 16:32
- */
+
 
 namespace Exchange\Entity;
 
+use Base\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="exchange" )
  */
-class Exchange
+class Exchange extends AbstractEntity
 {
 
     const TYPE_METAl = 1;
