@@ -5,8 +5,8 @@ use Base\Entity\CriterionCollection;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
-use Exchange\Service\ExchangeManager;
 use Course\Validator\InputFilter;
+use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 

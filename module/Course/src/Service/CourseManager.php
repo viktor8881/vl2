@@ -1,23 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Viktor
- * Date: 18.12.2016
- * Time: 16:42
- */
-
 namespace Course\Service;
 
 
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
+use Base\Service\AbstractManager;
 use Course\Entity\Course;
-use Course\Entity\Criterion\CourseEqDate;
+use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
-use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
+use Exchange\Entity\Exchange;
 
 /**
  * Class CourseManager
@@ -36,7 +30,7 @@ class CourseManager extends AbstractManager
     {
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($list));
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -48,7 +42,7 @@ class CourseManager extends AbstractManager
     public function fetchAllByDate(\DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -59,7 +53,7 @@ class CourseManager extends AbstractManager
     public function hasByDate(\DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return (bool)$this->countByCriterions($criterions);
     }
 
@@ -83,12 +77,37 @@ class CourseManager extends AbstractManager
     }
 
     /**
-     * @param AbstractCriterion $criterion
-     * @param QueryBuilder      $qb
+     * @param Exchange  $exchange
+     * @param \DateTime $dateLater
+     * @param \DateTime $date
+     * @return \Base\Entity\AbstractEntity[]
      */
-    protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    ) {
+    public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $dateLater, \DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionPeriod([$dateLater, $date]));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
+    /**
+     * @param Exchange  $exchange
+     * @param \DateTime $date
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function fetchAllByExchangeAndDate(Exchange $exchange, \DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionEqDate($date));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
+    /**
+     * @param AbstractCriterion $criterion
+     * @param QueryBuilder  $qb
+     */
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb) {
         switch (get_class($criterion)) {
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName . '.exchange IN (:exchange_id)')
@@ -99,8 +118,7 @@ class CourseManager extends AbstractManager
                     ->setParameter('start', $criterion->getFirstValue())
                     ->setParameter('end', $criterion->getSecondValue());
                 break;
-            case CourseEqDate::class:
-//                pr($criterion); exit;
+            case CriterionEqDate::class:
                 $qb->andWhere($this->entityName . '.dateCreate = :dateCreate')
                     ->setParameter('dateCreate', $criterion->getFirstValue());
                 break;

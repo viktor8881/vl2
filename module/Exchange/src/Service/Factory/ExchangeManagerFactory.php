@@ -1,12 +1,11 @@
 <?php
 namespace Exchange\Service\Factory;
 
+use Doctrine\ORM\EntityManager;
 use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
-
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Doctrine\ORM\EntityManager;
 
 
 class ExchangeManagerFactory implements FactoryInterface

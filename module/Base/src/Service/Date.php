@@ -147,9 +147,8 @@ class Date extends \DateTime
     }
 
     /**
-     * установить день
-     *
-     * @param integer $day
+     * @param int $day
+     * @return $this
      */
     public function setDay($day)
     {
@@ -164,27 +163,25 @@ class Date extends \DateTime
     }
 
     /**
-     *  разница между датами ==1месяц
-     *
-     * @param Core_Date $time
+     * разница между датами == 1месяц
+     * @param \DateTime $time
+     * @return bool
      */
-    public function isMonthDiffPeriod(Core_Date $time)
+    public function isMonthDiffPeriod(\DateTime $time)
     {
         if ((int)$this->format('d') == 1
-            && $this->format('m') == $time->format(
-                'm'
-            )
+            && $this->format('m') == $time->format('m')
             && $this->format('Y') == $time->format('Y')
-            && $this->getMonthDays() == $time->format('d')
-        ) {
+            && $this->getMonthDays() == $time->format('d') ) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
-     * @return 'd.m.Y'
+     * format date 'd.m.Y'
+     * @return string
      */
     public function formatDMY()
     {
@@ -192,7 +189,8 @@ class Date extends \DateTime
     }
 
     /**
-     * @return 'd.m.Y H:i'
+     * format date 'd.m.Y H:i'
+     * @return string
      */
     public function formatDMYHI()
     {

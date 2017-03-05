@@ -3,10 +3,8 @@
 namespace Course\Validator;
 
 
-use Zend\I18n\Validator\IsFloat;
 use Zend\InputFilter\Input;
 use Zend\Validator\Date;
-use Zend\Validator\DateStep;
 use Zend\Validator\Digits;
 
 class InputFilter extends \Zend\InputFilter\InputFilter

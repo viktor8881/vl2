@@ -3,10 +3,9 @@ namespace Account\Service\Factory;
 
 use Account\Entity\Account;
 use Account\Service\AccountManager;
-use Interop\Container\ContainerInterface;
-
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Doctrine\ORM\EntityManager;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 
 class AccountManagerFactory implements FactoryInterface

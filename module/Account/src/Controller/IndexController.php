@@ -9,9 +9,9 @@ namespace Account\Controller;
 
 use Account\Entity\Account;
 use Account\Form\AccountForm;
+use Account\Service\AccountManager;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
-use Account\Service\AccountManager;
 
 class IndexController extends AbstractActionController
 {
@@ -81,7 +81,7 @@ class IndexController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
-                /** @var Account $account */
+                /** @var Account $mainAcc */
                 $mainAcc->subtractionBalance($form->getValueBalance());
                 $this->accountManager->update($mainAcc);
 

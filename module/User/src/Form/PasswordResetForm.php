@@ -3,6 +3,7 @@ namespace User\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\Hostname;
 
 /**
  * This form is used to collect user's E-mail address (used to recover password).
@@ -103,7 +104,7 @@ class PasswordResetForm extends Form
                 [
                     'name' => 'EmailAddress',
                     'options' => [
-                        'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+                        'allow' => Hostname::ALLOW_DNS,
                         'useMxCheck' => false,
                     ],
                 ],

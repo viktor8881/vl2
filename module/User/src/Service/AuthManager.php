@@ -1,7 +1,9 @@
 <?php
 namespace User\Service;
 
+use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Result;
+use Zend\Session\SessionManager;
 
 /**
  * The AuthManager service is responsible for user's login/logout and simple access
@@ -12,13 +14,13 @@ class AuthManager
 {
     /**
      * Authentication service.
-     * @var \Zend\Authentication\AuthenticationService
+     * @var AuthenticationService
      */
     private $authService;
 
     /**
      * Session manager.
-     * @var Zend\Session\SessionManager
+     * @var SessionManager
      */
     private $sessionManager;
 
@@ -29,9 +31,13 @@ class AuthManager
     private $config;
 
     /**
-     * Constructs the service.
+     * AuthManager constructor.
+     *
+     * @param AuthenticationService $authService
+     * @param SessionManager        $sessionManager
+     * @param array                 $config
      */
-    public function __construct($authService, $sessionManager, $config)
+    public function __construct(AuthenticationService $authService, SessionManager $sessionManager, array $config)
     {
         $this->authService = $authService;
         $this->sessionManager = $sessionManager;
@@ -39,8 +45,12 @@ class AuthManager
     }
 
     /**
-     * Performs a login attempt. If $rememberMe argument is true, it forces the session
-     * to last for one month (otherwise the session expires on one hour).
+     * @param string $email
+     * @param string $password
+     * @param bool $rememberMe
+     *
+     * @return Result
+     * @throws \Exception
      */
     public function login($email, $password, $rememberMe)
     {
@@ -88,6 +98,12 @@ class AuthManager
      * This method uses the 'access_filter' key in the config file and determines
      * whenther the current visitor is allowed to access the given controller action
      * or not. It returns true if allowed; otherwise false.
+     *
+     * @param $controllerName
+     * @param $actionName
+     *
+     * @return bool
+     * @throws \Exception
      */
     public function filterAccess($controllerName, $actionName)
     {

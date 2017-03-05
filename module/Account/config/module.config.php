@@ -1,10 +1,9 @@
 <?php
 namespace Account;
 
-use Zend\Router\Http\Literal;
-use Zend\ServiceManager\Factory\InvokableFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'controllers' => [
@@ -14,16 +13,6 @@ return [
     ],
     'router' => [
         'routes' => [
-//            'balance' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/account',
-//                    'defaults' => [
-//                        'controller' => Controller\IndexController::class,
-//                        'action'     => 'index',
-//                    ],
-//                ],
-//            ],
             'account' => [
                 'type'    => Segment::class,
                 'options' => [

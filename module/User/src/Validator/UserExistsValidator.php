@@ -1,8 +1,8 @@
 <?php
 namespace User\Validator;
 
-use Zend\Validator\AbstractValidator;
 use User\Entity\User;
+use Zend\Validator\AbstractValidator;
 
 /**
  * This validator class is designed for checking if there is an existing user
@@ -32,9 +32,7 @@ class UserExistsValidator extends AbstractValidator
         self::USER_EXISTS => "Another user with such an email already exists"
     );
 
-    /**
-     * Constructor.
-     */
+
     public function __construct($options = null)
     {
         // Set filter options (if provided).
@@ -51,6 +49,8 @@ class UserExistsValidator extends AbstractValidator
 
     /**
      * Check if user exists.
+     * @param mixed $value
+     * @return bool
      */
     public function isValid($value)
     {

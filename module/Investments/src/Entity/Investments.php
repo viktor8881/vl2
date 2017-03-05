@@ -5,6 +5,7 @@ namespace Investments\Entity;
 
 use Base\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Exchange\Entity\Exchange;
 
 /**
  * @ORM\Entity

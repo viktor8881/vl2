@@ -2,9 +2,6 @@
 namespace Base\Form;
 
 
-use Base\Form\Element\ButtonCancel;
-use Zend\Form\Element\Submit;
-
 class Form extends \Zend\Form\Form
 {
 
@@ -34,8 +31,7 @@ class Form extends \Zend\Form\Form
 
     /**
      * @param array $options
-     *
-     * @return Base_Form
+     * @return $this
      */
     public function addButtonsAction(array $options)
     {

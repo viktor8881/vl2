@@ -3,9 +3,9 @@ namespace Course\Service\Factory;
 
 use Course\Entity\CacheCourse;
 use Course\Service\CacheCourseManager;
+use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Doctrine\ORM\EntityManager;
 
 
 class CacheCourseManagerFactory implements FactoryInterface

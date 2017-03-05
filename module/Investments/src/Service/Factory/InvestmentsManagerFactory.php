@@ -1,12 +1,11 @@
 <?php
 namespace Investments\Service\Factory;
 
+use Doctrine\ORM\EntityManager;
+use Interop\Container\ContainerInterface;
 use Investments\Entity\Investments;
 use Investments\Service\InvestmentsManager;
-use Interop\Container\ContainerInterface;
-
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Doctrine\ORM\EntityManager;
 
 
 class InvestmentsManagerFactory implements FactoryInterface

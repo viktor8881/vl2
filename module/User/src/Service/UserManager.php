@@ -1,10 +1,10 @@
 <?php
 namespace User\Service;
 
+use Doctrine\ORM\EntityManager;
 use User\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Math\Rand;
-use Doctrine\ORM\EntityManager;
 
 /**
  * This service is responsible for adding/editing users
@@ -137,7 +137,7 @@ class UserManager
     public function generatePasswordResetToken($user)
     {
         // Generate a token.
-        $token = Rand::getString(32, '0123456789abcdefghijklmnopqrstuvwxyz', true);
+        $token = Rand::getString(32, '0123456789abcdefghijklmnopqrstuvwxyz');
         $user->setPasswordResetToken($token);
 
         $currentDate = date('Y-m-d H:i:s');

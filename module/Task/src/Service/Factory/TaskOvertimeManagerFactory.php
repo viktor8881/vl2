@@ -1,12 +1,11 @@
 <?php
 namespace Task\Service\Factory;
 
-use Task\Entity\TaskOvertime;
+use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Task\Entity\TaskOvertime;
 use Task\Service\TaskOvertimeManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Doctrine\ORM\EntityManager;
-
 
 
 class TaskOvertimeManagerFactory implements FactoryInterface

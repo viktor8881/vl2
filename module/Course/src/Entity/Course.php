@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Viktor
- * Date: 18.12.2016
- * Time: 16:32
- */
-
 namespace Course\Entity;
 
 use Base\Entity\AbstractEntity;
@@ -72,6 +65,7 @@ class Course extends AbstractEntity
 
     /**
      * @param Exchange $exchange
+     * @return $this
      */
     public function setExchange(Exchange $exchange)
     {
@@ -98,7 +92,7 @@ class Course extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getBuy()
     {
@@ -106,7 +100,8 @@ class Course extends AbstractEntity
     }
 
     /**
-     * @param mixed $buy
+     * @param float $buy
+     * @return $this
      */
     public function setBuy($buy)
     {
@@ -115,7 +110,7 @@ class Course extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getSell()
     {
@@ -123,7 +118,8 @@ class Course extends AbstractEntity
     }
 
     /**
-     * @param mixed $sell
+     * @param float $sell
+     * @return $this
      */
     public function setSell($sell)
     {
@@ -131,6 +127,9 @@ class Course extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return float
+     */
     public function getValue()
     {
         return $this->getBuy();
@@ -144,11 +143,17 @@ class Course extends AbstractEntity
         return $this->dateCreate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDate()
     {
         return $this->getDateCreate();
     }
 
+    /**
+     * @return string
+     */
     public function getDateFormatDMY()
     {
         return $this->getDateCreate()->format('d.m.Y');
@@ -164,11 +169,17 @@ class Course extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isMetal()
     {
         return $this->getExchange()->isMetal();
     }
 
+    /**
+     * @return bool
+     */
     public function isCurrency()
     {
         return $this->getExchange()->isCurrency();

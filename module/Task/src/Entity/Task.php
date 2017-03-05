@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Viktor
- * Date: 18.12.2016
- * Time: 16:32
- */
-
 namespace Task\Entity;
 
 use Base\Entity\AbstractEntity;
@@ -115,7 +108,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getPeriod()
     {
@@ -123,7 +116,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @param mixed $period
+     * @param float $period
      */
     public function setPeriod($period)
     {
@@ -131,7 +124,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getExchanges()
     {
@@ -139,7 +132,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @param mixed $exchanges
+     * @param Exchange $exchanges
      */
     public function setExchanges($exchanges)
     {
@@ -187,7 +180,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return Exchange[]
      */
     public function getListMetal()
     {
@@ -210,7 +203,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return Exchange[]
      */
     public function getListCurrency()
     {
@@ -233,7 +226,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return int[]
      */
     public function listMetalId()
     {
@@ -248,7 +241,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return int[]
      */
     public function listCurrencyId()
     {
@@ -263,7 +256,7 @@ abstract class Task extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return static
      */
     abstract public function getType();
 

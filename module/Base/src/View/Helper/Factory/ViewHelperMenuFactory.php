@@ -1,9 +1,9 @@
 <?php
 namespace Base\View\Helper\Factory;
 
+use Base\View\Helper\Menu;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Base\View\Helper\Menu;
 
 class ViewHelperMenuFactory implements FactoryInterface
 {

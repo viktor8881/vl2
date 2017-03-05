@@ -2,8 +2,8 @@
 namespace Investments\Factory;
 
 
-use Investments\Controller\IndexController;
 use Interop\Container\ContainerInterface;
+use Investments\Controller\IndexController;
 use Investments\Service\InvestmentsManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

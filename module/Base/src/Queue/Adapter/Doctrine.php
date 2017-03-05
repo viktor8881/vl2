@@ -84,8 +84,6 @@ class Doctrine extends AbstractAdapter
      *
      * @param  string  $name    queue name
      * @param  integer $timeout default visibility timeout
-     *
-     * @return boolean
      */
     public function create($name, $timeout = null)
     {
@@ -103,13 +101,11 @@ class Doctrine extends AbstractAdapter
 
         try {
             $this->queueManager->insert($queue);
-            return true;
         } catch (\Exception $e) {
             throw new Exception\RuntimeException(
                 $e->getMessage(), $e->getCode(), $e
             );
         }
-        return false;
     }
 
     /**
@@ -227,9 +223,7 @@ class Doctrine extends AbstractAdapter
      *
      * @return \ZendQueue\Message\MessageIterator
      */
-    public function receive($maxMessages = null, $timeout = null,
-        Queue $queue = null
-    ) {
+    public function receive($maxMessages = null, $timeout = null, Queue $queue = null) {
         if ($maxMessages === null) {
             $maxMessages = 1;
         }
@@ -246,12 +240,10 @@ class Doctrine extends AbstractAdapter
         try {
             if ( $maxMessages > 0 ) {
                 $messages = $this->queueManager->fetchAllMessageByQueueAndHandle($this->getQueueByName($queue->getName()), $timeout, $microtime, $maxMessages);
-                /** @var \Base\Queue\Adapter\Doctrine\Entity\Message $mess */
                 foreach ($messages as $mess) {
                     // setup our changes to the message
                     $mess->setHandle(md5(uniqid(rand(), true)))
                         ->setTimeout($microtime);
-
 
                     $count = $this->queueManager->updateMessageByHandle($mess, $timeout, $microtime);
 

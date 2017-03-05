@@ -4,7 +4,6 @@ namespace Task\Factory;
 use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
 use Task\Controller\PercentController;
-use Task\Service\TaskManager;
 use Task\Service\TaskPercentManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

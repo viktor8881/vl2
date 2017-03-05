@@ -18,7 +18,6 @@ class CacheCourseController extends AbstractActionController
 
 
     const STABLE_TREND = 3;
-    private $listPercents = [0.06, 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.35, 1.7, 2];
 
     /** @var ExchangeManager */
     private $exchangeManager;
@@ -51,7 +50,7 @@ class CacheCourseController extends AbstractActionController
     {
         $date = new \DateTime(self::INIT_DATE);
         foreach($this->courseManager->fetchAllByDate($date) as $course) {
-            foreach ($this->listPercents as $percent) {
+            foreach (CacheCourseService::listPercent() as $percent) {
                 /** @var CacheCourse $newCacheCourse */
                 $newCacheCourse = $this->cacheCourseManager->createEntity();
                 $newCacheCourse->setExchange($course->getExchange())
@@ -87,15 +86,10 @@ class CacheCourseController extends AbstractActionController
             if ($date->compareDate($dateNow) == 1) {
                 rename($fileName, $tmpDir . '_tmp.tmp');
                 $flag = false;
-                echo 'exit';
+                echo 'final';
                 exit;
             }
-            //===================================================================
-            pr($date->format('d.m.Y'));
             $this->fillCacheAction( clone $date, true);
-            pr($date->format('d.m.Y'));
-            pr("==============================");
-            //===================================================================
             $date->add(new \DateInterval('P1D'));
             file_put_contents($fileName, $date->formatDMY());
         }
@@ -106,7 +100,7 @@ class CacheCourseController extends AbstractActionController
     public function fillCacheAction(\DateTime $dateNow = null, $hideMess = false)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('14.02.2017');
+            $dateNow = new \DateTime('15.02.2017');
         }
         if ($this->courseManager->hasByDate($dateNow)) {
             try {
@@ -116,9 +110,8 @@ class CacheCourseController extends AbstractActionController
                     $this->cacheCourseService->fillingCache($dateNow, $cacheCourse);
                 }
             } catch (\Exception $exception) {
-                pr($exception); exit;
                 $this->getResponse()->setStatusCode(500);
-                return;
+                return $this->getResponse();
             }
         }
         if (!$hideMess) {

@@ -110,6 +110,26 @@ class CacheCourse extends AbstractEntity
     }
 
     /**
+     * @return \DateTime|null
+     */
+    public function getFirstDate()
+    {
+        $first = reset($this->getDataValue());
+        if ($first) {
+            return new \DateTime($first['data']);
+        }
+        return null;
+    }
+
+    public function getFirstValue() {
+        $first = reset($this->getDataValue());
+        if ($first) {
+            return $first['value'];
+        }
+        return null;
+    }
+
+    /**
      * @param array $dataValue
      * @return CacheCourse
      */
@@ -117,6 +137,14 @@ class CacheCourse extends AbstractEntity
     {
         $this->dataValue = $dataValue;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function countDataValue()
+    {
+        return count($this->dataValue);
     }
 
     /**

@@ -1,10 +1,6 @@
 <?php
 namespace Cron\Controller;
 
-use Base\Queue\Adapter\Doctrine;
-use Base\Queue\Adapter\Doctrine\Service\QueueManager;
-use Base\Service\Date;
-use Task\Service\TaskManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use ZendQueue\Queue;
 
@@ -16,29 +12,26 @@ class IndexController extends AbstractActionController
     const TASK_ANALYSIS = 'analysis';
     const TASK_SEND_MESSAGE = 'send_message';
 
-    /**
-     * @var Queue
-     */
+    /** @var Queue */
     private $queue;
-    /**
-     * @var
-     */
-    private $analysisService;
 
-    public function __construct(Queue $queue, AnalysisService $analysisService, TaskManager $taskManager)
+    public function __construct(Queue $queue)
     {
         $this->queue = $queue;
-        $this->analysisService = $analysisService;
-        $this->taskManager = $taskManager;
     }
+
+
+//INSERT INTO `message` (`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`) VALUES
+//(626, 1, NULL, 'analysis', '3b671c883959a8ef434b85a104c293d4', NULL, 1487940393);
+
 
     public function indexAction()
     {
-        $dateNow = new Date();
+//        $dateNow = new Date();
         $queue = $this->queue;
+
 //        $queue->send(self::TASK_RECEIVE_DATA); exit;
 
-//        return $this->forward()->dispatch(CourseController::class, array('action'=>'receive'));
         $messages = $queue->receive();
         foreach ($messages as $message) {
             $body = $message->body;
@@ -52,7 +45,7 @@ class IndexController extends AbstractActionController
                     $queue->send(self::TASK_ANALYSIS);
                     break;
                 case self::TASK_ANALYSIS:
-                    $this->taskAnalysis($dateNow);
+                    $this->forward()->dispatch(TaskController::class, array('action'=>'task'));
                     $queue->send(self::TASK_SEND_MESSAGE);
                     break;
                 case self::TASK_SEND_MESSAGE:
@@ -65,17 +58,22 @@ class IndexController extends AbstractActionController
             }
             $queue->deleteMessage($message);
         }
-        echo 'ok';
         return $this->getResponse();
     }
 
-    private function taskAnalysis(Core_Date $dateNow) {
-        $count = 0;
-        // считываем настройки выполнения анализа
-        $tasks = $this->taskManager->fetchAll();
-        foreach ($tasks as $task) {
-            $count += $this->analysisService->runByTask($task, $dateNow);
-        }
-        return $count;
-    }
+
+
+//    private function sendMessage(Core_Date $dateNow) {
+//        // readAll analysis currency by date
+//        $analysis = $this->getManager('analysisCurrency')->fetchAllByDate($dateNow);
+//        if ($analysis->count()) {
+//            foreach ($analysis->getCurrencies() as $currency) {
+//                Core_Mail::sendAnalysisCurrency($currency,
+//                    $analysis->getOvertimeByCurrencyCode($currency->getCode()),
+//                    $analysis->listPercentByCurrencyCode($currency->getCode()),
+//                    $analysis->listFigureByCurrencyCode($currency->getCode()));
+//            }
+//        }
+//    }
+
 }

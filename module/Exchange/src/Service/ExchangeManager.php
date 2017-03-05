@@ -8,18 +8,14 @@
 
 namespace Exchange\Service;
 
-
-//use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
+use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
-//use Exchange\Entity\Criteria\ExchangeId;
-//use Exchange\Entity\Criteria\ExchangeType;
-use Exchange\Entity\Exchange;
-use Base\Entity\CriterionCollection;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeType;
+use Exchange\Entity\Exchange;
 
 class ExchangeManager extends AbstractManager
 {
@@ -29,7 +25,7 @@ class ExchangeManager extends AbstractManager
      */
     public function fetchAllIndexCode() {
         $result = [];
-        /** @var Exchange[] $exchange */
+        /** @var Exchange $exchange */
         foreach ($this->fetchAll() as $exchange) {
             $result[$exchange->getCode()] = $exchange;
         }
@@ -49,7 +45,7 @@ class ExchangeManager extends AbstractManager
     }
 
     /**
-     * @param Int[]
+     * @param int[] $list
      * @return Exchange[]
      */
     public function fetchAllByListId(array $list)

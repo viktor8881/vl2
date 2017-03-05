@@ -10,8 +10,8 @@ namespace Base;
 use Base\Queue\Adapter\Doctrine\Service\Factory\QueueManagerFactory;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
 use Base\View\Helper\Factory\ViewHelperMenuFactory;
-use Zend\ServiceManager\Factory\InvokableFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'view_helpers' => [

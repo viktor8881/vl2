@@ -1,6 +1,7 @@
 <?php
 namespace Cron\Factory;
 
+
 use Base\Queue\Adapter\Doctrine;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
 use Cron\Controller\IndexController;
@@ -18,11 +19,11 @@ class IndexControllerFactory implements FactoryInterface
         $queueManager = $container->get(QueueManager::class);
         $values['options'][Doctrine::MANAGER_NAME] = $queueManager;
         $doctrineAdapter = new Doctrine($values);
+
         $options = ['name' => 'def_queue'];
         $queue = new Queue($doctrineAdapter, $options);
-        $controller = new IndexController($queue);
-        return $controller;
 
+        return new IndexController($queue);
     }
 
 }

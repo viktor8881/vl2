@@ -22,7 +22,7 @@ $this->pageHeader()->setTitle('Thank You');
                 Return to <a href="<?= $this->url('login'); ?>">login page</a>.
             </p>
         <?php elseif ($id == 'failed'): ?>
-
+            <p>
             Invalid reset key or it may have expired. Please return
             <a href="<?= $this->url('reset-password') ?>">here</a> and try reset your password again.
             </p>

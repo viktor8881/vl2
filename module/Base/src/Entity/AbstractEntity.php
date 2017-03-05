@@ -2,7 +2,7 @@
 
 namespace Base\Entity;
 
-use Zend\Filter\StaticFilter;
+use Zend\Filter\Word\UnderscoreToCamelCase;
 
 /**
  * Class AbstractEntity
@@ -12,6 +12,7 @@ use Zend\Filter\StaticFilter;
 abstract class AbstractEntity implements IEmpty
 {
 
+    /** @var UnderscoreToCamelCase */
     private $filterMethodName;
 
     /**
@@ -22,7 +23,7 @@ abstract class AbstractEntity implements IEmpty
     public function __construct(array $options = null)
     {
         if ($options) {
-            $this->setOptions($options);
+            $this->setFromArray($options);
         }
     }
 
@@ -31,9 +32,9 @@ abstract class AbstractEntity implements IEmpty
      *
      * @return $this
      */
-    public function setOptions(array $options = array())
+    public function setFromArray(array $options = array())
     {
-        $this->filterMethodName = new \Zend\Filter\Word\UnderscoreToCamelCase();
+        $this->filterMethodName = new UnderscoreToCamelCase();
         $methods = get_class_methods($this);
         foreach ($options as $key => $value) {
             $method = $this->getMethodName($key);

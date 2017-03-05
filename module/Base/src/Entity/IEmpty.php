@@ -11,7 +11,7 @@ interface IEmpty
 {
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId();
 
@@ -23,6 +23,6 @@ interface IEmpty
     /**
      * @param array $options
      */
-    public function setOptions(array $options = array());
+    public function setFromArray(array $options = []);
 
 }

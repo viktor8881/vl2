@@ -12,11 +12,11 @@ use Investments\Entity\Criterion\InvestmentsId;
 class InvestmentsManager extends AbstractManager
 {
 
-
-
-    protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    ) {
+    /**
+     * @param AbstractCriterion $criterion
+     * @param QueryBuilder      $qb
+     */
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb) {
         switch (get_class($criterion)) {
             case InvestmentsId::class:
                 $qb->andWhere($this->entityName . '.id IN (:id)')

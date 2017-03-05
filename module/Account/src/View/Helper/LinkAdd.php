@@ -2,7 +2,6 @@
 
 namespace Account\View\Helper;
 
-use Exchange\Entity\Exchange;
 use Zend\View\Helper\AbstractHelper;
 
 class LinkAdd extends AbstractHelper

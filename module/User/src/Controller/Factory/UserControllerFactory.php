@@ -2,9 +2,9 @@
 namespace User\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
 use User\Controller\UserController;
 use User\Service\UserManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * This is the factory for UserController. Its purpose is to instantiate the

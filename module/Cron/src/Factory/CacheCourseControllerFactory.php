@@ -1,12 +1,12 @@
 <?php
 namespace Cron\Factory;
 
-use Exchange\Service\ExchangeManager;
-use Course\Service\CourseManager;
-use Course\Service\CourseService;
 use Course\Service\CacheCourseManager;
 use Course\Service\CacheCourseService;
+use Course\Service\CourseManager;
+use Course\Service\CourseService;
 use Cron\Controller\CacheCourseController;
+use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

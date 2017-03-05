@@ -7,9 +7,6 @@
 
 namespace Investments;
 
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\MvcEvent;
-
 class Module
 {
 

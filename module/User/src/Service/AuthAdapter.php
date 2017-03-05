@@ -1,10 +1,11 @@
 <?php
 namespace User\Service;
 
+use Doctrine\ORM\EntityManager;
+use User\Entity\User;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\Result;
 use Zend\Crypt\Password\Bcrypt;
-use User\Entity\User;
 
 /**
  * Adapter used for authenticating user. It takes login and password on input
@@ -29,20 +30,22 @@ class AuthAdapter implements AdapterInterface
 
     /**
      * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
     private $entityManager;
 
+
     /**
-     * Constructor.
+     * AuthAdapter constructor.
+     * @param EntityManager $entityManager
      */
-    public function __construct($entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
     /**
-     * Sets user email.
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -50,7 +53,7 @@ class AuthAdapter implements AdapterInterface
     }
 
     /**
-     * Sets password.
+     * @param string $password
      */
     public function setPassword($password)
     {

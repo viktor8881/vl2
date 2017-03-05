@@ -3,8 +3,8 @@
 namespace Task\Controller;
 
 use Exchange\Service\ExchangeManager;
-use Task\Form\OvertimeForm;
 use Task\Entity\TaskOvertime;
+use Task\Form\OvertimeForm;
 use Task\Service\TaskOvertimeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -35,9 +35,7 @@ class OvertimeController extends AbstractActionController
                 $data = $form->getDataForEntity();
                 /** @var TaskOvertime $task */
                 $task = $this->taskManager->createEntity($data);
-                $task->setExchanges(
-                    $this->exchangeManager->fetchAllByListId($data['exchanges'])
-                );
+                $task->setExchanges($this->exchangeManager->fetchAllByListId($data['exchanges']));
                 $this->taskManager->insert($task);
 
                 return $this->redirect()->toRoute('tasks');
@@ -69,7 +67,7 @@ class OvertimeController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $data = $form->getDataForEntity();
-                $task->setOptions($data);
+                $task->setFromArray($data);
                 $task->setExchanges(
                     $this->exchangeManager->fetchAllByListId($data['exchanges'])
                 );

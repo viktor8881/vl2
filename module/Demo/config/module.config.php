@@ -11,7 +11,6 @@ use Demo\Factory\IndexControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Mvc\Controller\LazyControllerAbstractFactory;
 
 return [
     'router' => [

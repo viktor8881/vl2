@@ -2,9 +2,8 @@
 namespace Task\Factory;
 
 
-use Task\Controller\IndexController;
-use Task\Service\TaskManager;
 use Interop\Container\ContainerInterface;
+use Task\Controller\IndexController;
 use Task\Service\TaskOvertimeManager;
 use Task\Service\TaskPercentManager;
 use Zend\ServiceManager\Factory\FactoryInterface;

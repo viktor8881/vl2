@@ -10,8 +10,7 @@ class IconSub extends AbstractHelper
     {
         $title = ($title) ? 'title="' . _($this->view->escapeHtml($title)) . '"'
             : null;
-        return '<span class="glyphicon glyphicon-minus" ' . _($title)
-            . '></span>';
+        return '<span class="glyphicon glyphicon-minus" ' . _($title) . '></span>';
     }
 
 }

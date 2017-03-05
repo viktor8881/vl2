@@ -2,7 +2,6 @@
 namespace Task\View\Helper;
 
 use Exchange\Entity\Exchange;
-use Task\Entity\Task;
 use Zend\View\Helper\AbstractHelper;
 
 class NamesExchange extends AbstractHelper

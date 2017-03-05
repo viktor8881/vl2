@@ -6,14 +6,19 @@ namespace Course\Service;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
+use Base\Entity\OrderCollection;
+use Base\Service\AbstractManager;
 use Course\Entity\CacheCourse;
-use Course\Entity\Criterion\CourseEqDate;
+use Course\Entity\CacheCourseCollection;
+use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;
-use Base\Service\AbstractManager;
+use Course\Entity\Order\CourseId;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
+use Zend\Paginator\Adapter\NullFill;
+use Zend\Paginator\Factory;
 
 
 /**
@@ -31,7 +36,7 @@ class CacheCourseManager extends AbstractManager
     public function fetchAllByDate(\DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -44,7 +49,7 @@ class CacheCourseManager extends AbstractManager
     {
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($list));
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -52,7 +57,7 @@ class CacheCourseManager extends AbstractManager
      * @param Exchange $exchange
      * @param          $percent
      *
-     * @return CacheCourse|null
+     * @return null|CacheCourse
      */
     public function lastByExchangeAndPercent(Exchange $exchange, $percent)
     {
@@ -69,38 +74,62 @@ class CacheCourseManager extends AbstractManager
     public function hasByDate(\DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CourseEqDate($date));
+        $criterions->append(new CriterionEqDate($date));
         return $this->countByCriterions($criterions);
     }
 
-//    /**
-//     * @param Course[] $listCourse
-//     * @return bool
-//     */
-//    public function insertList(array $listCourse) {
-//        if (count($listCourse)) {
-//            $i = 0;
-//            $batchSize = 30;
-//            foreach ($listCourse as $course) {
-//                $this->em->persist($course);
-//                if ((++$i % $batchSize) === 0) {
-//                    $this->em->flush();
-//                    $this->em->clear();
-//                }
-//            }
-//            $this->em->flush();
-//            $this->em->clear();
-//        }
-//        return true;
-//    }
+    /**
+     * @param Exchange $exchange
+     * @param  float $percent
+     * @return CacheCourseCollection
+     */
+    public function fetch5ByExchangeAndPercent(Exchange $exchange, $percent)
+    {
+        return $this->collectionByParams($exchange, $percent, 5);
+    }
+
+    /**
+     * @param Exchange $exchange
+     * @param float $percent
+     * @return CacheCourseCollection
+     */
+    public function fetch7ByCodePercent(Exchange $exchange, $percent)
+    {
+        return $this->collectionByParams($exchange, $percent, 7);
+    }
+
+    /**
+     * @param Exchange $exchange
+     * @param float $percent
+     * @param int $count
+     * @return CacheCourseCollection
+     */
+    private function collectionByParams(Exchange $exchange, $percent, $count)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionPercent($percent));
+
+        $paginator = Factory::factory($count, new NullFill());
+        $paginator->setItemCountPerPage($count);
+        $paginator->setCurrentPageNumber(1);
+
+        $orders = new OrderCollection();
+        $orders->append(new CourseId('Desc'));
+
+        $coll = new CacheCourseCollection();
+        foreach ($this->fetchAllByCriterions($criterions, $paginator, $orders) as $cacheCourse ) {
+            $coll->append($cacheCourse);
+        }
+        return $coll;
+    }
 
     /**
      * @param AbstractCriterion $criterion
      * @param QueryBuilder      $qb
      */
-    protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    ) {
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb)
+    {
         switch (get_class($criterion)) {
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName . '.exchange IN (:exchange_id)')
@@ -111,7 +140,7 @@ class CacheCourseManager extends AbstractManager
                     ->setParameter('start', $criterion->getFirstValue())
                     ->setParameter('end', $criterion->getSecondValue());
                 break;
-            case CourseEqDate::class:
+            case CriterionEqDate::class:
                 $qb->andWhere($this->entityName . '.lastDate = :lastDate')
                     ->setParameter('lastDate', $criterion->getFirstValue());
                 break;
@@ -124,13 +153,13 @@ class CacheCourseManager extends AbstractManager
      */
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-//        switch (get_class($order)) {
-//            case 'Question_Order_Status':
-//                $result = $prefix.'.status '.$order->getTypeOrder();
-//                break;
-//            default:
-//                break;
-//        }
+        switch (get_class($order)) {
+            case CourseId::class:
+                $qb->orderBy($this->entityName . '.id', $order->getTypeOrder());
+                break;
+            default:
+                break;
+        }
     }
 
 

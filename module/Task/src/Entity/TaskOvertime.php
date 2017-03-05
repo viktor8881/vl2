@@ -1,16 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Viktor
- * Date: 18.12.2016
- * Time: 16:32
- */
 
 namespace Task\Entity;
 
-use Base\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Exchange\Entity\Exchange;
 
 /**
  * @ORM\Entity

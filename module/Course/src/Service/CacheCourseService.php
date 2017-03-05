@@ -1,20 +1,28 @@
 <?php
 namespace Course\Service;
 
+use Analysis\Service\TechnicalAnalysis;
 use Course\Entity\CacheCourse;
 use Course\Entity\Course;
-use Analysis\Service\TechnicalAnalysis;
 
 class CacheCourseService
 {
 
     const STABLE_TREND = 3;
-    private $listPercents = [0.06, 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.35, 1.7, 2];
+    private static $listPercent = [0.06, 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.35, 1.7, 2];
 
 
     /** @var CacheCourseManager */
     private $cacheCourseManager;
 
+
+    /**
+     * @return Float[]
+     */
+    public static function listPercent()
+    {
+        return self::$listPercent;
+    }
 
     /**
      * @param CacheCourseManager $cacheCourseManager
@@ -26,11 +34,11 @@ class CacheCourseService
 
     /**
      * @param \DateTime $date
-     * @param array     $listExchangeCode
+     * @param Course $course
      */
     public function fillingCache(\DateTime $date, Course $course)
     {
-        foreach ($this->listPercents as $percent) {
+        foreach (self::$listPercent as $percent) {
             /** @var CacheCourse $cacheCourse */
             $cacheCourse = $this->cacheCourseManager->lastByExchangeAndPercent($course->getExchange(), $percent);
             $arr4Analysis = array($cacheCourse->getLastValue(), $course->getValue());

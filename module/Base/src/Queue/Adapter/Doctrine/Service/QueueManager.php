@@ -5,11 +5,12 @@ namespace Base\Queue\Adapter\Doctrine\Service;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
-use Base\Queue\Adapter\Doctrine\Entity\Criterion\QueueName;
 use Base\Queue\Adapter\Doctrine\Entity\Criterion\QueueId;
+use Base\Queue\Adapter\Doctrine\Entity\Criterion\QueueName;
 use Base\Queue\Adapter\Doctrine\Entity\Message;
 use Base\Queue\Adapter\Doctrine\Entity\Queue;
 use Base\Service\AbstractManager;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\QueryBuilder;
 
 
@@ -30,7 +31,7 @@ class QueueManager extends AbstractManager
     }
 
     /**
-     * @param String $name
+     * @param Queue $queue
      * @return int
      */
     public function countMessageByQueue(Queue $queue)
@@ -61,7 +62,7 @@ class QueueManager extends AbstractManager
      * @param       $handle
      * @param int   $maxResult
      *
-     * @return array
+     * @return Message[]
      */
     public function fetchAllMessageByQueueAndHandle(Queue $queue, $timeout, $handle, $maxResult = 50)
     {
@@ -76,7 +77,7 @@ class QueueManager extends AbstractManager
             ->setMaxResults($maxResult);
 
         $query = $qb->getQuery()
-            ->setLockMode(\Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE);
+            ->setLockMode(LockMode::PESSIMISTIC_WRITE);
         return $query->getResult();
     }
 
@@ -106,7 +107,7 @@ class QueueManager extends AbstractManager
      */
     public function getMessageForUpdate($id)
     {
-        return $this->em->getRepository(Message::class)->find($id, \Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE);
+        return $this->em->getRepository(Message::class)->find($id, LockMode::PESSIMISTIC_WRITE);
     }
 
     /**
@@ -146,12 +147,10 @@ class QueueManager extends AbstractManager
 
     /**
      * @param AbstractCriterion $criterion
-     * @param QueryBuilder      $qb
+     * @param QueryBuilder  $qb
      * @return mixed|void
      */
-    protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    ) {
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb) {
         switch (get_class($criterion)) {
             case QueueName::class:
                 $qb->andWhere($this->entityName.'.name IN (:name)')

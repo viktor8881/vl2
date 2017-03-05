@@ -1,7 +1,6 @@
 <?php
 namespace Task\View\Helper;
 
-use Exchange\Entity\Exchange;
 use Task\Entity\Task;
 use Zend\View\Helper\AbstractHelper;
 
@@ -34,21 +33,18 @@ class Name extends AbstractHelper
         if (count($listMetal)) {
             $xhtml .= '<div class="col-sm-3 text-success" style="padding-top:16px; padding-bottom:16px;">'
                 . '<strong>' . _('Металы') . ' </strong>'
-                . '<a href="#" data-toggle="tooltip" label label-warning title="'
-                . $this->view->namesExchange($listMetal) . '">'
-                . '<span class="label label-success">' . count($listMetal)
-                . '</span>'
+                . '<a href="#" data-toggle="tooltip" title="'. $this->view->namesExchange($listMetal) . '">'
+                    . '<span class="label label-success">' . count($listMetal). '</span>'
                 . '</a>'
                 . '</div>';
         }
+
         $listCurrency = $model->getListCurrency();
         if (count($listCurrency)) {
             $xhtml .= '<div class="col-sm-3 text-warning" style="padding-top:16px; padding-bottom:16px;">'
                 . '<strong>' . _('Валюты') . '</strong> '
-                . '<a href="#" data-toggle="tooltip" label label-warning title="'
-                . $this->view->namesExchange($listCurrency) . '">'
-                . '<span class="label label-warning">' . count($listCurrency)
-                . '</span>'
+                . '<a href="#" data-toggle="tooltip"  title="'. $this->view->namesExchange($listCurrency) . '">'
+                    . '<span class="label label-warning">' . count($listCurrency). '</span>'
                 . '</a>'
                 . '</div>';
         }

@@ -8,8 +8,8 @@ use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Entity\IEmpty;
 use Base\Entity\OrderCollection;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Zend\Paginator\Paginator;
 
 /**
@@ -71,7 +71,7 @@ abstract class AbstractManager implements IManager
 
     /**
      * @param $id
-     * @return AbstractEntity|null
+     * @return object|null
      */
     public function get($id)
     {
@@ -82,11 +82,9 @@ abstract class AbstractManager implements IManager
      * @param CriterionCollection|null $criterions
      * @param OrderCollection|null     $orders
      *
-     * @return AbstractEntity|null
+     * @return object|null
      */
-    public function getByCriterions(CriterionCollection $criterions = null,
-        OrderCollection $orders = null
-    ) {
+    public function getByCriterions(CriterionCollection $criterions = null, OrderCollection $orders = null) {
         $qb = $this->em->createQueryBuilder();
         $qb->select($this->entityName)
             ->from($this->entityName, $this->entityName);
@@ -158,21 +156,16 @@ abstract class AbstractManager implements IManager
 
     /**
      * @param AbstractCriterion $criterion
-     * @param QueryBuilder      $qb
-     *
-     * @return mixed
+     * @param QueryBuilder  $qb
      */
-    abstract protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    );
+    abstract protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb);
 
     /**
      * @param OrderCollection|null $orders
      * @param QueryBuilder         $qb
      */
-    protected function addOrders(OrderCollection $orders = null,
-        QueryBuilder $qb
-    ) {
+    protected function addOrders(OrderCollection $orders = null,QueryBuilder $qb)
+    {
         if ($orders) {
             foreach ($orders as $order) {
                 $this->addOrder($order, $qb);
@@ -183,7 +176,6 @@ abstract class AbstractManager implements IManager
     /**
      * @param AbstractOrder $order
      * @param QueryBuilder  $qb
-     * @return mixed
      */
     abstract protected function addOrder(AbstractOrder $order, QueryBuilder $qb);
 
@@ -198,7 +190,7 @@ abstract class AbstractManager implements IManager
     /**
      * @param CriterionCollection|null $criterions
      *
-     * @return mixed
+     * @return int
      */
     public function countByCriterions(CriterionCollection $criterions = null)
     {

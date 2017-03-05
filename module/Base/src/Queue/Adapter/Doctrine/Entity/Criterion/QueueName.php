@@ -1,9 +1,9 @@
 <?php
 namespace Base\Queue\Adapter\Doctrine\Entity\Criterion;
 
-use Base\Entity\AbstractCriterion;
+use Base\Entity\AbstractOrder;
 
-class QueueName extends AbstractCriterion
+class QueueName extends AbstractOrder
 {
 
 }

@@ -19,29 +19,23 @@ $this->pageBreadcrumbs()->setItems([
     <div class="col-md-6">
         <table class="table table-striped table-bordered">
             <tr>
-                <th>ID:</th>
-                <td>
-                <?= $this->escapeHtml($user->getId()) ?></th>
+                <td class="text-strong">ID:</td>
+                <td><?= $this->escapeHtml($user->getId()) ?></td>
+            <tr>
+                <td class="text-strong">E-mail:</td>
+                <td><?= $this->escapeHtml($user->getEmail()) ?></td>
             </tr>
             <tr>
-                <th>E-mail:</th>
-                <td>
-                <?= $this->escapeHtml($user->getEmail()) ?></th>
+                <td class="text-strong">Full Name:</td>
+                <td><?= $this->escapeHtml($user->getFullName()) ?></td>
             </tr>
             <tr>
-                <th>Full Name:</th>
-                <td>
-                <?= $this->escapeHtml($user->getFullName()) ?></th>
+                <td class="text-strong">Date Created:</td>
+                <td><?= $this->escapeHtml($user->getDateCreated()) ?></td>
             </tr>
             <tr>
-                <th>Date Created:</th>
-                <td>
-                <?= $this->escapeHtml($user->getDateCreated()) ?></th>
-            </tr>
-            <tr>
-                <th>Status:</th>
-                <td>
-                <?= $this->escapeHtml($user->getStatusAsString()) ?></th>
+                <td class="text-strong">Status:</td>
+                <td><?= $this->escapeHtml($user->getStatusAsString()) ?></td>
             </tr>
         </table>
     </div>

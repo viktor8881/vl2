@@ -3,10 +3,9 @@ namespace Course\Service\Factory;
 
 use Course\Entity\Course;
 use Course\Service\CourseManager;
-use Interop\Container\ContainerInterface;
-
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Doctrine\ORM\EntityManager;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 
 class CourseManagerFactory implements FactoryInterface

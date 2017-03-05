@@ -27,13 +27,13 @@ class Fraction extends AbstractValidator
             $this->_fraction = (int)$params;
         }
         $this->_setValue($this->_fraction);
+        parent::__construct();
     }
 
     /**
      *  валидация параметра
      *
-     * @param <type> $value     - исходное число
-     *
+     * @param int $value
      * @return boolean
      */
     public function isValid($value)

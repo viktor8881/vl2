@@ -1,12 +1,8 @@
 <?php
 namespace Task\Form;
 
-use Base\Filter\ToFloat;
 use Base\Form\Form;
-use Base\Validator\FloatPositive;
-use Exchange\Service\ExchangeManager;
 use Task\Entity\Task;
-use Zend\Form\FormInterface;
 use Zend\InputFilter\InputFilter;
 
 class OvertimeForm extends Form

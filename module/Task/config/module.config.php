@@ -1,12 +1,12 @@
 <?php
 namespace Task;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Task\Factory\IndexControllerFactory;
-use Task\Factory\PercentControllerFactory;
 use Task\Factory\OvertimeControllerFactory;
+use Task\Factory\PercentControllerFactory;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'controllers'     => [

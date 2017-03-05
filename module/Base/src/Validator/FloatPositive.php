@@ -2,7 +2,6 @@
 namespace Base\Validator;
 
 use Zend\I18n\Validator\IsFloat;
-use Zend\Validator\AbstractValidator;
 
 class FloatPositive extends IsFloat
 {
@@ -11,8 +10,7 @@ class FloatPositive extends IsFloat
     private $zero = null;
 
     /**
-     * @param bollean $zero - allow zero
-     * @param type    $locale
+     * @param bool $zero
      */
     public function __construct($zero = false)
     {

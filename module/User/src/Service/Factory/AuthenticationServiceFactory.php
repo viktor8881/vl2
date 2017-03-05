@@ -2,11 +2,11 @@
 namespace User\Service\Factory;
 
 use Interop\Container\ContainerInterface;
+use User\Service\AuthAdapter;
 use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Session\SessionManager;
-use Zend\Authentication\Storage\Session as SessionStorage;
-use User\Service\AuthAdapter;
 
 /**
  * The factory responsible for creating of authentication service.
@@ -14,8 +14,11 @@ use User\Service\AuthAdapter;
 class AuthenticationServiceFactory implements FactoryInterface
 {
     /**
-     * This method creates the Zend\Authentication\AuthenticationService service
-     * and returns its instance.
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null         $options
+     *
+     * @return AuthenticationService
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -23,7 +26,6 @@ class AuthenticationServiceFactory implements FactoryInterface
         $authStorage = new SessionStorage('Zend_Auth', 'session', $sessionManager);
         $authAdapter = $container->get(AuthAdapter::class);
 
-        // Create the service and inject dependencies into its constructor.
         return new AuthenticationService($authStorage, $authAdapter);
     }
 }

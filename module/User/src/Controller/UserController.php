@@ -2,13 +2,13 @@
 namespace User\Controller;
 
 use Doctrine\ORM\EntityManager;
+use User\Entity\User;
+use User\Form\PasswordChangeForm;
+use User\Form\PasswordResetForm;
+use User\Form\UserForm;
 use User\Service\UserManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use User\Entity\User;
-use User\Form\UserForm;
-use User\Form\PasswordChangeForm;
-use User\Form\PasswordResetForm;
 
 /**
  * This controller is responsible for user management (adding, editing,
@@ -29,9 +29,12 @@ class UserController extends AbstractActionController
     private $userManager;
 
     /**
-     * Constructor.
+     * UserController constructor.
+     *
+     * @param EntityManager $entityManager
+     * @param UserManager   $userManager
      */
-    public function __construct($entityManager, $userManager)
+    public function __construct(EntityManager $entityManager, UserManager $userManager)
     {
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;

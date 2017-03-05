@@ -4,8 +4,8 @@ namespace Cron\Controller;
 use Base\Service\Date;
 use Course\Service\CourseManager;
 use Course\Service\CourseService;
-use Exchange\Service\ExchangeManager;
 use Exchange\Entity\Exchange;
+use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CourseController extends AbstractActionController
@@ -35,10 +35,10 @@ class CourseController extends AbstractActionController
         $this->tmpDir = $tmpDir;
     }
 
-    private function tmpAction()
+    public function tmpAction()
     {
-        $dateNow = new Date('12.02.2017');
-        $fileName = $this->tmpDir . 'date-metal.tmp';
+        $dateNow = new Date();
+        $fileName = $this->tmpDir . 'tmp.tmp';
         if (!file_exists($fileName)) {
             exit;
         }
@@ -57,7 +57,7 @@ class CourseController extends AbstractActionController
                 continue;
             }
             if ($date->compareDate($dateNow) == 1) {
-                rename($fileName, $this->tmpDir . '_date-metal.tmp');
+                rename($fileName, $this->tmpDir . '_tmp.tmp');
                 $flag = false;
                 break;
             }
@@ -71,7 +71,7 @@ class CourseController extends AbstractActionController
         return $this->getResponse();
     }
 
-    public function receiveAction($date = null)
+    public function receiveAction(\DateTime $date = null)
     {
         if (is_null($date)) {
             $date = new \DateTime('15.02.2017');
@@ -87,7 +87,7 @@ class CourseController extends AbstractActionController
                 echo 'ok!';
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);
-                return;
+                return $this->getResponse();
             }
         }
         return $this->getResponse();

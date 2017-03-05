@@ -2,8 +2,8 @@
 namespace User\Form;
 
 use Zend\Form\Form;
-use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\Hostname;
 
 /**
  * This form is used to collect user's login, password and 'Remember Me' flag.
@@ -105,7 +105,7 @@ class LoginForm extends Form
                 [
                     'name' => 'EmailAddress',
                     'options' => [
-                        'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+                        'allow' => Hostname::ALLOW_DNS,
                         'useMxCheck' => false,
                     ],
                 ],

@@ -10,10 +10,9 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Session\Storage\SessionArrayStorage;
-use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
+use Zend\Session\Validator\RemoteAddr;
 
 return [
     // Session configuration.

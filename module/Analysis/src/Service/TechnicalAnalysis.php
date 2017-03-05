@@ -22,12 +22,12 @@ class TechnicalAnalysis
      * характеризуется тем, что нижние колебания цены рынка повышаются.
      * Нижний критерий устанавливается на процент self::PERSENT_UP_TREND ниже предыдущего минимума.
      *
-     * @param array $courses
-     * @param float $persent - self::PERSENT_UP_TREND
+     * @param float[] $courses
+     * @param float $percent
      *
      * @return boolean
      */
-    public static function isUpTrend(array $courses, $percent = 5)
+    public static function isUpTrend(array $courses, $percent = 5.0)
     {
         $courses = array_values($courses);
         $firstCourse = null;
@@ -54,12 +54,12 @@ class TechnicalAnalysis
      * характеризуется тем, что максимальные цены колебаний рынка понижаются
      * Нижний критерий устанавливается на процент self::PERSENT_DOWN_TREND выше предыдущего минимума.
      *
-     * @param array $courses
-     * @param type  $percent
+     * @param float[] $courses
+     * @param float  $percent
      *
      * @return boolean
      */
-    public static function isDownTrend(array $courses, $percent = 5)
+    public static function isDownTrend(array $courses, $percent = 5.0)
     {
         $courses = array_values($courses);
         $firstCourse = null;
@@ -85,12 +85,12 @@ class TechnicalAnalysis
      * горизонтальном диапазоне (sideways, fl at market, trendless).
      * Нижний/верхний критерий устанавливается на процент self::PERSENT_EQUAL_TREND выше/ниже предыдущего минимума.
      *
-     * @param array $courses
+     * @param float[] $courses
      * @param float $percent
      *
      * @return boolean
      */
-    public static function isEqualChannel(array $courses, $percent = 5)
+    public static function isEqualChannel(array $courses, $percent = 5.0)
     {
         $courses = array_values($courses);
         $i = 0;
@@ -101,10 +101,7 @@ class TechnicalAnalysis
                 $hightCritery = $course * (1 + ($percent / 100));
                 continue;
             }
-            if (self::compare($course, $hightCritery) == 1 or self::compare(
-                    $lowCritery, $course
-                ) == 1
-            ) {
+            if (self::compare($course, $hightCritery) == 1 || self::compare($lowCritery, $course) == 1) {
                 return false;
             }
         }
@@ -125,10 +122,7 @@ class TechnicalAnalysis
             $hightCritery = $hightCritery * (1 + ($percent / 100));
             $lowCritery = $lowCritery * (1 + ($percent / 100));
 
-            if (self::compare($course, $hightCritery) == 1 or self::compare(
-                    $lowCritery, $course
-                ) == 1
-            ) {
+            if (self::compare($course, $hightCritery) == 1 || self::compare($lowCritery, $course) == 1) {
                 return false;
             }
         }
@@ -163,15 +157,13 @@ class TechnicalAnalysis
      * для повышательного тренда имеет вид буквы М. Двойная вершина является
      * сигналом более слабым, чем тройная вершина.
      *
-     * @param array $courses
+     * @param float[] $courses
      * @param float $percent
-     * @param float $percentDiffPeak разница в процентах между верхом и низом волны
+     * @param float $percentDiffPeak
      *
      * @return boolean
      */
-    public static function isDoubleTop(array $courses, $percent = 5,
-        $percentDiffPeak = 20
-    ) {
+    public static function isDoubleTop(array $courses, $percent = 5.0, $percentDiffPeak = 20) {
         if (count($courses) != 5) {
             return false;
         }
@@ -435,13 +427,12 @@ class TechnicalAnalysis
      * горизонтальную (или почти горизонтальную) линию сопротивления,
      * нижняя граница треугольника имеет восходящий наклон. Амплитуда колебаний внутри треугольника снижается.
      *
-     * @param array $courses
+     * @param float[] $courses
+     * @param float $percentHorizon
      *
      * @return boolean
      */
-    public static function isAscendingTriangle(array $courses,
-        $percentHorizon = 1
-    ) {
+    public static function isAscendingTriangle(array $courses, $percentHorizon = 1.0) {
         if (count($courses) < 5) {
             return false;
         }
@@ -487,14 +478,12 @@ class TechnicalAnalysis
      * (или почти горизонтальную) линию поддержки, верхняя граница треугольника
      * имеет нисходящий наклон. Амплитуда колебаний внутри треугольника снижается.
      *
-     * @param array $courses
-     * @param type  $percentHorizon
+     * @param float[] $courses
+     * @param float $percentHorizon
      *
      * @return boolean
      */
-    public static function isDescendingTriangle(array $courses,
-        $percentHorizon = 1
-    ) {
+    public static function isDescendingTriangle(array $courses, $percentHorizon = 1.0) {
         if (count($courses) < 5) {
             return false;
         }
@@ -536,8 +525,8 @@ class TechnicalAnalysis
     }
 
     /**
-     * @param fload $value1
-     * @param fload $value2
+     * @param float $value1
+     * @param float $value2
      *
      * @return boolean
      */

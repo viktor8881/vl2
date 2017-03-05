@@ -3,8 +3,8 @@
 namespace Task\Controller;
 
 use Exchange\Service\ExchangeManager;
-use Task\Form\PercentForm;
 use Task\Entity\TaskPercent;
+use Task\Form\PercentForm;
 use Task\Service\TaskPercentManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -77,7 +77,7 @@ class PercentController extends AbstractActionController
                 $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
                     $data['listIdExchanges']
                 );
-                $task->setOptions($data);
+                $task->setFromArray($data);
                 $this->taskManager->update($task);
 
                 $this->flashMessenger()->addSuccessMessage(

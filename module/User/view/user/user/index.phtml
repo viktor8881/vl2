@@ -33,20 +33,19 @@ $this->pageBreadcrumbs()->setItems([
             <td><?= $this->escapeHtml($user->getId()); ?></td>
             <td>
                 <a href="<?= $this->url('users', ['action' => 'view', 'id' => $user->getId()]); ?>">
-                    <?= $this->escapeHtml($user->getEmail()); ?>
+                    <?= $this->escapeHtml($user->getEmail()) ?>
                 </a>
             </td>
-            <td><?= $this->escapeHtml($user->getFullName()); ?></a>
-            </td>
-            <td><?= $this->escapeHtml($user->getDateCreated()); ?></td>
-            <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
+            <td><?= $this->escapeHtml($user->getFullName()) ?></td>
+            <td><?= $this->escapeHtml($user->getDateCreated()) ?></td>
+            <td><?= $this->escapeHtml($user->getStatusAsString()) ?></td>
             <td>
                 <a class="btn btn-info" href="<?= $this->url('users',
                     ['action' => 'edit', 'id' => $user->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Edit
                 </a>
                 <a class="btn btn-default" href="<?= $this->url('users',
-                    ['action' => 'change-password', 'id' => $user->getId()]); ?>">
+                    ['action' => 'change-password', 'id' => $user->getId()]) ?>">
                     <span class="glyphicon glyphicon-asterisk"></span> Change Password
                 </a>
             </td>

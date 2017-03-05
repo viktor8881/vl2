@@ -9,22 +9,10 @@
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
-
-    <!-- Le styles -->
-    <?= $this->headLink(
-        ['rel'  => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon',
-         'href' => $this->basePath() . '/img/favicon.ico']
-    )
-        ->prependStylesheet($this->basePath('css/style.css'))
-    //        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-    //        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
-    ?>
-
-    <!-- Scripts -->
     <?= $this->headScript()
-//        ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
     ?>
+    <!-- Le styles -->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -33,6 +21,11 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
+    <?= $this->headLink(
+        ['rel'  => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon',
+         'href' => $this->basePath() . '/img/favicon.ico']
+    )->appendStylesheet($this->basePath('css/style.css'))
+    ?>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -72,6 +65,7 @@
         <p class="text-right h__margin_right10"><?=date('Y')?></p>
     </footer>
 </div>
+<script src="/js/main.js"></script>
 <?= $this->inlineScript() ?>
 </body>
 </html>

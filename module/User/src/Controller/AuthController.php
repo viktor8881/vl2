@@ -2,12 +2,15 @@
 
 namespace User\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Authentication\Result;
-use Zend\Uri\Uri;
+use Doctrine\ORM\EntityManager;
 use User\Form\LoginForm;
-use User\Entity\User;
+use User\Service\AuthManager;
+use User\Service\UserManager;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Result;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Uri\Uri;
+use Zend\View\Model\ViewModel;
 
 /**
  * This controller is responsible for letting the user to log in and log out.
@@ -16,32 +19,37 @@ class AuthController extends AbstractActionController
 {
     /**
      * Entity manager.
-     * @var Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
     private $entityManager;
 
     /**
      * Auth manager.
-     * @var User\Service\AuthManager
+     * @var AuthManager
      */
     private $authManager;
 
     /**
      * Auth service.
-     * @var \Zend\Authentication\AuthenticationService
+     * @var AuthenticationService
      */
     private $authService;
 
     /**
      * User manager.
-     * @var User\Service\UserManager
+     * @var UserManager
      */
     private $userManager;
 
+
     /**
-     * Constructor.
+     * AuthController constructor.
+     * @param EntityManager         $entityManager
+     * @param AuthManager           $authManager
+     * @param AuthenticationService $authService
+     * @param UserManager           $userManager
      */
-    public function __construct($entityManager, $authManager, $authService, $userManager)
+    public function __construct(EntityManager $entityManager, AuthManager $authManager, AuthenticationService $authService, UserManager $userManager)
     {
         $this->entityManager = $entityManager;
         $this->authManager = $authManager;

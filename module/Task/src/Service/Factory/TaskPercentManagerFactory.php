@@ -1,13 +1,11 @@
 <?php
 namespace Task\Service\Factory;
 
-use Task\Entity\TaskPercent;
-use Task\Service\TaskManager;
+use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Task\Entity\TaskPercent;
 use Task\Service\TaskPercentManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Doctrine\ORM\EntityManager;
-
 
 
 class TaskPercentManagerFactory implements FactoryInterface

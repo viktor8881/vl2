@@ -22,15 +22,12 @@ class LsDate extends AbstractValidator
         if (!is_null($options)) {
             $this->dateMax = $options;
         }
+        parent::__construct();
     }
 
     public function isValid($value)
     {
         if (strtotime($value) > $this->dateMax->format('U')) {
-            pr($value);
-            pr(strtotime($value));
-            pr($this->dateMax->format('U'));
-            die('ads');
             $this->error(self::INVALID_DATE);
             return false;
         }
