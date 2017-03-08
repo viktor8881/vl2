@@ -1,3 +1,4 @@
+.idea/*
 .vagrant/
 vendor/
 config/development.config.php
@@ -6,4 +7,3 @@ data/cache/*
 data/DoctrineORMModule/*
 phpunit.xml
 ubuntu-xenial-16.04-cloudimg-console.log
-.idea/
