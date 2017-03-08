@@ -74,16 +74,11 @@ class PercentController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $data = $form->getDataForEntity();
-                $data['exchanges'] = $this->exchangeManager->fetchAllByListId(
-                    $data['listIdExchanges']
-                );
+                $data['exchanges'] = $this->exchangeManager->fetchAllByListId($data['listIdExchanges']);
                 $task->setFromArray($data);
                 $this->taskManager->update($task);
 
-                $this->flashMessenger()->addSuccessMessage(
-                    'Задача изменена.'
-                );
-
+                $this->flashMessenger()->addSuccessMessage('Задача изменена.');
                 return $this->redirect()->toRoute('tasks');
             }
         } else {
