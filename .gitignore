@@ -1,4 +1,4 @@
-.idea/*
+.idea/workspace.xml
 .vagrant/
 vendor/
 config/development.config.php
