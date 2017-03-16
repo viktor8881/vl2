@@ -11,9 +11,8 @@ class CacheCourseCollection extends ArrayObject
      * @return bool
      */
     public function firstIsDownTrend() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = current($items);
+        /** @var CacheCourse $item */
+        $item = current($this->storage);
         if ($item) {
             return $item->isDownTrend();
         }
@@ -24,9 +23,8 @@ class CacheCourseCollection extends ArrayObject
      * @return bool
      */
     public function firstIsUpTrend() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = current($items);
+        /** @var CacheCourse $item */
+        $item = current($this->storage);
         if ($item) {
             return $item->isUpTrend();
         }
@@ -37,9 +35,8 @@ class CacheCourseCollection extends ArrayObject
      * @return bool
      */
     public function lastNullOperation() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = end($items);
+        /** @var CacheCourse $item */
+        $item = end($this->storage);
         return  ($item) ? true : false;
     }
 
@@ -47,9 +44,8 @@ class CacheCourseCollection extends ArrayObject
      * @return int
      */
     public function countFirstData() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = current($items);
+        /** @var CacheCourse $item */
+        $item = current($this->storage);
         if ($item) {
             return $item->countDataValue();
         }
@@ -84,9 +80,8 @@ class CacheCourseCollection extends ArrayObject
      * @return mixed
      */
     public function getFirstDate() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = current($items);
+        /** @var CacheCourse $item */
+        $item = current($this->storage);
         if ($item) {
             return $item->getFirstDate();
         }
@@ -97,9 +92,8 @@ class CacheCourseCollection extends ArrayObject
      * @return mixed
      */
     public function getLastDate() {
-        /** @var CacheCourse[] $items */
-        $items = $this->getIterator();
-        $item = end($items);
+        /** @var CacheCourse $item */
+        $item = end($this->storage);
         if ($item) {
             return $item->getLastDate();
         }

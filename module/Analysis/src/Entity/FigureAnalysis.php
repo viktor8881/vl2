@@ -4,6 +4,7 @@ namespace Analysis\Entity;
 use Base\Entity\AbstractEntity;
 use Course\Entity\CacheCourse;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
 
 /**
@@ -37,10 +38,10 @@ class FigureAnalysis extends AbstractEntity
     /** @ORM\Column(name="figure", type="integer") */
     private $figure;
     /**
-     * @ORM\ManyToMany(targetEntity="\CacheCourse\Entity\CacheCourse")
-     * @ORM\JoinTable(name="figure_analysis_cache_course",
+     * @ORM\ManyToMany(targetEntity="\Course\Entity\CacheCourse")
+     * @ORM\JoinTable(name="figure_analysis_cache_courses",
      * joinColumns={@ORM\JoinColumn(name="analysis_id", referencedColumnName="id")},
-     * inverseJoinColumns={@ORM\JoinColumn(name="cache_course_id", referencedColumnName="id", unique=true)}
+     * inverseJoinColumns={@ORM\JoinColumn(name="cache_course_id", referencedColumnName="id")}
      * )
      */
     protected $cacheCourses;

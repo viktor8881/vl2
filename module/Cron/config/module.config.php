@@ -2,10 +2,10 @@
 
 namespace Cron;
 
+use Cron\Factory\AnalysisControllerFactory;
 use Cron\Factory\CacheCourseControllerFactory;
 use Cron\Factory\CourseControllerFactory;
 use Cron\Factory\IndexControllerFactory;
-use Cron\Factory\TaskControllerFactory;
 use Zend\Router\Http\Literal;
 
 return [
@@ -84,13 +84,13 @@ return [
                 ],
             ],
 
-            'task.index' => [
+            'analysis.index' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/cron/task',
+                    'route'    => '/cron/analysis',
                     'defaults' => [
-                        'controller' => Controller\TaskController::class,
-                        'action'     => 'task',
+                        'controller' => Controller\AnalysisController::class,
+                        'action'     => 'index',
                     ],
                 ],
             ],
@@ -98,10 +98,10 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => IndexControllerFactory::class,
-            Controller\CourseController::class => CourseControllerFactory::class,
+            Controller\IndexController::class       => IndexControllerFactory::class,
+            Controller\CourseController::class      => CourseControllerFactory::class,
             Controller\CacheCourseController::class => CacheCourseControllerFactory::class,
-            Controller\TaskController::class => TaskControllerFactory::class
+            Controller\AnalysisController::class    => AnalysisControllerFactory::class
         ],
     ],
 ];

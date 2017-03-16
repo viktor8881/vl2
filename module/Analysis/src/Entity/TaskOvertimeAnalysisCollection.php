@@ -22,6 +22,10 @@ class TaskOvertimeAnalysisCollection extends ArrayObject
     }
 
 
+    /**
+     * @param Exchange $exchange
+     * @return TaskOvertimeAnalysis|null
+     */
     public function getByExchange(Exchange $exchange)
     {
         foreach ($this->getIterator() as $analysis) {

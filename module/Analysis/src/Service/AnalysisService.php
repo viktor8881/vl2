@@ -7,6 +7,7 @@ use Analysis\Entity\TaskOvertimeAnalysis;
 use Analysis\Entity\TaskPercentAnalysis;
 use Base\Service\Math;
 use Course\Entity\Course;
+use Course\Entity\CourseCollection;
 use Course\Service\CacheCourseManager;
 use Course\Service\CourseManager;
 use Exchange\Entity\Exchange;
@@ -149,12 +150,13 @@ class AnalysisService
     {
         $countRec = 0;
         foreach ($task->getExchanges() as $exchange) {
-            $courses = $this->courseManager->fetchAllByExchangeAndDate($exchange, $date);
-            if ($this->isValidTaskOvertime($task, $courses)) {
+            /** @var CourseCollection $courses */
+            $courses = $this->courseManager->getCollectionByExchangeAndDate($exchange, $date);
+            if ($this->isValidTaskOvertime($task, $courses->getValuesUpOrDown())) {
                 /** @var  $analysis TaskOvertimeAnalysis */
                 $analysis = $this->taskOvertimeAnalysisManager->createEntity();
                 $analysis->setExchange($exchange)
-                    ->setCourses($courses)
+                    ->setCourses($courses->toArray())
                     ->setPeriod($task->getPeriod())
                     ->setCreated($date);
                 $this->figureAnalysisManager->insert($analysis);
@@ -218,6 +220,7 @@ class AnalysisService
             }elseif ($cacheCourses->firstIsDownTrend() && TechnicalAnalysis::isDoubleTop($cacheCourses->listLastValue(), $percent, $percent) ) {
                 // пишем что образовалась фигура
                 /** @var FigureAnalysis $analysis */
+//                pr($cacheCourses->getList()); exit;
                 $analysis = $this->figureAnalysisManager->createEntity();
                 $analysis->setExchange($exchange)
                     ->setFigure(FigureAnalysis::FIGURE_DOUBLE_TOP)
@@ -228,7 +231,7 @@ class AnalysisService
         }
         // =============================================================
         // фигура тройное дно, ReverseS&H, тройные вершины S&H
-        $cacheCourses = $this->cacheCourseManager->fetch7ByCodePercent($exchange, $percent);
+        $cacheCourses = $this->cacheCourseManager->fetch7ByExchangeAndPercent($exchange, $percent);
         if ($cacheCourses
             && $cacheCourses->countFirstData() >= self::STABLE_TREND
             && $cacheCourses->lastNullOperation() ) {

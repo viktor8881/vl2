@@ -21,6 +21,10 @@ class TaskPercentAnalysisCollection extends ArrayObject
         return $result;
     }
 
+    /**
+     * @param Exchange $exchange
+     * @return TaskPercentAnalysis[]
+     */
     public function listByExchange(Exchange $exchange)
     {
         $list = array();

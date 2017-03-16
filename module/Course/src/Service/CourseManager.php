@@ -5,13 +5,20 @@ namespace Course\Service;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
+use Base\Entity\OrderCollection;
 use Base\Service\AbstractManager;
 use Course\Entity\Course;
+use Course\Entity\CourseCollection;
 use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
+use Course\Entity\Criterion\CriterionLsDate;
 use Course\Entity\Criterion\CriterionPeriod;
+use Course\Entity\Order\OrderExchange;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
+use Task\Entity\Order\OrderId;
+use Zend\Paginator\Factory;
+use Zend\Paginator\Adapter\NullFill;
 
 /**
  * Class CourseManager
@@ -22,14 +29,15 @@ class CourseManager extends AbstractManager
 {
 
     /**
-     * @param int[] $list
+     * @param Exchange[]     $exchanges
      * @param \DateTime $date
-     * @return Course[]
+     *
+*@return Course[]
      */
-    public function fetchAllByListIdAndDate(array $list, \DateTime $date)
+    public function fetchAllByExchangesAndDate(array $exchanges, \DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CriterionExchange($list));
+        $criterions->append(new CriterionExchange($exchanges));
         $criterions->append(new CriterionEqDate($date));
         return $this->fetchAllByCriterions($criterions);
     }
@@ -58,13 +66,13 @@ class CourseManager extends AbstractManager
     }
 
     /**
-     * @param Course[] $listCourse
+     * @param Course[] $courses
      */
-    public function insertList(array $listCourse) {
-        if (count($listCourse)) {
+    public function insertList(array $courses) {
+        if (count($courses)) {
             $i = 0;
             $batchSize = 30;
-            foreach ($listCourse as $course) {
+            foreach ($courses as $course) {
                 $this->em->persist($course);
                 if ((++$i % $batchSize) === 0) {
                     $this->em->flush();
@@ -78,15 +86,16 @@ class CourseManager extends AbstractManager
 
     /**
      * @param Exchange  $exchange
-     * @param \DateTime $dateLater
-     * @param \DateTime $date
-     * @return \Base\Entity\AbstractEntity[]
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     *
+*@return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $dateLater, \DateTime $date)
+    public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $startDate, \DateTime $endDate)
     {
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
-        $criterions->append(new CriterionPeriod([$dateLater, $date]));
+        $criterions->append(new CriterionPeriod([$startDate, $endDate]));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -95,13 +104,36 @@ class CourseManager extends AbstractManager
      * @param \DateTime $date
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllByExchangeAndDate(Exchange $exchange, \DateTime $date)
+    public function getCollectionByExchangeAndDate(Exchange $exchange, \DateTime $date)
     {
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
-        $criterions->append(new CriterionEqDate($date));
-        return $this->fetchAllByCriterions($criterions);
+        $criterions->append(new CriterionLsDate($date));
+        
+        $orders = new OrderCollection();
+        $orders->append(new OrderId(AbstractOrder::DESC));
+        
+        $paginator = Factory::factory(20, new NullFill());
+        $paginator->setItemCountPerPage(20);
+        $paginator->setCurrentPageNumber(1);
+        
+        $courses = $this->fetchAllByCriterions($criterions, $paginator, $orders);
+        return $this->createCollection($courses);
     }
+
+    /**
+     * @param Course[] $courses
+     * @return CourseCollection
+     */
+    private function createCollection(array $courses)
+    {
+        $coll = new CourseCollection();
+        foreach ($courses as $course) {
+            $coll->append($course);
+        }
+        return $coll;
+    }
+
 
     /**
      * @param AbstractCriterion $criterion
@@ -122,6 +154,10 @@ class CourseManager extends AbstractManager
                 $qb->andWhere($this->entityName . '.dateCreate = :dateCreate')
                     ->setParameter('dateCreate', $criterion->getFirstValue());
                 break;
+            case CriterionLsDate::class:
+                $qb->andWhere($this->entityName . '.dateCreate <= :dateCreate')
+                    ->setParameter('dateCreate', $criterion->getFirstValue());
+                break;
         }
     }
 
@@ -131,13 +167,16 @@ class CourseManager extends AbstractManager
      */
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-//        switch (get_class($order)) {
-//            case 'Question_Order_Status':
-//                $result = $prefix.'.status '.$order->getTypeOrder();
-//                break;
-//            default:
-//                break;
-//        }
+        switch (get_class($order)) {
+            case OrderId::class:
+                $qb->orderBy($this->entityName . '.id', $order->getTypeOrder());
+                break;
+            case OrderExchange::class:
+                $qb->orderBy($this->entityName . '.exchange', $order->getTypeOrder());
+                break;
+            default:
+                break;
+        }
     }
 
 

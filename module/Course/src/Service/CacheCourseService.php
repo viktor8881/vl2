@@ -38,10 +38,14 @@ class CacheCourseService
      */
     public function fillingCache(\DateTime $date, Course $course)
     {
-        foreach (self::$listPercent as $percent) {
+        foreach (self::listPercent() as $percent) {
             /** @var CacheCourse $cacheCourse */
             $cacheCourse = $this->cacheCourseManager->lastByExchangeAndPercent($course->getExchange(), $percent);
-            $arr4Analysis = array($cacheCourse->getLastValue(), $course->getValue());
+            if (!$cacheCourse) {
+                continue;
+            }
+//            pr($cacheCourse); exit;
+            $arr4Analysis = [$cacheCourse->getLastValue(), $course->getValue()];
             if ($cacheCourse->isUpTrend()) {
                 $isContinueTrend = TechnicalAnalysis::isUpTrend($arr4Analysis, $cacheCourse->getPercent());
             }else{
@@ -51,6 +55,7 @@ class CacheCourseService
                 $cacheCourse->setLastValue($course->getValue())
                     ->addDataValueByCourse($course)
                     ->setLastDate($date);
+//                pr($cacheCourse); exit;
                 $this->cacheCourseManager->update($cacheCourse);
             }else{
                 $typeTrend = $cacheCourse->isUpTrend() ? CacheCourse::TREND_DOWN : CacheCourse::TREND_UP;

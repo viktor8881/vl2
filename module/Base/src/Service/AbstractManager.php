@@ -135,7 +135,7 @@ abstract class AbstractManager implements IManager
             $qb->setFirstResult(($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage())
                 ->setMaxResults($paginator->getItemCountPerPage());
         }
-//        pr($qb->getDQL()); exit;
+//        pr($qb->getDQL());
         $query = $qb->getQuery();
         return $query->getResult();
     }

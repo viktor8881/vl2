@@ -13,8 +13,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 class CacheCourseController extends AbstractActionController
 {
 
-    const INIT_DATE = '07.12.2016';
-    const COUNT_RUN_AT_TIME = 100;
+    const INIT_DATE = '01.10.2016';
+    const COUNT_RUN_AT_TIME = 50;
 
 
     const STABLE_TREND = 3;
@@ -100,14 +100,13 @@ class CacheCourseController extends AbstractActionController
     public function fillCacheAction(\DateTime $dateNow = null, $hideMess = false)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('15.02.2017');
+            $dateNow = new \DateTime('2016-10-07');
         }
         if ($this->courseManager->hasByDate($dateNow)) {
             try {
-                $listExchange = $this->exchangeManager->fetchAllMetal();
-                foreach($this->courseManager->fetchAllByListIdAndDate($listExchange, $dateNow) as $cacheCourse)
-                {
-                    $this->cacheCourseService->fillingCache($dateNow, $cacheCourse);
+                $exchanges = $this->exchangeManager->fetchAllMetal();
+                foreach($this->courseManager->fetchAllByExchangesAndDate($exchanges, $dateNow) as $course) {
+                    $this->cacheCourseService->fillingCache($dateNow, $course);
                 }
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);

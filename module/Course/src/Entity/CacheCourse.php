@@ -30,7 +30,7 @@ class CacheCourse extends AbstractEntity
      */
     protected $exchange;
 
-    /** @ORM\Column(name="type_trend", type="smallint") */
+    /** @ORM\Column(name="type_trend", type="string", length=1) */
     protected $typeTrend;
 
     /** @ORM\Column(name="data_value", type="json_array") */

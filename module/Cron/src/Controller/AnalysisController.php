@@ -11,7 +11,7 @@ use Task\Service\TaskOvertimeManager;
 use Task\Service\TaskPercentManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class TaskController extends AbstractActionController
+class AnalysisController extends AbstractActionController
 {
 
     const COUNT_RUN_AT_TIME = 100;
@@ -40,14 +40,45 @@ class TaskController extends AbstractActionController
         $this->analysisService = $analysisService;
     }
 
+    public function tmpAction()
+    {
+        $tmpDir = 'data/tmp/';
+        $dateNow = new Date();
+        $fileName = $tmpDir . 'tmp.tmp';
+        if (!file_exists($fileName)) {
+            exit;
+        }
+        $i = 0;
+        $flag = true;
+        while ($flag) {
+            if (++$i > self::COUNT_RUN_AT_TIME) {
+                $flag = false;
+                break;
+            }
+            // находим дату
+            $date = new Date(file_get_contents($fileName));
+            if ($date->compareDate($dateNow) == 1) {
+                rename($fileName, $tmpDir . '_tmp.tmp');
+                $flag = false;
+                echo 'final';
+                exit;
+            }
+            $this->indexAction(clone $date);
+            $date->add(new \DateInterval('P1D'));
+            file_put_contents($fileName, $date->formatDMY());
+        }
+        echo 'ok';
+        return $this->getResponse();
+    }
+
     /**
      * @param \DateTime|null $dateNow
      * @return \Zend\Stdlib\ResponseInterface
      */
-    public function taskAction(\DateTime $dateNow = null)
+    public function indexAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('16.02.2017');
+            $dateNow = new \DateTime('20.02.2017');
         }
 
         /** @var TaskPercent $taskPercent */

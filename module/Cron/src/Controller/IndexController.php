@@ -45,7 +45,7 @@ class IndexController extends AbstractActionController
                     $queue->send(self::TASK_ANALYSIS);
                     break;
                 case self::TASK_ANALYSIS:
-                    $this->forward()->dispatch(TaskController::class, array('action'=>'task'));
+                    $this->forward()->dispatch(AnalysisController::class, array('action' =>'index'));
                     $queue->send(self::TASK_SEND_MESSAGE);
                     break;
                 case self::TASK_SEND_MESSAGE:
