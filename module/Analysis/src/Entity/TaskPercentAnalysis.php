@@ -2,6 +2,7 @@
 namespace Analysis\Entity;
 
 
+use Course\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +18,6 @@ class TaskPercentAnalysis extends TaskAnalysis
     {
         return self::TYPE_PERCENT;
     }
-
 
     /**
      * @return float
@@ -36,6 +36,102 @@ class TaskPercentAnalysis extends TaskAnalysis
     {
         $this->percent = $percent;
         return $this;
+    }
+
+    /**
+     * @return Course|null
+     */
+    public function getFirstCourse()
+    {
+        return $this->getCourses()->first();
+    }
+
+    /**
+     * @return Course|null
+     */
+    public function getLastCourse()
+    {
+        return $this->getCourses()->last();
+    }
+
+    /**
+     * @return float
+     */
+    public function getStartValue()
+    {
+        $course = $this->getFirstCourse();
+        if ($course) {
+            return $course->getValue();
+        }
+        return 0;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStartDateFormatDMY()
+    {
+        $course = $this->getFirstCourse();
+        if ($course) {
+            return $course->getDateFormatDMY();
+        }
+        return '';
+    }
+
+    /**
+     * @return float
+     */
+    public function getEndValue()
+    {
+        $course = $this->getLastCourse();
+        if ($course) {
+            return $course->getValue();
+        }
+        return 0;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndDateFormatDMY()
+    {
+        $course = $this->getLastCourse();
+        if ($course) {
+            return $course->getDateFormatDMY();
+        }
+        return '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isQuotesGrowth()
+    {
+        return $this->getStartValue() < $this->getEndValue();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isQuotesFall()
+    {
+        return $this->getStartValue() > $this->getEndValue();
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiffMoneyValue()
+    {
+        return abs($this->getStartValue() - $this->getEndValue());
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiffPercent()
+    {
+        return 100 - (abs($this->getStartValue() * 100 / $this->getEndValue()));
     }
 
 }

@@ -2,6 +2,7 @@
 namespace Analysis\Entity;
 
 use Base\Entity\AbstractEntity;
+use Course\Entity\Course;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
@@ -124,7 +125,7 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @param mixed $period
+     * @param float $period
      *
      * @return TaskAnalysis
      */
@@ -135,7 +136,7 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return Course[]
      */
     public function getCourses()
     {
@@ -143,18 +144,18 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @param mixed $courses
+     * @param Course[] $courses
      *
      * @return TaskAnalysis
      */
-    public function setCourses($courses)
+    public function setCourses(array $courses)
     {
         $this->courses = $courses;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -162,7 +163,7 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @param mixed $created
+     * @param \DateTime $created
      *
      * @return TaskAnalysis
      */

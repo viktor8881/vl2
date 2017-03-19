@@ -1,7 +1,6 @@
 <?php
 namespace Analysis\Service;
 
-
 use Analysis\Entity\FigureAnalysisCollection;
 use Analysis\Entity\TaskOvertimeAnalysisCollection;
 use Analysis\Entity\TaskPercentAnalysisCollection;

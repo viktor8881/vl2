@@ -33,6 +33,21 @@ return [
         'type' => SessionArrayStorage::class
     ],
 
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => PDOMySqlDriver::class,
+                'params'    => [
+                    'host'     => '127.0.0.1',
+                    'user'     => 'root',
+                    'password' => '',
+                    'dbname'   => 'db_name',
+                    'charset'  => 'utf8',
+                ]
+            ],
+        ],
+    ],
+
     'tmp_dir' => 'data/tmp/',
 
 ];

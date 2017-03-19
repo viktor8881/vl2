@@ -6,6 +6,7 @@ use Cron\Factory\AnalysisControllerFactory;
 use Cron\Factory\CacheCourseControllerFactory;
 use Cron\Factory\CourseControllerFactory;
 use Cron\Factory\IndexControllerFactory;
+use Cron\Factory\MessageControllerFactory;
 use Zend\Router\Http\Literal;
 
 return [
@@ -94,6 +95,28 @@ return [
                     ],
                 ],
             ],
+
+            'send-message.tmp' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/send-message/tmp',
+                    'defaults' => [
+                        'controller' => Controller\MessageController::class,
+                        'action'     => 'tmp',
+                    ],
+                ],
+            ],
+
+            'send-message.index' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/send-message',
+                    'defaults' => [
+                        'controller' => Controller\MessageController::class,
+                        'action'     => 'send-message',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -101,7 +124,8 @@ return [
             Controller\IndexController::class       => IndexControllerFactory::class,
             Controller\CourseController::class      => CourseControllerFactory::class,
             Controller\CacheCourseController::class => CacheCourseControllerFactory::class,
-            Controller\AnalysisController::class    => AnalysisControllerFactory::class
+            Controller\AnalysisController::class    => AnalysisControllerFactory::class,
+            Controller\MessageController::class     => MessageControllerFactory::class
         ],
     ],
 ];

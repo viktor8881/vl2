@@ -1,0 +1,51 @@
+<?php
+if ($taskOvertimeAnalysis) {
+    if ($taskOvertimeAnalysis->isQuotesGrowth()) {
+        echo '<p>Повышение курса в течении ' .
+            $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true) .
+            '</p>';
+    } else {
+        echo '<p>Понижение курса в течении ' .
+            $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true) .
+            '</p>';
+    }
+    echo '<ul>';
+    foreach ($taskOvertimeAnalysis->getCourses() as $course) {
+        echo '<li><span class="small">' . $course->getDateFormatDMY(). '</span> ' . $course->getValue() . '</li>';
+    }
+    echo '</ul>';
+}
+
+foreach ($taskPercentAnalyzes as $percent) {
+    if ($percent->isQuotesGrowth()) {
+        $sign = '+';
+        $iconSign = '▲';
+        $cssColor = 'color: rgb(5, 132, 11);';
+    } else {
+        $sign = '-';
+        $iconSign = '▼';
+        $cssColor = 'color: rgb(191, 0, 0);';
+    }
+
+    echo '<strong><span style="' . $cssColor . '"> '
+        . $iconSign . ' за ' . $this->pluralDays($percent->getPeriod()) . ' '
+        . $this->formatPercent($percent->getDiffPercent()) . '%'
+        . '</span></strong><br />';
+    echo $percent->getStartDateFormatDMY() . '<span style="margin-left:30px;">'
+        . $this->formatMoney($percent->getStartValue()) . '</span><br />';
+    echo $percent->getEndDateFormatDMY() . '<span style="margin-left:30px;">'
+        . $this->formatMoney($percent->getEndValue()) . '</span><br />';
+    echo '<span style="' . $cssColor . '; margin-left:88px;">' . $sign . ' '
+        . $this->formatMoney($percent->getDiffMoneyValue(), $percent->getExchange()) .
+        '</span><br />';
+    echo '====================================<br /><br />';
+}
+
+foreach ($taskFigureAnalyzes as $figure) {
+
+    echo '<p class="text-strong">'._("Найдена фигура").' '.$this->analysisCurrency_Figure_Name($figure->getFigure()).'</p>';
+    echo '<p>'._('Период образования').' - '.$this->analysisCurrency_Figure_Period($figure).'</p>';
+
+    echo '<p>'._('Процент').' - '.$this->formatPercent($figure->getPercentCacheCourses()).'</p>';
+    echo '====================================<br /><br />';
+}

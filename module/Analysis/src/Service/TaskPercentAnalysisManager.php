@@ -2,7 +2,7 @@
 
 namespace Analysis\Service;
 
-use Analysis\Entity\Criterion\OrderDateCreated;
+use Analysis\Entity\Criterion\CriterionDateCreated;
 use Analysis\Entity\TaskPercentAnalysisCollection;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
@@ -34,7 +34,7 @@ class TaskPercentAnalysisManager extends AbstractManager
     public function fetchAllByDate(\DateTime $date)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new OrderDateCreated($date));
+        $criterions->append(new CriterionDateCreated($date));
         return $this->fetchAllByCriterions($criterions);
     }
 
@@ -45,7 +45,7 @@ class TaskPercentAnalysisManager extends AbstractManager
     protected function addCriterion(AbstractCriterion $criterion,QueryBuilder $qb)
     {
         switch (get_class($criterion)) {
-            case OrderDateCreated::class:
+            case CriterionDateCreated::class:
                 $qb->andWhere($this->entityName . '.created = :created')
                     ->setParameter('created', $criterion->getFirstValue());
                 break;

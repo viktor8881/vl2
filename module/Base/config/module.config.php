@@ -9,6 +9,8 @@ namespace Base;
 
 use Base\Queue\Adapter\Doctrine\Service\Factory\QueueManagerFactory;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
+use Base\Service\Factory\MailServiceFactory;
+use Base\Service\MailService;
 use Base\View\Helper\Factory\ViewHelperMenuFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -62,6 +64,7 @@ return [
     'service_manager' => [
         'factories' => [
             QueueManager::class => QueueManagerFactory::class,
+            MailService::class => MailServiceFactory::class,
         ]
     ],
 
@@ -72,6 +75,12 @@ return [
         'aliases'   => [
             'access' => Controller\Plugin\AccessPlugin::class,
         ]
+    ],
+
+    'view_manager' => [
+        'template_path_stack' => [
+            'Base' => __DIR__ . '/../view',
+        ],
     ],
 
     'doctrine' => [
