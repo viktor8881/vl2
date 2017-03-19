@@ -22,6 +22,17 @@ return [
         ]
     ],
 
+    'view_helpers' => [
+        'factories' => [
+            View\Helper\FigureName::class   => InvokableFactory::class,
+            View\Helper\FigurePeriod::class => InvokableFactory::class,
+        ],
+        'aliases'   => [
+            'figureName'    => View\Helper\FigureName::class,
+            'figurePeriod'  => View\Helper\FigurePeriod::class,
+        ]
+    ],
+
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Base\View\Helper;
+namespace Analysis\View\Helper;
 
 use Analysis\Entity\FigureAnalysis;
 use Zend\View\Helper\AbstractHelper;
@@ -8,10 +8,12 @@ use Zend\View\Helper\AbstractHelper;
 class FigurePeriod extends AbstractHelper
 {
     
-    public function __invoke(FigureAnalysis $figure)  {
+    public function __invoke(FigureAnalysis $figure)
+    {
         $dateStart = $figure->getFirstDate();
         $dateEnd = $figure->getLastDate();
-        return $dateStart->formatDMY().' - '.$dateEnd->formatDMY().' ('.$this->view->pluralDays($dateStart->diffDays($dateEnd)).')';
+        $interval = $dateStart->diff($dateEnd, true);
+        return $dateStart->format('d.m.Y').' - '.$dateEnd->format('d.m.Y').' ('.$this->view->pluralDays((int)$interval->format('%a')).')';
     }
         
 }

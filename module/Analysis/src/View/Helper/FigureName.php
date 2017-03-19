@@ -1,5 +1,5 @@
 <?php
-namespace Base\View\Helper;
+namespace Analysis\View\Helper;
 
 use Analysis\Entity\FigureAnalysis;
 use Zend\View\Helper\AbstractHelper;

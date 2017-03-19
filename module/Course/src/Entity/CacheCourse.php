@@ -114,7 +114,8 @@ class CacheCourse extends AbstractEntity
      */
     public function getFirstDate()
     {
-        $first = reset($this->getDataValue());
+        $data = $this->getDataValue();
+        $first = reset($data);
         if ($first) {
             return new \DateTime($first['data']);
         }
@@ -122,7 +123,8 @@ class CacheCourse extends AbstractEntity
     }
 
     public function getFirstValue() {
-        $first = reset($this->getDataValue());
+        $data = $this->getDataValue();
+        $first = reset($data);
         if ($first) {
             return $first['value'];
         }

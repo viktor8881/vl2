@@ -155,4 +155,43 @@ class FigureAnalysis extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return \DateTime|null
+     */
+    public function getFirstDate()
+    {
+        /** @var CacheCourse $cacheCourse */
+        $cacheCourse = $this->getCacheCourses()->first();
+        if ($cacheCourse) {
+            return $cacheCourse->getFirstDate();
+        }
+        return null;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastDate()
+    {
+        /** @var CacheCourse $cacheCourse */
+        $cacheCourse = $this->getCacheCourses()->last();
+        if ($cacheCourse) {
+            return $cacheCourse->getLastDate();
+        }
+        return null;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPercentCacheCourses()
+    {
+        /** @var CacheCourse $cacheCourse */
+        $cacheCourse = $this->getCacheCourses()->first();
+        if ($cacheCourse) {
+            return $cacheCourse->getPercent();
+        }
+        return 0;
+    }
+
 }

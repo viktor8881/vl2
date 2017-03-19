@@ -42,9 +42,8 @@ foreach ($taskPercentAnalyzes as $percent) {
 }
 
 foreach ($taskFigureAnalyzes as $figure) {
-
-    echo '<p class="text-strong">'._("Найдена фигура").' '.$this->analysisCurrency_Figure_Name($figure->getFigure()).'</p>';
-    echo '<p>'._('Период образования').' - '.$this->analysisCurrency_Figure_Period($figure).'</p>';
+    echo '<p class="text-strong">'._("Найдена фигура").' '.$this->figureName($figure->getFigure()).'</p>';
+    echo '<p>'._('Период образования').' - '.$this->figurePeriod($figure).'</p>';
 
     echo '<p>'._('Процент').' - '.$this->formatPercent($figure->getPercentCacheCourses()).'</p>';
     echo '====================================<br /><br />';

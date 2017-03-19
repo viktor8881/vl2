@@ -9,7 +9,6 @@ use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 class MessageController extends AbstractActionController
 {
@@ -62,7 +61,7 @@ class MessageController extends AbstractActionController
     public function sendMessageAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('18.02.2017');
+            $dateNow = new \DateTime('20.02.2017');
         }
 
         $collOvertimeAnalysis = $this->taskOvertimeAnalysisManager->getCollectionByDate($dateNow);
@@ -72,7 +71,12 @@ class MessageController extends AbstractActionController
         $listExchange = array_merge($collOvertimeAnalysis->listExchange(), $collPercentAnalysis->listExchange(), $collFigureAnalysis->listExchange());
 
         if (count($listExchange)) {
+            $listSended = [];
             foreach ($listExchange as $exchange) {
+                if (in_array($exchange->getId(), $listSended)) {
+                    continue;
+                }
+                $listSended[] = $exchange->getId();
                 $this->mailService->sendAnalysis($exchange,
                     $collOvertimeAnalysis->getByExchange($exchange),
                     $collPercentAnalysis->listByExchange($exchange),

@@ -44,18 +44,7 @@ class MailService
      */
     public function sendAnalysis(Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis, array $taskPercentAnalyzes, array $taskFigureAnalyzes)
     {
-
-
-
-
-        // =====================================================================
         $this->message->setSubject($exchange->getName());
-
-//        $renderer = new PhpRenderer();
-//        $resolver   = new TemplateMapResolver();
-//        $resolver->setMap(array('mailTemplate' => __DIR__ . '/../../view/mail/analysis.phtml'));
-//        $renderer->setResolver($resolver);
-
         $viewModel = new ViewModel(
             ['exchange'             => $exchange,
              'taskOvertimeAnalysis' => $taskOvertimeAnalysis,
@@ -63,15 +52,13 @@ class MailService
              'taskFigureAnalyzes'   => $taskFigureAnalyzes]
         );
         $viewModel->setTemplate('mail/analysis.phtml');
-        $html = $this->renderer->render($viewModel);
-        pr($html); exit;
 
-//        $html = new MimePart("Sorry, <strong>I'm going</strong> to be late today!");
-        $html = new MimePart($html);
-        $html->type = "text/html";
+        $html = $this->renderer->render($viewModel);
+        $htmlMimePart = new MimePart($html);
+        $htmlMimePart->type = "text/html";
 
         $body = new MimeMessage();
-        $body->addPart($html);
+        $body->addPart($htmlMimePart);
 
         $this->message->setBody($body);
         $this->transport->send($this->message);
