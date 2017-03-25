@@ -10,11 +10,12 @@ use Task\Entity\TaskPercent;
 use Task\Service\TaskOvertimeManager;
 use Task\Service\TaskPercentManager;
 use Zend\Mvc\Controller\AbstractActionController;
+use Base\Service\Date;
 
 class AnalysisController extends AbstractActionController
 {
 
-    const COUNT_RUN_AT_TIME = 100;
+    const COUNT_RUN_AT_TIME = 30;
 
 
     /** @var ExchangeManager */
@@ -59,7 +60,6 @@ class AnalysisController extends AbstractActionController
             $date = new Date(file_get_contents($fileName));
             if ($date->compareDate($dateNow) == 1) {
                 rename($fileName, $tmpDir . '_tmp.tmp');
-                $flag = false;
                 echo 'final';
                 exit;
             }
@@ -78,7 +78,7 @@ class AnalysisController extends AbstractActionController
     public function indexAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('20.02.2017');
+            $dateNow = new \DateTime();
         }
 
         /** @var TaskPercent $taskPercent */

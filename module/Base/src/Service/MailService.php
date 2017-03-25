@@ -42,7 +42,7 @@ class MailService
      * @param TaskPercentAnalyzes[] $taskPercentAnalyzes
      * @param TaskFigureAnalyzes[]  $taskFigureAnalyzes
      */
-    public function sendAnalysis(Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis, array $taskPercentAnalyzes, array $taskFigureAnalyzes)
+    public function sendAnalysis(Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [])
     {
         $this->message->setSubject($exchange->getName());
         $viewModel = new ViewModel(

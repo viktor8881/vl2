@@ -152,11 +152,17 @@ class AnalysisService
         foreach ($task->getExchanges() as $exchange) {
             /** @var CourseCollection $courses */
             $courses = $this->courseManager->getCollectionByExchangeAndDate($exchange, $date);
-            if ($this->isValidTaskOvertime($task, $courses->getValuesUpOrDown())) {
+            $courses = $courses->listExchangeUpOrDown();
+            $listValue = [];
+            /** @var Course[] $courses */
+            foreach ($courses as $course) {
+                $listValue[] = $course->getValue();
+            }
+            if ($this->isValidTaskOvertime($task, $listValue)) {
                 /** @var  $analysis TaskOvertimeAnalysis */
                 $analysis = $this->taskOvertimeAnalysisManager->createEntity();
                 $analysis->setExchange($exchange)
-                    ->setCourses($courses->toArray())
+                    ->setCourses($courses)
                     ->setPeriod($task->getPeriod())
                     ->setCreated($date);
                 $this->figureAnalysisManager->insert($analysis);

@@ -100,7 +100,7 @@ class CacheCourseController extends AbstractActionController
     public function fillCacheAction(\DateTime $dateNow = null, $hideMess = false)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('2016-10-07');
+            $dateNow = new \DateTime();
         }
         if ($this->courseManager->hasByDate($dateNow)) {
             try {

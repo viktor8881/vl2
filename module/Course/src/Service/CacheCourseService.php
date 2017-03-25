@@ -48,7 +48,7 @@ class CacheCourseService
             $arr4Analysis = [$cacheCourse->getLastValue(), $course->getValue()];
             if ($cacheCourse->isUpTrend()) {
                 $isContinueTrend = TechnicalAnalysis::isUpTrend($arr4Analysis, $cacheCourse->getPercent());
-            }else{
+            } else {
                 $isContinueTrend = TechnicalAnalysis::isDownTrend($arr4Analysis, $cacheCourse->getPercent());
             }
             if ($isContinueTrend or TechnicalAnalysis::isEqualChannel($arr4Analysis, $cacheCourse->getPercent())) {
@@ -57,7 +57,7 @@ class CacheCourseService
                     ->setLastDate($date);
 //                pr($cacheCourse); exit;
                 $this->cacheCourseManager->update($cacheCourse);
-            }else{
+            } else {
                 $typeTrend = $cacheCourse->isUpTrend() ? CacheCourse::TREND_DOWN : CacheCourse::TREND_UP;
                 /** @var CacheCourse $newCacheCourse */
                 $newCacheCourse = $this->cacheCourseManager->createEntity();

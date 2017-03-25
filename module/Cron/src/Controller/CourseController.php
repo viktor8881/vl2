@@ -74,7 +74,7 @@ class CourseController extends AbstractActionController
     public function receiveAction(\DateTime $date = null)
     {
         if (is_null($date)) {
-            $date = new \DateTime('15.02.2017');
+            $date = new \DateTime();
         }
         if (!$this->courseManager->hasByDate($date)) {
             try {

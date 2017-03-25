@@ -39,19 +39,16 @@ class Doctrine extends AbstractAdapter
     protected $_data = array();
 
     /**
-     * Constructor
+     * Doctrine constructor.
      *
-     * @param  array|\Traversable    $options
-     * @param  \ZendQueue\Queue|null $queue
+     * @param array|\Traversable $options
+     * @param Queue|null         $queue
      */
     public function __construct($options, Queue $queue = null)
     {
         parent::__construct($options, $queue);
-//        $this->_queue = 'def_name';
         if (!isset($this->_options['options'][self::MANAGER_NAME])) {
-            throw new Exception\InvalidArgumentException(
-                'Options array item: must be set'
-            );
+            throw new Exception\InvalidArgumentException('Options array item: must be set');
         }
         $this->queueManager = $this->_options['options'][self::MANAGER_NAME];
     }

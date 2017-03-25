@@ -88,8 +88,7 @@ class CourseManager extends AbstractManager
      * @param Exchange  $exchange
      * @param \DateTime $startDate
      * @param \DateTime $endDate
-     *
-*@return \Base\Entity\AbstractEntity[]
+     * @return \Base\Entity\AbstractEntity[]
      */
     public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $startDate, \DateTime $endDate)
     {
@@ -147,16 +146,16 @@ class CourseManager extends AbstractManager
                 break;
             case CriterionPeriod::class:
                 $qb->andWhere($this->entityName . '.dateCreate BETWEEN :start AND :end')
-                    ->setParameter('start', $criterion->getFirstValue())
-                    ->setParameter('end', $criterion->getSecondValue());
+                    ->setParameter('start', $criterion->getFirstValue()->format('Y-m-d'))
+                    ->setParameter('end', $criterion->getSecondValue()->format('Y-m-d'));
                 break;
             case CriterionEqDate::class:
                 $qb->andWhere($this->entityName . '.dateCreate = :dateCreate')
-                    ->setParameter('dateCreate', $criterion->getFirstValue());
+                    ->setParameter('dateCreate', $criterion->getFirstValue()->format('Y-m-d'));
                 break;
             case CriterionLsDate::class:
                 $qb->andWhere($this->entityName . '.dateCreate <= :dateCreate')
-                    ->setParameter('dateCreate', $criterion->getFirstValue());
+                    ->setParameter('dateCreate', $criterion->getFirstValue()->format('Y-m-d'));
                 break;
         }
     }

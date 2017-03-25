@@ -66,7 +66,6 @@ class CacheCourseManager extends AbstractManager
         $criterions->append(new CriterionPercent($percent));
         $orders = new OrderCollection();
         $orders->append(new OrderId(AbstractOrder::DESC));
-
         return $this->getByCriterions($criterions, $orders);
     }
 
@@ -157,16 +156,16 @@ class CacheCourseManager extends AbstractManager
                 break;
             case CriterionPeriod::class:
                 $qb->andWhere($this->entityName . '.lastDate BETWEEN :start AND :end')
-                    ->setParameter('start', $criterion->getFirstValue())
-                    ->setParameter('end', $criterion->getSecondValue());
+                    ->setParameter('start', $criterion->getFirstValue()->format('Y-m-d'))
+                    ->setParameter('end', $criterion->getSecondValue()->format('Y-m-d'));
                 break;
             case CriterionEqDate::class:
                 $qb->andWhere($this->entityName . '.lastDate = :lastDate')
-                    ->setParameter('lastDate', $criterion->getFirstValue());
+                    ->setParameter('lastDate', $criterion->getFirstValue()->format('Y-m-d'));
                 break;
             case CriterionLsDate::class:
                 $qb->andWhere($this->entityName . '.lastDate <= :lastDate')
-                    ->setParameter('lastDate', $criterion->getFirstValue());
+                    ->setParameter('lastDate', $criterion->getFirstValue()->format('Y-m-d'));
                 break;
         }
     }

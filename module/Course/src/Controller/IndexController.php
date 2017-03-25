@@ -38,9 +38,7 @@ class IndexController extends AbstractActionController
     {
         $data = [
             'id'         => $this->params()->fromRoute('id', 5),
-            'date_start' => $this->params()->fromQuery(
-                'start', self::$DATA_DEF
-            ),
+            'date_start' => $this->params()->fromQuery('start', self::$DATA_DEF),
             'date_end'   => $this->params()->fromQuery('end', date('d.m.Y'))
         ];
         $fInput = new InputFilter($data);
@@ -65,8 +63,7 @@ class IndexController extends AbstractActionController
 
         return ['exchanges'       => $this->exchangeManager->fetchAllCurrency(),
                 'currentExchange' => $currentItem,
-                'period'          => ['start' => $values['date_start'],
-                                      'end'   => $values['date_end']],
+                'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
                 'courses'         => $this->courseManager->fetchAllByCriterions($criteria)
                 ];
     }

@@ -47,7 +47,7 @@ class TaskPercentAnalysisManager extends AbstractManager
         switch (get_class($criterion)) {
             case CriterionDateCreated::class:
                 $qb->andWhere($this->entityName . '.created = :created')
-                    ->setParameter('created', $criterion->getFirstValue());
+                    ->setParameter('created', $criterion->getFirstValue()->format('Y-m-d'));
                 break;
         }
     }

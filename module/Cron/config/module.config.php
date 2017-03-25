@@ -96,6 +96,18 @@ return [
                 ],
             ],
 
+
+            'analysis.tmp' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/analysis/tmp',
+                    'defaults' => [
+                        'controller' => Controller\AnalysisController::class,
+                        'action'     => 'tmp',
+                    ],
+                ],
+            ],
+
             'send-message.tmp' => [
                 'type' => Literal::class,
                 'options' => [
