@@ -49,8 +49,7 @@ class Module
 
         // Следующая строка инстанцирует SessionManager и автоматически
         // делает его выбираемым 'по умолчанию'.
-//        $sessionMana  ger = $serviceManager->get(SessionManager::class);
-//        pr('Module::onBootstrap');
+//        $sessionManager = $serviceManager->get(SessionManager::class);
     }
 
     public function getConfig()

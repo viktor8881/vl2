@@ -26,11 +26,11 @@ class FormHelper extends AbstractHelper
             $xhtml .= '<div class="form-group' . $class . '">';
             if ($element->getLabel()) {
                 $element->setLabelAttributes(
-                    ['class' => 'col-sm-3 control-label']
+                    ['class' => 'col-sm-4 control-label']
                 );
                 $xhtml .= $this->view->formLabel($element);
             }
-            $xhtml .= '<div class="col-sm-9">';
+            $xhtml .= '<div class="col-sm-8">';
             switch (get_class($element)) {
                 case Button::class:
                 case Submit::class:
@@ -54,7 +54,7 @@ class FormHelper extends AbstractHelper
 
         $buttonsAction = $form->getButtonsAction();
         if (count($buttonsAction)) {
-            $xhtml .= '<div class="form-group"><div class="col-sm-offset-3 col-sm-9">';
+            $xhtml .= '<div class="form-group"><div class="col-sm-offset-4 col-sm-8">';
             foreach ($buttonsAction as $button) {
                 if ($button instanceof Button) {
                     $xhtml .= $this->view->formButton(

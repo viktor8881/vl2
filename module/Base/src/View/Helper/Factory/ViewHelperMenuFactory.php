@@ -18,18 +18,13 @@ class ViewHelperMenuFactory implements FactoryInterface
 
         $items = [
             [
-                'id'    => 'home',
-                'label' => 'Home',
-                'link'  => $url->__invoke('home')
-            ],
-            [
                 'id'    => 'about',
-                'label' => 'About',
+                'label' => 'О проекте',
                 'link'  => $url->__invoke('about')
             ],
             [
                 'id'    => 'users',
-                'label' => 'Users',
+                'label' => 'Пользователи',
                 'link'  => $url->__invoke('users')
             ],
             [
@@ -37,28 +32,28 @@ class ViewHelperMenuFactory implements FactoryInterface
                 'label'    => 'Exchange',
                 'dropdown' => [[
                                    'id'    => 'List_Metal',
-                                   'label' => 'Metal',
+                                   'label' => 'Металы',
                                    'link'  => $url->__invoke('metal.list')
                                ],
                                [
                                    'id'    => 'List_Currency',
-                                   'label' => 'Currency',
+                                   'label' => 'Валюты',
                                    'link'  => $url->__invoke('currency.list')
                                ]]
             ],
             [
                 'id'       => 'cources',
-                'label'    => 'Cources',
+                'label'    => 'Курсы',
                 'dropdown' => [[
                                    'id'    => 'cources_Metal',
-                                   'label' => 'Metal',
+                                   'label' => 'Металы',
                                    'link'  => $url->__invoke(
                                        'course', ['action' => 'metal']
                                    )
                                ],
                                [
                                    'id'    => 'cources_Currency',
-                                   'label' => 'Currency',
+                                   'label' => 'Валюты',
                                    'link'  => $url->__invoke(
                                        'course', ['action' => 'currency']
                                    )
@@ -67,12 +62,12 @@ class ViewHelperMenuFactory implements FactoryInterface
             ],
             [
                 'id'    => 'investments',
-                'label' => 'Investments',
+                'label' => 'Инвестиции',
                 'link'  => $url->__invoke('investments')
             ],
             [
                 'id'    => 'tasks',
-                'label' => 'Tasks',
+                'label' => 'Задачи',
                 'link'  => $url->__invoke('tasks')
             ],
         ];

@@ -44,7 +44,7 @@ class Form extends \Zend\Form\Form
         } else {
             $buttonSubmitName = 'buttonsubmit';
         }
-        $buttonSubmitValue = 'Add';
+        $buttonSubmitValue = 'Добавить';
         if (isset($options['submit']['value'])) {
             $buttonSubmitValue = $options['submit']['value'];
             unset($options['submit']['value']);

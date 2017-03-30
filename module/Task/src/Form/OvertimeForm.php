@@ -26,9 +26,9 @@ class OvertimeForm extends Form
 
     protected function addElements()
     {
-        $modes = [Task::MODE_ONLY_UP   => 'Only Up investment',
-                  Task::MODE_ONLY_DOWN => 'Only Down investment',
-                  Task::MODE_UP_DOWN   => 'Up or Down investment'];
+        $modes = [Task::MODE_ONLY_UP   => 'Рост инвестиций',
+                  Task::MODE_ONLY_DOWN => 'Падение инвестиций',
+                  Task::MODE_UP_DOWN   => 'Рост/падение инвестиций'];
         $this->add(
             [
                 'type'       => 'select',
@@ -37,7 +37,7 @@ class OvertimeForm extends Form
                     'required' => 'required',
                 ),
                 'options'    => [
-                    'label'         => 'Mode',
+                    'label'         => 'Режим',
                     'value_options' => $modes,
                 ],
             ]
@@ -54,7 +54,7 @@ class OvertimeForm extends Form
                     'maxlength' => 2,
                 ),
                 'options'    => [
-                    'label' => 'Duration',
+                    'label' => 'Продолжительность',
                 ],
             ]
         );
@@ -70,7 +70,7 @@ class OvertimeForm extends Form
                 'type'    => 'MultiCheckbox',
                 'name'    => 'metals',
                 'options' => [
-                    'label'         => 'Metals',
+                    'label'         => 'Металы',
                     'value_options' => $valuesMetal,
                 ],
             ]
@@ -88,7 +88,7 @@ class OvertimeForm extends Form
                 'type'    => 'MultiCheckbox',
                 'name'    => 'currencies',
                 'options' => [
-                    'label'         => 'Metals',
+                    'label'         => 'Валюты',
                     'value_options' => $valuesCurrency,
                 ],
             ]
@@ -156,6 +156,16 @@ class OvertimeForm extends Form
             }
         }
         return $isValid;
+    }
+
+    /**
+     * @param string $label
+     * @return $this
+     */
+    public function setLabelSubmit($label)
+    {
+        $this->get('buttonsubmit')->setValue($label);
+        return $this;
     }
 
     /**

@@ -74,7 +74,7 @@ class Menu extends AbstractHelper
                 $label = isset($item['label']) ? $item['label'] : '';
 
                 $result .= '<li>';
-                $result .= '<a href="' . $link . '">' . $label . '</a>';
+                $result .= '<a href="' . $link . '">' . _($label) . '</a>';
                 $result .= '</li>';
             }
 
@@ -86,7 +86,7 @@ class Menu extends AbstractHelper
             $link = isset($item['link']) ? $item['link'] : '#';
 
             $result .= $isActive ? '<li class="active">' : '<li>';
-            $result .= '<a href="' . $link . '">' . $label . '</a>';
+            $result .= '<a href="' . $link . '">' . _($label) . '</a>';
             $result .= '</li>';
         }
 

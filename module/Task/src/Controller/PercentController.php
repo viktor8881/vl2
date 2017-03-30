@@ -46,11 +46,7 @@ class PercentController extends AbstractActionController
                 return $this->redirect()->toRoute('tasks');
             }
         }
-        return new ViewModel(
-            [
-                'form' => $form
-            ]
-        );
+        return new ViewModel(['form' => $form]);
     }
 
     public function editAction()
@@ -61,13 +57,14 @@ class PercentController extends AbstractActionController
         );
         if (!$task or !$task->isPercent()) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         $form = new PercentForm(
             $this->exchangeManager->fetchAllMetal(),
             $this->exchangeManager->fetchAllCurrency()
         );
+        $form->setLabelSubmit('Редактировать');
 
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
@@ -92,13 +89,7 @@ class PercentController extends AbstractActionController
                 )
             );
         }
-
-        return new ViewModel(
-            array(
-                'task' => $task,
-                'form' => $form
-            )
-        );
+        return new ViewModel(['form' => $form]);
     }
 
     public function deleteAction()
@@ -109,12 +100,10 @@ class PercentController extends AbstractActionController
         );
         if (!$task or !$task->isPercent()) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
         $this->taskManager->delete($task);
-        $this->flashMessenger()->addSuccessMessage(
-            'Задача удалена.'
-        );
+        $this->flashMessenger()->addSuccessMessage('Задача удалена.');
         return $this->redirect()->toRoute('tasks');
     }
 }

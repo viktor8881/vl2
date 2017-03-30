@@ -25,7 +25,8 @@
         "zendframework/zend-mvc-plugin-flashmessenger": "^1.0",
         "zendframework/zend-mvc-i18n": "^1.0",
         "zendframework/zend-queue": "^2.0@RC",
-        "zendframework/zend-mail": "^2.7"
+        "zendframework/zend-mail": "^2.7",
+        "zendframework/zend-i18n": "^2.7"
     },
     "autoload": {
         "psr-4": {

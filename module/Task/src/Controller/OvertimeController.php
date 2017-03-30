@@ -41,11 +41,7 @@ class OvertimeController extends AbstractActionController
                 return $this->redirect()->toRoute('tasks');
             }
         }
-        return new ViewModel(
-            [
-                'form' => $form
-            ]
-        );
+        return new ViewModel(['form' => $form]);
     }
 
     public function editAction()
@@ -54,13 +50,14 @@ class OvertimeController extends AbstractActionController
         $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
         if (!$task  or !$task->isOvertime()) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         $form = new OvertimeForm(
             $this->exchangeManager->fetchAllMetal(),
             $this->exchangeManager->fetchAllCurrency()
         );
+        $form->setLabelSubmit('Редактировать');
 
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
@@ -86,12 +83,7 @@ class OvertimeController extends AbstractActionController
             );
         }
 
-        return new ViewModel(
-            array(
-                'task' => $task,
-                'form' => $form
-            )
-        );
+        return new ViewModel(['form' => $form]);
     }
 
     public function deleteAction()
@@ -100,7 +92,7 @@ class OvertimeController extends AbstractActionController
         $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
         if (!$task  or !$task->isOvertime()) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
         $this->taskManager->delete($task);
         return $this->redirect()->toRoute('tasks');

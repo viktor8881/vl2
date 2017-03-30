@@ -104,7 +104,7 @@ class UserController extends AbstractActionController
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         // Find a user with such ID.
@@ -113,7 +113,7 @@ class UserController extends AbstractActionController
 
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         return new ViewModel([
@@ -129,7 +129,7 @@ class UserController extends AbstractActionController
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         $user = $this->entityManager->getRepository(User::class)
@@ -137,7 +137,7 @@ class UserController extends AbstractActionController
 
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         // Create user form
@@ -186,7 +186,7 @@ class UserController extends AbstractActionController
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         $user = $this->entityManager->getRepository(User::class)
@@ -194,7 +194,7 @@ class UserController extends AbstractActionController
 
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
-            return;
+            return $this->getResponse();
         }
 
         // Create "change password" form
