@@ -1,6 +1,7 @@
 <?php
 namespace Base\View\Helper;
 
+use Base\Form\Element\HtmlStatic;
 use Zend\Form\Element\Button;
 use Zend\Form\Element\MultiCheckbox;
 use Zend\Form\Element\Submit;
@@ -16,22 +17,30 @@ class FormHelper extends AbstractHelper
 
     public function __invoke(Form $form)
     {
+//        $messages = $form->getMessages();
+//        if (count($messages)) {
+//            foreach ($messages as $textMessage) {
+//                $this->view->pageMessage()->addErrorMessage($textMessage);
+//            }
+//        }
+
+
         $xhtml = '<div class="row"><div class="col-md-12">';
         $xhtml .= $this->view->form()->openTag($form);
 
-//        pr($form->getElements()); exit;
         /** @var ElementInterface $element */
         foreach ($form->getElements() as $element) {
             $class = (count($element->getMessages())) ? ' has-error' : '';
             $xhtml .= '<div class="form-group' . $class . '">';
             if ($element->getLabel()) {
-                $element->setLabelAttributes(
-                    ['class' => 'col-sm-4 control-label']
-                );
+                $element->setLabelAttributes(['class' => 'col-sm-4 control-label']);
                 $xhtml .= $this->view->formLabel($element);
             }
             $xhtml .= '<div class="col-sm-8">';
             switch (get_class($element)) {
+                case HtmlStatic::class:
+                    $xhtml .= '<p class="form-control-static"> ' .$this->view->escapeHtml($element->getValue()). '</p>';
+                    break;
                 case Button::class:
                 case Submit::class:
                     break;

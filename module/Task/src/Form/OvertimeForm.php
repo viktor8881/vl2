@@ -2,6 +2,7 @@
 namespace Task\Form;
 
 use Base\Form\Form;
+use Exchange\Entity\Exchange;
 use Task\Entity\Task;
 use Zend\InputFilter\InputFilter;
 
@@ -78,6 +79,9 @@ class OvertimeForm extends Form
 
         $valuesCurrency = [];
         foreach ($this->currencies as $item) {
+            if ($item->getCode() == Exchange::CODE_CURRENCY_MAIN) {
+                continue;
+            }
             $valuesCurrency[] = ['value' => $item->getId(),
                                  'label' => $item->getName(),
             ];

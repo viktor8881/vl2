@@ -16,6 +16,8 @@ class Exchange extends AbstractEntity
     const TYPE_METAl = 1;
     const TYPE_CURRENCY = 2;
 
+    const CODE_CURRENCY_MAIN = 'RUB-643';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

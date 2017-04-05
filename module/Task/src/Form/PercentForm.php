@@ -4,6 +4,7 @@ namespace Task\Form;
 use Base\Filter\ToFloat;
 use Base\Form\Form;
 use Base\Validator\FloatPositive;
+use Exchange\Entity\Exchange;
 use Task\Entity\Task;
 use Zend\InputFilter\InputFilter;
 
@@ -93,6 +94,9 @@ class PercentForm extends Form
 
         $valuesCurrency = [];
         foreach ($this->currencies as $item) {
+            if ($item->getCode() == Exchange::CODE_CURRENCY_MAIN) {
+                continue;
+            }
             $valuesCurrency[] = ['value' => $item->getId(),
                                  'label' => $item->getName(),
             ];

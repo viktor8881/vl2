@@ -13,6 +13,7 @@ use Exchange\Entity\Exchange;
 class Account extends AbstractEntity
 {
     const MAIN = 1;
+    const NO_MAIN = 0;
 
     /**
      * @ORM\Id
@@ -28,10 +29,10 @@ class Account extends AbstractEntity
      */
     protected $exchange;
     /** @ORM\Column(name="balance", type="decimal", precision=6, scale=20) */
-    protected $balance;
+    protected $balance = 0;
 
-    /** @ORM\Column(name="main", type="smallint") */
-    protected $main;
+    /** @ORM\Column(name="main", type="integer") */
+    protected $main = self::NO_MAIN;
 
     /**
      * @return mixed
@@ -59,25 +60,48 @@ class Account extends AbstractEntity
 
     /**
      * @param Exchange $exchange
+     * @return $this
      */
-    public function setExchange($exchange)
+    public function setExchange(Exchange $exchange)
     {
         $this->exchange = $exchange;
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isMetal()
     {
         return $this->getExchange()->isMetal();
     }
 
+    /**
+     * @return bool
+     */
     public function isCurrency()
     {
         return $this->getExchange()->isCurrency();
     }
 
+    /**
+     * @return string
+     */
     public function getExchangeName()
     {
-        return $this->getExchange()->getName();
+        $exchange = $this->getExchange();
+        if ($exchange) {
+            return $exchange->getName();
+        }
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortNameExchange()
+    {
+        return $this->getExchange()->getShortName();
     }
 
     /**
@@ -90,17 +114,19 @@ class Account extends AbstractEntity
 
     /**
      * @param float $balance
+     * @return $this
      */
     public function setBalance($balance)
     {
         $this->balance = $balance;
+        return $this;
     }
 
     /**
      * @param $balance
      * @return $this
      */
-    public function replenishBalance($balance)
+    public function addBalance($balance)
     {
         $this->balance += $balance;
         return $this;
@@ -110,7 +136,7 @@ class Account extends AbstractEntity
      * @param $balance
      * @return $this
      */
-    public function subtractionBalance($balance)
+    public function subBalance($balance)
     {
         $this->balance -= $balance;
         return $this;
@@ -118,10 +144,12 @@ class Account extends AbstractEntity
 
     /**
      * @param int $main
+     * @return $this
      */
     public function setMain($main)
     {
         $this->main = $main;
+        return $this;
     }
 
     /**
@@ -131,4 +159,6 @@ class Account extends AbstractEntity
     {
         return $this->main == self::MAIN;
     }
+
+
 }

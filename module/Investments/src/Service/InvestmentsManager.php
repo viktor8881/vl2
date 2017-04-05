@@ -3,14 +3,98 @@
 
 namespace Investments\Service;
 
+use Account\Entity\Account;
+use Account\Service\AccountManager;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
+use Base\Entity\IEmpty;
 use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
 use Investments\Entity\Criterion\InvestmentsId;
+use Investments\Entity\Investments;
+use Symfony\Component\Console\Exception\RuntimeException;
 
 class InvestmentsManager extends AbstractManager
 {
+
+    /** @var AccountManager */
+    private $accountManager;
+
+    /**
+     * @param AccountManager $accountManager
+     * @return $this
+     */
+    public function setAccountManager(AccountManager $accountManager)
+    {
+        $this->accountManager = $accountManager;
+        return $this;
+    }
+
+    /**
+     * @param Investments $investment
+     */
+    public function buy(Investments $investment)
+    {
+        $this->em->persist($investment);
+        $account = $this->accountManager->getMainAccount();
+        $account->subBalance($investment->getSum());
+
+        $exchange = $investment->getExchange();
+        $accountExchange = $this->accountManager->getByExchange($exchange);
+        if (!$accountExchange) {
+            /** @var Account $accountExchange */
+            $accountExchange = $this->accountManager->createEntity();
+            $accountExchange->setExchange($exchange)
+                            ->setMain(Account::NO_MAIN);
+        }
+        $accountExchange->addBalance($investment->getAmount());
+        $this->em->persist($accountExchange);
+        $this->em->flush();
+    }
+
+    /**
+     * @param Investments $investment
+     */
+    public function sell(Investments $investment)
+    {
+        $this->em->persist($investment);
+        $account = $this->accountManager->getMainAccount();
+        $account->addBalance($investment->getSum());
+
+        $exchange = $investment->getExchange();
+        $accountExchange = $this->accountManager->getByExchange($exchange);
+        if (!$accountExchange) {
+            /** @var Account $accountExchange */
+            $accountExchange = $this->accountManager->createEntity();
+            $accountExchange->setExchange($exchange)
+                ->setMain(Account::NO_MAIN);
+        }
+        $accountExchange->subBalance($investment->getAmount());
+        $this->em->persist($accountExchange);
+        $this->em->flush();
+    }
+
+    /**
+     * @param IEmpty $model
+     */
+    public function delete(IEmpty $model)
+    {
+        if (!($model instanceof Investments)) {
+            throw new \RuntimeException('Wrong type. Expected type Investments');
+        }
+        /** @var Investments $model */
+        $accountMain = $this->accountManager->getMainAccount();
+        $accountExchange = $this->accountManager->getByExchange($model->getExchange());
+        if ($model->isBay()) {
+            $accountMain->addBalance($model->getSum());
+            $accountExchange->subBalance($model->getAmount());
+        } else {
+            $accountMain->subBalance($model->getSum());
+            $accountExchange->addBalance($model->getAmount());
+        }
+        $this->em->remove($model);
+        $this->em->flush();
+    }
 
     /**
      * @param AbstractCriterion $criterion

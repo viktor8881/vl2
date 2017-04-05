@@ -103,7 +103,7 @@ class CourseManager extends AbstractManager
      * @param \DateTime $date
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function getCollectionByExchangeAndDate(Exchange $exchange, \DateTime $date)
+    public function getCollectionByExchangeAndLsDate(Exchange $exchange, \DateTime $date)
     {
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
@@ -131,6 +131,19 @@ class CourseManager extends AbstractManager
             $coll->append($course);
         }
         return $coll;
+    }
+
+    /**
+     * @param Exchange  $exchange
+     * @param \DateTime $date
+     * @return Course
+     */
+    public function getByExchangeAndDate(Exchange $exchange, \DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionEqDate($date));
+        return $this->getByCriterions($criterions);
     }
 
 

@@ -56,7 +56,7 @@ class IndexController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
-                $mainAcc->replenishBalance($form->getValueBalance());
+                $mainAcc->addBalance($form->getValueBalance());
                 $this->accountManager->update($mainAcc);
 
                 $this->flashMessenger()->addSuccessMessage('Balance refilled successfully');
@@ -82,7 +82,7 @@ class IndexController extends AbstractActionController
             $form->setData($this->params()->fromPost());
             if ($form->isValid()) {
                 /** @var Account $mainAcc */
-                $mainAcc->subtractionBalance($form->getValueBalance());
+                $mainAcc->subBalance($form->getValueBalance());
                 $this->accountManager->update($mainAcc);
 
                 $this->flashMessenger()->addSuccessMessage('Balance subtraction successfully');

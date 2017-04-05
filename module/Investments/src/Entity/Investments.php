@@ -14,8 +14,8 @@ use Exchange\Entity\Exchange;
 class Investments extends AbstractEntity
 {
 
-    const TYPE_BAY = 'buy';
-    const TYPE_SELL = 'sell';
+    const TYPE_BAY = 0;
+    const TYPE_SELL = 1;
 
     /**
      * @ORM\Id
@@ -24,12 +24,12 @@ class Investments extends AbstractEntity
      */
     protected $id;
 
-    /** @ORM\Column(name="type", type="string") */
+    /** @ORM\Column(name="type", type="integer") */
     protected $type;
+
     /**
-     * @ORM\ManyToOne(targetEntity="Exchange")
+     * @ORM\ManyToOne(targetEntity="\Exchange\Entity\Exchange")
      * @ORM\JoinColumn(name="exchange_id", referencedColumnName="id")
-     * @ORM\Column(name="exchange_id")
      * @var Exchange
      */
     protected $exchange;
@@ -39,6 +39,9 @@ class Investments extends AbstractEntity
 
     /** @ORM\Column(name="course", type="decimal", precision=6, scale=20) */
     protected $course;
+
+    /** @ORM\Column(name="`sum`", type="decimal", precision=6, scale=20) */
+    protected $sum;
 
     /** @ORM\Column(name="date", type="date") */
     protected $date;
@@ -53,15 +56,17 @@ class Investments extends AbstractEntity
     }
 
     /**
-     * @param mixed $id
+     * @param integer $id
+     * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getType()
     {
@@ -69,11 +74,37 @@ class Investments extends AbstractEntity
     }
 
     /**
-     * @param mixed $type
+     * @return $this
      */
-    public function setType($type)
+    public function setTypeBay()
     {
-        $this->type = $type;
+        $this->type = self::TYPE_BAY;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTypeSell()
+    {
+        $this->type = self::TYPE_SELL;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBay()
+    {
+        return $this->type == self::TYPE_BAY;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSell()
+    {
+        return $this->type == self::TYPE_SELL;
     }
 
     /**
@@ -85,15 +116,29 @@ class Investments extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getExchangeName()
+    {
+        $exchange = $this->getExchange();
+        if ($exchange) {
+            return $exchange->getName();
+        }
+        return '';
+    }
+
+    /**
      * @param Exchange $exchange
+     * @return $this
      */
     public function setExchange($exchange)
     {
         $this->exchange = $exchange;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getAmount()
     {
@@ -101,15 +146,17 @@ class Investments extends AbstractEntity
     }
 
     /**
-     * @param mixed $amount
+     * @param float $amount
+     * @return $this
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getCourse()
     {
@@ -117,15 +164,36 @@ class Investments extends AbstractEntity
     }
 
     /**
-     * @param mixed $course
+     * @param float $course
+     * @return $this
      */
     public function setCourse($course)
     {
         $this->course = $course;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return float
+     */
+    public function getSum()
+    {
+        return (float)$this->sum;
+    }
+
+    /**
+     * @param float $sum
+     *
+     * @return Investments
+     */
+    public function setSum($sum)
+    {
+        $this->sum = $sum;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -133,11 +201,13 @@ class Investments extends AbstractEntity
     }
 
     /**
-     * @param mixed $date
+     * @param $date
+     * @return $this
      */
     public function setDate($date)
     {
         $this->date = $date;
+        return $this;
     }
 
 }

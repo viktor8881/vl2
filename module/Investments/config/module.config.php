@@ -8,21 +8,40 @@
 namespace Investments;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Zend\Router\Http\Literal;
+use Investments\Form\Factory\InvestmentBuyFormFactory;
+use Investments\Form\InvestmentBuyForm;
+use Investments\Form\Factory\InvestmentSellFormFactory;
+use Investments\Form\InvestmentSellForm;
+use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
             'investments' => [
-                'type' => Literal::class,
+                'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/investments',
-                    'defaults' => [
+                    'route'       => '/investments[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z]*',
+                        'id' => '[0-9]+'
+                    ],
+                    'defaults'    => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'index'
                     ],
                 ],
             ],
+
+//            'investments' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/investments',
+//                    'defaults' => [
+//                        'controller' => Controller\IndexController::class,
+//                        'action'     => 'index',
+//                    ],
+//                ],
+//            ],
         ],
     ],
     'controllers' => [
@@ -40,6 +59,13 @@ return [
     'service_manager' => [
         'factories' => [
             Service\InvestmentsManager::class => Service\Factory\InvestmentsManagerFactory::class,
+        ]
+    ],
+
+    'form_elements' => [
+        'factories' => [
+            InvestmentBuyForm::class => InvestmentBuyFormFactory::class,
+            InvestmentSellForm::class => InvestmentSellFormFactory::class
         ]
     ],
 

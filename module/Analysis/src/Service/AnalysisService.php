@@ -151,7 +151,7 @@ class AnalysisService
         $countRec = 0;
         foreach ($task->getExchanges() as $exchange) {
             /** @var CourseCollection $courses */
-            $courses = $this->courseManager->getCollectionByExchangeAndDate($exchange, $date);
+            $courses = $this->courseManager->getCollectionByExchangeAndLsDate($exchange, $date);
             $courses = $courses->listExchangeUpOrDown();
             $listValue = [];
             /** @var Course[] $courses */

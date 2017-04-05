@@ -26,7 +26,7 @@ class Fraction extends AbstractValidator
         } elseif (is_string($params) or is_int($params)) {
             $this->_fraction = (int)$params;
         }
-        $this->_setValue($this->_fraction);
+        $this->setValue($this->_fraction);
         parent::__construct();
     }
 
@@ -41,10 +41,8 @@ class Fraction extends AbstractValidator
         if ($value) {
             $value = (float)$value;
             $partsNum = explode('.', $value, 2);
-            if (isset($partsNum[1])
-                && strlen($partsNum[1]) > $this->_fraction
-            ) {
-                $this->_error(self::INVALID);
+            if (isset($partsNum[1]) && strlen($partsNum[1]) > $this->_fraction) {
+                $this->error(self::INVALID);
                 return false;
             }
         }

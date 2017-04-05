@@ -1,5 +1,14 @@
 <?php
-$this->pageHeader()->setTitle('Инвестиции');
+$optionsDropDown = [
+        ['name' => 'Купить', 'href' => $this->url('investments', ['action' => 'buy'])],
+        ['name' => 'Продать', 'href' => $this->url('investments', ['action' => 'sell'])]];
+
+$htmlSubTitle = '<small class="text-muted h__padding_left30">' ._('текущий счет') .' :  '. $this->formatMoney($this->mainAccount->getBalance(), $this->mainAccount->getExchange()) . '</small>';
+//$this->pageHeader()->setTitleWithButtonDropDown('Инвестиции <strong>основной счет</strong>', $optionsDropDown);
+
+$this->pageHeader()->setTitle('Инвестиции')
+    ->setSubTitle($htmlSubTitle, false)
+    ->setButtonDropDownRight($optionsDropDown);
 
 $this->mainMenu()->setActiveItemId('investments');
 
@@ -8,23 +17,39 @@ $this->mainMenu()->setActiveItemId('investments');
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Операция</th>
-        <th>Дата</th>
-        <th>Кол-во</th>
-        <th>Курс</th>
-        <th>Сумма инвестиций (руб.)</th>
+        <th><?= _('Операция') ?></th>
+        <th><?= _('Exchange') ?></th>
+        <th><?= _('Дата') ?></th>
+        <th><?= _('Кол-во') ?></th>
+        <th><?= _('Курс') ?></th>
+        <th><?= _('Сумма инвестиций (руб.)') ?></th>
+        <th><?= _('Действия') ?></th>
     </tr>
     </thead>
     <tbody>
-    <?php if (count($this->items)) : ?>
-        <?php foreach ($this->items as $item) : ?>
-            <tr>
-                <td><?php echo $this->escapeHtml($item->getCode())?></td>
-                <td><?php echo $this->escapeHtml($item->getname())?></td>
+    <?php if (count($this->investments)) : ?>
+        <?php foreach ($this->investments as $investment) : ?>
+            <?php
+                if ($investment->isBay()) {
+                    $textOperation = _('Покупка');
+                    $class = 'warning';
+                } else {
+                    $textOperation = _('Продажа');
+                    $class = 'success';
+                }
+            ?>
+            <tr class="<?=$class?>">
+                <td><?= $textOperation ?> </td>
+                <td><?= $this->escapeHtml($investment->getExchangeName())?></td>
+                <td><?= $investment->getDate()->format('d.m.Y')?></td>
+                <td><?= $this->escapeHtml($investment->getAmount())?></td>
+                <td><?= $this->escapeHtml($investment->getCourse())?></td>
+                <td><?= $this->escapeHtml($investment->getSum())?></td>
+                <td><a href="<?=$this->url('investments', ['action' => 'delete', 'id' => $investment->getId()])?>"><?=$this->iconDelete('Удалить')?></a></td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr><td colspan="5" class="text-center"><?= _('Инвестиции не найдены') ?></td></tr>
+        <tr><td colspan="7" class="text-center"><?= _('Инвестиции не найдены') ?></td></tr>
     <?php endif; ?>
     </tbody>
 </table>

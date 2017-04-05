@@ -52,9 +52,7 @@ class PercentController extends AbstractActionController
     public function editAction()
     {
         /** @var TaskPercent $task */
-        $task = $this->taskManager->get(
-            (int)$this->params()->fromRoute('id', -1)
-        );
+        $task = $this->taskManager->get((int)$this->params()->fromRoute('id', -1));
         if (!$task or !$task->isPercent()) {
             $this->getResponse()->setStatusCode(404);
             return $this->getResponse();

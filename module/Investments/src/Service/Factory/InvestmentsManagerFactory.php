@@ -1,6 +1,7 @@
 <?php
 namespace Investments\Service\Factory;
 
+use Account\Service\AccountManager;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Investments\Entity\Investments;
@@ -17,6 +18,7 @@ class InvestmentsManagerFactory implements FactoryInterface
         /** @var EntityManager $entityManager */
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $service = new InvestmentsManager($entityManager, self::ENTITY_NAME);
+        $service->setAccountManager($container->get(AccountManager::class));
         return $service;
     }
 
