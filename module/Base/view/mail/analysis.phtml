@@ -1,4 +1,9 @@
 <?php
+if ($date) {
+    echo '<h3>Анализ за' . $date->format('d.m.Y') . '</h3>';
+}
+
+
 if ($taskOvertimeAnalysis) {
     if ($taskOvertimeAnalysis->isQuotesGrowth()) {
         echo '<p>Повышение курса в течении ' .

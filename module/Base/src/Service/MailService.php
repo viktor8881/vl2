@@ -37,16 +37,18 @@ class MailService
     }
 
     /**
-     * @param Exchange             $exchange
-     * @param TaskOvertimeAnalysis $taskOvertimeAnalysis
-     * @param TaskPercentAnalyzes[] $taskPercentAnalyzes
-     * @param TaskFigureAnalyzes[]  $taskFigureAnalyzes
+     * @param \DateTime                 $date
+     * @param Exchange                  $exchange
+     * @param TaskOvertimeAnalysis|null $taskOvertimeAnalysis
+     * @param array                     $taskPercentAnalyzes
+     * @param array                     $taskFigureAnalyzes
      */
-    public function sendAnalysis(Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [])
+    public function sendAnalysis(\DateTime $date, Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [])
     {
-        $this->message->setSubject($exchange->getName());
+        $this->message->setSubject($exchange->getName() . ' - dev');
         $viewModel = new ViewModel(
-            ['exchange'             => $exchange,
+            ['date'                 => $date,
+             'exchange'             => $exchange,
              'taskOvertimeAnalysis' => $taskOvertimeAnalysis,
              'taskPercentAnalyzes'  => $taskPercentAnalyzes,
              'taskFigureAnalyzes'   => $taskFigureAnalyzes]

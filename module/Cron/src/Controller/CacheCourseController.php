@@ -112,6 +112,8 @@ class CacheCourseController extends AbstractActionController
                 $this->getResponse()->setStatusCode(500);
                 return $this->getResponse();
             }
+        } else {
+            $this->getResponse()->setStatusCode(412);
         }
         if (!$hideMess) {
             echo 'ok!';

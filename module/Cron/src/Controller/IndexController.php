@@ -27,30 +27,41 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-//        $dateNow = new Date();
         $queue = $this->queue;
 
 //        $queue->send(self::TASK_RECEIVE_DATA); exit;
+
+        $str = $this->forward()->dispatch(CourseController::class, array('action'=>'test'));
+        var_dump($str->getStatusCode());
+        exit;
 
         $messages = $queue->receive();
         foreach ($messages as $message) {
             $body = $message->body;
             switch ($body) {
                 case self::TASK_RECEIVE_DATA:
-                    $this->forward()->dispatch(CourseController::class, array('action'=>'receive'));
-                    $queue->send(self::TASK_CACHE_DATA);
+                    $response = $this->forward()->dispatch(CourseController::class, array('action'=>'receive'));
+                    if ($response->getStatusCode() == 200 ) {
+                        $queue->send(self::TASK_CACHE_DATA);
+                    }
                     break;
                 case self::TASK_CACHE_DATA:
-                    $this->forward()->dispatch(CacheCourseController::class, array('action'=>'fill-cache'));
-                    $queue->send(self::TASK_ANALYSIS);
+                    $response = $this->forward()->dispatch(CacheCourseController::class, array('action'=>'fill-cache'));
+                    if ($response->getStatusCode() == 200 ) {
+                        $queue->send(self::TASK_ANALYSIS);
+                    }
                     break;
                 case self::TASK_ANALYSIS:
-                    $this->forward()->dispatch(AnalysisController::class, array('action' =>'index'));
-                    $queue->send(self::TASK_SEND_MESSAGE);
+                    $response = $this->forward()->dispatch(AnalysisController::class, array('action' =>'index'));
+                    if ($response->getStatusCode() == 200 ) {
+                        $queue->send(self::TASK_SEND_MESSAGE);
+                    }
                     break;
                 case self::TASK_SEND_MESSAGE:
-//                    $this->sendMessage($dateNow);
-                    $queue->send(self::TASK_RECEIVE_DATA);
+                    $response = $this->forward()->dispatch(MessageController::class, array('action' =>'send-message'));
+                    if ($response->getStatusCode() == 200 ) {
+                        $queue->send(self::TASK_RECEIVE_DATA);
+                    }
                     break;
                 default:
                     throw new \Exception('unknown type task.');

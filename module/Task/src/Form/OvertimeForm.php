@@ -117,10 +117,14 @@ class OvertimeForm extends Form
                 'name'       => 'period',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StringTrim'],
+                    ['name' => 'Int'],
                 ],
                 'validators' => [
                     ['name' => 'Digits'],
+                    ['name' => 'Between',
+                     'options' => ['min' => 1,
+                                   'max' => 100],
+                    ],
                 ],
             ]
         );

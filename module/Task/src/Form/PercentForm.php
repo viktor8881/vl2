@@ -145,10 +145,14 @@ class PercentForm extends Form
                 'name'       => 'period',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StringTrim'],
+                    ['name' => 'Int'],
                 ],
                 'validators' => [
                     ['name' => 'Digits'],
+                    ['name' => 'Between',
+                        'options' => ['min' => 1,
+                                      'max' => 100],
+                    ],
                 ],
             ]
         );
@@ -178,12 +182,8 @@ class PercentForm extends Form
                     $this->get('currencies')->getValue()
                 );
             if ($countInvest == 0) {
-                $this->get('metals')->setMessages(
-                    ['Select metals or currencies.']
-                );
-                $this->get('currencies')->setMessages(
-                    ['Select metals or currencies.']
-                );
+                $this->get('metals')->setMessages(['Select metals or currencies.']);
+                $this->get('currencies')->setMessages(['Select metals or currencies.']);
                 $isValid = false;
             }
         }

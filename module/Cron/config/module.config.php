@@ -22,16 +22,6 @@ return [
                     ],
                 ],
             ],
-            'cron.analysis' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/analysis',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'analysis',
-                    ],
-                ],
-            ],
 
             'course.receive' => [
                 'type' => Literal::class,
@@ -54,16 +44,16 @@ return [
                 ],
             ],
 
-            'cachecourse.firststart' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/cache-course/tmp',
-                    'defaults' => [
-                        'controller' => Controller\CacheCourseController::class,
-                        'action'     => 'tmp',
-                    ],
-                ],
-            ],
+//            'cachecourse.firststart' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/cache-course/tmp',
+//                    'defaults' => [
+//                        'controller' => Controller\CacheCourseController::class,
+//                        'action'     => 'tmp',
+//                    ],
+//                ],
+//            ],
             'cachecourse.filling' => [
                 'type' => Literal::class,
                 'options' => [
@@ -103,17 +93,6 @@ return [
                     'route'    => '/cron/analysis/tmp',
                     'defaults' => [
                         'controller' => Controller\AnalysisController::class,
-                        'action'     => 'tmp',
-                    ],
-                ],
-            ],
-
-            'send-message.tmp' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/send-message/tmp',
-                    'defaults' => [
-                        'controller' => Controller\MessageController::class,
                         'action'     => 'tmp',
                     ],
                 ],
