@@ -41,7 +41,7 @@ class AnalysisController extends AbstractActionController
         $this->analysisService = $analysisService;
     }
 
-    public function tmpAction()
+    private function tmpAction()
     {
         $tmpDir = 'data/tmp/';
         $dateNow = new Date();

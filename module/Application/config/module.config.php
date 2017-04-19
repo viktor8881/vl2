@@ -11,6 +11,7 @@ use Application\Factory\IndexControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
+
 return [
     'router' => [
         'routes' => [
@@ -56,6 +57,7 @@ return [
             Controller\IndexController::class => IndexControllerFactory::class,
         ],
     ],
+
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

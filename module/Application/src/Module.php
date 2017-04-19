@@ -9,6 +9,7 @@ namespace Application;
 
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\SessionManager;
 
 class Module
 {
@@ -27,6 +28,7 @@ class Module
     // Обработчик события.
     public function onDispatch(MvcEvent $event)
     {
+
         // Получаем контроллер, к которому был отправлен HTTP-запрос.
         $controller = $event->getTarget();
         // Получаем полностью определенное имя класса контроллера.
@@ -39,17 +41,20 @@ class Module
             $viewModel = $event->getViewModel();
             $viewModel->setTemplate('layout/alt-layout');
         }
-//        pr('Module::onDispatch');
     }
 
     public function onBootstrap(MvcEvent $event)
     {
+//        $config = $event->getApplication()->getServiceManager()->get('Config');
+//        print_r($config['router']);
+//        die('ads');
+
         $application = $event->getApplication();
         $serviceManager = $application->getServiceManager();
 
         // Следующая строка инстанцирует SessionManager и автоматически
         // делает его выбираемым 'по умолчанию'.
-//        $sessionManager = $serviceManager->get(SessionManager::class);
+        $sessionManager = $serviceManager->get(SessionManager::class);
     }
 
     public function getConfig()

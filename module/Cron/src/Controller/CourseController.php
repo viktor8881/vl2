@@ -35,7 +35,7 @@ class CourseController extends AbstractActionController
         $this->tmpDir = $tmpDir;
     }
 
-    public function tmpAction()
+    private function tmpAction()
     {
         $dateNow = new Date();
         $fileName = $this->tmpDir . 'tmp.tmp';

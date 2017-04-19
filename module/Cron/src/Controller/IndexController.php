@@ -20,20 +20,9 @@ class IndexController extends AbstractActionController
         $this->queue = $queue;
     }
 
-
-//INSERT INTO `message` (`message_id`, `queue_id`, `handle`, `body`, `md5`, `timeout`, `created`) VALUES
-//(626, 1, NULL, 'analysis', '3b671c883959a8ef434b85a104c293d4', NULL, 1487940393);
-
-
     public function indexAction()
     {
         $queue = $this->queue;
-
-//        $queue->send(self::TASK_RECEIVE_DATA); exit;
-
-        $str = $this->forward()->dispatch(CourseController::class, array('action'=>'test'));
-        var_dump($str->getStatusCode());
-        exit;
 
         $messages = $queue->receive();
         foreach ($messages as $message) {
@@ -43,24 +32,32 @@ class IndexController extends AbstractActionController
                     $response = $this->forward()->dispatch(CourseController::class, array('action'=>'receive'));
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_CACHE_DATA);
+                    } else {
+                        $queue->send(self::TASK_RECEIVE_DATA);
                     }
                     break;
                 case self::TASK_CACHE_DATA:
                     $response = $this->forward()->dispatch(CacheCourseController::class, array('action'=>'fill-cache'));
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_ANALYSIS);
+                    } else {
+                        $queue->send(self::TASK_CACHE_DATA);
                     }
                     break;
                 case self::TASK_ANALYSIS:
                     $response = $this->forward()->dispatch(AnalysisController::class, array('action' =>'index'));
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_SEND_MESSAGE);
+                    } else {
+                        $queue->send(self::TASK_ANALYSIS);
                     }
                     break;
                 case self::TASK_SEND_MESSAGE:
                     $response = $this->forward()->dispatch(MessageController::class, array('action' =>'send-message'));
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_RECEIVE_DATA);
+                    } else {
+                        $queue->send(self::TASK_SEND_MESSAGE);
                     }
                     break;
                 default:
@@ -71,20 +68,5 @@ class IndexController extends AbstractActionController
         }
         return $this->getResponse();
     }
-
-
-
-//    private function sendMessage(Core_Date $dateNow) {
-//        // readAll analysis currency by date
-//        $analysis = $this->getManager('analysisCurrency')->fetchAllByDate($dateNow);
-//        if ($analysis->count()) {
-//            foreach ($analysis->getCurrencies() as $currency) {
-//                Core_Mail::sendAnalysisCurrency($currency,
-//                    $analysis->getOvertimeByCurrencyCode($currency->getCode()),
-//                    $analysis->listPercentByCurrencyCode($currency->getCode()),
-//                    $analysis->listFigureByCurrencyCode($currency->getCode()));
-//            }
-//        }
-//    }
 
 }

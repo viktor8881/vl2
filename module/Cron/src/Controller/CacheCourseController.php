@@ -46,7 +46,7 @@ class CacheCourseController extends AbstractActionController
         $this->cacheCourseService = $cacheCourseService;
     }
 
-    public function tmpAction()
+    private function tmpAction()
     {
         $date = new \DateTime(self::INIT_DATE);
         foreach($this->courseManager->fetchAllByDate($date) as $course) {
@@ -66,7 +66,7 @@ class CacheCourseController extends AbstractActionController
         return $this->getResponse();
     }
 
-    public function tmp1Action()
+    private function tmp1Action()
     {
         $tmpDir = 'data/tmp/';
         $dateNow = new Date();
