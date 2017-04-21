@@ -1,7 +1,6 @@
 <?php
 namespace Investments\Form;
 
-use Account\Entity\Account;
 use Account\Service\AccountManager;
 use Base\Filter\ToFloat;
 use Base\Form\Element\HtmlStatic;
@@ -9,10 +8,9 @@ use Base\Form\Form;
 use Base\Validator\FloatPositive;
 use Base\Validator\Fraction;
 use Course\Service\CourseManager;
-use DoctrineORMModule\Proxy\__CG__\Exchange\Entity\Exchange;
+use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 use Zend\InputFilter\InputFilter;
-use Zend\Validator\Between;
 
 class InvestmentSellForm extends Form
 {

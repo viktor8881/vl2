@@ -8,7 +8,7 @@ use Base\Form\Form;
 use Base\Validator\FloatPositive;
 use Base\Validator\Fraction;
 use Course\Service\CourseManager;
-use DoctrineORMModule\Proxy\__CG__\Exchange\Entity\Exchange;
+use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\Between;

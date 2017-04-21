@@ -10,6 +10,7 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
+use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
 use Zend\Session\Storage\SessionArrayStorage;
 use Zend\Session\Validator\HttpUserAgent;
 use Zend\Session\Validator\RemoteAddr;
@@ -37,15 +38,29 @@ return [
         'connection' => [
             'orm_default' => [
                 'driverClass' => PDOMySqlDriver::class,
-                'params'    => [
+                'params'      => [
                     'host'     => '127.0.0.1',
                     'user'     => 'root',
                     'password' => '',
-                    'dbname'   => 'db_name',
+                    'dbname'   => 'dbname',
                     'charset'  => 'utf8',
                 ]
             ],
         ],
+    ],
+    'mail'     => [
+        'smtpOptions' => [
+            'name'              => 'localhost.localdomain',
+            'port'              => 25,
+            'host'              => 'smtp-host',
+            'connection_class'  => 'login',
+            'connection_config' => [
+                'username' => 'username',
+                'password' => 'password',
+            ],
+        ],
+        'addresses'   => ['siteEmail'  => 'valuta@1gb.ru',
+                          'adminEmail' => 'ivavictor@mail.ru']
     ],
 
     'tmp_dir' => 'data/tmp/',
