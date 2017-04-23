@@ -5,12 +5,11 @@ namespace Base\Service;
 use Analysis\Entity\TaskOvertimeAnalysis;
 use Exchange\Entity\Exchange;
 use Zend\Mail\Message;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mime\Part as MimePart;
+use Zend\Mail\Transport\TransportInterface;
 use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver\TemplateMapResolver;
 
 
 class MailService
@@ -18,7 +17,7 @@ class MailService
 
     /** @var Message */
     private $message;
-    /** @var SmtpTransport */
+    /** @var TransportInterface */
     private $transport;
     /** @var PhpRenderer */
     private $renderer;
@@ -27,9 +26,9 @@ class MailService
      * MailService constructor.
      *
      * @param Message       $message
-     * @param SmtpTransport $transport
+     * @param TransportInterface $transport
      */
-    public function __construct(Message $message, SmtpTransport $transport, PhpRenderer $renderer)
+    public function __construct(Message $message, TransportInterface $transport, PhpRenderer $renderer)
     {
         $this->message = $message;
         $this->transport = $transport;
