@@ -17,11 +17,9 @@ class MailServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $mailOptions = $container->get('config')['mail'];
-//        $transport = new SmtpTransport();
-//        $options = new SmtpOptions($mailOptions['smtpOptions']);
-//        $transport->setOptions($options);
-
-        $transport = new Sendmail();
+        $transport = new SmtpTransport();
+        $options = new SmtpOptions($mailOptions['smtpOptions']);
+        $transport->setOptions($options);
 
         $message = new Message();
         $message->addTo($mailOptions['addresses']['adminEmail']);
