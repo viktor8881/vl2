@@ -24,6 +24,8 @@ class IndexController extends AbstractActionController
     {
         $queue = $this->queue;
 
+//        $queue->send(self::TASK_RECEIVE_DATA); exit;
+
         $messages = $queue->receive();
         foreach ($messages as $message) {
             $body = $message->body;

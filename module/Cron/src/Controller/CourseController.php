@@ -80,10 +80,12 @@ class CourseController extends AbstractActionController
             try {
                 /** @var Exchange[] $exchanges */
                 $exchanges = $this->exchangeManager->fetchAll();
-                $listCourse = $this->courseService->receiveByDateToListCourse(
-                    $date, $exchanges
-                );
-                $this->courseManager->insertList($listCourse);
+                $listCourse = $this->courseService->receiveByDateToListCourse($date, $exchanges);
+                if (!count($listCourse)) {
+                    $this->getResponse()->setStatusCode(412);
+                } else {
+                    $this->courseManager->insertList($listCourse);
+                }
                 echo 'ok!';
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);
