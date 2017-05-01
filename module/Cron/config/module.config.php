@@ -33,16 +33,16 @@ return [
                     ],
                 ],
             ],
-            'course.tmp' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/course/tmp',
-                    'defaults' => [
-                        'controller' => Controller\CourseController::class,
-                        'action'     => 'tmp',
-                    ],
-                ],
-            ],
+//            'course.tmp' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/course/tmp',
+//                    'defaults' => [
+//                        'controller' => Controller\CourseController::class,
+//                        'action'     => 'tmp',
+//                    ],
+//                ],
+//            ],
 
 //            'cachecourse.firststart' => [
 //                'type' => Literal::class,
@@ -54,16 +54,16 @@ return [
 //                    ],
 //                ],
 //            ],
-            'cachecourse.filling' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/cache-course/tmp1',
-                    'defaults' => [
-                        'controller' => Controller\CacheCourseController::class,
-                        'action'     => 'tmp1',
-                    ],
-                ],
-            ],
+//            'cachecourse.filling' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/cache-course/tmp1',
+//                    'defaults' => [
+//                        'controller' => Controller\CacheCourseController::class,
+//                        'action'     => 'tmp1',
+//                    ],
+//                ],
+//            ],
             'cachecourse.setcache' => [
                 'type' => Literal::class,
                 'options' => [
@@ -85,18 +85,16 @@ return [
                     ],
                 ],
             ],
-
-
-            'analysis.tmp' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/analysis/tmp',
-                    'defaults' => [
-                        'controller' => Controller\AnalysisController::class,
-                        'action'     => 'tmp',
-                    ],
-                ],
-            ],
+//            'analysis.tmp' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/analysis/tmp',
+//                    'defaults' => [
+//                        'controller' => Controller\AnalysisController::class,
+//                        'action'     => 'tmp',
+//                    ],
+//                ],
+//            ],
 
             'send-message.index' => [
                 'type' => Literal::class,
@@ -110,6 +108,27 @@ return [
             ],
         ],
     ],
+
+    'access_filter' => [
+        'controllers' => [
+            Controller\IndexController::class => [
+                ['actions' => ['index'], 'allow' => '*'],
+            ],
+            Controller\CourseController::class => [
+                ['actions' => ['receive'], 'allow' => '*'],
+            ],
+            Controller\CacheCourseController::class => [
+                ['actions' => ['fill-cache'], 'allow' => '*'],
+            ],
+            Controller\AnalysisController::class => [
+                ['actions' => ['index'], 'allow' => '*'],
+            ],
+            Controller\MessageController::class => [
+                ['actions' => ['send-message'], 'allow' => '*'],
+            ],
+        ]
+    ],
+
     'controllers' => [
         'factories' => [
             Controller\IndexController::class       => IndexControllerFactory::class,

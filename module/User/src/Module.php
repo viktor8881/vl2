@@ -32,8 +32,7 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
         // Register the event listener method. 
-//        $sharedEventManager->attach(AbstractActionController::class,
-//            MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
+        $sharedEventManager->attach(AbstractActionController::class, MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
     }
 
     /**
@@ -51,9 +50,9 @@ class Module
         $actionName = $event->getRouteMatch()->getParam('action', null);
 
         // Convert dash-style action name to camel-case.
-        $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
+//        $actionName = str_replace('-', '', lcfirst(ucwords($actionName, '-')));
 
-        // Get the instance of AuthManager service.
+        /** @var AuthManager $authManager */
         $authManager = $event->getApplication()->getServiceManager()->get(AuthManager::class);
 
         // Execute the access filter on every controller except AuthController

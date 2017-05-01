@@ -122,12 +122,10 @@ class AuthManager
             foreach ($items as $item) {
                 $actionList = $item['actions'];
                 $allow = $item['allow'];
-                if (is_array($actionList) && in_array($actionName, $actionList) ||
-                    $actionList == '*'
-                ) {
-                    if ($allow == '*')
+                if (is_array($actionList) && in_array($actionName, $actionList) || $actionList == '*' ) {
+                    if ($allow == '*') {
                         return true; // Anyone is allowed to see the page.
-                    else if ($allow == '@' && $this->authService->hasIdentity()) {
+                    } elseif ($allow == '@' && $this->authService->hasIdentity()) {
                         return true; // Only authenticated user is allowed to see the page.
                     } else {
                         return false; // Access denied.
