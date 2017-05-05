@@ -1,0 +1,19 @@
+<?php
+    $pages = $this->pages;
+    $countPages = count($pages);
+    if ($countPages > 1) {
+        echo '<ol class="breadcrumb h__margin_top10">';
+        echo '<li><a href="/" title="' . _('На главную') . '"><span class="glyphicon glyphicon-home"></span></a></li>';
+        $i = 0;
+        foreach ($this->pages as $page) {
+            if (++$i === 1) { continue; }
+
+            $label = _($page->getLabel());
+            if ($i !== $countPages) {
+                echo '<li><a href="' . $page->getHref() . '" title="' . $label . '">' . $label . '</a></li>';
+            } else {
+                echo '<li class="active">' . $label . '</li>';
+            }
+        }
+        echo '</ol>';
+    }

@@ -3,11 +3,6 @@ $this->pageHeader()->setTitle('View User');
 
 $this->mainMenu()->setActiveItemId('users');
 
-$this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Users' => $this->url('users'),
-    'View User' => $this->url('users', ['action' => 'view', 'id' => $user->getId()])
-]);
 ?>
 
 <?= $this->flashMessenger()->render('error', ['alert', 'alert-warning']); ?>

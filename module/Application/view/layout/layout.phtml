@@ -50,6 +50,9 @@
 </nav>
 <div class="container">
 
+    <?= $this->navigation('Zend\Navigation\Default')->breadcrumbs()
+        ->setPartial('breadcrumbs.phtml');  ?>
+
     <?= $this->pageBreadcrumbs()->render() ?>
     <?= $this->pageHeader()->render() ?>
 

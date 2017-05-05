@@ -9,7 +9,6 @@ namespace Application;
 
 use Application\Factory\IndexControllerFactory;
 use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
 
 
 return [
@@ -32,21 +31,6 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'about',
-                    ],
-                ],
-            ],
-            'application' => [
-                'type'    => Segment::class,
-                'route'       => '/task/percent/:action[/:id]',
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z]*',
-                        'id'     => '[0-9]*'
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
                     ],
                 ],
             ],

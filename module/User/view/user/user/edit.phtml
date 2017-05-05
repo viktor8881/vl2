@@ -3,12 +3,6 @@ $this->pageHeader()->setTitle(sprintf(_('Edit User %s'), $user->getEmail()));
 
 $this->mainMenu()->setActiveItemId('users');
 
-$this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Users' => $this->url('users'),
-    'Edit User' => $this->url('users', ['action' => 'edit', 'id' => $user->getId()])
-]);
-
 $form->get('email')->setAttributes([
     'class' => 'form-control',
     'placeholder' => 'name@example.com'

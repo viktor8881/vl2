@@ -9,8 +9,8 @@ namespace Investments;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Investments\Form\Factory\InvestmentBuyFormFactory;
-use Investments\Form\InvestmentBuyForm;
 use Investments\Form\Factory\InvestmentSellFormFactory;
+use Investments\Form\InvestmentBuyForm;
 use Investments\Form\InvestmentSellForm;
 use Zend\Router\Http\Segment;
 
@@ -31,17 +31,6 @@ return [
                     ],
                 ],
             ],
-
-//            'investments' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/investments',
-//                    'defaults' => [
-//                        'controller' => Controller\IndexController::class,
-//                        'action'     => 'index',
-//                    ],
-//                ],
-//            ],
         ],
     ],
     'controllers' => [
