@@ -1,4 +1,7 @@
-<?= $this->headerExchange($this->exchanges, $this->currentExchange, $this->period) ?>
+<?php
+    $this->mainMenu()->setActiveItemId('course');
+    echo $this->headerExchange($this->exchanges, $this->currentExchange, $this->period);
+?>
 
 <div id="chart_div"></div>
 

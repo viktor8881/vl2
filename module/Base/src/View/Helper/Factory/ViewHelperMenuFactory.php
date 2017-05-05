@@ -34,35 +34,34 @@ class ViewHelperMenuFactory implements FactoryInterface
                 [
                     'id'       => 'exchange',
                     'label'    => 'Exchange',
-                    'dropdown' => [[
-                                       'id'    => 'List_Metal',
-                                       'label' => 'Металы',
-                                       'link'  => $url->__invoke('metal.list')
-                                   ],
-                                   [
-                                       'id'    => 'List_Currency',
-                                       'label' => 'Валюты',
-                                       'link'  => $url->__invoke('currency.list')
-                                   ]]
+                    'dropdown' => [
+                        [
+                            'id'    => 'exchange_metal',
+                            'label' => 'Металы',
+                            'link'  => $url->__invoke('metal.list')
+                        ],
+                        [
+                            'id'    => 'exchange_currency',
+                            'label' => 'Валюты',
+                            'link'  => $url->__invoke('currency.list')
+                        ]
+                    ]
                 ],
                 [
-                    'id'       => 'cources',
+                    'id'       => 'course',
                     'label'    => 'Курсы',
-                    'dropdown' => [[
-                                       'id'    => 'cources_Metal',
-                                       'label' => 'Металы',
-                                       'link'  => $url->__invoke(
-                                           'course', ['action' => 'metal']
-                                       )
-                                   ],
-                                   [
-                                       'id'    => 'cources_Currency',
-                                       'label' => 'Валюты',
-                                       'link'  => $url->__invoke(
-                                           'course', ['action' => 'currency']
-                                       )
-                                   ]],
-
+                    'dropdown' => [
+                        [
+                            'id'    => 'course_metal',
+                            'label' => 'Металы',
+                            'link'  => $url->__invoke('course', ['action' => 'metal'])
+                        ],
+                        [
+                            'id'    => 'course_currency',
+                            'label' => 'Валюты',
+                            'link'  => $url->__invoke('course', ['action' => 'currency'])
+                        ]
+                    ],
                 ],
                 [
                     'id'    => 'investments',
