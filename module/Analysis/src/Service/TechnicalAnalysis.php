@@ -142,10 +142,8 @@ class TechnicalAnalysis
             }
             $hightCritery = $hightCritery * (1 - ($percent / 100));
             $lowCritery = $lowCritery * (1 - ($percent / 100));
-            if (self::compare($course, $hightCritery) == 1 or self::compare(
-                    $lowCritery, $course
-                ) == 1
-            ) {
+
+            if (self::compare($course, $hightCritery) == 1 or self::compare($lowCritery, $course) == 1) {
                 return false;
             }
         }
@@ -180,7 +178,7 @@ class TechnicalAnalysis
             $hight2 = $courses[2] * (1 + ($percentDiffPeak / 100));
             $low2 = $courses[2] * (1 - ($percentDiffPeak / 100));
 
-//            pr($courses);
+//            print_r($courses);
 //            echo('$hight1 = '.$hight1."\n");
 //            echo('$low1 = '.$low1."\n");
 //            echo('$hight2 = '.$hight2."\n");
@@ -203,9 +201,7 @@ class TechnicalAnalysis
         return false;
     }
 
-    public static function isDoubleBottom(array $courses, $percent = 5,
-        $percentDiffPeak = 20
-    ) {
+    public static function isDoubleBottom(array $courses, $percent = 5, $percentDiffPeak = 20) {
         if (count($courses) != 5) {
             return false;
         }

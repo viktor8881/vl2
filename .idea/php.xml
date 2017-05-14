@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PhpProjectServersManager">
-    <servers>
-      <server host="valuta.zf3.local" id="ae207640-1085-46b9-8b01-51f5f869b27d" name="valuta.zf3.local" />
-    </servers>
-  </component>
   <component name="PhpStepFilterConfiguration">
     <option name="skippedFunctions">
       <list>

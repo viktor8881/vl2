@@ -42,7 +42,7 @@ class Math
      *
      * @return bool результат сравнения <br /> 1 - левое > правого <br /> -1 - правое > левое <br /> 0 - равны
      */
-    public static function compare($left, $right, $scale = 2)
+    public static function  compare($left, $right, $scale = 2)
     {
         if (!is_float($left)) {
             $left = (float)$left;
