@@ -13,6 +13,9 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+
+    const DURING_MOVING_AVERAGE = 9;
+
     /** @var ExchangeManager */
     private $exchangeManager;
 
@@ -20,6 +23,8 @@ class IndexController extends AbstractActionController
     private $courseManager;
 
     private static $DATA_DEF;
+
+
 
 
     public function __construct(ExchangeManager $exchangeManager,
@@ -67,7 +72,7 @@ class IndexController extends AbstractActionController
                 'currentExchange' => $currentItem,
                 'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
                 'courses'         => $courses,
-                'movingAverage'   => MovingAverage::listAvgByCourses($courses, 9)
+                'movingAverage1'   => MovingAverage::listAvgByCourses($courses, self::DURING_MOVING_AVERAGE)
                 ];
     }
 
@@ -113,9 +118,7 @@ class IndexController extends AbstractActionController
              'currentExchange' => $metalItem,
              'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
              'courses'         => $courses,
-             'movingAverage1'   => MovingAverage::listAvg($valueCourses, 9),
-//             'movingAverage2'   => MovingAverage::listAvg($valueCourses, 30),
-//             'movingAverage3'   => MovingAverage::listAvg($valueCourses, 50)
+             'movingAverage1'   => MovingAverage::listAvg($valueCourses, self::DURING_MOVING_AVERAGE),
             ]
         );
 //        $view->setTemplate('course/index/currency.phtml');
