@@ -10,8 +10,8 @@
     $i = 0;
     foreach ($this->courses as $course) {
         $date = $course->getDate();
-        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),'
-            . $course->getValue() . ']';
+        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i].']';
+        $i++;
     }
 
     $this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
@@ -23,7 +23,10 @@
     function drawBasic() {
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'X');
-        data.addColumn('number', 'X');
+        data.addColumn('number', 'course');
+        data.addColumn('number', 'avg-1');
+//        data.addColumn('number', 'avg-2');
+//        data.addColumn('number', 'avg-3');
         data.addRows([" . implode(',', $lisChart) . "]);
         var options = {
             'height':500,

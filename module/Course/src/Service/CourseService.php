@@ -30,14 +30,14 @@ class CourseService
 
     /**
      * @param \DateTime  $date
-     * @param Exchange[] $list
+     * @param Exchange[] $exchanges
      *
      * @return Course[]
      */
-    public function receiveByDateToListCourse(\DateTime $date, array $list)
+    public function receiveByDateToListCourse(\DateTime $date, array $exchanges)
     {
         $listExchange = [];
-        foreach ($list as $exchange) {
+        foreach ($exchanges as $exchange) {
             $listExchange[$exchange->getCode()] = $exchange;
         }
 
@@ -65,7 +65,7 @@ class CourseService
      * @param \DateTime $date
      * @return array
      */
-    public function receiveByDateToArray(\DateTime $date)
+    private function receiveByDateToArray(\DateTime $date)
     {
         $result = [];
         $xmlstr = file_get_contents(

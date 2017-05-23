@@ -16,7 +16,7 @@ class TechnicalAnalysisTest extends TestCase {
      * @dataProvider additionIsUpTrendFalse
      */
     public function testIsUpTrendFalse($courses, $percent) {
-        $actual = TechnicalAnalysis::isUpTrend($courses);
+        $actual = TechnicalAnalysis::isUpTrend($courses, $percent);
         $this->assertFalse($actual);
     }
     
@@ -34,27 +34,27 @@ class TechnicalAnalysisTest extends TestCase {
      * @dataProvider additionIsUpTrendTrue
      */
     public function testIsUpTrendTrue($courses, $percent) {
-        $actual = TechnicalAnalysis::isUpTrend($courses);
+        $actual = TechnicalAnalysis::isUpTrend($courses, $percent);
         $this->assertTrue($actual);                
     }
     
     public function additionIsUpTrendTrue() {
         return [
-            [[100,  105], 5], 
-            [[100,  105, 110], 5], 
-            [[100,  105, 110, 115], 5], 
-            [[100,  105, 110, 115, 120], 5], 
-            [[100,  105, 110, 115, 120, 125], 5], 
-            [[100,  105, 110, 115, 120, 125, 130], 5], 
+            [[100,  105], 5],
+            [[100,  105, 110], 5],
+            [[100,  105, 110, 115], 5],
+            [[100,  105, 110, 115, 120], 5],
+            [[100,  105, 110, 115, 120, 125], 5],
+            [[100,  105, 110, 115, 120, 125, 130], 5],
 //            peak
-            [[100,  175, 110, 115, 120, 125, 130], 5], 
-            [[100,  105, 175, 115, 120, 125, 130], 5], 
-            [[100,  105, 110, 175, 120, 125, 130], 5], 
-            [[100,  105, 110, 115, 175, 125, 130], 5], 
-            [[100,  105, 110, 115, 120, 175, 130], 5], 
-            [[100,  105, 110, 115, 120, 125, 175], 5], 
+            [[100,  175, 110, 115, 120, 125, 130], 5],
+            [[100,  105, 175, 115, 120, 125, 130], 5],
+            [[100,  105, 110, 175, 120, 125, 130], 5],
+            [[100,  105, 110, 115, 175, 125, 130], 5],
+            [[100,  105, 110, 115, 120, 175, 130], 5],
+            [[100,  105, 110, 115, 120, 125, 175], 5],
 //            two peaks
-            [[100,  105, 175, 115, 120, 125, 175], 5],             
+            [[100,  105, 175, 115, 120, 125, 175], 5],
         ];
     }
     

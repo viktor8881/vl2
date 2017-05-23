@@ -15,8 +15,7 @@ class IndexControllerFactory implements FactoryInterface
     {
         $exchangeManager = $container->get(ExchangeManager::class);
         $courseManager = $container->get(CourseManager::class);
-        $controller = new IndexController($exchangeManager, $courseManager);
-        return $controller;
+        return new IndexController($exchangeManager, $courseManager);
     }
 
 }

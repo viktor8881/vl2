@@ -106,6 +106,17 @@ return [
                     ],
                 ],
             ],
+
+            'exp1.index' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/exp1',
+                    'defaults' => [
+                        'controller' => Controller\Exp1Controller::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
 

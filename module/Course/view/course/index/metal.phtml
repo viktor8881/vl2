@@ -4,16 +4,23 @@
 ?>
 
 <div id="chart_div"></div>
-
-<?php
-    $lisChart = array();
+<table class="table table-bordered">
+    <?php
+    $lisChart = [];
     $i = 0;
     foreach ($this->courses as $course) {
         $date = $course->getDate();
-        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),'
-            . $course->getValue() . ']';
+        echo '<tr>';
+        echo '<td>' . $course->getDateFormatDMY() . '</td>';
+        echo '<td>' . $this->formatMoney($course->getValue()) . '</td>';
+        echo '</tr>';
+        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i]. ']';
+        $i++;
     }
+    ?>
+</table>
 
+<?php
     $this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
     $this->headScript()->captureStart();
     echo "
@@ -23,8 +30,9 @@
     function drawBasic() {
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'X');
-        data.addColumn('number', 'X');
-        data.addRows([" . implode(',', $lisChart) . "]);
+        data.addColumn('number', 'course');
+        data.addColumn('number', 'avg');
+        data.addRows([" . implode(',', $lisChart) . "]);        
         var options = {
             'height':500,
             'language': 'ru',

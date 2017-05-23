@@ -1,6 +1,7 @@
 <?php
 namespace Course\Controller;
 
+use Analysis\Service\MovingAverage;
 use Base\Entity\CriterionCollection;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
@@ -61,10 +62,12 @@ class IndexController extends AbstractActionController
             )
         );
 
+        $courses = $this->courseManager->fetchAllByCriterions($criteria);
         return ['exchanges'       => $this->exchangeManager->fetchAllCurrency(),
                 'currentExchange' => $currentItem,
                 'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
-                'courses'         => $this->courseManager->fetchAllByCriterions($criteria)
+                'courses'         => $courses,
+                'movingAverage'   => MovingAverage::listAvgByCourses($courses, 9)
                 ];
     }
 
@@ -99,15 +102,23 @@ class IndexController extends AbstractActionController
             )
         );
 
-        return new ViewModel(
+        $courses = $this->courseManager->fetchAllByCriterions($criteria);
+        $valueCourses = [];
+        foreach ($courses as $course) {
+            $valueCourses[] = $course->getValue();
+        }
+
+        $view = new ViewModel(
             ['exchanges'       => $this->exchangeManager->fetchAllMetal(),
              'currentExchange' => $metalItem,
-             'period'          => ['start' => $values['date_start'],
-                                   'end'   => $values['date_end']],
-             'courses'         => $this->courseManager->fetchAllByCriterions(
-                 $criteria
-             )
+             'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
+             'courses'         => $courses,
+             'movingAverage1'   => MovingAverage::listAvg($valueCourses, 9),
+//             'movingAverage2'   => MovingAverage::listAvg($valueCourses, 30),
+//             'movingAverage3'   => MovingAverage::listAvg($valueCourses, 50)
             ]
         );
+//        $view->setTemplate('course/index/currency.phtml');
+        return $view;
     }
 }
