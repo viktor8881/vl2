@@ -10,6 +10,7 @@ use Investments\Form\InvestmentBuyForm;
 use Investments\Form\InvestmentSellForm;
 use Investments\Service\InvestmentsManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\Form\FormElementManager;
 
 class IndexControllerFactory implements FactoryInterface
 {
