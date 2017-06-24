@@ -151,4 +151,11 @@ return [
             Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
         ],
     ],
+
+    'service_manager' => [
+        'factories' => [
+            Service\ServiceExp1::class => Service\Factory\ServiceExp1Factory::class,
+        ]
+    ],
+
 ];

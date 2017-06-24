@@ -33,7 +33,7 @@ class ServiceExp1Test extends TestCase {
 
         parent::setUp();
 
-        $this->serviceTest = new ServiceExp1();
+        $this->serviceTest = $this->getApplicationServiceLocator()->get(ServiceExp1::class);;
 
         $data = json_decode(file_get_contents('module/Cron/test/data/courses.json'), true);
         foreach ($data as $value) {

@@ -19,14 +19,19 @@ class ServiceExp1
     private $courses = [];
     /** @var [] */
     private $trends = [];
+    /** @var MovingAverage */
+    private $movingAverage;
 
 
+    public function __construct(MovingAverage $movingAverage)
+    {
+        $this->movingAverage = $movingAverage;
+    }
 
     public function init(CourseCollection $courses)
     {
-        $movingAverage = new MovingAverage();
         $this->courses = $courses->toArray();
-        foreach ($movingAverage->listAvgByCourses($this->courses, 14) as $i => $value) {
+        foreach ($this->movingAverage->listAvgByCourses($this->courses, 14) as $i => $value) {
             $this->trends[$this->courses[$i]->getDateFormatDMY()] = $value;
         }
     }

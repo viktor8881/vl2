@@ -30,6 +30,8 @@ class Exp1Controller extends AbstractActionController
     const TYPE_OPERATION_SELL = 'sell';
 
 
+    /** @var ServiceExp1 */
+    private $serviceExr1;
     /** @var ExchangeManager */
     private $exchangeManager;
     /** @var CourseManager */
@@ -43,12 +45,14 @@ class Exp1Controller extends AbstractActionController
     /** @var string */
     private $tmpDir;
 
-    public function __construct(ExchangeManager $exchangeManager,
+    public function __construct(ServiceExp1 $serviceExr1,
+                                ExchangeManager $exchangeManager,
                                 CourseManager $courseManager,
                                 CacheCourseManager $cacheCourseManager,
                                 InvestmentsManager $investManager,
                                 AccountManager $accountManager, $tmpDir
     ) {
+        $this->serviceExr1 = $serviceExr1;
         $this->exchangeManager = $exchangeManager;
         $this->courseManager = $courseManager;
         $this->cacheCourseManager = $cacheCourseManager;
@@ -121,7 +125,7 @@ class Exp1Controller extends AbstractActionController
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P6M'));
         $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateStart, $date);
-        $service = new ServiceExp1();
+        $service = $this->serviceExp1;
         $service->init(new CourseCollection($courses));
         $lastCourse = $service->getLastCourse();
         if ($service->isDownTrend()) {
@@ -182,7 +186,7 @@ class Exp1Controller extends AbstractActionController
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P6M'));
         $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateStart, $date);
-        $service = new ServiceExp1();
+        $service = $this->serviceExp1;
         $service->init(new CourseCollection($courses));
         $lastCourse = $service->getLastCourse();
         $penultimateCourse = $service->getPenultimateCourse();
@@ -303,7 +307,7 @@ class Exp1Controller extends AbstractActionController
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P6M'));
         $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateStart, $date);
-        $service = new ServiceExp1();
+        $service = $this->serviceExp1;
         $service->init(new CourseCollection($courses));
 
         $lastCourse = $service->getLastCourse();
@@ -349,7 +353,7 @@ class Exp1Controller extends AbstractActionController
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P6M'));
         $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateStart, $date);
-        $service = new ServiceExp1();
+        $service = $this->serviceExp1;
         $service->init(new CourseCollection($courses));
 
         $lastCourse = $service->getLastCourse();
@@ -396,7 +400,7 @@ class Exp1Controller extends AbstractActionController
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P6M'));
         $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateStart, $date);
-        $service = new ServiceExp1();
+        $service = $this->serviceExp1;
         $service->init(new CourseCollection($courses));
 
         $lastCourse = $service->getLastCourse();
