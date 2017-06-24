@@ -3,13 +3,13 @@ namespace Account\Service;
 
 
 use Account\Entity\Account;
-use Account\Entity\Criterion\AccountIsMain;
 use Account\Entity\AccountCollection;
+use Account\Entity\Criterion\AccountIsMain;
+use Account\Entity\Criterion\CriterionExchange;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
-use Account\Entity\Criterion\CriterionExchange;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
 
@@ -47,6 +47,16 @@ class AccountManager extends AbstractManager
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
         return $this->getByCriterions($criterions);
+    }
+
+    /**
+     * @param Exchange $exchange
+     * @return float|int
+     */
+    public function getBalanceByExchange(Exchange $exchange)
+    {
+        $account = $this->getByExchange($exchange);
+        return $account ? $account->getBalance() : 0;
     }
 
     /**

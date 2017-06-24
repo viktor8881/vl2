@@ -14,24 +14,26 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 
-    const DURING_MOVING_AVERAGE = 9;
+    const DURING_MOVING_AVERAGE = 14;
 
     /** @var ExchangeManager */
     private $exchangeManager;
-
     /** @var CourseManager */
     private $courseManager;
+    /** @var MovingAverage */
+    private $movingAverage;
+
 
     private static $DATA_DEF;
 
 
 
 
-    public function __construct(ExchangeManager $exchangeManager,
-        CourseManager $courseManager
-    ) {
+    public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage)
+    {
         $this->exchangeManager = $exchangeManager;
         $this->courseManager = $courseManager;
+        $this->movingAverage = $movingAverage;
         $dateNow = new \DateTime();
         self::$DATA_DEF = $dateNow->sub(new \DateInterval('P1Y'))->format('d.m.Y');
     }
@@ -72,7 +74,7 @@ class IndexController extends AbstractActionController
                 'currentExchange' => $currentItem,
                 'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
                 'courses'         => $courses,
-                'movingAverage1'   => MovingAverage::listAvgByCourses($courses, self::DURING_MOVING_AVERAGE)
+                'movingAverage1'   => $this->movingAverage->listAvgByCourses($courses, self::DURING_MOVING_AVERAGE)
                 ];
     }
 
@@ -106,19 +108,15 @@ class IndexController extends AbstractActionController
                  new \DateTime($values['date_end'])]
             )
         );
-
         $courses = $this->courseManager->fetchAllByCriterions($criteria);
-        $valueCourses = [];
-        foreach ($courses as $course) {
-            $valueCourses[] = $course->getValue();
-        }
 
         $view = new ViewModel(
             ['exchanges'       => $this->exchangeManager->fetchAllMetal(),
              'currentExchange' => $metalItem,
              'period'          => ['start' => $values['date_start'], 'end'   => $values['date_end']],
              'courses'         => $courses,
-             'movingAverage1'   => MovingAverage::listAvg($valueCourses, self::DURING_MOVING_AVERAGE),
+             'movingAverage1'   => $this->movingAverage->listAvgByCourses($courses, 9),
+             'movingAverage2'   => $this->movingAverage->listAvgByCourses($courses, 14),
             ]
         );
 //        $view->setTemplate('course/index/currency.phtml');

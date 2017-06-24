@@ -10,9 +10,9 @@ use Base\Entity\AbstractOrder;
 use Base\Entity\IEmpty;
 use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
+use Investments\Entity\Criterion\CriterionExchange;
 use Investments\Entity\Criterion\InvestmentsId;
 use Investments\Entity\Investments;
-use Symfony\Component\Console\Exception\RuntimeException;
 
 class InvestmentsManager extends AbstractManager
 {
@@ -35,6 +35,7 @@ class InvestmentsManager extends AbstractManager
      */
     public function buy(Investments $investment)
     {
+        $investment->setTypeBay();
         $this->em->persist($investment);
         $account = $this->accountManager->getMainAccount();
         $account->subBalance($investment->getSum());
@@ -57,6 +58,7 @@ class InvestmentsManager extends AbstractManager
      */
     public function sell(Investments $investment)
     {
+        $investment->setTypeSell();
         $this->em->persist($investment);
         $account = $this->accountManager->getMainAccount();
         $account->addBalance($investment->getSum());
@@ -105,6 +107,10 @@ class InvestmentsManager extends AbstractManager
             case InvestmentsId::class:
                 $qb->andWhere($this->entityName . '.id IN (:id)')
                     ->setParameter('id', $criterion->getValues());
+                break;
+            case CriterionExchange::class:
+                $qb->andWhere($this->entityName . '.exchange IN (:exchange)')
+                    ->setParameter('exchange', $criterion->getValues());
                 break;
             default:
                 break;

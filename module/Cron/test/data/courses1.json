@@ -1,0 +1,50 @@
+[
+  {
+    "id": 44477,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "10",
+    "sell": "10",
+    "dateCreate": "01.03.2017"
+  },
+  {
+    "id": 44488,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "20",
+    "sell": "20",
+    "dateCreate": "02.03.2017"
+  },
+  {
+    "id": 44499,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "30",
+    "sell": "30",
+    "dateCreate": "03.03.2017"
+  },
+  {
+    "id": 44510,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "25",
+    "sell": "25",
+    "dateCreate": "04.03.2017"
+  },
+  {
+    "id": 44521,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "23",
+    "sell": "23",
+    "dateCreate": "07.03.2017"
+  },
+  {
+    "id": 44532,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "30",
+    "sell": "30",
+    "dateCreate": "08.03.2017"
+  }
+]

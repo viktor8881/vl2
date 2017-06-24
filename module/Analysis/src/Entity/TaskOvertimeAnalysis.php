@@ -15,16 +15,35 @@ class TaskOvertimeAnalysis extends TaskAnalysis
         return self::TYPE_OVER_TIME;
     }
 
+    /**
+     * @return Course|null
+     */
+    public function getFirstCourse()
+    {
+        return $this->getCourses()->first();
+    }
+
+    /**
+     * @return Course|null
+     */
+    public function getLastCourse()
+    {
+        return $this->getCourses()->last();
+    }
+
+
     public function isQuotesGrowth()
     {
-        $list = $this->getCourses();
-        return current($list) > end($list);
+        $first = $this->getFirstCourse();
+        $last = $this->getLastCourse();
+        return $first->getValue() > $last->getValue();
     }
 
     public function isQuotesFall()
     {
-        $list = $this->getCourses();
-        return current($list) < end($list);
+        $first = $this->getFirstCourse();
+        $last = $this->getLastCourse();
+        return $first->getValue() < $last->getValue();
     }
 
     public function countData()
@@ -35,8 +54,9 @@ class TaskOvertimeAnalysis extends TaskAnalysis
 
     public function getDiffPercent()
     {
-        $list = $this->getCourses();
-        return 100 - (abs(reset($list) * 100 / end($list)));
+        $first = $this->getFirstCourse();
+        $last = $this->getLastCourse();
+        return 100 - (abs($last->getValue() * 100 / $first->getValue()));
     }
 
 }

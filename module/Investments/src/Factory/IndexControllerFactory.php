@@ -3,13 +3,13 @@ namespace Investments\Factory;
 
 
 use Account\Service\AccountManager;
+use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
 use Investments\Controller\IndexController;
 use Investments\Form\InvestmentBuyForm;
 use Investments\Form\InvestmentSellForm;
 use Investments\Service\InvestmentsManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Form\FormElementManager;
 
 class IndexControllerFactory implements FactoryInterface
 {
@@ -27,7 +27,9 @@ class IndexControllerFactory implements FactoryInterface
         /** @var AccountManager $accountManager */
         $accountManager = $container->get(AccountManager::class);
 
-        return new IndexController($investmentsManager, $formBuy, $formSell, $accountManager);
+        /** @var ExchangeManager $exchangeManager */
+        $exchangeManager = $container->get(ExchangeManager::class);
+        return new IndexController($investmentsManager, $formBuy, $formSell, $accountManager, $exchangeManager);
     }
 
 }

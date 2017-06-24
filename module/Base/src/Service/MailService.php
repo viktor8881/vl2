@@ -42,7 +42,7 @@ class MailService
      * @param array                     $taskPercentAnalyzes
      * @param array                     $taskFigureAnalyzes
      */
-    public function sendAnalysis(\DateTime $date, Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [])
+    public function sendAnalysis(\DateTime $date, Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [], $statusCrossAvg)
     {
         $this->message->setSubject($exchange->getName() . ' - dev');
         $viewModel = new ViewModel(
@@ -50,7 +50,8 @@ class MailService
              'exchange'             => $exchange,
              'taskOvertimeAnalysis' => $taskOvertimeAnalysis,
              'taskPercentAnalyzes'  => $taskPercentAnalyzes,
-             'taskFigureAnalyzes'   => $taskFigureAnalyzes]
+             'taskFigureAnalyzes'   => $taskFigureAnalyzes,
+             'statusCrossAvg'       => $statusCrossAvg]
         );
         $viewModel->setTemplate('mail/analysis.phtml');
 
@@ -60,7 +61,6 @@ class MailService
 
         $body = new MimeMessage();
         $body->addPart($htmlMimePart);
-
         $this->message->setBody($body);
         $this->transport->send($this->message);
     }

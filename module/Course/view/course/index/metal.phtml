@@ -14,7 +14,8 @@
         echo '<td>' . $course->getDateFormatDMY() . '</td>';
         echo '<td>' . $this->formatMoney($course->getValue()) . '</td>';
         echo '</tr>';
-        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i]. ']';
+//        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i]. ']';
+        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i]. ',' . $this->movingAverage2[$i]. ']';
         $i++;
     }
     ?>
@@ -31,7 +32,8 @@
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'X');
         data.addColumn('number', 'course');
-        data.addColumn('number', 'avg');
+        data.addColumn('number', 'avg-9');
+        data.addColumn('number', 'avg-14');        
         data.addRows([" . implode(',', $lisChart) . "]);        
         var options = {
             'height':500,

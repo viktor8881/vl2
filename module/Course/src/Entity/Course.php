@@ -64,6 +64,15 @@ class Course extends AbstractEntity
     }
 
     /**
+     * @return integer|null
+     */
+    public function getExchangeId()
+    {
+        $exchange = $this->exchange;
+        return  ($exchange) ? $exchange->getId() : null;
+    }
+
+    /**
      * @param Exchange $exchange
      * @return $this
      */
@@ -183,6 +192,18 @@ class Course extends AbstractEntity
     public function isCurrency()
     {
         return $this->getExchange()->isCurrency();
+    }
+
+    public function toArray()
+    {
+        return [
+            'id'         => $this->getId(),
+            'exchangeId' => $this->getExchangeId(),
+            'nominal'    => $this->getNominal(),
+            'buy'        => $this->getBuy(),
+            'sell'       => $this->getSell(),
+            'dateCreate' => $this->getDateFormatDMY(),
+        ];
     }
 
 }

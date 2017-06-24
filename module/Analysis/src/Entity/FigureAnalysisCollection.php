@@ -21,6 +21,10 @@ class FigureAnalysisCollection extends ArrayObject
         return $result;
     }
 
+    /**
+     * @param Exchange $exchange
+     * @return FigureAnalysis[]
+     */
     public function listByExchange(Exchange $exchange)
     {
         $list = array();

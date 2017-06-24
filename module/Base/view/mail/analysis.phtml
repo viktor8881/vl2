@@ -1,19 +1,40 @@
 <?php
 if ($date) {
-    echo '<h3>Анализ за' . $date->format('d.m.Y') . '</h3>';
+    echo '<h3>Анализ за ' . $date->format('d.m.Y') . '</h3>';
 }
 
+switch ($statusCrossAvg) {
+    case \Analysis\Service\MovingAverage::STATUS_CROSS_UP:
+        echo '<p><strong>' . _('РОСТ') . '.</strong> ' . _('Пересечение средней линии.') . '</p>';
+        break;
+    case \Analysis\Service\MovingAverage::STATUS_CROSS_DOWN:
+        echo '<p><strong>' . _('ПАДЕНИЕ') . '.</strong> ' . _('Пересечение средней линии.') . '</p>';
+        break;
+}
 
+/** @var \Analysis\Entity\FigureAnalysis $figure */
+foreach ($taskFigureAnalyzes as $figure) {
+    echo '<p class="text-strong">'._("Найдена фигура").' '.$this->figureName($figure->getFigure()).'</p>';
+    echo '<p>'._('Период образования').' - '.$this->figurePeriod($figure).'</p>';
+
+    echo '<p>'._('Процент').' - '.$this->formatPercent($figure->getPercentCacheCourses()).'</p>';
+    echo '====================================<br /><br />';
+}
+
+/** @var \Analysis\Entity\TaskOvertimeAnalysis $taskOvertimeAnalysis */
 if ($taskOvertimeAnalysis) {
     if ($taskOvertimeAnalysis->isQuotesGrowth()) {
-        echo '<p>Повышение курса в течении ' .
-            $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true) .
-            '</p>';
+        echo '<p>Повышение курса в течении '
+            . $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true)
+            . ' <span style="color: rgb(5, 132, 11);"> ▲ ' . $this->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
+            . '</p>';
     } else {
-        echo '<p>Понижение курса в течении ' .
-            $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true) .
-            '</p>';
+        echo '<p>Понижение курса в течении '
+            . $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true)
+            . ' <span style="color: rgb(5, 132, 11);"> ▼ ' . $this->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
+            . '</p>';
     }
+
     echo '<ul>';
     foreach ($taskOvertimeAnalysis->getCourses() as $course) {
         echo '<li><span class="small">' . $course->getDateFormatDMY(). '</span> ' . $course->getValue() . '</li>';
@@ -21,6 +42,7 @@ if ($taskOvertimeAnalysis) {
     echo '</ul>';
 }
 
+/** @var \Analysis\Entity\TaskOvertimeAnalysis $percent */
 foreach ($taskPercentAnalyzes as $percent) {
     if ($percent->isQuotesGrowth()) {
         $sign = '+';
@@ -46,10 +68,4 @@ foreach ($taskPercentAnalyzes as $percent) {
     echo '====================================<br /><br />';
 }
 
-foreach ($taskFigureAnalyzes as $figure) {
-    echo '<p class="text-strong">'._("Найдена фигура").' '.$this->figureName($figure->getFigure()).'</p>';
-    echo '<p>'._('Период образования').' - '.$this->figurePeriod($figure).'</p>';
 
-    echo '<p>'._('Процент').' - '.$this->formatPercent($figure->getPercentCacheCourses()).'</p>';
-    echo '====================================<br /><br />';
-}

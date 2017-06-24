@@ -4,6 +4,7 @@ namespace AnalysisTest\Service;
 
 
 use Analysis\Service\MovingAverage;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase as TestCase;
 
 class MovingAverageTest extends TestCase
@@ -11,13 +12,30 @@ class MovingAverageTest extends TestCase
 
     const DURRING_DEFAULT = 3;
 
+    /** @var MovingAverage */
+    private $serviceTest;
+
+
+    public function setUp() {
+        $configOverrides = [];
+
+        $this->setApplicationConfig(ArrayUtils::merge(
+            include __DIR__ . '/../../../../config/application.config.php',
+            $configOverrides
+        ));
+
+        parent::setUp();
+
+        $this->serviceTest = $this->getApplicationServiceLocator()->get(MovingAverage::class);
+    }
+
     /**
      * @dataProvider additionListAvg
      */
     public function testListAvg($courses, $result)
     {
 //        $this->markTestSkipped('dont work');
-        $actual = MovingAverage::listAvg($courses, self::DURRING_DEFAULT);
+        $actual = $this->serviceTest->listAvg($courses, self::DURRING_DEFAULT);
 //        echo "result \n"; print_r($result); echo "\n";
 //        echo "actual \n"; print_r($actual); echo "\n";
 //        print_r('========================='."\n");

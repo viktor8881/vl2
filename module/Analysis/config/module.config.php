@@ -14,11 +14,12 @@ return [
 
     'service_manager' => [
         'factories' => [
-            Service\TechnicalAnalysis::class => InvokableFactory::class,
-            Service\AnalysisService::class => Service\Factory\AnalysisServiceFactory::class,
-            Service\FigureAnalysisManager::class => Service\Factory\FigureAnalysisManagerFactory::class,
+            Service\TechnicalAnalysis::class           => InvokableFactory::class,
+            Service\AnalysisService::class             => Service\Factory\AnalysisServiceFactory::class,
+            Service\FigureAnalysisManager::class       => Service\Factory\FigureAnalysisManagerFactory::class,
             Service\TaskOvertimeAnalysisManager::class => Service\Factory\TaskOvertimeAnalysisManagerFactory::class,
-            Service\TaskPercentAnalysisManager::class => Service\Factory\TaskPercentAnalysisManagerFactory::class,
+            Service\TaskPercentAnalysisManager::class  => Service\Factory\TaskPercentAnalysisManagerFactory::class,
+            Service\MovingAverage::class               => Service\Factory\MovingAverageFactory::class
         ]
     ],
 

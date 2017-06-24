@@ -5,6 +5,7 @@ namespace Cron;
 use Cron\Factory\AnalysisControllerFactory;
 use Cron\Factory\CacheCourseControllerFactory;
 use Cron\Factory\CourseControllerFactory;
+use Cron\Factory\Exp1ControllerFactory;
 use Cron\Factory\IndexControllerFactory;
 use Cron\Factory\MessageControllerFactory;
 use Zend\Router\Http\Literal;
@@ -107,16 +108,16 @@ return [
                 ],
             ],
 
-            'exp1.index' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/cron/exp1',
-                    'defaults' => [
-                        'controller' => Controller\Exp1Controller::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
+//            'exp1.index' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/exp1',
+//                    'defaults' => [
+//                        'controller' => Controller\Exp1Controller::class,
+//                        'action'     => 'index',
+//                    ],
+//                ],
+//            ],
         ],
     ],
 
@@ -146,7 +147,8 @@ return [
             Controller\CourseController::class      => CourseControllerFactory::class,
             Controller\CacheCourseController::class => CacheCourseControllerFactory::class,
             Controller\AnalysisController::class    => AnalysisControllerFactory::class,
-            Controller\MessageController::class     => MessageControllerFactory::class
+            Controller\MessageController::class     => MessageControllerFactory::class,
+            Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
         ],
     ],
 ];

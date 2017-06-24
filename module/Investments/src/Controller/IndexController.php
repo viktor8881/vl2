@@ -9,12 +9,14 @@ namespace Investments\Controller;
 
 
 use Account\Service\AccountManager;
+use Base\Entity\CriterionCollection;
+use Exchange\Service\ExchangeManager;
+use Investments\Entity\Criterion\CriterionExchange;
 use Investments\Entity\Investments;
 use Investments\Form\InvestmentBuyForm;
 use Investments\Form\InvestmentSellForm;
 use Investments\Service\InvestmentsManager;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 
 class IndexController extends AbstractActionController
@@ -28,20 +30,28 @@ class IndexController extends AbstractActionController
     private $investmentsManager;
     /** @var AccountManager */
     private $accountManager;
+    /** @var ExchangeManager */
+    private $exchangeManager;
 
 
-    public function __construct(InvestmentsManager $investmentsManager, InvestmentBuyForm $formBuy, InvestmentSellForm $formSell, AccountManager $accountManager)
+    public function __construct(InvestmentsManager $investmentsManager, InvestmentBuyForm $formBuy, InvestmentSellForm $formSell, AccountManager $accountManager, ExchangeManager $exchangeManager)
     {
         $this->formBuy = $formBuy;
         $this->formSell = $formSell;
         $this->investmentsManager = $investmentsManager;
         $this->accountManager = $accountManager;
+        $this->exchangeManager = $exchangeManager;
     }
 
     public function indexAction()
     {
+        $criterions = new CriterionCollection();
+        $exchange = $this->exchangeManager->get((int)$this->params()->fromRoute('id', -1));
+        if ($exchange) {
+            $criterions->append(new CriterionExchange($exchange));
+        }
         return [
-            'investments' => $this->investmentsManager->fetchAll(),
+            'investments' => $this->investmentsManager->fetchAllByCriterions($criterions),
             'mainAccount' => $this->accountManager->getMainAccount()
         ];
     }

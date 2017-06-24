@@ -44,7 +44,6 @@ class CacheCourseService
             if (!$cacheCourse) {
                 continue;
             }
-//            pr($cacheCourse); exit;
             $arr4Analysis = [$cacheCourse->getLastValue(), $course->getValue()];
             if ($cacheCourse->isUpTrend()) {
                 $isContinueTrend = TechnicalAnalysis::isUpTrend($arr4Analysis, $cacheCourse->getPercent());

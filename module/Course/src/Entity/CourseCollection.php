@@ -10,6 +10,18 @@ class CourseCollection extends ArrayObject
     /**
      * @return array
      */
+    public function listValues()
+    {
+        $result = [];
+        foreach ($this->getIterator() as $course) {
+            $result[] = $course->getValue();
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
     public function listExchangeUpOrDown()
     {
         $result = [];

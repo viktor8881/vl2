@@ -31,6 +31,7 @@ class UserControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionCanBeAccessed()
     {
+        $this->markTestSkipped('Example test.');
         $this->dispatch('/', 'GET');
         $this->assertResponseStatusCode(200);
         $this->assertModuleName('admin');
@@ -41,6 +42,7 @@ class UserControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionViewModelTemplateRenderedWithinLayout()
     {
+        $this->markTestSkipped('Example test.');
         $this->dispatch('/', 'GET');
         $this->assertQuery('.container .jumbotron');
     }

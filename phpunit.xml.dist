@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="ZendSkeletonApplication Test Suite">
-            <directory>./module/Application/test</directory>
-        </testsuite>
+        <!--<testsuite name="ZendSkeletonApplication Test Suite">-->
+            <!--<directory>./module/Application/test</directory>-->
+        <!--</testsuite>-->
         <testsuite name="Analysis Test Suite">
-            <directory>./module/Analysis/test</directory>
+            <directory>./module</directory>
         </testsuite>
     </testsuites>
 </phpunit>

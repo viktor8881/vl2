@@ -4,7 +4,6 @@ $optionsDropDown = [
         ['name' => 'Продать', 'href' => $this->url('investments', ['action' => 'sell'])]];
 
 $htmlSubTitle = '<small class="text-muted h__padding_left30">' ._('текущий счет') .' :  '. $this->formatMoney($this->mainAccount->getBalance(), $this->mainAccount->getExchange()) . '</small>';
-//$this->pageHeader()->setTitleWithButtonDropDown('Инвестиции <strong>основной счет</strong>', $optionsDropDown);
 
 $this->pageHeader()->setTitle('Инвестиции')
     ->setSubTitle($htmlSubTitle, false)
@@ -12,6 +11,7 @@ $this->pageHeader()->setTitle('Инвестиции')
 
 $this->mainMenu()->setActiveItemId('investments');
 
+$total = 0;
 ?>
 
 <table class="table table-bordered">
@@ -33,9 +33,11 @@ $this->mainMenu()->setActiveItemId('investments');
                 if ($investment->isBay()) {
                     $textOperation = _('Покупка');
                     $class = 'warning';
+                    $total -= $investment->getSum();
                 } else {
                     $textOperation = _('Продажа');
                     $class = 'success';
+                    $total += $investment->getSum();
                 }
             ?>
             <tr class="<?=$class?>">
@@ -48,6 +50,10 @@ $this->mainMenu()->setActiveItemId('investments');
                 <td><a href="<?=$this->url('investments', ['action' => 'delete', 'id' => $investment->getId()])?>"><?=$this->iconDelete('Удалить')?></a></td>
             </tr>
         <?php endforeach; ?>
+        <tr class="total">
+            <td colspan="5" class="text-strong">TOTAL</td>
+            <td colspan="2"><?= $this->formatMoney($total) ?></td>
+        </tr>
     <?php else: ?>
         <tr><td colspan="7" class="text-center"><?= _('Инвестиции не найдены') ?></td></tr>
     <?php endif; ?>

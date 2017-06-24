@@ -1,0 +1,186 @@
+[
+  {
+    "id": 44477,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2332.970000",
+    "sell": "2332.970000",
+    "dateCreate": "01.03.2017"
+  },
+  {
+    "id": 44488,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2338.690000",
+    "sell": "2338.690000",
+    "dateCreate": "02.03.2017"
+  },
+  {
+    "id": 44499,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2334.690000",
+    "sell": "2334.690 000",
+    "dateCreate": "03.03.2017"
+  },
+  {
+    "id": 44510,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2327.250000",
+    "sell": "2327.250000",
+    "dateCreate": "04.03.2017"
+  },
+  {
+    "id": 44521,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2309.120000",
+    "sell": "2309.120000",
+    "dateCreate": "07.03.2017"
+  },
+  {
+    "id": 44532,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2292.230000",
+    "sell": "2292.230000",
+    "dateCreate": "08.03.2017"
+  },
+  {
+    "id": 44543,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2278.480000",
+    "sell": "2278.480000",
+    "dateCreate": "10.03.2017"
+  },
+  {
+    "id": 44554,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2278.090000",
+    "sell": "2278.090000",
+    "dateCreate": "11.03.2017"
+  },
+  {
+    "id": 44565,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2296.220000",
+    "sell": "2296.220000",
+    "dateCreate": "14.03.2017"
+  },
+  {
+    "id": 44576,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2281.230000",
+    "sell": "2281.230000",
+    "dateCreate": "15.03.2017"
+  },
+  {
+    "id": 44587,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2284.900000",
+    "sell": "2284.900000",
+    "dateCreate": "16.03.2017"
+  },
+  {
+    "id": 44598,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2295.030000",
+    "sell": "2295.030000",
+    "dateCreate": "17.03.2017"
+  },
+  {
+    "id": 44609,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2288.710000",
+    "sell": "2288.710000",
+    "dateCreate": "18.03.2017"
+  },
+  {
+    "id": 44620,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2270.870000",
+    "sell": "2270.870000",
+    "dateCreate": "21.03.2017"
+  },
+  {
+    "id": 44631,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2267.050000",
+    "sell": "2267.050000",
+    "dateCreate": "22.03.2017"
+  },
+  {
+    "id": 44642,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2309.070000",
+    "sell": "2309.070000",
+    "dateCreate": "23.03.2017"
+  },
+  {
+    "id": 44653,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2307.870000",
+    "sell": "2307.870000",
+    "dateCreate": "24.03.2017"
+  },
+  {
+    "id": 44664,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2296.730000",
+    "sell": "2296.730000",
+    "dateCreate": "25.03.2017"
+  },
+  {
+    "id": 44675,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2304.330000",
+    "sell": "2304.330000",
+    "dateCreate": "28.03.2017"
+  },
+  {
+    "id": 44686,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2294.860000",
+    "sell": "2294.860000",
+    "dateCreate": "29.03.2017"
+  },
+  {
+    "id": 44697,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2297.020000",
+    "sell": "2297.020000",
+    "dateCreate": "30.03.2017"
+  },
+  {
+    "id": 44708,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2267.370000",
+    "sell": "2267.370000",
+    "dateCreate": "31.03.2017"
+  },
+  {
+    "id": 44719,
+    "exchangeId": 1,
+    "nominal": 1,
+    "buy": "2234.030000",
+    "sell": "2234.030000",
+    "dateCreate": "01.04.2017"
+  }
+]
