@@ -36,14 +36,14 @@ class TaskOvertimeAnalysis extends TaskAnalysis
     {
         $first = $this->getFirstCourse();
         $last = $this->getLastCourse();
-        return $first->getValue() > $last->getValue();
+        return $first->getValue() < $last->getValue();
     }
 
     public function isQuotesFall()
     {
         $first = $this->getFirstCourse();
         $last = $this->getLastCourse();
-        return $first->getValue() < $last->getValue();
+        return $first->getValue() > $last->getValue();
     }
 
     public function countData()
