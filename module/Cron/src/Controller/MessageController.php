@@ -37,23 +37,16 @@ class MessageController extends AbstractActionController
 
     public function sendMessageAction(\DateTime $dateNow = null)
     {
-//        pr('sendMessageAction');
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('18.04.2017');
+            $dateNow = new \DateTime();
         }
 
         $collOvertimeAnalysis = $this->taskOvertimeAnalysisManager->getCollectionByDate($dateNow);
         $collPercentAnalysis = $this->taskPercentAnalysisManager->getCollectionByDate($dateNow);
         $collFigureAnalysis = $this->figureAnalysisManager->getCollectionByDate($dateNow);
 
-//        pr($collOvertimeAnalysis);
-//        pr($collPercentAnalysis);
-//        pr($collFigureAnalysis);
-
         $listExchange = array_merge($collOvertimeAnalysis->listExchange(), $collPercentAnalysis->listExchange(), $collFigureAnalysis->listExchange());
-//        pr($listExchange);
         if (count($listExchange)) {
-//            pr('$listExchange');
             $listSended = [];
             foreach ($listExchange as $exchange) {
                 if (in_array($exchange->getId(), $listSended)) {

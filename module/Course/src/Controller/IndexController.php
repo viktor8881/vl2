@@ -14,7 +14,7 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 
-    const DURING_MOVING_AVERAGE = 14;
+    const DURING_MOVING_AVERAGE = 9;
 
     /** @var ExchangeManager */
     private $exchangeManager;

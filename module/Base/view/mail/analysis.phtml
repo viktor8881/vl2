@@ -31,7 +31,7 @@ if ($taskOvertimeAnalysis) {
     } else {
         echo '<p>Понижение курса в течении '
             . $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true)
-            . ' <span style="color: rgb(5, 132, 11);"> ▼ ' . $this->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
+            . ' <span style="color: rgb(191, 0, 0);"> ▼ ' . $this->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
             . '</p>';
     }
 

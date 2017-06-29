@@ -58,7 +58,7 @@ class MovingAverage
     }
 
 
-    public function getStatusCrossByExchangeAndDate(Exchange $exchange, \DateTime $date, $during = 14)
+    public function getStatusCrossByExchangeAndDate(Exchange $exchange, \DateTime $date, $during = 9)
     {
         $dateStart = clone $date;
         $dateStart->sub(new \DateInterval('P' . $during * 3 . 'D'));
