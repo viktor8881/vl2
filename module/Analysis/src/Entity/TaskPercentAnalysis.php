@@ -131,7 +131,7 @@ class TaskPercentAnalysis extends TaskAnalysis
      */
     public function getDiffPercent()
     {
-        return 100 - (abs($this->getEndValue() * 100 / $this->getStartValue()));
+        return (abs($this->getStartValue() - $this->getEndValue()) * 100) / $this->getStartValue();
     }
 
 }
