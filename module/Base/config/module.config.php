@@ -9,7 +9,9 @@ namespace Base;
 
 use Base\Queue\Adapter\Doctrine\Service\Factory\QueueManagerFactory;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
+use Base\Service\Factory\JpGraphServiceFactory;
 use Base\Service\Factory\MailServiceFactory;
+use Base\Service\JpGraphService;
 use Base\Service\MailService;
 use Base\View\Helper\Factory\ViewHelperMenuFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
@@ -65,6 +67,7 @@ return [
         'factories' => [
             QueueManager::class => QueueManagerFactory::class,
             MailService::class => MailServiceFactory::class,
+            JpGraphService::class => JpGraphServiceFactory::class,
         ]
     ],
 

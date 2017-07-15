@@ -2,7 +2,7 @@
 
 namespace Base\Service;
 
-use Analysis\Entity\TaskOvertimeAnalysis;
+use Cron\Service\MessageService;
 use Exchange\Entity\Exchange;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
@@ -35,25 +35,43 @@ class MailService
         $this->renderer = $renderer;
     }
 
+
     /**
-     * @param \DateTime                 $date
-     * @param Exchange                  $exchange
-     * @param TaskOvertimeAnalysis|null $taskOvertimeAnalysis
-     * @param array                     $taskPercentAnalyzes
-     * @param array                     $taskFigureAnalyzes
+     * @param Exchange       $exchange
+     * @param MessageService $messageService
      */
-    public function sendAnalysis(\DateTime $date, Exchange $exchange, TaskOvertimeAnalysis $taskOvertimeAnalysis = null, $taskPercentAnalyzes = [], $taskFigureAnalyzes = [], $statusCrossAvg)
+    public function sendAnalysis(Exchange $exchange, MessageService $messageService)
     {
         $this->message->setSubject($exchange->getName() . ' - dev');
+
         $viewModel = new ViewModel(
-            ['date'                 => $date,
+            ['date'                 => $messageService->getDate(),
              'exchange'             => $exchange,
-             'taskOvertimeAnalysis' => $taskOvertimeAnalysis,
-             'taskPercentAnalyzes'  => $taskPercentAnalyzes,
-             'taskFigureAnalyzes'   => $taskFigureAnalyzes,
-             'statusCrossAvg'       => $statusCrossAvg]
+             'taskOvertimeAnalysis' => $messageService->getAnalyzesOvertimeTaskByExchange($exchange),
+             'taskPercentAnalyzes'  => $messageService->getAnalyzesPercentTaskByExchange($exchange),
+             'taskFigureAnalyzes'   => $messageService->getListAnalyzesFigureTaskByExchange($exchange),
+             'statusCrossAvg'       => $messageService->getStatusCrossByExchange($exchange),
+             'srcGraph'             => $messageService->getSrcGraph($exchange)
+            ]
         );
         $viewModel->setTemplate('mail/analysis.phtml');
+
+        $html = $this->renderer->render($viewModel);
+        $htmlMimePart = new MimePart($html);
+        $htmlMimePart->type = "text/html";
+
+        $body = new MimeMessage();
+        $body->addPart($htmlMimePart);
+        $this->message->setBody($body);
+        $this->transport->send($this->message);
+    }
+
+
+    public function testImg($srcImg)
+    {
+        $this->message->setSubject('TEST GRAPH - dev');
+        $viewModel = new ViewModel(['srcImg' => $srcImg]);
+        $viewModel->setTemplate('mail/test.phtml');
 
         $html = $this->renderer->render($viewModel);
         $htmlMimePart = new MimePart($html);

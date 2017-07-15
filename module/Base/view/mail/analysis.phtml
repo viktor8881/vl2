@@ -1,4 +1,13 @@
 <?php
+/**
+ * @var $date \DateTime
+ * @var $exchange \Exchange\Entity\Exchange
+ * @var $statusCrossAvg int
+ * @var $taskFigureAnalyzes \Analysis\Entity\FigureAnalysis[]
+ * @var $taskOvertimeAnalysis \Analysis\Entity\TaskOvertimeAnalysis
+ * @var $taskPercentAnalyzes \Analysis\Entity\TaskOvertimeAnalysis[]
+ */
+
 if ($date) {
     echo '<h3>Анализ за ' . $date->format('d.m.Y') . '</h3>';
 }
@@ -12,6 +21,8 @@ switch ($statusCrossAvg) {
         break;
 }
 
+echo '<img src="' . $this->serverUrl() . $srcGraph . '"/>';
+
 /** @var \Analysis\Entity\FigureAnalysis $figure */
 foreach ($taskFigureAnalyzes as $figure) {
     echo '<p class="text-strong">'._("Найдена фигура").' '.$this->figureName($figure->getFigure()).'</p>';
@@ -21,7 +32,6 @@ foreach ($taskFigureAnalyzes as $figure) {
     echo '====================================<br /><br />';
 }
 
-/** @var \Analysis\Entity\TaskOvertimeAnalysis $taskOvertimeAnalysis */
 if ($taskOvertimeAnalysis) {
     if ($taskOvertimeAnalysis->isQuotesGrowth()) {
         echo '<p>Повышение курса в течении '
@@ -42,7 +52,6 @@ if ($taskOvertimeAnalysis) {
     echo '</ul>';
 }
 
-/** @var \Analysis\Entity\TaskOvertimeAnalysis $percent */
 foreach ($taskPercentAnalyzes as $percent) {
     if ($percent->isQuotesGrowth()) {
         $sign = '+';

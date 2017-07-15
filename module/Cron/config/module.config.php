@@ -155,6 +155,7 @@ return [
     'service_manager' => [
         'factories' => [
             Service\ServiceExp1::class => Service\Factory\ServiceExp1Factory::class,
+            Service\MessageService::class => Service\Factory\MessageServiceFactory::class,
         ]
     ],
 
