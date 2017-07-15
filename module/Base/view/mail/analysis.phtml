@@ -21,7 +21,7 @@ switch ($statusCrossAvg) {
         break;
 }
 
-echo '<img src="' . $this->serverUrl() . $srcGraph . '"/>';
+echo '<div><img src="' . $this->serverUrl() . $srcGraph . '"/></div>';
 
 /** @var \Analysis\Entity\FigureAnalysis $figure */
 foreach ($taskFigureAnalyzes as $figure) {
