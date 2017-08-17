@@ -92,7 +92,7 @@ class AnalysisController extends AbstractActionController
         }
 
         /** @var Exchange $exchange */
-        foreach ($this->exchangeManager->fetchAllMetal() as $exchange) {
+        foreach ($this->exchangeManager->fetchAll() as $exchange) {
             foreach (CacheCourseService::listPercent() as $percent) {
                 $this->analysisService->technicalAnalysisByExchange($exchange, $dateNow, $percent);
             }

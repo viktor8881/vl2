@@ -68,9 +68,7 @@ class CourseService
     private function receiveByDateToArray(\DateTime $date)
     {
         $result = [];
-        $xmlstr = file_get_contents(
-            self::URL_CURRENCY_COURSES . $date->format('d/m/Y')
-        );
+        $xmlstr = file_get_contents(self::URL_CURRENCY_COURSES . $date->format('d/m/Y'));
         $simpleXml = new \SimpleXMLElement($xmlstr);
         if (false !== strstr($xmlstr, $date->format('d.m.Y'))) {
             foreach ($simpleXml->Valute as $item) {
@@ -81,9 +79,7 @@ class CourseService
         }
 
         $xmlstr = file_get_contents(
-            str_replace(
-                '%date%', $date->format('d/m/Y'), self::URL_METAL_COURSES
-            )
+            str_replace('%date%', $date->format('d/m/Y'), self::URL_METAL_COURSES)
         );
         $simpleXml = new \SimpleXMLElement($xmlstr);
         if (false !== strstr($xmlstr, $date->format('d.m.Y'))) {
