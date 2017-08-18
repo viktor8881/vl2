@@ -104,7 +104,7 @@ class CacheCourseController extends AbstractActionController
         }
         if ($this->courseManager->hasByDate($dateNow)) {
             try {
-                $exchanges = $this->exchangeManager->fetchAllMetal();
+                $exchanges = $this->exchangeManager->fetchAll();
                 foreach($this->courseManager->fetchAllByExchangesAndDate($exchanges, $dateNow) as $course) {
                     $this->cacheCourseService->fillingCache($dateNow, $course);
                 }

@@ -108,9 +108,8 @@ abstract class AbstractManager implements IManager
      *
      * @return AbstractEntity[]
      */
-    public function fetchAll(Paginator $paginator = null,
-        OrderCollection $orders = null
-    ) {
+    public function fetchAll(Paginator $paginator = null, OrderCollection $orders = null)
+    {
         return $this->fetchAllByCriterions(null, $paginator, $orders);
     }
 
@@ -121,9 +120,8 @@ abstract class AbstractManager implements IManager
      *
      * @return AbstractEntity[]
      */
-    public function fetchAllByCriterions(CriterionCollection $criterions = null,
-        Paginator $paginator = null, OrderCollection $orders = null
-    ) {
+    public function fetchAllByCriterions(CriterionCollection $criterions = null, Paginator $paginator = null, OrderCollection $orders = null)
+    {
         $qb = $this->em->createQueryBuilder();
         $qb->select($this->entityName)
             ->from($this->entityName, $this->entityName);
@@ -144,9 +142,8 @@ abstract class AbstractManager implements IManager
      * @param CriterionCollection|null $criterions
      * @param QueryBuilder             $qb
      */
-    protected function addCriterions(CriterionCollection $criterions = null,
-        QueryBuilder $qb
-    ) {
+    protected function addCriterions(CriterionCollection $criterions = null, QueryBuilder $qb)
+    {
         if ($criterions) {
             foreach ($criterions as $criterion) {
                 $this->addCriterion($criterion, $qb);
