@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class CacheCourseController extends AbstractActionController
 {
 
-    const INIT_DATE = '01.10.2016';
+    const INIT_DATE = '19.08.2017';
     const COUNT_RUN_AT_TIME = 50;
 
 
@@ -46,10 +46,13 @@ class CacheCourseController extends AbstractActionController
         $this->cacheCourseService = $cacheCourseService;
     }
 
-    private function tmpAction()
+    public function tmpAction()
     {
         $date = new \DateTime(self::INIT_DATE);
         foreach($this->courseManager->fetchAllByDate($date) as $course) {
+            if ($course->isMetal()) {
+                continue;
+            }
             foreach (CacheCourseService::listPercent() as $percent) {
                 /** @var CacheCourse $newCacheCourse */
                 $newCacheCourse = $this->cacheCourseManager->createEntity();

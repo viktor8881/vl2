@@ -45,16 +45,16 @@ return [
 //                ],
 //            ],
 
-//            'cachecourse.firststart' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/cache-course/tmp',
-//                    'defaults' => [
-//                        'controller' => Controller\CacheCourseController::class,
-//                        'action'     => 'tmp',
-//                    ],
-//                ],
-//            ],
+            'cachecourse.firststart' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/cache-course/tmp',
+                    'defaults' => [
+                        'controller' => Controller\CacheCourseController::class,
+                        'action'     => 'tmp',
+                    ],
+                ],
+            ],
 //            'cachecourse.filling' => [
 //                'type' => Literal::class,
 //                'options' => [
