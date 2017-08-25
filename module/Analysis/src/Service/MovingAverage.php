@@ -68,19 +68,21 @@ class MovingAverage
         /** @var Course[] $courses */
         $courses = $this->courseManager->fetchAllByCriterions($criteria);
 
-        $courseEnd = end($courses)->getValue();
-        $coursePrev = prev($courses)->getValue();
-
-        $listAvg = $this->listAvgByCourses($courses, $during);
-
-        $listAvgEnd = end($listAvg);
-        $listAvgPrev = prev($listAvg);
-
         $status = self::STATUS_NULL;
-        if ($coursePrev < $listAvgPrev && $courseEnd > $listAvgEnd) {
-            $status = self::STATUS_CROSS_UP;
-        } elseif ($coursePrev > $listAvgPrev && $courseEnd < $listAvgEnd) {
-            $status = self::STATUS_CROSS_DOWN;
+        if (count($courses)) {
+            $courseEnd = end($courses)->getValue();
+            $coursePrev = prev($courses)->getValue();
+
+            $listAvg = $this->listAvgByCourses($courses, $during);
+
+            $listAvgEnd = end($listAvg);
+            $listAvgPrev = prev($listAvg);
+
+            if ($coursePrev < $listAvgPrev && $courseEnd > $listAvgEnd) {
+                $status = self::STATUS_CROSS_UP;
+            } elseif ($coursePrev > $listAvgPrev && $courseEnd < $listAvgEnd) {
+                $status = self::STATUS_CROSS_DOWN;
+            }
         }
         return $status;
     }
