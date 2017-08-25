@@ -38,10 +38,8 @@ class JpGraphService
 
         $graph->xgrid->Show();
         $graph->xgrid->SetLineStyle("solid");
-//        $graph->xaxis->SetTickLabels(array('01.02','02.02','03.02','04.02'));
-//        $graph->xaxis->SetTickLabels($dataLabels);
+
         $graph->xaxis->HideLabels();
-//        $graph->xaxis->SetLabelAngle(45);
         $graph->xgrid->SetColor('#E3E3E3');
 
 // Create the first line
@@ -63,10 +61,6 @@ class JpGraphService
         $p3->SetLegend('avg - 14');
 
         $graph->legend->SetFrameWeight(1);
-//        $graph->legend->SetPos(0,0.2,'right','center');
-//        $graph->legend->SetColumns(1);
-
-//        $graph->SetMargin(40,100,0,0);
 
         $prefixFolder = date('Y');
         if (!file_exists($this->folderImgs . $prefixFolder)) {

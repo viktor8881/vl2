@@ -6,7 +6,6 @@ use Cron\Service\MessageService;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
-
 class MessageController extends AbstractActionController
 {
 
