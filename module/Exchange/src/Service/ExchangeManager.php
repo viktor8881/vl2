@@ -14,6 +14,7 @@ use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Criterion\ExchangeId;
+use Exchange\Entity\Criterion\ExchangeNotCode;
 use Exchange\Entity\Criterion\ExchangeType;
 use Exchange\Entity\Exchange;
 
@@ -93,6 +94,13 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
+    public function fetchAllExceptCode(array $codes)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeNotCode($codes));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
     protected function addCriterion(AbstractCriterion $criterion,
         QueryBuilder $qb
     ) {
@@ -104,6 +112,10 @@ class ExchangeManager extends AbstractManager
             case ExchangeType::class:
                 $qb->andWhere($this->entityName . '.type IN (:type_id)')
                     ->setParameter('type_id', $criterion->getValues());
+                break;
+            case ExchangeNotCode::class:
+                $qb->andWhere($this->entityName . '.code NOT IN (:code)')
+                    ->setParameter('code', $criterion->getValues());
                 break;
             default:
                 break;

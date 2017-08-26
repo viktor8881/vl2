@@ -3,6 +3,7 @@ namespace Cron\Controller;
 
 use Base\Service\MailService;
 use Cron\Service\MessageService;
+use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -38,14 +39,9 @@ class MessageController extends AbstractActionController
         }
 
         $this->messageService->setDate($dateNow);
-        $listExchange = $this->exchangeManager->fetchAll();
+        $listExchange = $this->exchangeManager->fetchAllExceptCode([Exchange::CODE_CURRENCY_MAIN]);
         if (count($listExchange)) {
-            $listSended = [];
             foreach ($listExchange as $exchange) {
-                if (in_array($exchange->getId(), $listSended)) {
-                    continue;
-                }
-                $listSended[] = $exchange->getId();
                 $this->mailService->sendAnalysis($exchange, $this->messageService);
             }
         }
