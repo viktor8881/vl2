@@ -8,6 +8,9 @@ use Cron\Factory\CourseControllerFactory;
 use Cron\Factory\Exp1ControllerFactory;
 use Cron\Factory\IndexControllerFactory;
 use Cron\Factory\MessageControllerFactory;
+use Cron\Factory\MoexControllerFactory;
+use Cron\Service\MoexManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 
 return [
@@ -118,6 +121,17 @@ return [
 //                    ],
 //                ],
 //            ],
+
+            'cron.moex.index' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/moex',
+                    'defaults' => [
+                        'controller' => Controller\MoexController::class,
+                        'action'     => 'index',
+                    ]
+                ]
+            ]
         ],
     ],
 
@@ -149,13 +163,31 @@ return [
             Controller\AnalysisController::class    => AnalysisControllerFactory::class,
             Controller\MessageController::class     => MessageControllerFactory::class,
             Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
-        ],
+            Controller\MoexController::class        => MoexControllerFactory::class
+        ]
     ],
 
     'service_manager' => [
         'factories' => [
-            Service\ServiceExp1::class => Service\Factory\ServiceExp1Factory::class,
-            Service\MessageService::class => Service\Factory\MessageServiceFactory::class,
+            Service\ServiceExp1::class      => Service\Factory\ServiceExp1Factory::class,
+            Service\MessageService::class   => Service\Factory\MessageServiceFactory::class,
+            Service\MoexService::class      => Service\Factory\MoexServiceFactory::class,
+            Service\MoexManager::class      => Service\Factory\MoexManagerFactory::class
+        ]
+    ],
+
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
         ]
     ],
 

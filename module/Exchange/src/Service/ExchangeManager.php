@@ -12,6 +12,7 @@ use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
+use Cron\Service\MoexService;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeNotCode;
@@ -20,6 +21,11 @@ use Exchange\Entity\Exchange;
 
 class ExchangeManager extends AbstractManager
 {
+
+    const MAP_MOEX_SECID = [
+        MoexService::USD_SEC_ID => 5,
+        MoexService::EUR_SEC_ID => 8
+    ];
 
     /**
      * @return Exchange[]
@@ -58,8 +64,7 @@ class ExchangeManager extends AbstractManager
 
     /**
      * @param $id
-     *
-     * @return \Base\Entity\AbstractEntity|null
+     * @return Exchange|null
      */
     public function getMetalById($id)
     {
@@ -71,6 +76,10 @@ class ExchangeManager extends AbstractManager
         return null;
     }
 
+    /**
+     * @param $id
+     * @return null|object
+     */
     public function getCurrencyById($id)
     {
         $item = $this->get($id);
@@ -80,6 +89,9 @@ class ExchangeManager extends AbstractManager
         return null;
     }
 
+    /**
+     * @return \Base\Entity\AbstractEntity[]
+     */
     public function fetchAllMetal()
     {
         $criterions = new CriterionCollection();
@@ -87,6 +99,9 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
+    /**
+     * @return \Base\Entity\AbstractEntity[]
+     */
     public function fetchAllCurrency()
     {
         $criterions = new CriterionCollection();
@@ -94,6 +109,10 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
+    /**
+     * @param array $codes
+     * @return \Base\Entity\AbstractEntity[]
+     */
     public function fetchAllExceptCode(array $codes)
     {
         $criterions = new CriterionCollection();
@@ -101,9 +120,24 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
-    protected function addCriterion(AbstractCriterion $criterion,
-        QueryBuilder $qb
-    ) {
+    /**
+     * @param string $secId
+     * @return null|object
+     */
+    public function getByMoexSecid($secId)
+    {
+        if (!isset(self::MAP_MOEX_SECID[$secId])) {
+            return null;
+        }
+        return $this->get(self::MAP_MOEX_SECID[$secId]);
+    }
+
+    /**
+     * @param AbstractCriterion $criterion
+     * @param QueryBuilder      $qb
+     */
+    protected function addCriterion(AbstractCriterion $criterion, QueryBuilder $qb)
+    {
         switch (get_class($criterion)) {
             case ExchangeId::class:
                 $qb->andWhere($this->entityName . '.id IN (:id)')

@@ -8,6 +8,8 @@ use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Entity\IEmpty;
 use Base\Entity\OrderCollection;
+use Cron\Entity\Moex;
+use Cron\Entity\Qwerty;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Zend\Paginator\Paginator;

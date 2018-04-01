@@ -1,22 +1,21 @@
 <?php
-namespace Exchange\Service\Factory;
+namespace Cron\Service\Factory;
 
-use Doctrine\ORM\EntityManager;
-use Exchange\Entity\Exchange;
-use Exchange\Service\ExchangeManager;
+use Cron\Entity\Moex;
+use Cron\Service\MoexManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 
-class ExchangeManagerFactory implements FactoryInterface
+class MoexManagerFactory implements FactoryInterface
 {
-    const ENTITY_NAME = Exchange::class;
+    const ENTITY_NAME = Moex::class;
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /** @var EntityManager $entityManager */
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        return new ExchangeManager($entityManager, self::ENTITY_NAME);
+        return new MoexManager($entityManager, self::ENTITY_NAME);
     }
 
 }
