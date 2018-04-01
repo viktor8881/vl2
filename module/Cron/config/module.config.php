@@ -152,6 +152,9 @@ return [
             Controller\MessageController::class => [
                 ['actions' => ['send-message'], 'allow' => '*'],
             ],
+            Controller\MoexController::class => [
+                ['actions' => ['index'], 'allow' => '*'],
+            ],
         ]
     ],
 
