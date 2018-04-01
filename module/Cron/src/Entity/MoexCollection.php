@@ -3,7 +3,7 @@
 namespace Cron\Entity;
 
 
-class MoexRepository extends \ArrayObject
+class MoexCollection extends \ArrayObject
 {
 
     public function getTradeDateTime()

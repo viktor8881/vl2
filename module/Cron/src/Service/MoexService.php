@@ -4,7 +4,7 @@ namespace Cron\Service;
 
 
 use Cron\Entity\Moex;
-use Cron\Entity\MoexRepository;
+use Cron\Entity\MoexCollection;
 use Exchange\Service\ExchangeManager;
 
 class MoexService
@@ -34,11 +34,11 @@ class MoexService
     }
 
     /**
-     * @return MoexRepository
+     * @return MoexCollection
      */
     public function receiveLast()
     {
-        $repository = new MoexRepository();
+        $repository = new MoexCollection();
         $xmlstr = json_decode(file_get_contents(self::URL_CURRENCY_COURSES));
         if ($xmlstr) {
             foreach ($xmlstr->securities->data as $data) {
@@ -69,9 +69,9 @@ class MoexService
     }
 
     /**
-     * @param MoexRepository $repository
+     * @param MoexCollection $repository
      */
-    public function insertRepository(MoexRepository $repository)
+    public function insertRepository(MoexCollection $repository)
     {
         foreach ($repository->getIterator() as $moex) {
             $this->moexManager->insert($moex);
