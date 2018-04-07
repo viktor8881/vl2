@@ -17,6 +17,9 @@ class MoexService
 
     const URL_CURRENCY_COURSES = 'http://iss.moex.com/iss/statistics/engines/futures/markets/indicativerates/securities.json';
 
+    /** @var string */
+    private $cacheDir;
+
     /** @var MoexManager */
     private $moexManager;
 
@@ -28,23 +31,24 @@ class MoexService
      * @param MoexManager $moexManager
      * @param ExchangeManager $exchangeManager
      */
-    public function __construct(MoexManager $moexManager, ExchangeManager $exchangeManager)
+    public function __construct(MoexManager $moexManager, ExchangeManager $exchangeManager, $cacheDir)
     {
         $this->moexManager = $moexManager;
         $this->exchangeManager = $exchangeManager;
+        $this->cacheDir = $cacheDir . 'exchange';
     }
 
     /**
      * @param int $exchangeId
      * @return array
      */
-    public function dataChartByExchangeId($exchange)
+    public function dataChartByExchangeId($exchangeId)
     {
-        $result = [];
-        foreach ($this->moexManager->getByExchange($exchange) as $moex) {
-            $result[] = [$moex->getTradeDateTimeForChart(), (float)Math::round($moex->getRate(),2)];
+        $filename = $this->cacheDir .  $exchangeId . '.json';
+        if (file_exists($filename) && is_readable($filename)) {
+            return file_get_contents($filename);
         }
-        return $result;
+        return '';
     }
 
     /**
@@ -89,7 +93,7 @@ class MoexService
     {
         /** @var $moex Moex */
         foreach ($collection->getIterator() as $moex) {
-            $filename = 'public/data/exchange' . $moex->getExchangeId() . '.json';
+            $filename = $this->cacheDir . $moex->getExchangeId() . '.json';
             $content = substr(file_get_contents($filename), 0,-1) . ',[' . $moex->getTradeDateTimeForChart() . ', ' . (float)Math::round($moex->getRate(),2) .']]';
             file_put_contents($filename, $content);
             $this->moexManager->insert($moex);

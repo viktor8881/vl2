@@ -2,6 +2,7 @@
 namespace Course;
 
 use Course\Factory\IndexControllerFactory;
+use Course\Factory\MoexControllerFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -10,6 +11,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => IndexControllerFactory::class,
+            Controller\MoexController::class => MoexControllerFactory::class,
         ],
     ],
     'router' => [
@@ -25,6 +27,19 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action' => 'currency',
+                    ],
+                ],
+            ],
+            'course-moex' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/course/moex-data/:id',
+                    'constraints' => [
+                        'id' => '[0-9]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\MoexController::class,
+                        'action' => 'index',
                     ],
                 ],
             ]

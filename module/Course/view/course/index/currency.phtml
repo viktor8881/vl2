@@ -56,7 +56,7 @@
 
         $this->headScript()->captureStart();
         echo "
-                $.getJSON('/data/exchange" . $this->currentExchange->getId() . ".json', function (data) {            
+                $.getJSON('" . $this->url('course-moex', ['id' => $this->currentExchange->getId()]) . "', function (data) {            
                     Highcharts.stockChart('container', {
                 
                         rangeSelector: { selected: 1 },

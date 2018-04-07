@@ -15,7 +15,8 @@ class MoexServiceFactory implements FactoryInterface
     {
         $moexManager = $container->get(MoexManager::class);
         $exchangeManager = $container->get(ExchangeManager::class);
-        return new MoexService($moexManager, $exchangeManager);
+        $cacheDir = $container->get('ApplicationConfig')['module_listener_options']['cache_dir'];
+        return new MoexService($moexManager, $exchangeManager, $cacheDir);
     }
 
 }
