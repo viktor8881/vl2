@@ -1,7 +1,7 @@
 <?php
 namespace Cron\Controller;
 
-use Cron\Service\MoexService;
+use Course\Service\MoexService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class MoexController extends AbstractActionController

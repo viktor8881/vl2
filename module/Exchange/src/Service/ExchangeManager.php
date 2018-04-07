@@ -12,7 +12,7 @@ use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
-use Cron\Service\MoexService;
+use Course\Service\MoexService;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeNotCode;

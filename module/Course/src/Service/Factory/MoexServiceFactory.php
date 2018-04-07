@@ -1,8 +1,8 @@
 <?php
-namespace Cron\Service\Factory;
+namespace Course\Service\Factory;
 
-use Cron\Service\MoexManager;
-use Cron\Service\MoexService;
+use Course\Service\MoexManager;
+use Course\Service\MoexService;
 use Exchange\Service\ExchangeManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;

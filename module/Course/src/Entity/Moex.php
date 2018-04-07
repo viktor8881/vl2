@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Cron\Entity;
+namespace Course\Entity;
 
 use Base\Entity\AbstractEntity;
 use Base\Entity\IEmpty;
@@ -73,6 +73,14 @@ class Moex extends AbstractEntity implements IEmpty
     }
 
     /**
+     * @return int
+     */
+    public function getExchangeId()
+    {
+        return $this->getExchange()->getId();
+    }
+
+    /**
      * @param Exchange $exchange
      * @return Moex
      */
@@ -124,6 +132,23 @@ class Moex extends AbstractEntity implements IEmpty
     public function getTradeDateTime()
     {
         return $this->tradeDateTime;
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function getTradeDateTimeByFormat($format)
+    {
+        return $this->tradeDateTime->format($format);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTradeDateTimeForChart()
+    {
+        return $this->getTradeDateTimeByFormat('U') . '000';
     }
 
     /**

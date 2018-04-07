@@ -27,13 +27,16 @@ return [
                         'action' => 'currency',
                     ],
                 ],
-            ],
+            ]
         ],
     ],
 
     'view_manager' => [
         'template_path_stack' => [
             'Course' => __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
 
@@ -43,6 +46,8 @@ return [
             Service\CourseService::class => Service\Factory\CourseServiceFactory::class,
             Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
             Service\CacheCourseService::class => Service\Factory\CacheCourseServiceFactory::class,
+            Service\MoexService::class      => Service\Factory\MoexServiceFactory::class,
+            Service\MoexManager::class      => Service\Factory\MoexManagerFactory::class
         ]
     ],
 

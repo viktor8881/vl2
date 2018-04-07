@@ -1,10 +1,11 @@
 <?php
 
-namespace Cron\Service;
+namespace Course\Service;
 
 
-use Cron\Entity\Moex;
-use Cron\Entity\MoexCollection;
+use Base\Service\Math;
+use Course\Entity\Moex;
+use Course\Entity\MoexCollection;
 use Exchange\Service\ExchangeManager;
 
 class MoexService
@@ -31,6 +32,19 @@ class MoexService
     {
         $this->moexManager = $moexManager;
         $this->exchangeManager = $exchangeManager;
+    }
+
+    /**
+     * @param int $exchangeId
+     * @return array
+     */
+    public function dataChartByExchangeId($exchange)
+    {
+        $result = [];
+        foreach ($this->moexManager->getByExchange($exchange) as $moex) {
+            $result[] = [$moex->getTradeDateTimeForChart(), (float)Math::round($moex->getRate(),2)];
+        }
+        return $result;
     }
 
     /**
@@ -69,11 +83,15 @@ class MoexService
     }
 
     /**
-     * @param MoexCollection $repository
+     * @param MoexCollection $collection
      */
-    public function insertRepository(MoexCollection $repository)
+    public function insertRepository(MoexCollection $collection)
     {
-        foreach ($repository->getIterator() as $moex) {
+        /** @var $moex Moex */
+        foreach ($collection->getIterator() as $moex) {
+            $filename = 'public/data/exchange' . $moex->getExchangeId() . '.json';
+            $content = substr(file_get_contents($filename), 0,-1) . ',[' . $moex->getTradeDateTimeForChart() . ', ' . (float)Math::round($moex->getRate(),2) .']]';
+            file_put_contents($filename, $content);
             $this->moexManager->insert($moex);
         }
     }

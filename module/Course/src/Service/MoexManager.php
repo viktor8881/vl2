@@ -1,16 +1,15 @@
 <?php
 
-namespace Cron\Service;
-
+namespace Course\Service;
 
 
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
-use Cron\Entity\Criterion\CriterionEqTradeDate;
-use Cron\Entity\Criterion\CriterionExchange;
-use Cron\Entity\Moex;
+use Course\Entity\Criterion\CriterionEqTradeDate;
+use Course\Entity\Criterion\CriterionExchange;
+use Course\Entity\Moex;
 use Doctrine\ORM\QueryBuilder;
 
 class MoexManager extends AbstractManager
@@ -25,6 +24,22 @@ class MoexManager extends AbstractManager
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionEqTradeDate($dateTime));
         return $this->getByCriterions($criterions);
+    }
+
+    /**
+     * @param $exchange
+     * @return Moex[]
+     */
+    public function getByExchange($exchange)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select($this->entityName)
+            ->from($this->entityName, $this->entityName)
+            ->where($this->entityName . '.exchange = :exchange')
+            ->setParameter('exchange', $exchange->getId());
+
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
 
     /**

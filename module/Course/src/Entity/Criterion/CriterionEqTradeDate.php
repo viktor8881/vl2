@@ -1,6 +1,6 @@
 <?php
 
-namespace Cron\Entity\Criterion;
+namespace Course\Entity\Criterion;
 
 use Base\Entity\AbstractCriterion;
 

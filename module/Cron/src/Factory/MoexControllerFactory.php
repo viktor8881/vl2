@@ -2,7 +2,7 @@
 namespace Cron\Factory;
 
 use Cron\Controller\MoexController;
-use Cron\Service\MoexService;
+use Course\Service\MoexService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

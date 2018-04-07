@@ -9,7 +9,7 @@ use Cron\Factory\Exp1ControllerFactory;
 use Cron\Factory\IndexControllerFactory;
 use Cron\Factory\MessageControllerFactory;
 use Cron\Factory\MoexControllerFactory;
-use Cron\Service\MoexManager;
+use Course\Service\MoexManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 
@@ -37,37 +37,37 @@ return [
                     ],
                 ],
             ],
-//            'course.tmp' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/course/tmp',
-//                    'defaults' => [
-//                        'controller' => Controller\CourseController::class,
-//                        'action'     => 'tmp',
-//                    ],
-//                ],
-//            ],
+            //            'course.tmp' => [
+            //                'type' => Literal::class,
+            //                'options' => [
+            //                    'route'    => '/cron/course/tmp',
+            //                    'defaults' => [
+            //                        'controller' => Controller\CourseController::class,
+            //                        'action'     => 'tmp',
+            //                    ],
+            //                ],
+            //            ],
 
-//            'cachecourse.firststart' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/cache-course/tmp',
-//                    'defaults' => [
-//                        'controller' => Controller\CacheCourseController::class,
-//                        'action'     => 'tmp',
-//                    ],
-//                ],
-//            ],
-//            'cachecourse.filling' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/cache-course/tmp1',
-//                    'defaults' => [
-//                        'controller' => Controller\CacheCourseController::class,
-//                        'action'     => 'tmp1',
-//                    ],
-//                ],
-//            ],
+            //            'cachecourse.firststart' => [
+            //                'type' => Literal::class,
+            //                'options' => [
+            //                    'route'    => '/cron/cache-course/tmp',
+            //                    'defaults' => [
+            //                        'controller' => Controller\CacheCourseController::class,
+            //                        'action'     => 'tmp',
+            //                    ],
+            //                ],
+            //            ],
+            //            'cachecourse.filling' => [
+            //                'type' => Literal::class,
+            //                'options' => [
+            //                    'route'    => '/cron/cache-course/tmp1',
+            //                    'defaults' => [
+            //                        'controller' => Controller\CacheCourseController::class,
+            //                        'action'     => 'tmp1',
+            //                    ],
+            //                ],
+            //            ],
             'cachecourse.setcache' => [
                 'type' => Literal::class,
                 'options' => [
@@ -89,16 +89,16 @@ return [
                     ],
                 ],
             ],
-//            'analysis.tmp' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/analysis/tmp',
-//                    'defaults' => [
-//                        'controller' => Controller\AnalysisController::class,
-//                        'action'     => 'tmp',
-//                    ],
-//                ],
-//            ],
+            //            'analysis.tmp' => [
+            //                'type' => Literal::class,
+            //                'options' => [
+            //                    'route'    => '/cron/analysis/tmp',
+            //                    'defaults' => [
+            //                        'controller' => Controller\AnalysisController::class,
+            //                        'action'     => 'tmp',
+            //                    ],
+            //                ],
+            //            ],
 
             'send-message.index' => [
                 'type' => Literal::class,
@@ -111,16 +111,16 @@ return [
                 ],
             ],
 
-//            'exp1.index' => [
-//                'type' => Literal::class,
-//                'options' => [
-//                    'route'    => '/cron/exp1',
-//                    'defaults' => [
-//                        'controller' => Controller\Exp1Controller::class,
-//                        'action'     => 'index',
-//                    ],
-//                ],
-//            ],
+            //            'exp1.index' => [
+            //                'type' => Literal::class,
+            //                'options' => [
+            //                    'route'    => '/cron/exp1',
+            //                    'defaults' => [
+            //                        'controller' => Controller\Exp1Controller::class,
+            //                        'action'     => 'index',
+            //                    ],
+            //                ],
+            //            ],
 
             'cron.moex.index' => [
                 'type' => Literal::class,
@@ -172,26 +172,8 @@ return [
 
     'service_manager' => [
         'factories' => [
-            Service\ServiceExp1::class      => Service\Factory\ServiceExp1Factory::class,
-            Service\MessageService::class   => Service\Factory\MessageServiceFactory::class,
-            Service\MoexService::class      => Service\Factory\MoexServiceFactory::class,
-            Service\MoexManager::class      => Service\Factory\MoexManagerFactory::class
+            Service\ServiceExp1::class    => Service\Factory\ServiceExp1Factory::class,
+            Service\MessageService::class => Service\Factory\MessageServiceFactory::class,
         ]
     ],
-
-    'doctrine' => [
-        'driver' => [
-            __NAMESPACE__ . '_driver' => [
-                'class' => AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [__DIR__ . '/../src/Entity']
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                ]
-            ]
-        ]
-    ],
-
 ];

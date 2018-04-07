@@ -1,6 +1,6 @@
 <?php
 
-namespace Cron\Entity;
+namespace Course\Entity;
 
 
 class MoexCollection extends \ArrayObject

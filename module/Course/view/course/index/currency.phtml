@@ -44,3 +44,47 @@
     ";
     $this->headScript()->captureEnd();
 ?>
+
+
+<?php
+    if ($this->currentExchange->isUSD() || $this->currentExchange->isEUR()) {
+        echo '<div id="container" style="height: 400px; min-width: 310px"></div>';
+
+        $this->headScript()->prependFile('https://code.jquery.com/jquery-3.1.1.min.js');
+        $this->headScript()->prependFile('https://code.highcharts.com/stock/highstock.js');
+        $this->headScript()->prependFile('https://code.highcharts.com/stock/modules/exporting.js');
+
+        $this->headScript()->captureStart();
+        echo "
+                $.getJSON('/data/exchange" . $this->currentExchange->getId() . ".json', function (data) {            
+                    Highcharts.stockChart('container', {
+                
+                        rangeSelector: { selected: 1 },
+                        title: { text: 'MOEX ".$this->currentExchange->getName()."' },
+                
+                        series: [{
+                        name: '".$this->currentExchange->getShortName()."',
+                            data: data,
+                            type: 'area',
+                            threshold: null,
+                            tooltip: {
+                            valueDecimals: 2
+                            },
+                            fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                            }
+                        }]
+                    });
+                });";
+        $this->headScript()->captureEnd();
+    }
+?>
