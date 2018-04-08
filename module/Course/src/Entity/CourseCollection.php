@@ -32,7 +32,6 @@ class CourseCollection extends ArrayObject
             /** @var Course $row */
             foreach ($this->getIterator() as $row) {
                 if (++$i == 1) {
-//                    $result[$row->getDateFormatDMY()] = $row->getValue();
                     $result[] = $row;
                     continue;
                 }
@@ -44,13 +43,11 @@ class CourseCollection extends ArrayObject
                     }else{
                         break;
                     }
-//                    $result[$row->getDateFormatDMY()] = $row->getValue();
                     $result[] = $row;
                     $prev = $row;
                     continue;
                 }
                 if ( $this->{$sign}($prev->getValue(), $row->getValue()) ) {
-//                    $result[$row->getDateFormatDMY()] = $row->getValue();
                     $result[] = $row;
                     $prev = $row;
                     continue;

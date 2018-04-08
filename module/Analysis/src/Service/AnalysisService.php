@@ -84,14 +84,14 @@ class AnalysisService
         $dateLater = clone $date;
         $dateLater->sub(new \DateInterval('P' . $task->getPeriod() . 'D'));
         foreach ($task->getExchanges() as $exchange) {
-            $cources = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateLater, $date);
-            if (!$cources) {
+            $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateLater, $date);
+            if (!$courses) {
                 continue;
             }
             /** @var Course $courseFirst */
-            $courseFirst = reset($cources);
+            $courseFirst = reset($courses);
             /** @var Course $courseLast */
-            $courseLast = end($cources);
+            $courseLast = end($courses);
             if ($this->isValidTaskPercent($task, $courseFirst->getValue(), $courseLast->getValue())) {
                 /** @var  $analysis TaskPercentAnalysis */
                 $analysis = $this->taskPercentAnalysisManager->createEntity();
@@ -226,7 +226,6 @@ class AnalysisService
             }elseif ($cacheCourses->firstIsDownTrend() && TechnicalAnalysis::isDoubleTop($cacheCourses->listLastValue(), $percent, $percent) ) {
                 // пишем что образовалась фигура
                 /** @var FigureAnalysis $analysis */
-//                pr($cacheCourses->getList()); exit;
                 $analysis = $this->figureAnalysisManager->createEntity();
                 $analysis->setExchange($exchange)
                     ->setFigure(FigureAnalysis::FIGURE_DOUBLE_TOP)

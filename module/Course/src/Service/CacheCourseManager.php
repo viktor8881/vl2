@@ -109,7 +109,6 @@ class CacheCourseManager extends AbstractManager
      */
     public function fetch7ByExchangeAndPercent(Exchange $exchange, $percent)
     {
-//        return $this->collectionByParams($exchange, $percent, 7);
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
         $criterions->append(new CriterionPercent($percent));
