@@ -5,7 +5,6 @@ namespace Course\Entity;
 
 use Base\Entity\AbstractEntity;
 use Base\Entity\IEmpty;
-use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
 
 /**
@@ -117,6 +116,14 @@ class Moex extends AbstractEntity implements IEmpty
     }
 
     /**
+     * @return float
+     */
+    public function getValue()
+    {
+        return $this->getRate();
+    }
+
+    /**
      * @param float $rate
      * @return Moex
      */
@@ -132,6 +139,14 @@ class Moex extends AbstractEntity implements IEmpty
     public function getTradeDateTime()
     {
         return $this->tradeDateTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->getTradeDateTime();
     }
 
     /**

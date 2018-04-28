@@ -7,7 +7,7 @@ use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
-use Course\Entity\Criterion\CriterionEqTradeDate;
+use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Moex;
 use Doctrine\ORM\QueryBuilder;
@@ -15,15 +15,28 @@ use Doctrine\ORM\QueryBuilder;
 class MoexManager extends AbstractManager
 {
 
+
+    /**
+     * @param Exchange[]     $exchanges
+     * @param \DateTime $date
+     *
+     *@return Course[]
+     */
+    public function fetchAllByExchangesAndDate(array $exchanges, \DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchanges));
+        $criterions->append(new CriterionEqDate($date));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
     /**
      * @param \DateTime $dateTime
      * @return Moex
      */
     public function hasByDate(\DateTime $dateTime)
     {
-        $criterions = new CriterionCollection();
-        $criterions->append(new CriterionEqTradeDate($dateTime));
-        return $this->getByCriterions($criterions);
+        return count($this->fetchAllByDate($dateTime));
     }
 
     /**
@@ -42,6 +55,20 @@ class MoexManager extends AbstractManager
         return $query->getResult();
     }
 
+
+    /**
+     * @param \DateTime $date
+     *
+     * @return Course[]
+     */
+    public function fetchAllByDate(\DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionEqDate($date));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
+
     /**
      * @param AbstractCriterion $criterion
      * @param QueryBuilder      $qb
@@ -50,14 +77,14 @@ class MoexManager extends AbstractManager
         switch (get_class($criterion)) {
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName . '.exchange IN (:exchange_id)')
-                    ->setParameter('exchange_id', $criterion);
+                    ->setParameter('exchange_id', $criterion->getValues());
                 break;
-            case CriterionEqTradeDate::class:
-//                pr($criterion->getFirstValue()->format('Y-m-d H:i:s'));
-//                pr($criterion->getFirstValue()->format(\DateTime::ISO8601));
-//                exit;
+            case CriterionEqDate::class:
+                /** @var $date \DateTime */
+                $date = $criterion->getFirstValue();
+                $date->setTime(18,30);
                 $qb->andWhere($this->entityName . '.tradeDateTime = :tradeDateTime')
-                    ->setParameter('tradeDateTime', $criterion->getFirstValue()->format(\DateTime::ISO8601));
+                    ->setParameter('tradeDateTime', $date->format(\DateTime::ISO8601));
                 break;
         }
     }

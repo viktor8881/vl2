@@ -8,9 +8,8 @@ use Cron\Factory\CourseControllerFactory;
 use Cron\Factory\Exp1ControllerFactory;
 use Cron\Factory\IndexControllerFactory;
 use Cron\Factory\MessageControllerFactory;
+use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
-use Course\Service\MoexManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 
 return [
@@ -131,6 +130,36 @@ return [
                         'action'     => 'index',
                     ]
                 ]
+            ],
+//            'cachecourse.moex.firststart' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/cache-course/moex/tmp',
+//                    'defaults' => [
+//                        'controller' => Controller\MoexCacheCourseController::class,
+//                        'action'     => 'tmp',
+//                    ],
+//                ],
+//            ],
+//            'cachecourse.moex.filling' => [
+//                'type' => Literal::class,
+//                'options' => [
+//                    'route'    => '/cron/cache-course/moex/tmp1',
+//                    'defaults' => [
+//                        'controller' => Controller\MoexCacheCourseController::class,
+//                        'action'     => 'tmp1',
+//                    ],
+//                ],
+//            ]
+            'cachecourse.moex.setcache' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/cache-course/moex',
+                    'defaults' => [
+                        'controller' => Controller\MoexCacheCourseController::class,
+                        'action'     => 'fill-cache'
+                    ]
+                ]
             ]
         ],
     ],
@@ -155,6 +184,9 @@ return [
             Controller\MoexController::class => [
                 ['actions' => ['index'], 'allow' => '*'],
             ],
+            Controller\MoexCacheCourseController::class => [
+                ['actions' => ['fill-cache'], 'allow' => '*'],
+            ],
         ]
     ],
 
@@ -166,7 +198,8 @@ return [
             Controller\AnalysisController::class    => AnalysisControllerFactory::class,
             Controller\MessageController::class     => MessageControllerFactory::class,
             Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
-            Controller\MoexController::class        => MoexControllerFactory::class
+            Controller\MoexController::class        => MoexControllerFactory::class,
+            Controller\MoexCacheCourseController::class => MoexCacheCourseControllerFactory::class
         ]
     ],
 

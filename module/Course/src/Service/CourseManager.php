@@ -17,8 +17,8 @@ use Course\Entity\Order\OrderExchange;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
 use Task\Entity\Order\OrderId;
-use Zend\Paginator\Factory;
 use Zend\Paginator\Adapter\NullFill;
+use Zend\Paginator\Factory;
 
 /**
  * Class CourseManager
@@ -32,7 +32,7 @@ class CourseManager extends AbstractManager
      * @param Exchange[]     $exchanges
      * @param \DateTime $date
      *
-*@return Course[]
+     *@return Course[]
      */
     public function fetchAllByExchangesAndDate(array $exchanges, \DateTime $date)
     {

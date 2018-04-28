@@ -57,12 +57,14 @@ return [
 
     'service_manager' => [
         'factories' => [
-            Service\CourseManager::class => Service\Factory\CourseManagerFactory::class,
-            Service\CourseService::class => Service\Factory\CourseServiceFactory::class,
-            Service\CacheCourseManager::class => Service\Factory\CacheCourseManagerFactory::class,
-            Service\CacheCourseService::class => Service\Factory\CacheCourseServiceFactory::class,
-            Service\MoexService::class      => Service\Factory\MoexServiceFactory::class,
-            Service\MoexManager::class      => Service\Factory\MoexManagerFactory::class
+            Service\CourseManager::class            => Service\Factory\CourseManagerFactory::class,
+            Service\CourseService::class            => Service\Factory\CourseServiceFactory::class,
+            Service\CacheCourseManager::class       => Service\Factory\CacheCourseManagerFactory::class,
+            Service\CacheCourseService::class       => Service\Factory\CacheCourseServiceFactory::class,
+            Service\MoexService::class              => Service\Factory\MoexServiceFactory::class,
+            Service\MoexManager::class              => Service\Factory\MoexManagerFactory::class,
+            Service\MoexCacheCourseManager::class   => Service\Factory\MoexCacheCourseManagerFactory::class,
+            Service\MoexCacheCourseService::class   => Service\Factory\MoexCacheCourseServiceFactory::class
         ]
     ],
 

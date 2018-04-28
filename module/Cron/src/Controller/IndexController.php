@@ -7,10 +7,11 @@ use ZendQueue\Queue;
 class IndexController extends AbstractActionController
 {
 
-    const TASK_RECEIVE_DATA = 'receive_data';
-    const TASK_CACHE_DATA = 'cache_data';
-    const TASK_ANALYSIS = 'analysis';
-    const TASK_SEND_MESSAGE = 'send_message';
+    const TASK_RECEIVE_DATA     = 'receive_data';
+    const TASK_CACHE_DATA       = 'cache_data';
+    const TASK_CACHE_DATA_MOEX  = 'cache_data_moex';
+    const TASK_ANALYSIS         = 'analysis';
+    const TASK_SEND_MESSAGE     = 'send_message';
 
     /** @var Queue */
     private $queue;
@@ -41,9 +42,17 @@ class IndexController extends AbstractActionController
                 case self::TASK_CACHE_DATA:
                     $response = $this->forward()->dispatch(CacheCourseController::class, array('controller' => CacheCourseController::class, 'action'=>'fill-cache'));
                     if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_ANALYSIS);
+                        $queue->send(self::TASK_CACHE_DATA_MOEX);
                     } else {
                         $queue->send(self::TASK_CACHE_DATA);
+                    }
+                    break;
+                case self::TASK_CACHE_DATA_MOEX:
+                    $response = $this->forward()->dispatch(MoexCacheCourseController::class, array('controller' => MoexCacheCourseController::class, 'action'=>'fill-cache'));
+                    if ($response->getStatusCode() == 200 ) {
+                        $queue->send(self::TASK_ANALYSIS);
+                    } else {
+                        $queue->send(self::TASK_CACHE_DATA_MOEX);
                     }
                     break;
                 case self::TASK_ANALYSIS:
