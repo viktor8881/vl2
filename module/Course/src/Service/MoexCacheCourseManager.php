@@ -8,12 +8,12 @@ use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
 use Base\Entity\OrderCollection;
 use Base\Service\AbstractManager;
-use Course\Entity\CacheCourseCollection;
 use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPercent;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Entity\MoexCacheCourse;
+use Course\Entity\MoexCacheCourseCollection;
 use Course\Entity\Order\OrderId;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
@@ -83,7 +83,7 @@ class MoexCacheCourseManager extends AbstractManager
     /**
      * @param Exchange $exchange
      * @param  float $percent
-     * @return CacheCourseCollection
+     * @return MoexCacheCourseCollection
      */
     public function fetch5ByExchangeAndPercent(Exchange $exchange, $percent)
     {
@@ -105,7 +105,7 @@ class MoexCacheCourseManager extends AbstractManager
     /**
      * @param Exchange $exchange
      * @param float $percent
-     * @return CacheCourseCollection
+     * @return MoexCacheCourseCollection
      */
     public function fetch7ByExchangeAndPercent(Exchange $exchange, $percent)
     {
@@ -127,11 +127,11 @@ class MoexCacheCourseManager extends AbstractManager
     /**
      * @param array $cacheCourses
      *
-     * @return CacheCourseCollection
+     * @return MoexCacheCourseCollection
      */
     private function createCollection(array $cacheCourses = [])
     {
-        $coll = new CacheCourseCollection();
+        $coll = new MoexCacheCourseCollection();
         foreach ($cacheCourses as $cacheCourse ) {
             $coll->append($cacheCourse);
         }

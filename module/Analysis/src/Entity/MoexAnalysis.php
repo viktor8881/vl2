@@ -2,18 +2,18 @@
 namespace Analysis\Entity;
 
 use Base\Entity\AbstractEntity;
-use Course\Entity\Course;
+use Course\Entity\Moex;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exchange\Entity\Exchange;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="task_analysis")
+ * @ORM\Table(name="moex_analysis")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="integer")
- * @ORM\DiscriminatorMap({"1" = "TaskPercentAnalysis", "2" = "TaskOvertimeAnalysis"})
+ * @ORM\DiscriminatorMap({"1" = "MoexPercentAnalysis", "2" = "MoexOvertimeAnalysis"})
  */
-abstract class TaskAnalysis extends AbstractEntity
+abstract class MoexAnalysis extends AbstractEntity
 {
 
 
@@ -39,8 +39,8 @@ abstract class TaskAnalysis extends AbstractEntity
     /** @ORM\Column(name="period", type="float") */
     protected $period;
     /**
-     * @ORM\ManyToMany(targetEntity="\Course\Entity\Course")
-     * @ORM\JoinTable(name="task_analysis_course",
+     * @ORM\ManyToMany(targetEntity="\Course\Entity\Moex")
+     * @ORM\JoinTable(name="moex_analysis_course",
      * joinColumns={@ORM\JoinColumn(name="analysis_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id", unique=true)}
      * )
@@ -88,7 +88,7 @@ abstract class TaskAnalysis extends AbstractEntity
     /**
      * @param mixed $id
      *
-     * @return TaskAnalysis
+     * @return $this
      */
     public function setId($id)
     {
@@ -107,7 +107,7 @@ abstract class TaskAnalysis extends AbstractEntity
     /**
      * @param Exchange $exchange
      *
-     * @return TaskAnalysis
+     * @return $this
      */
     public function setExchange($exchange)
     {
@@ -126,7 +126,7 @@ abstract class TaskAnalysis extends AbstractEntity
     /**
      * @param float $period
      *
-     * @return TaskAnalysis
+     * @return $this
      */
     public function setPeriod($period)
     {
@@ -135,7 +135,7 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @return Course[]
+     * @return Moex[]
      */
     public function getCourses()
     {
@@ -143,9 +143,9 @@ abstract class TaskAnalysis extends AbstractEntity
     }
 
     /**
-     * @param Course[] $courses
+     * @param Moex[] $courses
      *
-     * @return TaskAnalysis
+     * @return $this
      */
     public function setCourses(array $courses)
     {
@@ -164,7 +164,7 @@ abstract class TaskAnalysis extends AbstractEntity
     /**
      * @param \DateTime $created
      *
-     * @return TaskAnalysis
+     * @return $this
      */
     public function setCreated($created)
     {

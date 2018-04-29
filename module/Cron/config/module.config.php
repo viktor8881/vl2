@@ -8,6 +8,7 @@ use Cron\Factory\CourseControllerFactory;
 use Cron\Factory\Exp1ControllerFactory;
 use Cron\Factory\IndexControllerFactory;
 use Cron\Factory\MessageControllerFactory;
+use Cron\Factory\MoexAnalysisControllerFactory;
 use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
 use Zend\Router\Http\Literal;
@@ -160,6 +161,16 @@ return [
                         'action'     => 'fill-cache'
                     ]
                 ]
+            ],
+            'analysis.moex.index' => [
+                'type' => Literal::class,
+                'options' => [
+                        'route'    => '/cron/analysis/moex',
+                    'defaults' => [
+                        'controller' => Controller\MoexAnalysisController::class,
+                        'action'     => 'index',
+                    ],
+                ],
             ]
         ],
     ],
@@ -187,6 +198,9 @@ return [
             Controller\MoexCacheCourseController::class => [
                 ['actions' => ['fill-cache'], 'allow' => '*'],
             ],
+            Controller\MoexAnalysisController::class => [
+                ['actions' => ['index'], 'allow' => '*'],
+            ]
         ]
     ],
 
@@ -199,7 +213,8 @@ return [
             Controller\MessageController::class     => MessageControllerFactory::class,
             Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
             Controller\MoexController::class        => MoexControllerFactory::class,
-            Controller\MoexCacheCourseController::class => MoexCacheCourseControllerFactory::class
+            Controller\MoexCacheCourseController::class => MoexCacheCourseControllerFactory::class,
+            Controller\MoexAnalysisController::class => MoexAnalysisControllerFactory::class
         ]
     ],
 

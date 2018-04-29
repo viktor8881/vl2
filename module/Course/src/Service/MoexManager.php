@@ -9,8 +9,11 @@ use Base\Entity\CriterionCollection;
 use Base\Service\AbstractManager;
 use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
+use Course\Entity\Criterion\CriterionPeriod;
 use Course\Entity\Moex;
+use Course\Entity\MoexCollection;
 use Doctrine\ORM\QueryBuilder;
+use Exchange\Entity\Exchange;
 
 class MoexManager extends AbstractManager
 {
@@ -55,6 +58,27 @@ class MoexManager extends AbstractManager
         return $query->getResult();
     }
 
+    /**
+     * @param Exchange  $exchange
+     * @param \DateTime $date
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function getCollectionByExchangeAndLsDate(Exchange $exchange, \DateTime $date)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionLsDate($date));
+
+        $orders = new OrderCollection();
+        $orders->append(new OrderId(AbstractOrder::DESC));
+
+        $paginator = Factory::factory(20, new NullFill());
+        $paginator->setItemCountPerPage(20);
+        $paginator->setCurrentPageNumber(1);
+
+        $courses = $this->fetchAllByCriterions($criterions, $paginator, $orders);
+        return $this->createCollection($courses);
+    }
 
     /**
      * @param \DateTime $date
@@ -68,6 +92,19 @@ class MoexManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions);
     }
 
+    /**
+     * @param Exchange  $exchange
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $startDate, \DateTime $endDate)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionPeriod([$startDate, $endDate]));
+        return $this->fetchAllByCriterions($criterions);
+    }
 
     /**
      * @param AbstractCriterion $criterion
@@ -78,6 +115,11 @@ class MoexManager extends AbstractManager
             case CriterionExchange::class:
                 $qb->andWhere($this->entityName . '.exchange IN (:exchange_id)')
                     ->setParameter('exchange_id', $criterion->getValues());
+                break;
+            case CriterionPeriod::class:
+                $qb->andWhere($this->entityName . '.tradeDateTime BETWEEN :start AND :end')
+                    ->setParameter('start', $criterion->getFirstValue()->format('Y-m-d 00:00:00'))
+                    ->setParameter('end', $criterion->getSecondValue()->format('Y-m-d 23:59:59'));
                 break;
             case CriterionEqDate::class:
                 /** @var $date \DateTime */
@@ -92,6 +134,19 @@ class MoexManager extends AbstractManager
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
         // TODO: Implement addOrder() method.
+    }
+
+    /**
+     * @param array $courses
+     * @return MoexCollection
+     */
+    private function createCollection(array $courses)
+    {
+        $coll = new MoexCollection();
+        foreach ($courses as $course) {
+            $coll->append($course);
+        }
+        return $coll;
     }
 
 

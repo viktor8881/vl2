@@ -236,7 +236,7 @@ class MoexCacheCourse extends AbstractEntity
         return $this->getExchange()->isCurrency();
     }
 
-    public function isUpTrend() {
+        public function isUpTrend() {
         return $this->getTypeTrend() == self::TREND_UP;
     }
 

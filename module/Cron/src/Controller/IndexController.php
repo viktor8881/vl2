@@ -42,17 +42,9 @@ class IndexController extends AbstractActionController
                 case self::TASK_CACHE_DATA:
                     $response = $this->forward()->dispatch(CacheCourseController::class, array('controller' => CacheCourseController::class, 'action'=>'fill-cache'));
                     if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_CACHE_DATA_MOEX);
-                    } else {
-                        $queue->send(self::TASK_CACHE_DATA);
-                    }
-                    break;
-                case self::TASK_CACHE_DATA_MOEX:
-                    $response = $this->forward()->dispatch(MoexCacheCourseController::class, array('controller' => MoexCacheCourseController::class, 'action'=>'fill-cache'));
-                    if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_ANALYSIS);
                     } else {
-                        $queue->send(self::TASK_CACHE_DATA_MOEX);
+                        $queue->send(self::TASK_CACHE_DATA);
                     }
                     break;
                 case self::TASK_ANALYSIS:

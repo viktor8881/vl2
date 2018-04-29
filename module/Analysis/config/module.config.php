@@ -19,7 +19,11 @@ return [
             Service\FigureAnalysisManager::class       => Service\Factory\FigureAnalysisManagerFactory::class,
             Service\TaskOvertimeAnalysisManager::class => Service\Factory\TaskOvertimeAnalysisManagerFactory::class,
             Service\TaskPercentAnalysisManager::class  => Service\Factory\TaskPercentAnalysisManagerFactory::class,
-            Service\MovingAverage::class               => Service\Factory\MovingAverageFactory::class
+            Service\MovingAverage::class               => Service\Factory\MovingAverageFactory::class,
+            Service\MoexAnalysisService::class         => Service\Factory\MoexAnalysisServiceFactory::class,
+            Service\MoexFigureAnalysisManager::class   => Service\Factory\MoexFigureAnalysisManagerFactory::class,
+            Service\MoexOvertimeAnalysisManager::class => Service\Factory\MoexOvertimeAnalysisManagerFactory::class,
+            Service\MoexPercentAnalysisManager::class  => Service\Factory\MoexPercentAnalysisManagerFactory::class,
         ]
     ],
 
