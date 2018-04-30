@@ -46,16 +46,11 @@ class MoexManager extends AbstractManager
      * @param $exchange
      * @return Moex[]
      */
-    public function getByExchange($exchange)
+    public function fetchAllByExchangeId($id)
     {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select($this->entityName)
-            ->from($this->entityName, $this->entityName)
-            ->where($this->entityName . '.exchange = :exchange')
-            ->setParameter('exchange', $exchange->getId());
-
-        $query = $qb->getQuery();
-        return $query->getResult();
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($id));
+        return $this->fetchAllByCriterions($criterions);
     }
 
     /**

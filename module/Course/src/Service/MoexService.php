@@ -89,7 +89,7 @@ class MoexService
     /**
      * @param MoexCollection $collection
      */
-    public function insertRepository(MoexCollection $collection)
+    public function insertCollection(MoexCollection $collection)
     {
         /** @var $moex Moex */
         foreach ($collection->getIterator() as $moex) {

@@ -27,7 +27,7 @@ class MoexController extends AbstractActionController
 
         if ($moexRepository->count() && !$this->moexService->hasByDate($moexRepository->getTradeDateTime())) {
             try {
-                $this->moexService->insertRepository($moexRepository);
+                $this->moexService->insertCollection($moexRepository);
                 echo 'insert row ' . $moexRepository->count();
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);
