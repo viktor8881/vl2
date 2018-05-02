@@ -54,7 +54,7 @@ class ExchangeManager extends AbstractManager
     /**
      * @return Exchange[]
      */
-    public function fetchAllByListMoex()
+    public function fetchAllMoex()
     {
         return $this->fetchAllByListId(array_values(self::MAP_MOEX_SECID));
     }

@@ -2,29 +2,29 @@
 
 namespace Cron\Service;
 
-use Analysis\Entity\FigureAnalysisCollection;
-use Analysis\Service\FigureAnalysisManager;
+use Analysis\Service\MoexFigureAnalysisManager;
+use Analysis\Service\MoexOvertimeAnalysisManager;
+use Analysis\Service\MoexPercentAnalysisManager;
 use Analysis\Service\MovingAverage;
-use Analysis\Service\TaskOvertimeAnalysisManager;
-use Analysis\Service\TaskPercentAnalysisManager;
 use Base\Entity\CriterionCollection;
 use Base\Service\JpGraphService;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
-use Course\Service\CourseManager;
+use Course\Entity\Moex;
+use Course\Service\MoexManager;
 use Exchange\Entity\Exchange;
 
-class MessageService implements MessageInterface
+class MoexMessageService implements MessageInterface
 {
-    /** @var TaskOvertimeAnalysisManager */
+    /** @var MoexOvertimeAnalysisManager */
     private $taskOvertimeAnalysisManager;
-    /** @var TaskPercentAnalysisManager */
+    /** @var MoexPercentAnalysisManager */
     private $taskPercentAnalysisManager;
-    /** @var FigureAnalysisManager */
+    /** @var MoexFigureAnalysisManager */
     private $figureAnalysisManager;
     /** @var MovingAverage */
     private $movingAverage;
-    /** @var CourseManager */
+    /** @var MoexManager */
     private $courseManager;
     /** @var JpGraphService */
     private $graphService;
@@ -35,12 +35,11 @@ class MessageService implements MessageInterface
     /** @var Exchange */
     private $exchange;
 
-
-    public function __construct(TaskOvertimeAnalysisManager $taskOvertimeAnalysisManager,
-                                TaskPercentAnalysisManager $taskPercentAnalysisManager,
-                                FigureAnalysisManager $figureAnalysisManager,
+    public function __construct(MoexOvertimeAnalysisManager $taskOvertimeAnalysisManager,
+                                MoexPercentAnalysisManager $taskPercentAnalysisManager,
+                                MoexFigureAnalysisManager $figureAnalysisManager,
                                 MovingAverage $movingAverage,
-                                CourseManager $courseManager,
+                                MoexManager $courseManager,
                                 JpGraphService $graphService)
     {
         $this->taskOvertimeAnalysisManager = $taskOvertimeAnalysisManager;
@@ -79,9 +78,9 @@ class MessageService implements MessageInterface
     /**
      * @param Exchange $exchange
      *
-     * @return MessageService
+     * @return MoexMessageService
      */
-    public function setExchange(Exchange $exchange)
+    public function setExchange($exchange)
     {
         $this->exchange = $exchange;
         return $this;
@@ -144,6 +143,7 @@ class MessageService implements MessageInterface
     }
 
     /**
+     * @param Exchange $exchange
      *
      * @return string
      * @throws \Exception
@@ -169,6 +169,7 @@ class MessageService implements MessageInterface
         $dataAvg2 = [];
         $dataLabels = [];
         $i = 0;
+        /** @var $course Moex */
         foreach ($courses as $course) {
             $dataBaseGraph[] = $course->getValue();
             $dataAvg1[] = $movingAverage1[$i];
@@ -182,7 +183,7 @@ class MessageService implements MessageInterface
 
 
     /**
-     * @return \Analysis\Entity\TaskOvertimeAnalysisCollection
+     * @return \Analysis\Entity\MoexOvertimeAnalysisCollection
      */
     private function getCollectionTaskOvertimeByDate()
     {
@@ -190,7 +191,7 @@ class MessageService implements MessageInterface
     }
 
     /**
-     * @return \Analysis\Entity\TaskPercentAnalysisCollection
+     * @return \Analysis\Entity\MoexPercentAnalysisCollection
      */
     private function getCollectionTaskPercentByDate()
     {
@@ -198,7 +199,7 @@ class MessageService implements MessageInterface
     }
 
     /**
-     * @return FigureAnalysisCollection
+     * @return \Analysis\Entity\MoexFigureAnalysisCollection
      */
     private function getCollectionFigureAnalysisByDate()
     {

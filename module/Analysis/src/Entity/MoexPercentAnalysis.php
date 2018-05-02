@@ -3,6 +3,7 @@ namespace Analysis\Entity;
 
 
 use Course\Entity\Moex;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity

@@ -1,6 +1,7 @@
 <?php
 namespace Analysis\Service\Factory;
 
+use Analysis\Entity\MoexOvertimeAnalysis;
 use Analysis\Service\MoexOvertimeAnalysisManager;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;

@@ -112,8 +112,7 @@ class MoexCacheCourseController extends AbstractActionController
                     $this->cacheCourseService->fillingCache($dateNow, $course);
                 }
             } catch (\Exception $exception) {
-                $this->getResponse()->setStatusCode(500);
-                return $this->getResponse();
+                throw $exception;
             }
         } else {
             $this->getResponse()->setStatusCode(412);

@@ -2,15 +2,14 @@
 namespace Cron\Controller;
 
 use Base\Service\MailService;
-use Cron\Service\MessageService;
-use Exchange\Entity\Exchange;
+use Cron\Service\MoexMessageService;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class MessageController extends AbstractActionController
+class MoexMessageController extends AbstractActionController
 {
 
-    /** @var MessageService */
+    /** @var MoexMessageService */
     private $messageService;
     /** @var ExchangeManager */
     private $exchangeManager;
@@ -20,11 +19,11 @@ class MessageController extends AbstractActionController
 
     /**
      * MessageController constructor.
-     * @param MessageService $messageService
+     * @param MoexMessageService $messageService
      * @param ExchangeManager  $movingAverage
      * @param MailService    $mailService
      */
-    public function __construct(MessageService $messageService, ExchangeManager $exchangeManager, MailService $mailService)
+    public function __construct(MoexMessageService $messageService, ExchangeManager $exchangeManager, MailService $mailService)
     {
         $this->messageService = $messageService;
         $this->exchangeManager = $exchangeManager;
@@ -35,11 +34,11 @@ class MessageController extends AbstractActionController
     public function sendMessageAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime();
+            $dateNow = new \DateTime('22.04.2018');
         }
 
         $this->messageService->setDate($dateNow);
-        $listExchange = $this->exchangeManager->fetchAllExceptCode([Exchange::CODE_CURRENCY_MAIN]);
+        $listExchange = $this->exchangeManager->fetchAllMoex();
         if (count($listExchange)) {
             foreach ($listExchange as $exchange) {
                 $this->messageService->setExchange($exchange);

@@ -11,6 +11,7 @@ use Cron\Factory\MessageControllerFactory;
 use Cron\Factory\MoexAnalysisControllerFactory;
 use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
+use Cron\Factory\MoexMessageControllerFactory;
 use Zend\Router\Http\Literal;
 
 return [
@@ -110,6 +111,16 @@ return [
                     ],
                 ],
             ],
+            'send-message.moex.index' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/send-message/moex',
+                    'defaults' => [
+                        'controller' => Controller\MoexMessageController::class,
+                        'action'     => 'send-message',
+                    ],
+                ],
+            ],
 
             //            'exp1.index' => [
             //                'type' => Literal::class,
@@ -127,8 +138,8 @@ return [
                 'options' => [
                     'route'    => '/cron/moex',
                     'defaults' => [
-                        'controller' => Controller\MoexController::class,
-                        'action'     => 'index',
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'moex',
                     ]
                 ]
             ],
@@ -200,6 +211,9 @@ return [
             ],
             Controller\MoexAnalysisController::class => [
                 ['actions' => ['index'], 'allow' => '*'],
+            ],
+            Controller\MoexMessageController::class => [
+                ['actions' => ['send-message'], 'allow' => '*'],
             ]
         ]
     ],
@@ -214,7 +228,8 @@ return [
             Controller\Exp1Controller::class        => Exp1ControllerFactory::class,
             Controller\MoexController::class        => MoexControllerFactory::class,
             Controller\MoexCacheCourseController::class => MoexCacheCourseControllerFactory::class,
-            Controller\MoexAnalysisController::class => MoexAnalysisControllerFactory::class
+            Controller\MoexAnalysisController::class => MoexAnalysisControllerFactory::class,
+            Controller\MoexMessageController::class  => MoexMessageControllerFactory::class,
         ]
     ],
 
@@ -222,6 +237,7 @@ return [
         'factories' => [
             Service\ServiceExp1::class    => Service\Factory\ServiceExp1Factory::class,
             Service\MessageService::class => Service\Factory\MessageServiceFactory::class,
+            Service\MoexMessageService::class => Service\Factory\MoexMessageServiceFactory::class,
         ]
     ],
 ];

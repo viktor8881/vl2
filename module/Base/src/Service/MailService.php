@@ -2,6 +2,7 @@
 
 namespace Base\Service;
 
+use Cron\Service\MessageInterface;
 use Cron\Service\MessageService;
 use Exchange\Entity\Exchange;
 use Zend\Mail\Message;
@@ -38,20 +39,20 @@ class MailService
 
     /**
      * @param Exchange       $exchange
-     * @param MessageService $messageService
+     * @param MessageInterface $messageService
      */
-    public function sendAnalysis(Exchange $exchange, MessageService $messageService)
+    public function sendAnalysis(MessageInterface $messageService)
     {
-        $this->message->setSubject($exchange->getName() . ' - dev');
+        $this->message->setSubject($messageService->getSubject() . ' - dev');
 
         $viewModel = new ViewModel(
             ['date'                 => $messageService->getDate(),
-             'exchange'             => $exchange,
-             'taskOvertimeAnalysis' => $messageService->getAnalyzesOvertimeTaskByExchange($exchange),
-             'taskPercentAnalyzes'  => $messageService->getAnalyzesPercentTaskByExchange($exchange),
-             'taskFigureAnalyzes'   => $messageService->getListAnalyzesFigureTaskByExchange($exchange),
-             'statusCrossAvg'       => $messageService->getStatusCrossByExchange($exchange),
-             'srcGraph'             => $messageService->getSrcGraph($exchange)
+             'exchange'             => $messageService->getExchange(),
+             'taskOvertimeAnalysis' => $messageService->getAnalyzesOvertimeTask(),
+             'taskPercentAnalyzes'  => $messageService->getAnalyzesPercentTask(),
+             'taskFigureAnalyzes'   => $messageService->getListAnalyzesFigureTask(),
+             'statusCrossAvg'       => $messageService->getStatusCross(),
+             'srcGraph'             => $messageService->getSrcGraph()
             ]
         );
         $viewModel->setTemplate('mail/analysis.phtml');

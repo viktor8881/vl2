@@ -2,7 +2,7 @@
 namespace Cron\Factory;
 
 
-use Base\Queue\Adapter\Doctrine;
+use Base\Queue\Adapter\DoctrineAdapter;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
 use Cron\Controller\IndexController;
 use Interop\Container\ContainerInterface;
@@ -17,13 +17,17 @@ class IndexControllerFactory implements FactoryInterface
     {
         /** @var QueueManager $queueManager */
         $queueManager = $container->get(QueueManager::class);
-        $values['options'][Doctrine::MANAGER_NAME] = $queueManager;
-        $doctrineAdapter = new Doctrine($values);
+        $values['options'][DoctrineAdapter::MANAGER_NAME] = $queueManager;
+
+        $doctrineAdapter = new DoctrineAdapter($values);
 
         $options = ['name' => 'def_queue'];
         $queue = new Queue($doctrineAdapter, $options);
 
-        return new IndexController($queue);
+        $options = ['name' => 'moex'];
+        $moexQueue = new Queue($doctrineAdapter, $options);
+
+        return new IndexController($queue, $moexQueue);
     }
 
 }

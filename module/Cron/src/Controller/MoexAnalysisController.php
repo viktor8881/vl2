@@ -46,7 +46,7 @@ class MoexAnalysisController extends AbstractActionController
     public function indexAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('29.04.2018');
+            $dateNow = new \DateTime();
         }
 
         /** @var TaskPercent $task */
@@ -55,7 +55,7 @@ class MoexAnalysisController extends AbstractActionController
         }
 
         /** @var Exchange $exchange */
-        foreach ($this->exchangeManager->fetchAllByListMoex() as $exchange) {
+        foreach ($this->exchangeManager->fetchAllMoex() as $exchange) {
             foreach (MoexCacheCourseService::listPercent() as $percent) {
                 $this->analysisService->technicalAnalysisByExchange($exchange, $dateNow, $percent);
             }

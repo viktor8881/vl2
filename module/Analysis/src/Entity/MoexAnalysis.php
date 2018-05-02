@@ -5,6 +5,8 @@ use Base\Entity\AbstractEntity;
 use Course\Entity\Moex;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exchange\Entity\Exchange;
+use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity

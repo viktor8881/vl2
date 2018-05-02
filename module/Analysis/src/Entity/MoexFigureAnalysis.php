@@ -6,6 +6,7 @@ use Course\Entity\CacheCourse;
 use Course\Entity\MoexCacheCourse;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exchange\Entity\Exchange;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity

@@ -23,7 +23,7 @@ use ZendQueue\Queue;
  * @package    Zend_Queue
  * @subpackage Adapter
  */
-class Doctrine extends AbstractAdapter
+class DoctrineAdapter extends AbstractAdapter
 {
 
     const MANAGER_NAME = 'manager_name';

@@ -1,6 +1,7 @@
 <?php
 namespace Analysis\Service\Factory;
 
+use Analysis\Entity\MoexFigureAnalysis;
 use Analysis\Service\MoexFigureAnalysisManager;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;

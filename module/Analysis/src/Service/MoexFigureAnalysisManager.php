@@ -4,6 +4,7 @@ namespace Analysis\Service;
 
 use Analysis\Entity\Criterion\CriterionDateCreated;
 use Analysis\Entity\FigureAnalysisCollection;
+use Analysis\Entity\MoexFigureAnalysisCollection;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
@@ -20,7 +21,7 @@ class MoexFigureAnalysisManager extends AbstractManager
      */
     public function getCollectionByDate(\DateTime $date)
     {
-        $coll = new FigureAnalysisCollection();
+        $coll = new MoexFigureAnalysisCollection();
         foreach ($this->fetchAllByDate($date) as $item) {
             $coll->append($item);
         }

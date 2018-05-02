@@ -3,7 +3,7 @@
 namespace Analysis\Service;
 
 use Analysis\Entity\Criterion\CriterionDateCreated;
-use Analysis\Entity\TaskOvertimeAnalysisCollection;
+use Analysis\Entity\MoexOvertimeAnalysisCollection;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
@@ -16,11 +16,11 @@ class MoexOvertimeAnalysisManager extends AbstractManager
 
     /**
      * @param \DateTime $date
-     * @return TaskOvertimeAnalysisCollection
+     * @return MoexOvertimeAnalysisCollection
      */
     public function getCollectionByDate(\DateTime $date)
     {
-        $coll = new TaskOvertimeAnalysisCollection();
+        $coll = new MoexOvertimeAnalysisCollection();
         foreach ($this->fetchAllByDate($date) as $item) {
             $coll->append($item);
         }

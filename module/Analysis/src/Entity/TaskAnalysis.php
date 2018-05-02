@@ -1,6 +1,7 @@
 <?php
 namespace Analysis\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Base\Entity\AbstractEntity;
 use Course\Entity\Course;
 use Doctrine\Common\Collections\ArrayCollection;
