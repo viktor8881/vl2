@@ -34,7 +34,7 @@ class MoexMessageController extends AbstractActionController
     public function sendMessageAction(\DateTime $dateNow = null)
     {
         if (is_null($dateNow)) {
-            $dateNow = new \DateTime('22.04.2018');
+            $dateNow = new \DateTime();
         }
 
         $this->messageService->setDate($dateNow);
