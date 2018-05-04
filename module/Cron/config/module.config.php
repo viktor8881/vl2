@@ -189,7 +189,7 @@ return [
     'access_filter' => [
         'controllers' => [
             Controller\IndexController::class => [
-                ['actions' => ['index'], 'allow' => '*'],
+                ['actions' => ['index', 'moex'], 'allow' => '*'],
             ],
             Controller\CourseController::class => [
                 ['actions' => ['receive'], 'allow' => '*'],

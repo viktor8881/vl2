@@ -79,14 +79,14 @@ class IndexController extends AbstractActionController
     {
         $queue = $this->moexQueue;
 
-//        $queue->send(self::TASK_SEND_MESSAGE); exit;
+//        $queue->send(self::TASK_RECEIVE_DATA); exit;
 
         $messages = $queue->receive();
         foreach ($messages as $message) {
             $body = $message->body;
             switch ($body) {
                 case self::TASK_RECEIVE_DATA:
-                    $response = $this->forward()->dispatch(MoexController::class, array('controller' => MoexController::class, 'action'=>'index'));
+                    $response = $this->forward()->dispatch(MoexController::class, ['controller' => MoexController::class, 'action'=>'index']);
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_CACHE_DATA);
                     } else {
@@ -94,7 +94,7 @@ class IndexController extends AbstractActionController
                     }
                     break;
                 case self::TASK_CACHE_DATA:
-                    $response = $this->forward()->dispatch(MoexCacheCourseController::class, array('controller' => MoexCacheCourseController::class, 'action'=>'fill-cache'));
+                    $response = $this->forward()->dispatch(MoexCacheCourseController::class, ['controller' => MoexCacheCourseController::class, 'action'=>'fill-cache']);
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_ANALYSIS);
                     } else {
@@ -102,7 +102,7 @@ class IndexController extends AbstractActionController
                     }
                     break;
                 case self::TASK_ANALYSIS:
-                    $response = $this->forward()->dispatch(MoexAnalysisController::class, array('controller' => MoexAnalysisController::class, 'action' =>'index'));
+                    $response = $this->forward()->dispatch(MoexAnalysisController::class, ['controller' => MoexAnalysisController::class, 'action' =>'index']);
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_SEND_MESSAGE);
                     } else {
@@ -110,7 +110,7 @@ class IndexController extends AbstractActionController
                     }
                     break;
                 case self::TASK_SEND_MESSAGE:
-                    $response = $this->forward()->dispatch(MoexMessageController::class, array('controller' => MoexMessageController::class, 'action' =>'send-message'));
+                    $response = $this->forward()->dispatch(MoexMessageController::class, ['controller' => MoexMessageController::class, 'action' =>'send-message']);
                     if ($response->getStatusCode() == 200 ) {
                         $queue->send(self::TASK_RECEIVE_DATA);
                     } else {
