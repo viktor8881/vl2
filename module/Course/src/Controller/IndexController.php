@@ -35,7 +35,7 @@ class IndexController extends AbstractActionController
         $this->courseManager = $courseManager;
         $this->movingAverage = $movingAverage;
         $dateNow = new \DateTime();
-        self::$DATA_DEF = $dateNow->sub(new \DateInterval('P1Y'))->format('d.m.Y');
+        self::$DATA_DEF = $dateNow->sub(new \DateInterval('P6M'))->format('d.m.Y');
     }
 
     /**
