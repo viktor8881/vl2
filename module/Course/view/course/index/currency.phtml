@@ -43,24 +43,23 @@ if ($this->currentExchange->isUSD() || $this->currentExchange->isEUR()) {
                     });
                 });";
     $this->headScript()->captureEnd();
-} else {
-    ?>
+}
+?>
+<hr>
 
-    <div id="chart_div"></div>
+<h3 class="text-center">Данные Центробанка</h3>
+<div id="chart_div"></div>
 
-    <?php
+<?php
     $lisChart = array();
     $i = 0;
     foreach ($this->courses as $course) {
         $date = $course->getDate();
-        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),'
-            . $course->getValue() . ',' . $this->movingAverage1[$i] . ']';
+        $lisChart[] = '[new Date("' . $date->format('D M d Y') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i].']';
         $i++;
     }
 
-    $this->headScript()->prependFile(
-        'https://www.gstatic.com/charts/loader.js'
-    );
+    $this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
     $this->headScript()->captureStart();
     echo "
     google.charts.load('current', {packages: ['corechart', 'line']});
@@ -89,5 +88,4 @@ if ($this->currentExchange->isUSD() || $this->currentExchange->isEUR()) {
     }
     ";
     $this->headScript()->captureEnd();
-}
 ?>
