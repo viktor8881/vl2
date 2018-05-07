@@ -11,7 +11,7 @@ use Exchange\Entity\Exchange;
  * @ORM\Entity
  * @ORM\Table(name="figure_analysis")
  */
-class FigureAnalysis extends AbstractEntity
+class FigureAnalysis extends AbstractEntity implements FigureAnalysisInterface
 {
 
     const SEPARATE = ';';

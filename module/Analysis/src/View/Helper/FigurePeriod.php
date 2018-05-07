@@ -2,13 +2,13 @@
 
 namespace Analysis\View\Helper;
 
-use Analysis\Entity\FigureAnalysis;
+use Analysis\Entity\FigureAnalysisInterface;
 use Zend\View\Helper\AbstractHelper;
 
 class FigurePeriod extends AbstractHelper
 {
     
-    public function __invoke(FigureAnalysis $figure)
+    public function __invoke(FigureAnalysisInterface $figure)
     {
         $dateStart = $figure->getFirstDate();
         $dateEnd = $figure->getLastDate();

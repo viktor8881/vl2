@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="moex_figure_analysis")
  */
-class MoexFigureAnalysis extends AbstractEntity
+class MoexFigureAnalysis extends AbstractEntity implements FigureAnalysisInterface
 {
 
     const SEPARATE = ';';
