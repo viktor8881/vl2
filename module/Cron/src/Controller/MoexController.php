@@ -35,6 +35,7 @@ class MoexController extends AbstractActionController
             }
         } else {
             echo 'insert row 0';
+            $this->getResponse()->setStatusCode(412);
         }
         return $this->getResponse();
     }
