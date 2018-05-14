@@ -2,6 +2,9 @@
 
 namespace Cron\Service;
 
+use Analysis\Entity\MoexFigureAnalysis;
+use Analysis\Entity\MoexOvertimeAnalysis;
+use Analysis\Entity\MoexPercentAnalysis;
 use Analysis\Service\MoexFigureAnalysisManager;
 use Analysis\Service\MoexOvertimeAnalysisManager;
 use Analysis\Service\MoexPercentAnalysisManager;
@@ -18,22 +21,28 @@ class MoexMessageService implements MessageInterface
 {
     /** @var MoexOvertimeAnalysisManager */
     private $taskOvertimeAnalysisManager;
+
     /** @var MoexPercentAnalysisManager */
     private $taskPercentAnalysisManager;
+
     /** @var MoexFigureAnalysisManager */
     private $figureAnalysisManager;
+
     /** @var MovingAverage */
     private $movingAverage;
+
     /** @var MoexManager */
     private $courseManager;
+
     /** @var JpGraphService */
     private $graphService;
 
-
     /** @var \DateTime */
     private $date;
+
     /** @var Exchange */
     private $exchange;
+
 
     public function __construct(MoexOvertimeAnalysisManager $taskOvertimeAnalysisManager,
                                 MoexPercentAnalysisManager $taskPercentAnalysisManager,
@@ -91,11 +100,14 @@ class MoexMessageService implements MessageInterface
      */
     public function getSubject()
     {
+        $subject = 'MOEX: ';
         $exchange = $this->getExchange();
         if ($exchange) {
-            return $exchange->getName();
+            $subject .= $exchange->getName();
+        } else {
+            $subject .= 'no_subject';
         }
-        return 'no_subject';
+        return $subject;
     }
 
     /**
@@ -119,7 +131,7 @@ class MoexMessageService implements MessageInterface
     }
 
     /**
-     * @return \Analysis\Entity\TaskPercentAnalysis[]
+     * @return MoexFigureAnalysis[]
      */
     public function getListAnalyzesFigureTask()
     {
@@ -127,7 +139,7 @@ class MoexMessageService implements MessageInterface
     }
 
     /**
-     * @return \Analysis\Entity\TaskOvertimeAnalysis|null
+     * @return MoexOvertimeAnalysis | null
      */
     public function getAnalyzesOvertimeTask()
     {
@@ -135,7 +147,7 @@ class MoexMessageService implements MessageInterface
     }
 
     /**
-     * @return \Analysis\Entity\TaskPercentAnalysis[]
+     * @return MoexPercentAnalysis[]
      */
     public function getAnalyzesPercentTask()
     {
@@ -143,8 +155,6 @@ class MoexMessageService implements MessageInterface
     }
 
     /**
-     * @param Exchange $exchange
-     *
      * @return string
      * @throws \Exception
      */

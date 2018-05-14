@@ -24,7 +24,7 @@ class MoexOvertimeAnalysisCollection extends ArrayObject
 
     /**
      * @param Exchange $exchange
-     * @return MoexOvertimeAnalysis|null
+     * @return MoexOvertimeAnalysis | null
      */
     public function getByExchange(Exchange $exchange)
     {

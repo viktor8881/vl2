@@ -1,9 +1,6 @@
 <?php
 namespace Cron\Service;
 
-
-use Exchange\Entity\Exchange;
-
 interface MessageInterface
 {
 
@@ -16,5 +13,7 @@ interface MessageInterface
     public function getStatusCross();
 
     public function getSrcGraph();
-    
+
+    public function getSubject();
+
 }

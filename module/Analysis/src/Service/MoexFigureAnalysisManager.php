@@ -3,7 +3,6 @@
 namespace Analysis\Service;
 
 use Analysis\Entity\Criterion\CriterionDateCreated;
-use Analysis\Entity\FigureAnalysisCollection;
 use Analysis\Entity\MoexFigureAnalysisCollection;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
@@ -17,7 +16,7 @@ class MoexFigureAnalysisManager extends AbstractManager
 
     /**
      * @param \DateTime $date
-     * @return FigureAnalysisCollection
+     * @return MoexFigureAnalysisCollection
      */
     public function getCollectionByDate(\DateTime $date)
     {
