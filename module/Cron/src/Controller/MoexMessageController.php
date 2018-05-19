@@ -36,7 +36,6 @@ class MoexMessageController extends AbstractActionController
         if (is_null($dateNow)) {
             $dateNow = new \DateTime();
         }
-
         $this->messageService->setDate($dateNow);
         $listExchange = $this->exchangeManager->fetchAllMoex();
         if (count($listExchange)) {
