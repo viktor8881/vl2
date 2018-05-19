@@ -52,7 +52,7 @@ class IndexController extends AbstractActionController
                 case self::TASK_ANALYSIS:
                     $response = $this->forward()->dispatch(AnalysisController::class, array('controller' => AnalysisController::class, 'action' =>'index'));
                     if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_SEND_MESSAGE);
+                        $queue->send(self::TASK_RECEIVE_DATA);
                     } else {
                         $queue->send(self::TASK_ANALYSIS);
                     }
