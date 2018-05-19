@@ -7,6 +7,7 @@ use Base\Service\Math;
 use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
 use Exchange\Service\ExchangeManager;
+use Panychek\MoEx\Security;
 
 class MoexService
 {
@@ -16,6 +17,11 @@ class MoexService
     const LIST_SEC_ID = [self::USD_SEC_ID, self::EUR_SEC_ID];
 
     const URL_CURRENCY_COURSES = 'http://iss.moex.com/iss/statistics/engines/futures/markets/indicativerates/securities.json';
+
+    const MOEX_URLS = [
+        self::USD_SEC_ID => '#USD000000TOD',
+        self::EUR_SEC_ID => '#EUR_RUB__TOD'
+    ];
 
     /** @var string */
     private $cacheDir;
@@ -49,6 +55,27 @@ class MoexService
             return file_get_contents($filename);
         }
         return '';
+    }
+
+    /**
+     * @return MoexCollection
+     */
+    public function receiveByDate()
+    {
+        $repository = new MoexCollection();
+
+        foreach (self::MOEX_URLS as $secId => $name) {
+            $security = new Security($name);
+            $moexArray = [
+                'tradeDateTime' => $security->getLastUpdate(),
+                'secid' => $secId,
+                'rate' => $security->getLastPrice(),
+                'exchange' => $this->exchangeManager->getByMoexSecid($secId)
+            ];
+            $moex = $this->moexManager->createEntity($moexArray);
+            $repository->append($moex);
+        }
+        return $repository;
     }
 
     /**

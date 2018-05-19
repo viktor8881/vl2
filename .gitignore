@@ -1,4 +1,4 @@
-.idea
+.idea/
 .vagrant/
 vendor/
 config/development.config.php
@@ -9,4 +9,3 @@ data/DoctrineORMModule/*
 phpunit.xml
 public/img/captcha/*
 public/img/jpgraph/*
-ubuntu-xenial-16.04-cloudimg-console.log

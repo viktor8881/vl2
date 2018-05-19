@@ -23,7 +23,7 @@ class MoexController extends AbstractActionController
 
     public function indexAction()
     {
-        $moexRepository = $this->moexService->receiveLast();
+        $moexRepository = $this->moexService->receiveByDate();
 
         if ($moexRepository->count() && !$this->moexService->hasByDate($moexRepository->getTradeDateTime())) {
             try {
