@@ -27,10 +27,7 @@ class MoexManager extends AbstractManager
      */
     public function fetchAllByExchangesAndDate(array $exchanges, \DateTime $date)
     {
-        $criterions = new CriterionCollection();
-        $criterions->append(new CriterionExchange($exchanges));
-        $criterions->append(new CriterionEqDate($date));
-        return $this->fetchAllByCriterions($criterions);
+        return $this->fetchAllByExchangeAndPeriod($exchanges, $date, clone $date);
     }
 
     /**
@@ -39,7 +36,7 @@ class MoexManager extends AbstractManager
      */
     public function hasByDate(\DateTime $dateTime)
     {
-        return count($this->fetchAllByDate($dateTime));
+        return count($this->fetchAllByPeriod($dateTime, clone $dateTime));
     }
 
     /**
@@ -98,7 +95,27 @@ class MoexManager extends AbstractManager
         $criterions = new CriterionCollection();
         $criterions->append(new CriterionExchange($exchange));
         $criterions->append(new CriterionPeriod([$startDate, $endDate]));
-        return $this->fetchAllByCriterions($criterions);
+
+        $paginator = Factory::factory(100, new NullFill());
+        $paginator->setItemCountPerPage(100);
+        $paginator->setCurrentPageNumber(1);
+        return $this->fetchAllByCriterions($criterions, $paginator);
+    }
+
+    /**
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function fetchAllByPeriod(\DateTime $startDate, \DateTime $endDate)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionPeriod([$startDate, $endDate]));
+
+        $paginator = Factory::factory(100, new NullFill());
+        $paginator->setItemCountPerPage(100);
+        $paginator->setCurrentPageNumber(1);
+        return $this->fetchAllByCriterions($criterions, $paginator);
     }
 
     /**
