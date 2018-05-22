@@ -2,7 +2,6 @@
 
 namespace Course\Service;
 
-
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
@@ -14,6 +13,8 @@ use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
+use Zend\Paginator\Adapter\NullFill;
+use Zend\Paginator\Factory;
 
 class MoexManager extends AbstractManager
 {
