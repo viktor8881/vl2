@@ -28,7 +28,7 @@ class MoexManager extends AbstractManager
      */
     public function fetchAllByExchangesAndDate(array $exchanges, \DateTime $date)
     {
-        return $this->fetchAllByExchangeAndPeriod($exchanges, $date, clone $date);
+        return $this->fetchAllByExchangesAndPeriod($exchanges, $date, clone $date);
     }
 
     /**
@@ -86,15 +86,15 @@ class MoexManager extends AbstractManager
     }
 
     /**
-     * @param Exchange  $exchange
+     * @param [Exchange]  $exchanges
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllByExchangeAndPeriod(Exchange $exchange, \DateTime $startDate, \DateTime $endDate)
+    public function fetchAllByExchangesAndPeriod(array $exchanges, \DateTime $startDate, \DateTime $endDate)
     {
         $criterions = new CriterionCollection();
-        $criterions->append(new CriterionExchange($exchange));
+        $criterions->append(new CriterionExchange($exchanges));
         $criterions->append(new CriterionPeriod([$startDate, $endDate]));
 
         $paginator = Factory::factory(100, new NullFill());

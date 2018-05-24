@@ -82,7 +82,7 @@ class MoexAnalysisService
         $dateLater = clone $date;
         $dateLater->sub(new \DateInterval('P' . $task->getPeriod() . 'D'));
         foreach ($task->getExchanges() as $exchange) {
-            $courses = $this->courseManager->fetchAllByExchangeAndPeriod($exchange, $dateLater, $date);
+            $courses = $this->courseManager->fetchAllByExchangesAndPeriod([$exchange], $dateLater, $date);
             if (!$courses) {
                 continue;
             }
