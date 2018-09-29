@@ -5,12 +5,15 @@ namespace Course\Service;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
+use Base\Entity\OrderCollection;
 use Base\Service\AbstractManager;
 use Course\Entity\Criterion\CriterionEqDate;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
+use Course\Entity\Order\OrderTradeDateTime;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Exchange;
 use Zend\Paginator\Adapter\NullFill;
@@ -19,6 +22,20 @@ use Zend\Paginator\Factory;
 class MoexManager extends AbstractManager
 {
 
+    /**
+     * @param $exchangeId
+     * @return null|Moex
+     */
+    public function lastByExchangeId($exchangeId)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new CriterionExchange($exchangeId));
+
+        $order = new OrderCollection();
+        $order->append(new OrderTradeDateTime(AbstractOrder::DESC));
+
+        return $this->getByCriterions($criterions, $order);
+    }
 
     /**
      * @param Exchange[]     $exchanges
@@ -58,18 +75,30 @@ class MoexManager extends AbstractManager
      */
     public function getCollectionByExchangeAndLsDate(Exchange $exchange, \DateTime $date)
     {
-        $criterions = new CriterionCollection();
-        $criterions->append(new CriterionExchange($exchange));
-        $criterions->append(new CriterionLsDate($date));
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult(Moex::class, 'mc');
+        $rsm->addFieldResult('mc', 'id', 'id');
 
-        $orders = new OrderCollection();
-        $orders->append(new OrderId(AbstractOrder::DESC));
+        $rsm->addFieldResult('mc', 'secid', 'secId');
+        $rsm->addFieldResult('mc', 'rate', 'rate');
+        $rsm->addFieldResult('mc', 'trade_date_time', 'tradeDateTime');
+        $rsm->addJoinedEntityResult(Exchange::class , 'e', 'mc', 'exchange');
+        $rsm->addFieldResult('e', 'exchange_id', 'id');
+        $rsm->addFieldResult('e', 'type', 'type');
+        $rsm->addFieldResult('e', 'code', 'code');
+        $rsm->addFieldResult('e', 'name', 'name');
+        $rsm->addFieldResult('e', 'short_name', 'shortName');
 
-        $paginator = Factory::factory(20, new NullFill());
-        $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber(1);
+        $sql = 'SELECT mc.id, mc.secid, AVG(mc.`rate`)as `rate`, mc.`trade_date_time`,
+                      e.id as exchange_id, e.type, e.code, e.name, e.short_name
+                  FROM `moex_course` as mc INNER JOIN exchange AS e ON mc.exchange_id = e.id 
+                  WHERE mc.`exchange_id`=? AND mc.trade_date_time < ? GROUP BY DATE(mc.`trade_date_time`) ORDER BY mc.`trade_date_time` DESC LIMIT 20';
 
-        $courses = $this->fetchAllByCriterions($criterions, $paginator, $orders);
+        $query = $this->em->createNativeQuery($sql, $rsm);
+        $query->setParameter(1, $exchange->getId());
+        $query->setParameter(2, $date->format(\DateTime::ISO8601));
+
+        $courses = $query->getResult();
         return $this->createCollection($courses);
     }
 
@@ -146,7 +175,13 @@ class MoexManager extends AbstractManager
 
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-        // TODO: Implement addOrder() method.
+        switch (get_class($order)) {
+            case OrderTradeDateTime::class:
+                $qb->orderBy($this->entityName.'.tradeDateTime', $order->getTypeOrder());
+                break;
+            default:
+                break;
+        }
     }
 
     /**

@@ -1,8 +1,9 @@
 <?php
 namespace Cron\Controller;
 
+use Base\Queue\Queue;
+use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
-use ZendQueue\Queue;
 
 class IndexController extends AbstractActionController
 {
@@ -25,6 +26,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+
         $queue = $this->queue;
 
 //        $queue->send(self::TASK_SEND_MESSAGE); exit;
@@ -74,56 +76,75 @@ class IndexController extends AbstractActionController
         return $this->getResponse();
     }
 
-
     public function moexAction()
     {
-        $queue = $this->moexQueue;
-
-//        $queue->send(self::TASK_RECEIVE_DATA); exit;
-
-        $messages = $queue->receive();
-        foreach ($messages as $message) {
-            $body = $message->body;
-            switch ($body) {
-                case self::TASK_RECEIVE_DATA:
-                    $response = $this->forward()->dispatch(MoexController::class, ['controller' => MoexController::class, 'action'=>'index']);
+        foreach (ExchangeManager::MAP_MOEX_SECID as $exchangeId) {
+            $response = $this->forward()->dispatch(
+                MoexController::class,
+                [   'controller' => MoexController::class,
+                    'action' => 'index',
+                    'exchangeId' => $exchangeId
+                ]
+            );
+            if ($response->getStatusCode() == 200 ) {
+                $response = $this->forward()->dispatch(
+                    MoexCacheCourseController::class,
+                    [   'controller' => MoexCacheCourseController::class,
+                        'action' => 'index',
+                        'exchangeId' => $exchangeId
+                    ]
+                );
+                if ($response->getStatusCode() == 200 ) {
+                    $response = $this->forward()->dispatch(
+                        MoexAnalysisController::class,
+                        [   'controller' => MoexAnalysisController::class,
+                            'action' => 'index',
+                            'exchangeId' => $exchangeId
+                        ]
+                    );
                     if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_CACHE_DATA);
-                    } else {
-                        $queue->send(self::TASK_RECEIVE_DATA);
+                        $response = $this->forward()->dispatch(
+                            MoexMessageController::class,
+                            [   'controller' => MoexMessageController::class,
+                                'action' => 'index',
+                                'exchangeId' => $exchangeId
+                            ]
+                        );
                     }
-                    break;
-                case self::TASK_CACHE_DATA:
-                    $response = $this->forward()->dispatch(MoexCacheCourseController::class, ['controller' => MoexCacheCourseController::class, 'action'=>'fill-cache']);
-                    if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_ANALYSIS);
-                    } else {
-                        $queue->send(self::TASK_CACHE_DATA);
-                    }
-                    break;
-                case self::TASK_ANALYSIS:
-                    $response = $this->forward()->dispatch(MoexAnalysisController::class, ['controller' => MoexAnalysisController::class, 'action' =>'index']);
-                    if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_SEND_MESSAGE);
-                    } else {
-                        $queue->send(self::TASK_ANALYSIS);
-                    }
-                    break;
-                case self::TASK_SEND_MESSAGE:
-                    $response = $this->forward()->dispatch(MoexMessageController::class, ['controller' => MoexMessageController::class, 'action' =>'send-message']);
-                    if ($response->getStatusCode() == 200 ) {
-                        $queue->send(self::TASK_RECEIVE_DATA);
-                    } else {
-                        $queue->send(self::TASK_SEND_MESSAGE);
-                    }
-                    break;
-                default:
-                    throw new \Exception('unknown type task.');
-                    break;
+                }
             }
-            $queue->deleteMessage($message);
         }
         return $this->getResponse();
     }
+
+
+//    public function moexCacheAction()
+//    {
+//        /** @var Queue $queue */
+//        $queue = $this->moexQueue;
+//
+//        $queue->createQueue('moex-cache');
+//        $queue->setOption(Queue::NAME, 'moex-cache');
+//
+//        foreach ($queue->receiveAsArray(10) as $message) {
+//            $exchangeId = $message->body['exchangeId'];
+//            $response = $this->forward()->dispatch(
+//                MoexAnalysisController::class,
+//                [   'controller' => MoexAnalysisController::class,
+//                    'action' => 'index',
+//                    'exchangeId' => $exchangeId
+//                ]
+//            );
+//            if ($response->getStatusCode() == 200 ) {
+//                $queue->createQueue('moex-analisys');
+//                $queue->setOption(Queue::NAME, 'moex-analisys');
+//                $queue->sendArray(['exchangeId' => $exchangeId]);
+//            } else {
+//                $queue->deleteMessage($message);
+//                $queue->sendArray(['exchangeId' => $exchangeId]);
+//            }
+//        }
+//        return $this->getResponse();
+//    }
 
 }

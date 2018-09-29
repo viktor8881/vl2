@@ -4,7 +4,6 @@ namespace Course\Entity;
 
 use Base\Entity\AbstractEntity;
 use Exchange\Entity\Exchange;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -39,7 +38,7 @@ class MoexCacheCourse extends AbstractEntity
     /** @ORM\Column(name="last_value", type="decimal", precision=6, scale=20) */
     protected $lastValue;
 
-    /** @ORM\Column(name="last_date", type="date") */
+    /** @ORM\Column(name="last_date", type="datetime") */
     protected $lastDate;
 
     /** @ORM\Column(name="percent", type="decimal", precision=2, scale=4) */
@@ -155,7 +154,7 @@ class MoexCacheCourse extends AbstractEntity
      * @return $this
      */
     public function addDataValue(\DateTime $date,  $value) {
-        $this->dataValue[] = array('data' => $date->format('d.m.Y'), 'value' => $value);
+        $this->dataValue[] = array('data' => $date->format('d.m.Y H:i:s'), 'value' => $value);
         return $this;
     }
 

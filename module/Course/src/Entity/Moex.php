@@ -6,7 +6,6 @@ namespace Course\Entity;
 use Base\Entity\AbstractEntity;
 use Base\Entity\IEmpty;
 use Exchange\Entity\Exchange;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -14,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Moex extends AbstractEntity implements IEmpty
 {
+
+    const SQL_LAST_RATE_BY_EXCHANGE_ID =  'SELECT * FROM moex_course WHERE exchange_id=%d ORDER BY trade_date_time DESC LIMIT 1';
 
     /**
      * @ORM\Id
@@ -32,7 +33,7 @@ class Moex extends AbstractEntity implements IEmpty
      * @ORM\Column(name="secid", type="string")
      * @var string
      */
-    protected $secid;
+    protected $secId;
 
     /**
      * @ORM\Column(name="rate", type="decimal", precision=6, scale=20)
@@ -81,6 +82,14 @@ class Moex extends AbstractEntity implements IEmpty
     }
 
     /**
+     * @return string
+     */
+    public function getExchangeName()
+    {
+        return $this->getExchange()->getName();
+    }
+
+    /**
      * @param Exchange $exchange
      * @return Moex
      */
@@ -93,18 +102,19 @@ class Moex extends AbstractEntity implements IEmpty
     /**
      * @return string
      */
-    public function getSecid()
+    public function getSecId()
     {
-        return $this->secid;
+        return $this->secId;
     }
 
     /**
-     * @param string $secid
+     * @param string $secId
+     *
      * @return Moex
      */
-    public function setSecid($secid)
+    public function setSecId($secId)
     {
-        $this->secid = $secid;
+        $this->secId = $secId;
         return $this;
     }
 

@@ -23,9 +23,22 @@ class ExchangeManager extends AbstractManager
 {
 
     const MAP_MOEX_SECID = [
+        MoexService::GOLD_SEC_ID => 1,
         MoexService::USD_SEC_ID => 5,
         MoexService::EUR_SEC_ID => 8
     ];
+
+    /**
+     * @return array
+     */
+    public function listExchangeId()
+    {
+        $list = [];
+        foreach ($this->fetchAll() as $entity) {
+            $list[] = $entity->getId();
+        }
+        return $list;
+    }
 
     /**
      * @return Exchange[]

@@ -31,19 +31,12 @@ class MoexMessageController extends AbstractActionController
     }
 
 
-    public function sendMessageAction(\DateTime $dateNow = null)
+    public function indexAction()
     {
-        if (is_null($dateNow)) {
-            $dateNow = new \DateTime();
-        }
-        $this->messageService->setDate($dateNow);
-        $listExchange = $this->exchangeManager->fetchAllMoex();
-        if (count($listExchange)) {
-            foreach ($listExchange as $exchange) {
-                $this->messageService->setExchange($exchange);
-                $this->mailService->sendAnalysis($this->messageService);
-            }
-        }
+        $exchangeId = $this->params('exchangeId');
+        $exchange = $this->exchangeManager->get($exchangeId);
+        $this->messageService->setExchange($exchange);
+        $this->mailService->sendAnalysis($this->messageService);
         return $this->getResponse();
     }
 }

@@ -57,15 +57,16 @@ class MoexAnalysisService
     /**
      * @param Task      $task
      * @param \DateTime $date
+     * @param Exchange $exchange
      * @return int
      */
-    public function analysisByTask(Task $task, \DateTime $date)
+    public function analysisByTask(Task $task, \DateTime $date, Exchange $exchange)
     {
         $count = 0;
         if ($task instanceof TaskPercent) {
-            $count += $this->runPercentByTask($task, $date);
+            $count += $this->runPercentByTask($task, $date, $exchange);
         } elseif ($task  instanceof TaskOvertime) {
-            $count += $this->runOvertimeByTask($task, $date);
+            $count += $this->runOvertimeByTask($task, $date, $exchange);
         }
         return $count;
     }
@@ -73,34 +74,36 @@ class MoexAnalysisService
     /**
      * @param TaskPercent $task
      * @param \DateTime   $date
-     *
+     * @param Exchange $exchange
      * @return int
      */
-    public function runPercentByTask(TaskPercent $task, \DateTime $date)
+    public function runPercentByTask(TaskPercent $task, \DateTime $date, Exchange $exchange)
     {
         $countRec = 0;
+        if (!$task->hasExchangeId($exchange->getId())) {
+            return $countRec;
+        }
         $dateLater = clone $date;
         $dateLater->sub(new \DateInterval('P' . $task->getPeriod() . 'D'));
-        foreach ($task->getExchanges() as $exchange) {
-            $courses = $this->courseManager->fetchAllByExchangesAndPeriod([$exchange], $dateLater, $date);
-            if (!$courses) {
-                continue;
-            }
-            /** @var Course $courseFirst */
-            $courseFirst = reset($courses);
-            /** @var Course $courseLast */
-            $courseLast = end($courses);
-            if ($this->isValidTaskPercent($task, $courseFirst->getValue(), $courseLast->getValue())) {
-                /** @var  $analysis TaskPercentAnalysis */
-                $analysis = $this->taskPercentAnalysisManager->createEntity();
-                $analysis->setExchange($exchange)
-                    ->setCourses([$courseFirst, $courseLast])
-                    ->setPeriod($task->getPeriod())
-                    ->setCreated($date)
-                    ->setPercent($task->getPercent());
-                $this->figureAnalysisManager->insert($analysis);
-                $countRec++;
-            }
+
+        $courses = $this->courseManager->fetchAllByExchangesAndPeriod([$exchange], $dateLater, $date);
+        if (!$courses) {
+            return $countRec;
+        }
+        /** @var Course $courseFirst */
+        $courseFirst = reset($courses);
+        /** @var Course $courseLast */
+        $courseLast = end($courses);
+        if ($this->isValidTaskPercent($task, $courseFirst->getValue(), $courseLast->getValue())) {
+            /** @var  $analysis TaskPercentAnalysis */
+            $analysis = $this->taskPercentAnalysisManager->createEntity();
+            $analysis->setExchange($exchange)
+                ->setCourses([$courseFirst, $courseLast])
+                ->setPeriod($task->getPeriod())
+                ->setCreated($date)
+                ->setPercent($task->getPercent());
+            $this->figureAnalysisManager->insert($analysis);
+            $countRec++;
         }
         return $countRec;
     }
@@ -141,31 +144,32 @@ class MoexAnalysisService
     /**
      * @param TaskOvertime $task
      * @param \DateTime    $date
-     *
+     * @param Exchange $exchange
      * @return int
      */
-    public function runOvertimeByTask(TaskOvertime $task, \DateTime $date)
+    public function runOvertimeByTask(TaskOvertime $task, \DateTime $date, Exchange $exchange)
     {
         $countRec = 0;
-        foreach ($task->getExchanges() as $exchange) {
-            /** @var MoexCollection $courses */
-            $courses = $this->courseManager->getCollectionByExchangeAndLsDate($exchange, $date);
-            $courses = $courses->listExchangeUpOrDown();
-            $listValue = [];
-            /** @var Course[] $courses */
-            foreach ($courses as $course) {
-                $listValue[] = $course->getValue();
-            }
-            if ($this->isValidTaskOvertime($task, $listValue)) {
-                /** @var  $analysis TaskOvertimeAnalysis */
-                $analysis = $this->taskOvertimeAnalysisManager->createEntity();
-                $analysis->setExchange($exchange)
-                    ->setCourses($courses)
-                    ->setPeriod($task->getPeriod())
-                    ->setCreated($date);
-                $this->figureAnalysisManager->insert($analysis);
-                $countRec++;
-            }
+        if (!$task->hasExchangeId($exchange->getId())) {
+            return $countRec;
+        }
+        /** @var MoexCollection $courses */
+        $courses = $this->courseManager->getCollectionByExchangeAndLsDate($exchange, $date);
+        $courses = $courses->listExchangeUpOrDown();
+        $listValue = [];
+        /** @var Course[] $courses */
+        foreach ($courses as $course) {
+            $listValue[] = $course->getValue();
+        }
+        if ($this->isValidTaskOvertime($task, $listValue)) {
+            /** @var  $analysis TaskOvertimeAnalysis */
+            $analysis = $this->taskOvertimeAnalysisManager->createEntity();
+            $analysis->setExchange($exchange)
+                ->setCourses($courses)
+                ->setPeriod($task->getPeriod())
+                ->setCreated($date);
+            $this->figureAnalysisManager->insert($analysis);
+            $countRec++;
         }
         return $countRec;
     }

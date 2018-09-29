@@ -34,10 +34,9 @@ class MoexCacheCourseService
     }
 
     /**
-     * @param \DateTime $date
      * @param Moex $course
      */
-    public function fillingCache(\DateTime $date, Moex $course)
+    public function fillingCache(Moex $course)
     {
         foreach (self::listPercent() as $percent) {
             /** @var MoexCacheCourse $cacheCourse */
@@ -55,7 +54,7 @@ class MoexCacheCourseService
             if ($isContinueTrend or TechnicalAnalysis::isEqualChannel($arr4Analysis, $cacheCourse->getPercent())) {
                 $cacheCourse->setLastValue($course->getValue())
                     ->addDataValueByCourse($course)
-                    ->setLastDate($date);
+                    ->setLastDate($course->getTradeDateTime());
 //                pr($cacheCourse); exit;
                 $this->cacheCourseManager->update($cacheCourse);
             } else {
@@ -67,7 +66,7 @@ class MoexCacheCourseService
                     ->setTypeTrend($typeTrend)
                     ->addDataValue($cacheCourse->getLastDate(), $cacheCourse->getLastValue())
                     ->addDataValueByCourse($course)
-                    ->setLastDate($date)
+                    ->setLastDate($course->getTradeDateTime())
                     ->setPercent($cacheCourse->getPercent());
                 $this->cacheCourseManager->insert($newCacheCourse);
             }

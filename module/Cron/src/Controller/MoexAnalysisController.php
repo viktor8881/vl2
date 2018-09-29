@@ -3,7 +3,6 @@ namespace Cron\Controller;
 
 use Analysis\Service\MoexAnalysisService;
 use Course\Service\MoexCacheCourseService;
-use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 use Task\Entity\TaskPercent;
 use Task\Service\TaskOvertimeManager;
@@ -43,22 +42,24 @@ class MoexAnalysisController extends AbstractActionController
      * @param \DateTime|null $dateNow
      * @return \Zend\Stdlib\ResponseInterface
      */
-    public function indexAction(\DateTime $dateNow = null)
+    public function indexAction()
     {
-        if (is_null($dateNow)) {
-            $dateNow = new \DateTime();
-        }
+        $exchangeId = $this->params('exchangeId');
+
+        $dateNow = new \DateTime();
+        $exchange = $this->exchangeManager->get($exchangeId);
 
         /** @var TaskPercent $task */
         foreach ($this->taskPercentManager->fetchAll() as $task) {
-            $this->analysisService->analysisByTask($task, $dateNow);
+            $this->analysisService->runPercentByTask($task, $dateNow, $exchange);
+        }
+        /** @var TaskPercent $task */
+        foreach ($this->taskOvertimeManager->fetchAll() as $task) {
+            $this->analysisService->runOvertimeByTask($task, $dateNow, $exchange);
         }
 
-        /** @var Exchange $exchange */
-        foreach ($this->exchangeManager->fetchAllMoex() as $exchange) {
-            foreach (MoexCacheCourseService::listPercent() as $percent) {
-                $this->analysisService->technicalAnalysisByExchange($exchange, $dateNow, $percent);
-            }
+        foreach (MoexCacheCourseService::listPercent() as $percent) {
+            $this->analysisService->technicalAnalysisByExchange($exchange, $dateNow, $percent);
         }
         return $this->getResponse();
     }

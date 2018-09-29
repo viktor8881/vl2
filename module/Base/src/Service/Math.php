@@ -8,8 +8,10 @@ namespace Base\Service;
 class Math
 {
 
+    const SCALE_COMPARE_MONEY = 3;
+
     /**
-     * правильное округление чисел с плав точкой
+     * округление чисел с плав точкой
      *
      * @param float||string||integer $number      - число для округления
      * @param integer $scale - сколько знаков после запятой оставить
@@ -42,7 +44,7 @@ class Math
      *
      * @return bool результат сравнения <br /> 1 - левое > правого <br /> -1 - правое > левое <br /> 0 - равны
      */
-    public static function  compare($left, $right, $scale = 2)
+    public static function compare($left, $right, $scale = 2)
     {
         if (!is_float($left)) {
             $left = (float)$left;
@@ -57,6 +59,11 @@ class Math
             return 1;
         }
         return ($left == $right) ? 0 : -1;
+    }
+
+    public static function compareMoney($left, $right)
+    {
+        return self::compare($left, $right, self::SCALE_COMPARE_MONEY);
     }
 
 }

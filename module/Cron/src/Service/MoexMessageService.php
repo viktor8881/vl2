@@ -19,6 +19,9 @@ use Exchange\Entity\Exchange;
 
 class MoexMessageService implements MessageInterface
 {
+
+    const IMG_NO_DATA = '/img/jpgraph/no-data.png';
+
     /** @var MoexOvertimeAnalysisManager */
     private $taskOvertimeAnalysisManager;
 
@@ -171,23 +174,27 @@ class MoexMessageService implements MessageInterface
 
         $courses = $this->courseManager->fetchAllByCriterions($criteria);
 
-        $movingAverage1= $this->movingAverage->listAvgByCourses($courses, 9);
-        $movingAverage2= $this->movingAverage->listAvgByCourses($courses, 14);
+        if (count($courses) >= 60) {
+            $movingAverage1= $this->movingAverage->listAvgByCourses($courses, 9);
+            $movingAverage2= $this->movingAverage->listAvgByCourses($courses, 14);
 
-        $dataBaseGraph = [];
-        $dataAvg1 = [];
-        $dataAvg2 = [];
-        $dataLabels = [];
-        $i = 0;
-        /** @var $course Moex */
-        foreach ($courses as $course) {
-            $dataBaseGraph[] = $course->getValue();
-            $dataAvg1[] = $movingAverage1[$i];
-            $dataAvg2[] = $movingAverage2[$i];
-            $dataLabels[] = $course->getDate()->format('d.m');
-            $i++;
+            $dataBaseGraph = [];
+            $dataAvg1 = [];
+            $dataAvg2 = [];
+            $dataLabels = [];
+            $i = 0;
+            /** @var $course Moex */
+            foreach ($courses as $course) {
+                $dataBaseGraph[] = $course->getValue();
+                $dataAvg1[] = $movingAverage1[$i];
+                $dataAvg2[] = $movingAverage2[$i];
+                $i++;
+                $dataLabels[] = $course->getDate()->format('U');
+            }
+            $pathImg = $this->graphService->generateGraphByParams($dataBaseGraph, $dataAvg1, $dataAvg2, $dataLabels);
+        } else {
+            $pathImg = self::IMG_NO_DATA;
         }
-        $pathImg = $this->graphService->generateGraphByParams($dataBaseGraph, $dataAvg1, $dataAvg2, $dataLabels);
         return $pathImg;
     }
 

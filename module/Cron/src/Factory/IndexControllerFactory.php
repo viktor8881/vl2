@@ -2,12 +2,12 @@
 namespace Cron\Factory;
 
 
-use Base\Queue\Adapter\DoctrineAdapter;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
+use Base\Queue\Adapter\DoctrineAdapter;
+use Base\Queue\Queue;
 use Cron\Controller\IndexController;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use ZendQueue\Queue;
 
 
 class IndexControllerFactory implements FactoryInterface
@@ -20,6 +20,22 @@ class IndexControllerFactory implements FactoryInterface
         $values['options'][DoctrineAdapter::MANAGER_NAME] = $queueManager;
 
         $doctrineAdapter = new DoctrineAdapter($values);
+//
+//        // =============================================================================================================
+//        $queues = new QueueCollection();
+//        $queues->setQueueAdapter($doctrineAdapter);
+//
+//        $queue = $queues->getByName('moex-receive');
+//        $queue->sendArray(['exchangeId' => 1]);
+//
+//        $queue = $queues->getByName('moex-receive2');
+//        $queue->sendArray(['exchangeId' => 2]);
+//
+//        $queue = $queues->getByName('moex-receive3');
+//        $queue->sendArray(['exchangeId' => 3]);
+//        exit;
+
+        // =============================================================================================================
 
         $options = ['name' => 'def_queue'];
         $queue = new Queue($doctrineAdapter, $options);

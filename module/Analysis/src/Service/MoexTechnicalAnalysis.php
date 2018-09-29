@@ -417,7 +417,7 @@ class MoexTechnicalAnalysis
      */
     private static function compare($value1, $value2)
     {
-        return Math::compare($value1, $value2, self::SCALE_COMPARE_MONEY);
+        return Math::compareMoney($value1, $value2);
     }
 
 }

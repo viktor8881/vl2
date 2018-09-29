@@ -7,21 +7,22 @@ use Base\Service\Math;
 use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
 use Exchange\Service\ExchangeManager;
-use Panychek\MoEx\Security;
 
 class MoexService
 {
 
-    const USD_SEC_ID = 'USD/RUB';
-    const EUR_SEC_ID = 'EUR/RUB';
-    const LIST_SEC_ID = [self::USD_SEC_ID, self::EUR_SEC_ID];
-
-    const URL_CURRENCY_COURSES = 'http://iss.moex.com/iss/statistics/engines/futures/markets/indicativerates/securities.json';
+    const USD_SEC_ID    = 'USD000UTSTOM';
+    const EUR_SEC_ID    = 'EUR_RUB__TOM';
+    const GOLD_SEC_ID   = 'GLDRUB_TOM';
+    const SILVER_SEC_ID = 'SLVRUB_TOM'; /** silver is not use yet  */
 
     const MOEX_URLS = [
-        self::USD_SEC_ID => '#USD000000TOD',
-        self::EUR_SEC_ID => '#EUR_RUB__TOD'
+        'https://iss.moex.com/iss/engines/currency/markets/selt/boards/CETS/securities.json?securities=USD000UTSTOM,EUR_RUB__TOM',
+        'https://iss.moex.com/iss/engines/currency/markets/selt/boards/CETS/securities.json?securities=GLDRUB_TOM'
     ];
+
+    private static $moexData = [];
+
 
     /** @var string */
     private $cacheDir;
@@ -58,59 +59,69 @@ class MoexService
     }
 
     /**
-     * @return MoexCollection
+     * @param int $exchangeId
+     *
+     * @return Moex|null
      */
-    public function receiveByDate()
+    public function getNewEntityByExchangeId($exchangeId)
     {
-        $repository = new MoexCollection();
-
-        foreach (self::MOEX_URLS as $secId => $name) {
-            $security = new Security($name);
-            $moexArray = [
-                'tradeDateTime' => $security->getLastUpdate(),
-                'secid' => $secId,
-                'rate' => $security->getLastPrice(),
-                'exchange' => $this->exchangeManager->getByMoexSecid($secId)
-            ];
-            $moex = $this->moexManager->createEntity($moexArray);
-            $repository->append($moex);
+        $lastMoex = $this->moexManager->lastByExchangeId($exchangeId);
+        $moex = $this->receiveMoexData($exchangeId);
+        if ($moex && $lastMoex && $moex->getValue() > 0 && Math::compare($moex->getValue(), $lastMoex->getValue(), 3) === 0) {
+            return null;
         }
-        return $repository;
+        return $moex;
     }
 
+
     /**
-     * @return MoexCollection
+     * @return Moex[]
      */
-    public function receiveLast()
+    public function receiveMoexData($exchangeId = null)
     {
-        $repository = new MoexCollection();
-        $xmlstr = json_decode(file_get_contents(self::URL_CURRENCY_COURSES));
-        if ($xmlstr) {
-            foreach ($xmlstr->securities->data as $data) {
-                if (!in_array($data[2], self::LIST_SEC_ID)) {
-                    continue;
+        if (!count(self::$moexData)) {
+            $dateNow = new \DateTime();
+            foreach (self::MOEX_URLS as $url) {
+                $data = $this->getDataByMoexUrl($url);
+                foreach ($data as $secId => $values) {
+                    $exchange = $this->exchangeManager->getByMoexSecid($secId);
+                    $moexArray = [
+                        'tradeDateTime' => $dateNow,
+                        'secId' => $secId,
+                        'rate' => $values['value'],
+                        'exchange' => $exchange
+                    ];
+                    $moex = $this->moexManager->createEntity($moexArray);
+                    self::$moexData[$exchange->getId()] = $moex;
                 }
-                $moexArray = [
-                    'tradeDateTime' => new \DateTime($data[0]. ' ' . $data[1]),
-                    'secid' => $data[2],
-                    'rate' => $data[3],
-                    'exchange' => $this->exchangeManager->getByMoexSecid($data[2])
-                ];
-                $moex = $this->moexManager->createEntity($moexArray);
-                $repository->append($moex);
             }
         }
-        return $repository;
+
+        if ($exchangeId) {
+            return isset(self::$moexData[$exchangeId]) ? self::$moexData[$exchangeId] : null;
+        }
+        return self::$moexData;
     }
 
-
     /**
-     * @param \DateTime $dateTime
-     * @return Moex
+     * @param string $url
+     * @return array
      */
-    public function hasByDate(\DateTime $dateTime)
+    private function getDataByMoexUrl($url)
     {
-        return $this->moexManager->hasByDate($dateTime);
+        $data = [];
+        $docs = file_get_contents($url);
+        $dataDocs = json_decode($docs, true);
+        if ($dataDocs) {
+            foreach ($dataDocs['securities']['data'] as $value) {
+                $data[$value[0]] = ['date' => $value[4], 'value' => 0];
+            }
+            foreach ($dataDocs['marketdata']['data'] as $value) {
+                $data[$value[20]]['date'] .= ' ' . $value[34];
+                $data[$value[20]]['value'] = $value[8];
+            }
+        }
+        return $data;
     }
 
     /**
@@ -127,7 +138,14 @@ class MoexService
         }
     }
 
-
+    /**
+     * @param Moex $moex
+     * @return \Base\Entity\IEmpty
+     */
+    public function insert(Moex $moex)
+    {
+        return $this->moexManager->insert($moex);
+    }
 
 
 

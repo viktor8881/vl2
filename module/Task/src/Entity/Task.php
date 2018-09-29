@@ -3,7 +3,6 @@ namespace Task\Entity;
 
 use Base\Entity\AbstractEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Exchange\Entity\Exchange;
 
 /**
@@ -121,6 +120,20 @@ abstract class Task extends AbstractEntity
     public function setPeriod($period)
     {
         $this->period = $period;
+    }
+
+    /**
+     * @param int $exchangeId
+     * @return bool
+     */
+    public function hasExchangeId($exchangeId)
+    {
+        foreach ($this->getExchanges() as $exchange) {
+            if ($exchange->getId() == $exchangeId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

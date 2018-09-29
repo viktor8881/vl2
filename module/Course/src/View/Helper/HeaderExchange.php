@@ -11,7 +11,7 @@ class HeaderExchange extends AbstractHelper
     public function __invoke(array $exchanges, Exchange $currentExchange,
         array $period
     ) {
-        $xhtml = '<h3>';
+        $xhtml = '<h4>';
         $xhtml .= _('Курс') . ' ';
         $xhtml .= '<form method="get" action="" class="form-inline" style="display:inline">';
         $xhtml .= ' <div class="form-group"><label for="metalName" class="sr-only">'
@@ -36,7 +36,7 @@ class HeaderExchange extends AbstractHelper
         $xhtml .= ' <button type="button" class="btn btn-success" id="btn-filter">'
             . _('Применить') . '</button>';
         $xhtml .= '</form>';
-        $xhtml .= '</h3>';
+        $xhtml .= '</h4>';
 
         $url = $this->view->url(
             'course',

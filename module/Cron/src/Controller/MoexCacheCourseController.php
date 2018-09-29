@@ -100,22 +100,14 @@ class MoexCacheCourseController extends AbstractActionController
     }
 
 
-    public function fillCacheAction(\DateTime $dateNow = null, $hideMess = false)
+    public function indexAction($hideMess = false)
     {
-        if (is_null($dateNow)) {
-            $dateNow = new \DateTime();
-        }
-        if ($this->courseManager->hasByDate($dateNow)) {
-            try {
-                $exchanges = $this->exchangeManager->fetchAll();
-                foreach($this->courseManager->fetchAllByExchangesAndDate($exchanges, $dateNow) as $course) {
-                    $this->cacheCourseService->fillingCache($dateNow, $course);
-                }
-            } catch (\Exception $exception) {
-                throw $exception;
-            }
-        } else {
-            $this->getResponse()->setStatusCode(412);
+        $exchangeId = $this->params('exchangeId');
+        try {
+            $course = $this->courseManager->lastByExchangeId($exchangeId);
+            $this->cacheCourseService->fillingCache($course);
+        } catch (\Exception $exception) {
+            throw $exception;
         }
         if (!$hideMess) {
             echo 'ok!';

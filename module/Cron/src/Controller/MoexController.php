@@ -20,15 +20,14 @@ class MoexController extends AbstractActionController
         $this->moexService = $moexService;
     }
 
-
     public function indexAction()
     {
-        $moexRepository = $this->moexService->receiveByDate();
-
-        if ($moexRepository->count() && !$this->moexService->hasByDate($moexRepository->getTradeDateTime())) {
+        $exchangeId = $this->params('exchangeId');
+        $moex = $this->moexService->getNewEntityByExchangeId($exchangeId);
+        if ($moex) {
             try {
-                $this->moexService->insertCollection($moexRepository);
-                echo 'insert row ' . $moexRepository->count();
+                $this->moexService->insert($moex);
+                echo 'insert row success';
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);
                 return $this->getResponse();

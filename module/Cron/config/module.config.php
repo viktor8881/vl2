@@ -13,6 +13,7 @@ use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
 use Cron\Factory\MoexMessageControllerFactory;
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
     'router' => [
@@ -112,12 +113,15 @@ return [
                 ],
             ],
             'send-message.moex.index' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/cron/send-message/moex',
+                    'route'    => '/cron/send-message/moex/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
                     'defaults' => [
                         'controller' => Controller\MoexMessageController::class,
-                        'action'     => 'send-message',
+                        'action'     => 'index',
                     ],
                 ],
             ],
@@ -133,7 +137,7 @@ return [
             //                ],
             //            ],
 
-            'cron.moex.index' => [
+            'cron.moex' => [
                 'type' => Literal::class,
                 'options' => [
                     'route'    => '/cron/moex',
@@ -163,20 +167,41 @@ return [
 //                    ],
 //                ],
 //            ]
-            'cachecourse.moex.setcache' => [
-                'type' => Literal::class,
+
+            'cron.moex.index' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/cron/cache-course/moex',
+                    'route'    => '/cron/moex/index/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\MoexController::class,
+                        'action'     => 'index',
+                    ]
+                ]
+            ],
+
+            'cachecourse.moex.setcache' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/cron/cache-course/moex/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
                     'defaults' => [
                         'controller' => Controller\MoexCacheCourseController::class,
-                        'action'     => 'fill-cache'
+                        'action'     => 'index'
                     ]
                 ]
             ],
             'analysis.moex.index' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                        'route'    => '/cron/analysis/moex',
+                    'route'    => '/cron/analysis/moex/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
                     'defaults' => [
                         'controller' => Controller\MoexAnalysisController::class,
                         'action'     => 'index',
@@ -204,16 +229,16 @@ return [
                 ['actions' => ['send-message'], 'allow' => '*'],
             ],
             Controller\MoexController::class => [
-                ['actions' => ['index'], 'allow' => '*'],
+                ['actions' => '*', 'allow' => '*'],
             ],
             Controller\MoexCacheCourseController::class => [
-                ['actions' => ['fill-cache'], 'allow' => '*'],
+                ['actions' => ['index'], 'allow' => '*'],
             ],
             Controller\MoexAnalysisController::class => [
                 ['actions' => ['index'], 'allow' => '*'],
             ],
             Controller\MoexMessageController::class => [
-                ['actions' => ['send-message'], 'allow' => '*'],
+                ['actions' => ['index'], 'allow' => '*'],
             ]
         ]
     ],
