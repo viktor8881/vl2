@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Investments\Entity;
 
 use Base\Entity\AbstractEntity;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Exchange\Entity;
 
 use Base\Entity\AbstractEntity;

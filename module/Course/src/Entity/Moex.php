@@ -6,6 +6,7 @@ namespace Course\Entity;
 use Base\Entity\AbstractEntity;
 use Base\Entity\IEmpty;
 use Exchange\Entity\Exchange;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
