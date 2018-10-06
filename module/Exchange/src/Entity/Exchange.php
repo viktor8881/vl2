@@ -18,6 +18,7 @@ class Exchange extends AbstractEntity
     const CODE_CURRENCY_MAIN = 'RUB-643';
     const SHORT_NAME_USD = 'USD';
     const SHORT_NAME_EUR = 'EUR';
+    const SHORT_NAME_GOLD = 'Золото';
 
 
     /**
@@ -154,6 +155,14 @@ class Exchange extends AbstractEntity
     public function isEUR()
     {
         return $this->getShortName() === self::SHORT_NAME_EUR;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGold()
+    {
+        return $this->getShortName() === self::SHORT_NAME_GOLD;
     }
 
 }

@@ -31,7 +31,8 @@
         "zendframework/zend-mvc-plugins": "^1.0",
         "zendframework/zend-test": "^3.1",
         "zendframework/zend-json": "^3.1",
-        "panychek/moex": "^0.1.0"
+        "panychek/moex": "^0.1.0",
+        "zendframework/zend-log": "^2.10"
     },
     "autoload": {
         "psr-4": {

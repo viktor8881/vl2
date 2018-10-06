@@ -10,6 +10,7 @@ namespace Base;
 use Base\Queue\Adapter\Doctrine\Service\Factory\QueueManagerFactory;
 use Base\Queue\Adapter\Doctrine\Service\QueueManager;
 use Base\Service\Factory\JpGraphServiceFactory;
+use Base\Service\Factory\LoggerFactory;
 use Base\Service\Factory\MailServiceFactory;
 use Base\Service\JpGraphService;
 use Base\Service\MailService;
@@ -65,9 +66,10 @@ return [
 
     'service_manager' => [
         'factories' => [
-            QueueManager::class => QueueManagerFactory::class,
-            MailService::class => MailServiceFactory::class,
-            JpGraphService::class => JpGraphServiceFactory::class,
+            QueueManager::class     => QueueManagerFactory::class,
+            MailService::class      => MailServiceFactory::class,
+            JpGraphService::class   => JpGraphServiceFactory::class,
+            'logger'                => LoggerFactory::class,
         ]
     ],
 

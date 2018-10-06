@@ -3,6 +3,7 @@ namespace Cron\Controller;
 
 use Base\Queue\Queue;
 use Exchange\Service\ExchangeManager;
+use Zend\Log\Logger;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
@@ -17,11 +18,14 @@ class IndexController extends AbstractActionController
     private $queue;
     /** @var Queue */
     private $moexQueue;
+    /** @var Logger */
+    private $logger;
 
-    public function __construct(Queue $queue, Queue $moexQueue)
+    public function __construct(Queue $queue, Queue $moexQueue, Logger $logger)
     {
         $this->queue = $queue;
         $this->moexQueue = $moexQueue;
+        $this->logger = $logger;
     }
 
     public function indexAction()
@@ -79,6 +83,8 @@ class IndexController extends AbstractActionController
     public function moexAction()
     {
         foreach (ExchangeManager::MAP_MOEX_SECID as $exchangeId) {
+            $mainLogMess = 'excangeId => ' . $exchangeId;
+            $this->logger->info($mainLogMess);
             $response = $this->forward()->dispatch(
                 MoexController::class,
                 [   'controller' => MoexController::class,
@@ -86,6 +92,7 @@ class IndexController extends AbstractActionController
                     'exchangeId' => $exchangeId
                 ]
             );
+            $this->logger->info($mainLogMess .' data from moex received. Status=>' . $response->getStatusCode());
             if ($response->getStatusCode() == 200 ) {
                 $response = $this->forward()->dispatch(
                     MoexCacheCourseController::class,
@@ -94,6 +101,7 @@ class IndexController extends AbstractActionController
                         'exchangeId' => $exchangeId
                     ]
                 );
+                $this->logger->info($mainLogMess .' insert cache course. Status=>' . $response->getStatusCode());
                 if ($response->getStatusCode() == 200 ) {
                     $response = $this->forward()->dispatch(
                         MoexAnalysisController::class,
@@ -102,6 +110,7 @@ class IndexController extends AbstractActionController
                             'exchangeId' => $exchangeId
                         ]
                     );
+                    $this->logger->info($mainLogMess .' analysis created. Status=>' . $response->getStatusCode());
                     if ($response->getStatusCode() == 200 ) {
                         $response = $this->forward()->dispatch(
                             MoexMessageController::class,
@@ -111,6 +120,7 @@ class IndexController extends AbstractActionController
                             ]
                         );
                     }
+                    $this->logger->info($mainLogMess .' mail sent. Status=>' . $response->getStatusCode());
                 }
             }
         }
