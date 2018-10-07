@@ -70,5 +70,15 @@ return [
         'publicPath' => '/img/jpgraph/'
     ],
     'tmp_dir' => 'data/tmp/',
+    'logger' => [
+        'writers' => [
+            'stream' => [
+                'name' => 'stream',
+                'options' => [
+                    'stream' => dirname(dirname(__DIR__)) . '/data/logs/cron.log'
+                ]
+            ]
+        ]
+    ]
 
 ];
