@@ -67,7 +67,7 @@ class MoexService
     {
         $lastMoex = $this->moexManager->lastByExchangeId($exchangeId);
         $moex = $this->receiveMoexData($exchangeId);
-        if ($moex && $lastMoex && $moex->getValue() > 0 && Math::compare($moex->getValue(), $lastMoex->getValue(), 3) === 0) {
+        if ($moex && $lastMoex && $moex->getValue() > 0 && Math::compareMoney($moex->getValue(), $lastMoex->getValue()) === 0) {
             return null;
         }
         return $moex;
@@ -84,6 +84,9 @@ class MoexService
             foreach (self::MOEX_URLS as $url) {
                 $data = $this->getDataByMoexUrl($url);
                 foreach ($data as $secId => $values) {
+                    if ($values['value'] === null) {
+                        continue;
+                    }
                     $exchange = $this->exchangeManager->getByMoexSecid($secId);
                     $moexArray = [
                         'tradeDateTime' => $dateNow,
