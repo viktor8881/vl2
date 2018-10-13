@@ -15,9 +15,10 @@ data/logs/
 data/cache/
 data/tmp/
 
-#Doctrine 2
+# Doctrine 2
 data/DoctrineORMModule/Proxy/
 data/DoctrineORMModule/cache/
 
+# main web directory
 public/img/captcha/*
 public/img/jpgraph/*
