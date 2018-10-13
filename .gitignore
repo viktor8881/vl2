@@ -1,20 +1,20 @@
-.idea
-CONDUCT.md
-CONTRIBUTING.md
-docker-compose.yml
-Dockerfile
-phpcs.xml
-phpunit.xml.dist
-TODO.md
-Vagrantfile
-ZendSkeletonModule-master.zip
-.vagrant/
+# Composer files
 vendor/
-config/development.config.php
-data/cache/*
-data/tmp/*
-data/DoctrineORMModule/*
-!data/cache/.gitkeep
-phpunit.xml
-public/img/captcha/*
-public/img/jpgraph/*
+
+# IDE
+/.idea/
+
+# Local configs
+config/autoload/*.local.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/logs/
+data/cache/
+data/tmp/
+
+#Doctrine 2
+data/DoctrineORMModule/Proxy/
+data/DoctrineORMModule/cache/
