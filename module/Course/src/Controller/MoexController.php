@@ -35,7 +35,30 @@ class MoexController extends AbstractActionController
             throw new \Exception('Not found exchange.');
         }
 
-        echo $this->moexService->dataChartByExchangeId($exchange->getId());
+        /** @var $moexCourse Moex */
+        $list = [];
+        foreach ($this->moexService->fetchAllByExchange($exchange) as $moexCourse) {
+            $list[$moexCourse->getDateFormatDMY()] = $moexCourse->getValue();
+        }
+
+        $str ='';
+        $countList = count($list);
+        $i = 0;
+        foreach ($list as $date => $value) {
+            if (++$i === $countList) {
+                $dateT = new \DateTime();
+            } else {
+                $dateT = new \DateTime($date);
+                $dateT->setTime(23,59,59);
+            }
+            $str .= '[' . $dateT->format('U') . '000' . ', ' . $value . '],';
+        }
+
+        echo '[' . substr($str,0,-1) . ']';
         return $this->getResponse();
+
+
+//        echo $this->moexService->dataChartByExchangeId($exchange->getId());
+//        return $this->getResponse();
     }
 }

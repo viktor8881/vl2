@@ -6,6 +6,7 @@ namespace Course\Service;
 use Base\Service\Math;
 use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
+use Exchange\Entity\Exchange;
 use Exchange\Service\ExchangeManager;
 
 class MoexService
@@ -43,6 +44,16 @@ class MoexService
         $this->moexManager = $moexManager;
         $this->exchangeManager = $exchangeManager;
         $this->cacheDir = $cacheDir . 'exchange';
+    }
+
+
+    /**
+     * @param Exchange $exchange
+     * @return Moex[]
+     */
+    public function fetchAllByExchange(Exchange $exchange)
+    {
+        return $this->moexManager->fetchAllByExchangeId($exchange->getId());
     }
 
     /**
@@ -128,6 +139,7 @@ class MoexService
     }
 
     /**
+     * @deprecated
      * @param MoexCollection $collection
      */
     public function insertCollection(MoexCollection $collection)

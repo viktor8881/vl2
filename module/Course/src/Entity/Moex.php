@@ -166,7 +166,7 @@ class Moex extends AbstractEntity implements IEmpty
      */
     public function getDateFormatDMY()
     {
-        return $this->getTradeDateTime()->format('d.m.Y');
+        return $this->getTradeDateTimeByFormat('d.m.Y');
     }
 
     /**
