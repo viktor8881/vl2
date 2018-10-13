@@ -1,4 +1,13 @@
-.idea/
+.idea
+CONDUCT.md
+CONTRIBUTING.md
+docker-compose.yml
+Dockerfile
+phpcs.xml
+phpunit.xml.dist
+TODO.md
+Vagrantfile
+ZendSkeletonModule-master.zip
 .vagrant/
 vendor/
 config/development.config.php
