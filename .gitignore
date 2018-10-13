@@ -11,9 +11,9 @@ config/autoload/*.local.php
 *.mo
 
 # Data
-data/logs/
-data/cache/
-data/tmp/
+data/logs/*
+data/cache/*
+data/tmp/*
 
 # Doctrine 2
 data/DoctrineORMModule/Proxy/
