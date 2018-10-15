@@ -33,7 +33,7 @@ foreach ($taskFigureAnalyzes as $figure) {
 }
 
 if ($taskOvertimeAnalysis) {
-    if ($taskOvertimeAnalysis->isQuotesGrowth()) {
+    if ($taskOvertimeAnalysis->isQuotesFall()) {
         echo '<p>Повышение курса в течении '
             . $this->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true)
             . ' <span style="color: rgb(5, 132, 11);"> ▲ ' . $this->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
