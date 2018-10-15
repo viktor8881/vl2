@@ -28,6 +28,7 @@ class MoexController extends AbstractActionController
             try {
                 $this->moexService->insert($moex);
                 echo 'insert row success';
+                $this->getResponse()->setStatusCode(200);
             } catch (\Exception $exception) {
                 $this->getResponse()->setStatusCode(500);
                 return $this->getResponse();

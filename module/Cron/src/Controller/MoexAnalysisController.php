@@ -61,6 +61,7 @@ class MoexAnalysisController extends AbstractActionController
         foreach (MoexCacheCourseService::listPercent() as $percent) {
             $this->analysisService->technicalAnalysisByExchange($exchange, $dateNow, $percent);
         }
+        $this->getResponse()->setStatusCode(200);
         return $this->getResponse();
     }
 }

@@ -37,6 +37,7 @@ class MoexMessageController extends AbstractActionController
         $exchange = $this->exchangeManager->get($exchangeId);
         $this->messageService->setExchange($exchange);
         $this->mailService->sendAnalysis($this->messageService);
+        $this->getResponse()->setStatusCode(200);
         return $this->getResponse();
     }
 }

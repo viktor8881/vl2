@@ -106,8 +106,10 @@ class MoexCacheCourseController extends AbstractActionController
         try {
             $course = $this->courseManager->lastByExchangeId($exchangeId);
             $this->cacheCourseService->fillingCache($course);
+            $this->getResponse()->setStatusCode(200);
         } catch (\Exception $exception) {
-            throw $exception;
+            $this->getResponse()->setStatusCode(500);
+//            throw $exception;
         }
         if (!$hideMess) {
             echo 'ok!';
