@@ -55,7 +55,6 @@ class MoexCacheCourseService
                 $cacheCourse->setLastValue($course->getValue())
                     ->addDataValueByCourse($course)
                     ->setLastDate($course->getTradeDateTime());
-//                pr($cacheCourse); exit;
                 $this->cacheCourseManager->update($cacheCourse);
             } else {
                 $typeTrend = $cacheCourse->isUpTrend() ? CacheCourse::TREND_DOWN : CacheCourse::TREND_UP;
