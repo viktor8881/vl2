@@ -29,4 +29,11 @@ class IndexController extends AbstractActionController
             ['items' => $this->managerExchange->fetchAllCurrency()]
         );
     }
+
+    public function stockAction()
+    {
+        return new ViewModel(
+            ['items' => $this->managerExchange->fetchAllStock()]
+        );
+    }
 }

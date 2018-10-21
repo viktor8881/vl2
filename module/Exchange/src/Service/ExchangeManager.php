@@ -17,6 +17,7 @@ use Doctrine\ORM\QueryBuilder;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeNotCode;
 use Exchange\Entity\Criterion\ExchangeType;
+use Exchange\Entity\Criterion\MoexSecId;
 use Exchange\Entity\Exchange;
 
 class ExchangeManager extends AbstractManager
@@ -131,6 +132,16 @@ class ExchangeManager extends AbstractManager
     }
 
     /**
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function fetchAllStock()
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeType(Exchange::TYPE_STOCK));
+        return $this->fetchAllByCriterions($criterions);
+    }
+
+    /**
      * @param array $codes
      * @return \Base\Entity\AbstractEntity[]
      */
@@ -147,10 +158,9 @@ class ExchangeManager extends AbstractManager
      */
     public function getByMoexSecid($secId)
     {
-        if (!isset(self::MAP_MOEX_SECID[$secId])) {
-            return null;
-        }
-        return $this->get(self::MAP_MOEX_SECID[$secId]);
+        $criterions = new CriterionCollection();
+        $criterions->append(new MoexSecId($secId));
+        return $this->getByCriterions($criterions);
     }
 
     /**
@@ -165,12 +175,16 @@ class ExchangeManager extends AbstractManager
                     ->setParameter('id', $criterion->getValues());
                 break;
             case ExchangeType::class:
-                $qb->andWhere($this->entityName . '.type IN (:type_id)')
-                    ->setParameter('type_id', $criterion->getValues());
+                $qb->andWhere($this->entityName . '.type IN (:type)')
+                    ->setParameter('type', $criterion->getValues());
                 break;
             case ExchangeNotCode::class:
                 $qb->andWhere($this->entityName . '.code NOT IN (:code)')
                     ->setParameter('code', $criterion->getValues());
+                break;
+            case MoexSecId::class:
+                $qb->andWhere($this->entityName . '.moexSecId IN (:moexSecId)')
+                    ->setParameter('moexSecId', $criterion->getValues());
                 break;
             default:
                 break;

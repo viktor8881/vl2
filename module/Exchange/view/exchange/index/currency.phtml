@@ -14,12 +14,12 @@
     <?php if (count($this->items)) : ?>
         <?php foreach ($this->items as $item) : ?>
             <tr>
-                <td><?php echo $this->escapeHtml($item->getCode())?></td>
-                <td><?php echo $this->escapeHtml($item->getName())?></td>
+                <td><?= $this->escapeHtml($item->getCode())?></td>
+                <td><?= $this->escapeHtml($item->getName())?></td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr><td colspan="2"><?php echo $this->notFound('Металы не найдены') ?></td></tr>
+        <tr><td colspan="2"><?= $this->escapeHtml('Валюты не найдены') ?></td></tr>
     <?php endif; ?>
     </tbody>
 </table>

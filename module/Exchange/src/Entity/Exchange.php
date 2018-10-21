@@ -14,6 +14,7 @@ class Exchange extends AbstractEntity
 
     const TYPE_METAl = 1;
     const TYPE_CURRENCY = 2;
+    const TYPE_STOCK = 3;
 
     const CODE_CURRENCY_MAIN = 'RUB-643';
     const SHORT_NAME_USD = 'USD';
@@ -36,6 +37,8 @@ class Exchange extends AbstractEntity
     protected $name;
     /** @ORM\Column(name="short_name", type="string", length=255) */
     protected $shortName;
+    /** @ORM\Column(name="moex_secid", type="string", length=10, nullable=true) */
+    protected $moexSecId;
 
     /**
      * @return mixed
@@ -163,6 +166,24 @@ class Exchange extends AbstractEntity
     public function isGold()
     {
         return $this->getShortName() === self::SHORT_NAME_GOLD;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMoexSecId()
+    {
+        return $this->moexSecId;
+    }
+
+    /**
+     * @param mixed $moexSecId
+     * @return Exchange
+     */
+    public function setMoexSecId($moexSecId)
+    {
+        $this->moexSecId = $moexSecId;
+        return $this;
     }
 
 }

@@ -76,7 +76,7 @@ class MoexService
      */
     public function getNewEntityByExchangeId($exchangeId)
     {
-        $lastMoex = $this->moexManager->lastByExchangeId($exchangeId);
+        $lastMoex = $this->lastByExchangeId($exchangeId);
         $moex = $this->receiveMoexData($exchangeId);
         if ($moex && $lastMoex && $moex->getValue() > 0 && Math::compareMoney($moex->getValue(), $lastMoex->getValue()) === 0) {
             return null;
@@ -84,6 +84,14 @@ class MoexService
         return $moex;
     }
 
+    /**
+     * @param int $exchangeId
+     * @return Moex|null
+     */
+    public function lastByExchangeId($exchangeId)
+    {
+        return $this->moexManager->lastByExchangeId($exchangeId);
+    }
 
     /**
      * @return Moex[]
@@ -161,7 +169,5 @@ class MoexService
     {
         return $this->moexManager->insert($moex);
     }
-
-
 
 }

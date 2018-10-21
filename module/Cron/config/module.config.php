@@ -12,6 +12,7 @@ use Cron\Factory\MoexAnalysisControllerFactory;
 use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
 use Cron\Factory\MoexMessageControllerFactory;
+use Cron\Factory\StockControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -204,6 +205,16 @@ return [
                     ],
                     'defaults' => [
                         'controller' => Controller\MoexAnalysisController::class,
+                        'action'     => 'index'
+                    ]
+                ]
+            ],
+            'stock.moex.index' => [
+                'type' => 'Literal',
+                'options' => [
+                    'route'    => '/cron/moex/stock',
+                    'defaults' => [
+                        'controller' => Controller\StockController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -239,6 +250,9 @@ return [
             ],
             Controller\MoexMessageController::class => [
                 ['actions' => ['index'], 'allow' => '*'],
+            ],
+            Controller\StockController::class => [
+                ['actions' => '*', 'allow' => '*'],
             ]
         ]
     ],
@@ -255,6 +269,7 @@ return [
             Controller\MoexCacheCourseController::class => MoexCacheCourseControllerFactory::class,
             Controller\MoexAnalysisController::class => MoexAnalysisControllerFactory::class,
             Controller\MoexMessageController::class  => MoexMessageControllerFactory::class,
+            Controller\StockController::class       => StockControllerFactory::class,
         ]
     ],
 

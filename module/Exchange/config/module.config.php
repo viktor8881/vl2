@@ -32,6 +32,16 @@ return [
                     ],
                 ]
             ],
+            'stock.list' => [
+                'type' => 'Literal',
+                'options' => [
+                    'route' => '/stock/list',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'stock',
+                    ],
+                ]
+            ]
         ],
     ],
 

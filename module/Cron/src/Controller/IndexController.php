@@ -128,33 +128,7 @@ class IndexController extends AbstractActionController
     }
 
 
-//    public function moexCacheAction()
-//    {
-//        /** @var Queue $queue */
-//        $queue = $this->moexQueue;
-//
-//        $queue->createQueue('moex-cache');
-//        $queue->setOption(Queue::NAME, 'moex-cache');
-//
-//        foreach ($queue->receiveAsArray(10) as $message) {
-//            $exchangeId = $message->body['exchangeId'];
-//            $response = $this->forward()->dispatch(
-//                MoexAnalysisController::class,
-//                [   'controller' => MoexAnalysisController::class,
-//                    'action' => 'index',
-//                    'exchangeId' => $exchangeId
-//                ]
-//            );
-//            if ($response->getStatusCode() == 200 ) {
-//                $queue->createQueue('moex-analisys');
-//                $queue->setOption(Queue::NAME, 'moex-analisys');
-//                $queue->sendArray(['exchangeId' => $exchangeId]);
-//            } else {
-//                $queue->deleteMessage($message);
-//                $queue->sendArray(['exchangeId' => $exchangeId]);
-//            }
-//        }
-//        return $this->getResponse();
-//    }
+
+
 
 }

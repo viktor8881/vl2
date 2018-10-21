@@ -46,6 +46,10 @@ return [
                         'route' => 'currency.list',
                     ],
                     [
+                        'label' => 'Акции',
+                        'route' => 'stock.list',
+                    ],
+                    [
                         'label' => 'Инвестиции',
                         'route' => 'investments',
                         'pages' => [

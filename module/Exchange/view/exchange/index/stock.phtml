@@ -1,6 +1,6 @@
 <?php
     $this->mainMenu()->setActiveItemId('exchange');
-    $this->pageHeader()->setTitle('Металлы');
+    $this->pageHeader()->setTitle('Акции');
 ?>
 
 <table class="table table-bordered">
@@ -19,7 +19,7 @@
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr><td colspan="2"><?= $this->escapeHtml('Металы не найдены') ?></td></tr>
+        <tr><td colspan="2"><?= $this->escapeHtml('Акции не найдены') ?></td></tr>
     <?php endif; ?>
     </tbody>
 </table>
