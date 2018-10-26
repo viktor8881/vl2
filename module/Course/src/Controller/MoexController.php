@@ -56,9 +56,5 @@ class MoexController extends AbstractActionController
 
         echo '[' . substr($str,0,-1) . ']';
         return $this->getResponse();
-
-
-//        echo $this->moexService->dataChartByExchangeId($exchange->getId());
-//        return $this->getResponse();
     }
 }

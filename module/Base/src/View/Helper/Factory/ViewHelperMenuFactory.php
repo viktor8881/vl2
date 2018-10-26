@@ -65,6 +65,11 @@ class ViewHelperMenuFactory implements FactoryInterface
                             'id'    => 'course_currency',
                             'label' => 'Валюты',
                             'link'  => $url->__invoke('course', ['action' => 'currency'])
+                        ],
+                        [
+                            'id'    => 'course_stock',
+                            'label' => 'Акции',
+                            'link'  => $url->__invoke('course', ['action' => 'stock'])
                         ]
                     ],
                 ],

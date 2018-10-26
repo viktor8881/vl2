@@ -11,6 +11,7 @@ namespace Exchange\Service;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
+use Base\Entity\OrderCollection;
 use Base\Service\AbstractManager;
 use Course\Service\MoexService;
 use Doctrine\ORM\QueryBuilder;
@@ -19,6 +20,7 @@ use Exchange\Entity\Criterion\ExchangeNotCode;
 use Exchange\Entity\Criterion\ExchangeType;
 use Exchange\Entity\Criterion\MoexSecId;
 use Exchange\Entity\Exchange;
+use Exchange\Entity\Order\OrderName;
 
 class ExchangeManager extends AbstractManager
 {
@@ -100,6 +102,20 @@ class ExchangeManager extends AbstractManager
 
     /**
      * @param $id
+     * @return Exchange|null
+     */
+    public function getStockById($id)
+    {
+        /** @var Exchange $item */
+        $item = $this->get($id);
+        if ($item && $item->isStock()) {
+            return $item;
+        }
+        return null;
+    }
+
+    /**
+     * @param $id
      * @return null|object
      */
     public function getCurrencyById($id)
@@ -134,11 +150,11 @@ class ExchangeManager extends AbstractManager
     /**
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllStock()
+    public function fetchAllStock(OrderCollection $order = null)
     {
         $criterions = new CriterionCollection();
         $criterions->append(new ExchangeType(Exchange::TYPE_STOCK));
-        return $this->fetchAllByCriterions($criterions);
+        return $this->fetchAllByCriterions($criterions, null, $order);
     }
 
     /**
@@ -193,14 +209,13 @@ class ExchangeManager extends AbstractManager
 
     protected function addOrder(AbstractOrder $order, QueryBuilder $qb)
     {
-//        switch (get_class($order)) {
-//            case 'Question_Order_Status':
-//                $result = $prefix.'.status '.$order->getTypeOrder();
-//                break;
-//            default:
-//                break;
-//        }
+        switch (get_class($order)) {
+            case OrderName::class:
+                $qb->orderBy($this->entityName.'.name', $order->getTypeOrder());
+                break;
+            default:
+                break;
+        }
     }
-
 
 }

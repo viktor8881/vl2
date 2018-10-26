@@ -1,0 +1,65 @@
+<?php
+    $this->mainMenu()->setActiveItemId('course');
+?>
+
+<?php
+    echo '<div id="container" style="height: 400px; min-width: 310px"></div>';
+
+    $this->headScript()->prependFile('https://code.jquery.com/jquery-3.1.1.min.js');
+    $this->headScript()->prependFile('https://code.highcharts.com/stock/highstock.js');
+    $this->headScript()->prependFile('https://code.highcharts.com/stock/modules/exporting.js');
+
+    $this->headScript()->captureStart();
+    echo "
+        $.getJSON('" . $this->url('course-moex', ['id' => $this->currentExchange->getId()]) . "', function (data) {            
+            Highcharts.stockChart('container', {
+        
+                rangeSelector: { selected: 1 },
+                title: { text: 'MOEX акции ".$this->currentExchange->getName()."' },
+        
+                series: [{
+                name: '".$this->currentExchange->getShortName()."',
+                    data: data,
+                    type: 'area',
+                    threshold: null,
+                    tooltip: {
+                    valueDecimals: 2
+                    },
+                    fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                    }
+                }]
+            });
+        });";
+    $this->headScript()->captureEnd();
+?>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Наименование</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (count($this->exchanges)) : ?>
+        <?php foreach ($this->exchanges as $item) : ?>
+            <tr>
+                <td><?= $this->escapeHtml($item->getName())?></td>
+                <td><a href="<?= $this->url('course', ['action' => 'stock', 'id' => (int)$item->getCode()]) ?>">График акций</a></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr><td colspan="2"><?= $this->escapeHtml('Акции не найдены') ?></td></tr>
+    <?php endif; ?>
+    </tbody>
+</table>

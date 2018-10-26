@@ -3,10 +3,12 @@ namespace Course\Controller;
 
 use Analysis\Service\MovingAverage;
 use Base\Entity\CriterionCollection;
+use Base\Entity\OrderCollection;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
 use Course\Validator\InputFilter;
+use Exchange\Entity\Order\OrderName;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -25,8 +27,6 @@ class IndexController extends AbstractActionController
 
 
     private static $DATA_DEF;
-
-
 
 
     public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage)
@@ -122,4 +122,27 @@ class IndexController extends AbstractActionController
 //        $view->setTemplate('course/index/currency.phtml');
         return $view;
     }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function stockAction()
+    {
+        $id = $this->params()->fromRoute('id', 13);
+
+        $item = $this->exchangeManager->getStockById($id);
+        if (!$item) {
+            throw new \Exception('stock not found.');
+        }
+
+        $orders = new OrderCollection(
+            [new OrderName('ASC')]
+        );
+        return [
+            'exchanges'       => $this->exchangeManager->fetchAllStock($orders),
+            'currentExchange' => $item
+        ];
+    }
+
 }

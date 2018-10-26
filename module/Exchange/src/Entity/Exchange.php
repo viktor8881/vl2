@@ -87,6 +87,14 @@ class Exchange extends AbstractEntity
     /**
      * @return bool
      */
+    public function isStock()
+    {
+        return $this->getType() == self::TYPE_STOCK;
+    }
+
+    /**
+     * @return bool
+     */
     public function isCurrency()
     {
         return $this->getType() == self::TYPE_CURRENCY;
