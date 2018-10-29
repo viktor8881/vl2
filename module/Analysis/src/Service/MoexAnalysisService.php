@@ -80,9 +80,9 @@ class MoexAnalysisService
     public function runPercentByTask(TaskPercent $task, \DateTime $date, Exchange $exchange)
     {
         $countRec = 0;
-        if (!$task->hasExchangeId($exchange->getId())) {
-            return $countRec;
-        }
+//        if (!$task->hasExchangeId($exchange->getId())) {
+//            return $countRec;
+//        }
         $dateLater = clone $date;
         $dateLater->sub(new \DateInterval('P' . $task->getPeriod() . 'D'));
 

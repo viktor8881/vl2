@@ -42,6 +42,14 @@ class MoexCacheCourseService
             /** @var MoexCacheCourse $cacheCourse */
             $cacheCourse = $this->cacheCourseManager->lastByExchangeAndPercent($course->getExchange(), $percent);
             if (!$cacheCourse) {
+                $newCacheCourse = $this->cacheCourseManager->createEntity();
+                $newCacheCourse->setExchange($course->getExchange())
+                    ->setLastValue($course->getValue())
+                    ->setTypeTrend(CacheCourse::TREND_DOWN)
+                    ->addDataValueByCourse($course)
+                    ->setLastDate($course->getTradeDateTime())
+                    ->setPercent($percent);
+                $this->cacheCourseManager->insert($newCacheCourse);
                 continue;
             }
             $arr4Analysis = [$cacheCourse->getLastValue(), $course->getValue()];

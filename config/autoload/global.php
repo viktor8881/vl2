@@ -79,6 +79,16 @@ return [
                 ]
             ]
         ]
+    ],
+    'logger-stock' => [
+        'writers' => [
+            'stream' => [
+                'name' => 'stream',
+                'options' => [
+                    'stream' => dirname(dirname(__DIR__)) . '/data/logs/stock.log'
+                ]
+            ]
+        ]
     ]
 
 ];
