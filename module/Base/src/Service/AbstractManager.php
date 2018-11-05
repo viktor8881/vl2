@@ -6,9 +6,8 @@ use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractEntity;
 use Base\Entity\AbstractOrder;
 use Base\Entity\CriterionCollection;
-use Base\Entity\IEmpty;
+use Base\Entity\IEntity;
 use Base\Entity\OrderCollection;
-use Course\Entity\Moex;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Zend\Paginator\Paginator;
@@ -202,11 +201,11 @@ abstract class AbstractManager implements IManager
     }
 
     /**
-     * @param IEmpty $model
+     * @param IEntity $model
      *
-     * @return IEmpty
+     * @return IEntity
      */
-    public function insert(IEmpty $model)
+    public function insert(IEntity $model)
     {
         $this->em->persist($model);
         $this->em->flush();
@@ -214,11 +213,11 @@ abstract class AbstractManager implements IManager
     }
 
     /**
-     * @param IEmpty $model
+     * @param IEntity $model
      *
      * @return $this
      */
-    public function update(IEmpty $model)
+    public function update(IEntity $model)
     {
         $this->em->persist($model);
         $this->em->flush();
@@ -226,11 +225,11 @@ abstract class AbstractManager implements IManager
     }
 
     /**
-     * @param IEmpty $model
+     * @param IEntity $model
      *
      * @return $this
      */
-    public function delete(IEmpty $model)
+    public function delete(IEntity $model)
     {
         $this->em->remove($model);
         $this->em->flush();

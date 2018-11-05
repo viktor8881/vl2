@@ -9,7 +9,7 @@ use Exchange\Entity\Exchange;
  * @ORM\Entity
  * @ORM\Table(name="course")
  */
-class Course extends AbstractEntity
+class Course extends AbstractEntity implements ICourse
 {
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace Analysis\Entity;
 
+use Course\Entity\ICourse;
 use Doctrine\ORM\Mapping as ORM;
 use Base\Entity\AbstractEntity;
 use Course\Entity\Course;
@@ -150,8 +151,24 @@ abstract class TaskAnalysis extends AbstractEntity
      */
     public function setCourses(array $courses)
     {
+        usort($courses, array($this, 'sortCourseByDate'));
         $this->courses = $courses;
         return $this;
+    }
+
+    /**
+     * @param ICourse $a
+     * @param ICourse $b
+     * @return int
+     */
+    private function sortCourseByDate(ICourse $a, ICourse $b)
+    {
+        $a = $a->getDate();
+        $b = $b->getDate();
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? -1 : 1;
     }
 
     /**

@@ -1,14 +1,13 @@
 <?php
 namespace Course\Controller;
 
+use Analysis\Service\MoexAnalysisService;
 use Analysis\Service\MovingAverage;
 use Base\Entity\CriterionCollection;
-use Base\Entity\OrderCollection;
 use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Service\CourseManager;
 use Course\Validator\InputFilter;
-use Exchange\Entity\Order\OrderName;
 use Exchange\Service\ExchangeManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -24,16 +23,19 @@ class IndexController extends AbstractActionController
     private $courseManager;
     /** @var MovingAverage */
     private $movingAverage;
+    /** @var MoexAnalysisService */
+    private $analisysService;
 
 
     private static $DATA_DEF;
 
 
-    public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage)
+    public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage, MoexAnalysisService $analisysService)
     {
         $this->exchangeManager = $exchangeManager;
         $this->courseManager = $courseManager;
         $this->movingAverage = $movingAverage;
+        $this->analisysService = $analisysService;
         $dateNow = new \DateTime();
         self::$DATA_DEF = $dateNow->sub(new \DateInterval('P6M'))->format('d.m.Y');
     }
@@ -135,12 +137,10 @@ class IndexController extends AbstractActionController
         if (!$item) {
             throw new \Exception('stock not found.');
         }
+        $result = $this->analisysService->listOrderWeight($this->exchangeManager->fetchAllStock());
 
-        $orders = new OrderCollection(
-            [new OrderName('ASC')]
-        );
         return [
-            'exchanges'       => $this->exchangeManager->fetchAllStock($orders),
+            'exchanges'       => $result,
             'currentExchange' => $item
         ];
     }

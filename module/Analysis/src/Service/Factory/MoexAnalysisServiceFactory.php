@@ -21,10 +21,11 @@ class MoexAnalysisServiceFactory implements FactoryInterface
         $taskPercentAnalysisManager = $container->get(MoexPercentAnalysisManager::class);
         $taskOvertimeAnalysisManager = $container->get(MoexOvertimeAnalysisManager::class);
         $cacheCourseManager = $container->get(MoexCacheCourseManager::class);
+        $cache = $container->get('FilesystemCache');
 
         return new MoexAnalysisService(
             $courseManager, $figureAnalysisManager, $taskPercentAnalysisManager,
-            $taskOvertimeAnalysisManager, $cacheCourseManager
+            $taskOvertimeAnalysisManager, $cacheCourseManager, $cache
         );
     }
 

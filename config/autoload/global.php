@@ -89,6 +89,26 @@ return [
                 ]
             ]
         ]
-    ]
+    ],
+    'caches' => [
+        'FilesystemCache' => [
+            'adapter' => [
+                'name'    => \Zend\Cache\Storage\Adapter\Filesystem::class,
+                'options' => [
+                    // Store cached data in this directory.
+                    'cache_dir' => './data/cache',
+                    // Store cached data for 1 hour.
+                    'ttl' => 60*60*4
+                ],
+            ],
+            'plugins' => [
+                [
+                    'name' => 'serializer',
+                    'options' => [
+                    ],
+                ],
+            ],
+        ],
+    ],
 
 ];

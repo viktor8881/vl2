@@ -163,7 +163,7 @@ class MoexService
 
     /**
      * @param Moex $moex
-     * @return \Base\Entity\IEmpty
+     * @return \Base\Entity\IEntity
      */
     public function insert(Moex $moex)
     {

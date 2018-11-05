@@ -9,7 +9,7 @@ use Zend\Filter\Word\UnderscoreToCamelCase;
  *
  * @package Base\Entity
  */
-abstract class AbstractEntity implements IEmpty
+abstract class AbstractEntity implements IEntity
 {
 
     /** @var UnderscoreToCamelCase */

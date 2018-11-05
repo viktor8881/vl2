@@ -68,7 +68,6 @@ class StockController extends AbstractActionController
 
     public function indexAction()
     {
-        $dateNow = new \DateTime();
         foreach (self::URL_STOCK as $url) {
             $dataRaw = file_get_contents($url);
             if ($dataRaw) {
@@ -94,8 +93,8 @@ class StockController extends AbstractActionController
                                 // second step
                                 $this->cacheCourseService->fillingCache($entity);
 
-                                // third steo
-                                $this->analisis($exchange, $dateNow);
+                                // third step
+                                $this->analisis($exchange, $tradeDate);
                             }
                         }
                         $this->logger->info('stop - '. $exchange->getId());

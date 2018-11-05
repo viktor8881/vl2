@@ -2,11 +2,16 @@
 namespace Analysis\Service;
 
 
+use Analysis\Entity\Criterion\CriterionDateCreated;
+use Analysis\Entity\Criterion\CriterionExchange;
 use Analysis\Entity\FigureAnalysis;
+use Analysis\Entity\MoexFigureAnalysis;
 use Analysis\Entity\TaskOvertimeAnalysis;
 use Analysis\Entity\TaskPercentAnalysis;
+use Base\Entity\CriterionCollection;
 use Base\Service\Math;
 use Course\Entity\Course;
+use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
 use Course\Service\MoexCacheCourseManager;
 use Course\Service\MoexManager;
@@ -14,6 +19,7 @@ use Exchange\Entity\Exchange;
 use Task\Entity\Task;
 use Task\Entity\TaskOvertime;
 use Task\Entity\TaskPercent;
+use Zend\Cache\Storage\StorageInterface;
 
 class MoexAnalysisService
 {
@@ -30,6 +36,8 @@ class MoexAnalysisService
     private $taskOvertimeAnalysisManager;
     /** @var MoexCacheCourseManager */
     private $cacheCourseManager;
+    /** @var StorageInterface*/
+    private $cacheStorage;
 
     /**
      * AnalysisService constructor.
@@ -44,13 +52,15 @@ class MoexAnalysisService
         MoexFigureAnalysisManager $figureAnalysisManager,
         MoexPercentAnalysisManager $taskPercentAnalysisManager,
         MoexOvertimeAnalysisManager $taskOvertimeAnalysisManager,
-        MoexCacheCourseManager $cacheCourseManager
+        MoexCacheCourseManager $cacheCourseManager,
+        StorageInterface $cacheStorage
     ) {
         $this->courseManager = $courseManager;
         $this->figureAnalysisManager = $figureAnalysisManager;
         $this->taskPercentAnalysisManager = $taskPercentAnalysisManager;
         $this->taskOvertimeAnalysisManager = $taskOvertimeAnalysisManager;
         $this->cacheCourseManager = $cacheCourseManager;
+        $this->cacheStorage = $cacheStorage;
     }
 
 
@@ -80,9 +90,9 @@ class MoexAnalysisService
     public function runPercentByTask(TaskPercent $task, \DateTime $date, Exchange $exchange)
     {
         $countRec = 0;
-//        if (!$task->hasExchangeId($exchange->getId())) {
-//            return $countRec;
-//        }
+        if (!$task->hasExchangeId($exchange->getId())) {
+            return $countRec;
+        }
         $dateLater = clone $date;
         $dateLater->sub(new \DateInterval('P' . $task->getPeriod() . 'D'));
 
@@ -102,7 +112,7 @@ class MoexAnalysisService
                 ->setPeriod($task->getPeriod())
                 ->setCreated($date)
                 ->setPercent($task->getPercent());
-            $this->figureAnalysisManager->insert($analysis);
+            $this->taskPercentAnalysisManager->insert($analysis);
             $countRec++;
         }
         return $countRec;
@@ -168,7 +178,7 @@ class MoexAnalysisService
                 ->setCourses($courses)
                 ->setPeriod($task->getPeriod())
                 ->setCreated($date);
-            $this->figureAnalysisManager->insert($analysis);
+            $this->taskOvertimeAnalysisManager->insert($analysis);
             $countRec++;
         }
         return $countRec;
@@ -290,5 +300,89 @@ class MoexAnalysisService
         }
     }
 
+    /**
+     * @param Exchange{} $exchanges
+     * @return array
+     */
+    public function listOrderWeight($exchanges = [])
+    {
+        $keyCacheStorage = date('d.m.Y') . 'listOrderWeight';
+        $keyCacheStorage = md5($keyCacheStorage);
+        $result = $this->cacheStorage->getItem($keyCacheStorage, $success);
+        if (!$success) {
+            /** @var $exchange Exchange */
+            foreach ($exchanges as $exchange) {
+                $exchangeId = $exchange->getId();
+                $result[$exchangeId] = [
+                    'exchange' => $exchange,
+                    'overtime' => [],
+                    'percent' => [],
+                    'figure' => [],
+                    'dateTrade' => '-',
+                    'weight' => 0
+                ];
+                $moex = $this->courseManager->lastByExchangeId($exchangeId);
+                if ($moex) {
+                    $result[$exchangeId]['dateTrade'] = $moex->getDateFormatDMY();
+                    $criterions = new CriterionCollection();
+                    $criterions->append(new CriterionDateCreated($moex->getDate()));
+                    $criterions->append(new CriterionExchange($moex->getExchange()));
+                    foreach ($this->taskOvertimeAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
+                        $result[$exchangeId]['overtime'][] = $entity;
+                        if ($entity->isQuotesGrowth()) {
+                            $result[$exchangeId]['weight'] += 1 * $entity->countData();
+                        } else {
+                            $result[$exchangeId]['weight'] -= 1 * $entity->countData();
+                        }
+                    }
+                    foreach ($this->taskPercentAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
+                        $result[$exchangeId]['percent'][] = $entity;
+                        if ($entity->isQuotesGrowth()) {
+                            $result[$exchangeId]['weight'] += 1 * $entity->getDiffPercent();
+                        } else {
+                            $result[$exchangeId]['weight'] -= 1 * $entity->getDiffPercent();
+                        }
+                    }
+                    foreach ($this->figureAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
+                        $result[$exchangeId]['figure'][] = $entity;
+                        switch ($entity->getFigure()) {
+                            case MoexFigureAnalysis::FIGURE_DOUBLE_BOTTOM :
+                                $result[$exchangeId]['weight'] += 1 * 1;
+                                break;
+                            case MoexFigureAnalysis::FIGURE_TRIPLE_BOTTOM :
+                                $result[$exchangeId]['weight'] += 1 * 2;
+                                break;
+                            case MoexFigureAnalysis::FIGURE_RESERVE_HEADS_HOULDERS :
+                                $result[$exchangeId]['weight'] += 1 * 3;
+                                break;
+                            case MoexFigureAnalysis::FIGURE_DOUBLE_TOP :
+                                $result[$exchangeId]['weight'] -= 1 * 1;
+                                break;
+                            case MoexFigureAnalysis::FIGURE_TRIPLE_TOP :
+                                $result[$exchangeId]['weight'] -= 1 * 2;
+                                break;
+                            case MoexFigureAnalysis::FIGURE_HEADS_HOULDERS :
+                                $result[$exchangeId]['weight'] -= 1 * 3;
+                                break;
+                        }
+                    }
+                }
+            }
+            usort($result, [$this, 'cmp']);
+            $this->cacheStorage->setItem($keyCacheStorage, $result);
+        }
+        return $result;
+    }
+
+    private function cmp($a, $b)
+    {
+        $resultA = $a['weight'];
+        $resultB = $b['weight'];
+
+        if ($resultA == $resultB) {
+            return 0;
+        }
+        return ($resultA < $resultB) ? 1 : -1;
+    }
 
 }

@@ -12,6 +12,7 @@ use Course\Entity\Criterion\CriterionExchange;
 use Course\Entity\Criterion\CriterionPeriod;
 use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
+use Course\Entity\Order\OrderExchange;
 use Course\Entity\Order\OrderTradeDateTime;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
@@ -177,7 +178,10 @@ class MoexManager extends AbstractManager
     {
         switch (get_class($order)) {
             case OrderTradeDateTime::class:
-                $qb->orderBy($this->entityName.'.tradeDateTime', $order->getTypeOrder());
+                $qb->addOrderBy($this->entityName.'.tradeDateTime', $order->getTypeOrder());
+                break;
+            case OrderExchange::class:
+                $qb->addOrderBy($this->entityName . '.exchange', $order->getTypeOrder());
                 break;
             default:
                 break;

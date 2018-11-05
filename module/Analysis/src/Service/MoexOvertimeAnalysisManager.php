@@ -3,6 +3,7 @@
 namespace Analysis\Service;
 
 use Analysis\Entity\Criterion\CriterionDateCreated;
+use Analysis\Entity\Criterion\CriterionExchange;
 use Analysis\Entity\MoexOvertimeAnalysisCollection;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
@@ -48,6 +49,10 @@ class MoexOvertimeAnalysisManager extends AbstractManager
             case CriterionDateCreated::class:
                 $qb->andWhere($this->entityName . '.created = :created')
                     ->setParameter('created', $criterion->getFirstValue()->format('Y-m-d'));
+                break;
+            case CriterionExchange::class:
+                $qb->andWhere($this->entityName . '.exchange IN (:exchange_id)')
+                    ->setParameter('exchange_id', $criterion->getValues());
                 break;
         }
     }

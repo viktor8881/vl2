@@ -3,11 +3,11 @@
 namespace Base\Entity;
 
 /**
- * Interface IEmpty
+ * Interface IEntity
  *
  * @package Base\Entity
  */
-interface IEmpty
+interface IEntity
 {
 
     /**

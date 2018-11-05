@@ -4,7 +4,7 @@
 namespace Course\Entity;
 
 use Base\Entity\AbstractEntity;
-use Base\Entity\IEmpty;
+use Base\Entity\IEntity;
 use Exchange\Entity\Exchange;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,10 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="moex_course")
  */
-class Moex extends AbstractEntity implements IEmpty
+class Moex extends AbstractEntity implements IEntity, ICourse
 {
-
-    const SQL_LAST_RATE_BY_EXCHANGE_ID =  'SELECT * FROM moex_course WHERE exchange_id=%d ORDER BY trade_date_time DESC LIMIT 1';
 
     /**
      * @ORM\Id

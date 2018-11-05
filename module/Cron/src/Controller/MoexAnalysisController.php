@@ -4,6 +4,7 @@ namespace Cron\Controller;
 use Analysis\Service\MoexAnalysisService;
 use Course\Service\MoexCacheCourseService;
 use Exchange\Service\ExchangeManager;
+use Task\Entity\TaskOvertime;
 use Task\Entity\TaskPercent;
 use Task\Service\TaskOvertimeManager;
 use Task\Service\TaskPercentManager;
@@ -53,7 +54,7 @@ class MoexAnalysisController extends AbstractActionController
         foreach ($this->taskPercentManager->fetchAll() as $task) {
             $this->analysisService->runPercentByTask($task, $dateNow, $exchange);
         }
-        /** @var TaskPercent $task */
+        /** @var TaskOvertime $task */
         foreach ($this->taskOvertimeManager->fetchAll() as $task) {
             $this->analysisService->runOvertimeByTask($task, $dateNow, $exchange);
         }

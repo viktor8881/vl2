@@ -7,7 +7,7 @@ use Account\Entity\Account;
 use Account\Service\AccountManager;
 use Base\Entity\AbstractCriterion;
 use Base\Entity\AbstractOrder;
-use Base\Entity\IEmpty;
+use Base\Entity\IEntity;
 use Base\Service\AbstractManager;
 use Doctrine\ORM\QueryBuilder;
 use Investments\Entity\Criterion\CriterionExchange;
@@ -77,9 +77,9 @@ class InvestmentsManager extends AbstractManager
     }
 
     /**
-     * @param IEmpty $model
+     * @param IEntity $model
      */
-    public function delete(IEmpty $model)
+    public function delete(IEntity $model)
     {
         if (!($model instanceof Investments)) {
             throw new \RuntimeException('Wrong type. Expected type Investments');

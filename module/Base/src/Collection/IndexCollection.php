@@ -3,7 +3,7 @@
 namespace Base\Collection;
 
 
-use Base\Entity\IEmpty;
+use Base\Entity\IEntity;
 
 class IndexCollection implements \IteratorAggregate, \Countable
 {
@@ -44,10 +44,10 @@ class IndexCollection implements \IteratorAggregate, \Countable
 
     /**
      * @param string $key
-     * @param IEmpty $value
+     * @param IEntity $value
      * @return $this
      */
-    public function add($key, IEmpty $value)
+    public function add($key, IEntity $value)
     {
         $this->_values[$key] = $value;
         return $this;
@@ -74,7 +74,7 @@ class IndexCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return IEmpty|null
+     * @return IEntity|null
      */
     public function current()
     {
@@ -112,7 +112,7 @@ class IndexCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return IEmpty|null
+     * @return IEntity|null
      */
     public function first()
     {
@@ -120,7 +120,7 @@ class IndexCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return IEmpty|null
+     * @return IEntity|null
      */
     public function last()
     {
@@ -128,7 +128,7 @@ class IndexCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return IEmpty
+     * @return IEntity
      */
     public function next()
     {
@@ -136,7 +136,7 @@ class IndexCollection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return IEmpty
+     * @return IEntity
      */
     public function key()
     {
