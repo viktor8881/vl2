@@ -39,7 +39,7 @@ class MoexFigureAnalysis extends AbstractEntity implements FigureAnalysisInterfa
     /** @ORM\Column(name="figure", type="integer") */
     private $figure;
     /**
-     * @ORM\ManyToMany(targetEntity="\Course\Entity\MoexCacheCourse")
+     * @ORM\ManyToMany(targetEntity="\Course\Entity\MoexCacheCourse", fetch="EAGER")
      * @ORM\JoinTable(name="moex_figure_analysis_cache_courses",
      * joinColumns={@ORM\JoinColumn(name="analysis_id", referencedColumnName="id")},
      * inverseJoinColumns={@ORM\JoinColumn(name="cache_course_id", referencedColumnName="id")}
