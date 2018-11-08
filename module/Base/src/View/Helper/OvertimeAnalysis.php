@@ -11,7 +11,7 @@ class OvertimeAnalysis extends AbstractHelper
     public function __invoke(MoexOvertimeAnalysis $taskOvertimeAnalysis)
     {
         $html = '';
-        if ($taskOvertimeAnalysis->isQuotesFall()) {
+        if ($taskOvertimeAnalysis->isQuotesGrowth()) {
             $html .=  '<p>Повышение курса в течении '
                 . $this->view->pluralDaysGenitive($taskOvertimeAnalysis->countData(), true)
                 . ' <span style="color: rgb(5, 132, 11);"> ▲ ' . $this->view->formatPercent($taskOvertimeAnalysis->getDiffPercent()) . '%</span>'
@@ -25,7 +25,7 @@ class OvertimeAnalysis extends AbstractHelper
 
         $html .=  '<ul>';
         foreach ($taskOvertimeAnalysis->getCourses() as $course) {
-            $html .=  '<li><span class="small">' . $course->getDateFormatDMY(). '</span> ' . $course->getValue() . '</li>';
+            $html .=  '<li><span class="small">' . $course->getDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getValue()) . '</li>';
         }
         $html .=  '</ul>';
         return $html;

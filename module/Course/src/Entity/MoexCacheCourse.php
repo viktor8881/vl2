@@ -122,6 +122,18 @@ class MoexCacheCourse extends AbstractEntity
         return null;
     }
 
+    /**
+     * @return string
+     */
+    public function getFirstDateFormatDMY()
+    {
+        $date = $this->getFirstDate();
+        if ($date) {
+            return $date->format('d.m.Y');
+        }
+        return '';
+    }
+
     public function getFirstValue() {
         $data = $this->getDataValue();
         $first = reset($data);
