@@ -172,10 +172,7 @@ class MoexMessageService implements MessageInterface
         $criteria->append(new CriterionExchange($exchange->getId()));
         $criteria->append(new CriterionPeriod([$dateStart, $dateEnd]));
 
-        $courses = [];
-        foreach ($this->courseManager->fetchAllByCriterions($criteria) as $course) {
-            $courses[$course->getDateFormatDMY()] = $course;
-        }
+        $courses = $this->courseManager->fetchAllByCriterionsOnUniqDate($criteria);
 
         if (count($courses) >= 60) {
             $movingAverage1= $this->movingAverage->listAvgByCourses($courses, 9);

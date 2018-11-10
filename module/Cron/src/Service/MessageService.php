@@ -159,7 +159,7 @@ class MessageService implements MessageInterface
         $criteria->append(new CriterionExchange($exchange->getId()));
         $criteria->append(new CriterionPeriod([$dateStart, $dateEnd]));
 
-        $courses = $this->courseManager->fetchAllByCriterions($criteria);
+        $courses = $this->courseManager->fetchAllByCriterionsOnUniqDate($criteria);
 
         $movingAverage1= $this->movingAverage->listAvgByCourses($courses, 9);
         $movingAverage2= $this->movingAverage->listAvgByCourses($courses, 14);

@@ -18,7 +18,7 @@ class FigureAnalysis extends AbstractHelper
         $html .=  '<ul>';
         /** @var $course MoexCacheCourse */
         foreach ($taskFigureAnalyzes->getCacheCourses() as $course) {
-            $html .=  '<li><span class="small">' . $course->getFirstDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getFirstValue()) . '</li>';
+            $html .=  '<li><span class="small">' . $course->getLastDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getLastValue()) . '</li>';
         }
         $html .=  '</ul>';
         return $html;

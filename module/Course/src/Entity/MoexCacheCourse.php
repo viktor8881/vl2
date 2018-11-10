@@ -206,6 +206,14 @@ class MoexCacheCourse extends AbstractEntity
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getLastDateFormatDMY()
+    {
+        return $this->getLastDate()->format('d.m.Y');
+    }
+
+    /**
      * @param \DateTime $lastDate
      * @return CacheCourse
      */

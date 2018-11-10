@@ -146,6 +146,20 @@ class CourseManager extends AbstractManager
         return $this->getByCriterions($criterions);
     }
 
+    /**
+     * @param CriterionCollection|null $criterions
+     * @param Paginator|null $paginator
+     * @param OrderCollection|null $orders
+     * @return Moex[]
+     */
+    public function fetchAllByCriterionsOnUniqDate(CriterionCollection $criterions = null, Paginator $paginator = null, OrderCollection $orders = null)
+    {
+        $courses = [];
+        foreach ($this->fetchAllByCriterions($criterions, $paginator, $orders) as $course) {
+            $courses[$course->getDateFormatDMY()] = $course;
+        }
+        return $courses;
+    }
 
     /**
      * @param AbstractCriterion $criterion

@@ -66,7 +66,7 @@ class MovingAverage
         $criteria->append(new CriterionExchange($exchange));
         $criteria->append(new CriterionPeriod([$dateStart, $date]));
         /** @var Course[] $courses */
-        $courses = $this->courseManager->fetchAllByCriterions($criteria);
+        $courses = $this->courseManager->fetchAllByCriterionsOnUniqDate($criteria);
 
         $status = self::STATUS_NULL;
         if (count($courses)) {
