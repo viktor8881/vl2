@@ -41,6 +41,41 @@
             });
         });";
     $this->headScript()->captureEnd();
+
+    foreach ($this->exchanges as $item) {
+        if ($item['exchange']->getId() == $this->currentExchange->getId()) {
+            ?>
+            <div class="panel panel-default">
+                <div class="panel-heading"><?= $this->currentExchange->getName() ?></div>
+                <div class="panel-body row">
+                    <div class="col-md-4">
+                        <?php
+                        foreach ($item['overtime'] as $analysis) {
+                            echo '<div>' . $this->overtimeAnalysis($analysis) .  '</div>';
+                        }
+                        ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php
+                        foreach ($item['percent'] as $analysis) {
+                            echo $this->percentAnalysis($analysis);
+                        }
+                        ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php
+                        foreach ($item['figure'] as $analysis) {
+                            echo '<div>' . $this->figureAnalysis($analysis) .  '</div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+    }
+
+
 ?>
 
 <table class="table table-bordered">

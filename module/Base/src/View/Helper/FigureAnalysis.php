@@ -15,12 +15,12 @@ class FigureAnalysis extends AbstractHelper
         $html .= '<p class="text-strong">'._("Найдена фигура").' '.$this->view->figureName($taskFigureAnalyzes->getFigure()).'</p>';
         $html .= '<p>'._('Период образования').' - '.$this->view->figurePeriod($taskFigureAnalyzes).'</p>';
         $html .= '<p>'._('Процент').' - '.$this->view->formatPercent($taskFigureAnalyzes->getPercentCacheCourses()).'</p>';
-        $html .=  '<ul>';
-        /** @var $course MoexCacheCourse */
-        foreach ($taskFigureAnalyzes->getCacheCourses() as $course) {
-            $html .=  '<li><span class="small">' . $course->getLastDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getLastValue()) . '</li>';
-        }
-        $html .=  '</ul>';
+//        $html .=  '<ul>';
+//        /** @var $course MoexCacheCourse */
+//        foreach ($taskFigureAnalyzes->getCacheCourses() as $course) {
+//            $html .=  '<li><span class="small">' . $course->getLastDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getLastValue()) . '</li>';
+//        }
+//        $html .=  '</ul>';
         return $html;
     }
 

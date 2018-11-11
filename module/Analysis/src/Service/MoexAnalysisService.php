@@ -368,11 +368,24 @@ class MoexAnalysisService
                     }
                 }
             }
-            usort($result, [$this, 'cmp']);
+
+            usort($result, [$this, 'order']);
+//            usort($result, [$this, 'cmp']);
             $this->cacheStorage->setItem($keyCacheStorage, $result);
         }
         return $result;
     }
+
+    private function order(array $a, array $b)
+    {
+        $maskFigureA = AnalysisOrder::findFigure($a['figure']);
+        $maskFigureB = AnalysisOrder::findFigure($b['figure']);
+        if ($maskFigureA == $maskFigureB) {
+            return 0;
+        }
+        return ($maskFigureA < $maskFigureB) ? 1 : -1;
+    }
+
 
     private function cmp($a, $b)
     {
