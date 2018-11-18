@@ -1,5 +1,5 @@
 <?php
-namespace Base\View\Helper;
+namespace Course\View\Helper;
 
 
 use Analysis\Entity\MoexOvertimeAnalysis;

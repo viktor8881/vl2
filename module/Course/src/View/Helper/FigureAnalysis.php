@@ -1,10 +1,9 @@
 <?php
-namespace Base\View\Helper;
+namespace Course\View\Helper;
 
 
-use Course\Entity\MoexCacheCourse;
-use Zend\View\Helper\AbstractHelper;
 use Analysis\Entity\MoexFigureAnalysis;
+use Zend\View\Helper\AbstractHelper;
 
 class FigureAnalysis extends AbstractHelper
 {
@@ -18,7 +17,7 @@ class FigureAnalysis extends AbstractHelper
 //        $html .=  '<ul>';
 //        /** @var $course MoexCacheCourse */
 //        foreach ($taskFigureAnalyzes->getCacheCourses() as $course) {
-//            $html .=  '<li><span class="small">' . $course->getLastDateFormatDMY(). '</span> ' . $this->view->formatMoney($course->getLastValue()) . '</li>';
+//            $html .=  '<li><span class="small">' . $course->getLastDateFormatDMY(). '</span> ' . $this->view->formatNumber($course->getLastValue(), 3) . '</li>';
 //        }
 //        $html .=  '</ul>';
         return $html;

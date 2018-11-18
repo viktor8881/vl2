@@ -8,15 +8,15 @@ use Analysis\Entity\MoexFigureAnalysis;
 class AnalysisOrder
 {
 
-    public static function order(array $a, array $b)
-    {
-        $maskFigureA = self::findFigure($a['figure']);
-        $maskFigureB = self::findFigure($b['figure']);
-        if ($maskFigureA == $maskFigureB) {
-            return 0;
-        }
-        return ($maskFigureA < $maskFigureB) ? 1 : -1;
-    }
+//    public static function order(array $a, array $b)
+//    {
+//        $maskFigureA = self::findFigure($a['figure']);
+//        $maskFigureB = self::findFigure($b['figure']);
+//        if ($maskFigureA == $maskFigureB) {
+//            return 0;
+//        }
+//        return ($maskFigureA < $maskFigureB) ? 1 : -1;
+//    }
 
     /**
      * @param array $figures
@@ -24,23 +24,29 @@ class AnalysisOrder
      */
     public static function findFigure(array $figures)
     {
-        $revertHeadSholders = 0;
-        $tripleBottom = 0;
-        $doubleBottom = 0;
+        $revertHeadSholders = null;
+        $tripleBottom = null;
+        $doubleBottom = null;
         foreach ($figures as $entity) {
             switch ($entity->getFigure()) {
                 case MoexFigureAnalysis::FIGURE_DOUBLE_BOTTOM :
-                    $doubleBottom = 1;
+                    if (!$doubleBottom || ($entity->getFirstDate() > $doubleBottom->getFirstDate())) {
+                        $doubleBottom = $entity;
+                    }
                     break;
                 case MoexFigureAnalysis::FIGURE_TRIPLE_BOTTOM :
-                    $tripleBottom = 1;
+                    if (!$tripleBottom || ($entity->getFirstDate() > $tripleBottom->getFirstDate())) {
+                        $tripleBottom = $entity;
+                    }
                     break;
                 case MoexFigureAnalysis::FIGURE_RESERVE_HEADS_HOULDERS :
-                    $revertHeadSholders = 1;
+                    if (!$revertHeadSholders || ($entity->getFirstDate() > $revertHeadSholders->getFirstDate())) {
+                        $revertHeadSholders = $entity;
+                    }
                     break;
             }
         }
-        return $revertHeadSholders.$tripleBottom.$doubleBottom;
+        return [$revertHeadSholders, $tripleBottom, $doubleBottom];
     }
 
 }

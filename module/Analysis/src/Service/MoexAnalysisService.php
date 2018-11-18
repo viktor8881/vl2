@@ -369,29 +369,48 @@ class MoexAnalysisService
                 }
             }
 
-            usort($result, [$this, 'order']);
 //            usort($result, [$this, 'cmp']);
             $this->cacheStorage->setItem($keyCacheStorage, $result);
         }
+        usort($result, [$this, 'order']);
         return $result;
     }
 
     private function order(array $a, array $b)
     {
-        $maskFigureA = AnalysisOrder::findFigure($a['figure']);
-        $maskFigureB = AnalysisOrder::findFigure($b['figure']);
-        if ($maskFigureA == $maskFigureB) {
-            return 0;
+        list($revertHeadSholdersA, $tripleBottomA, $doubleBottomA) = AnalysisOrder::findFigure($a['figure']);
+        list($revertHeadSholdersB, $tripleBottomB, $doubleBottomB) = AnalysisOrder::findFigure($b['figure']);
+        
+        if ($revertHeadSholdersA && $revertHeadSholdersB) {
+            return $this->cmp($revertHeadSholdersA->getFirstDate(), $revertHeadSholdersB->getFirstDate());
+        } elseif ($revertHeadSholdersA && !$revertHeadSholdersB) {
+            return -1;
+        } elseif (!$revertHeadSholdersA && $revertHeadSholdersB) {
+            return 1;
         }
-        return ($maskFigureA < $maskFigureB) ? 1 : -1;
+
+        if ($tripleBottomA && $tripleBottomB) {
+            return $this->cmp($tripleBottomA->getFirstDate(), $tripleBottomB->getFirstDate());
+        } elseif ($tripleBottomA && !$tripleBottomB) {
+            return -1;
+        } elseif (!$tripleBottomA && $tripleBottomB) {
+            return 1;
+        }
+
+        if ($doubleBottomA && $doubleBottomB) {
+            return $this->cmp($doubleBottomA->getFirstDate(), $doubleBottomB->getFirstDate());
+        } elseif ($doubleBottomA && !$doubleBottomB) {
+            return -1;
+        } elseif (!$doubleBottomA && $doubleBottomB) {
+            return 1;
+        }
+
+        return $this->cmp($a['weight'], $b['weight']);
     }
 
 
-    private function cmp($a, $b)
+    private function cmp($resultA, $resultB)
     {
-        $resultA = $a['weight'];
-        $resultB = $b['weight'];
-
         if ($resultA == $resultB) {
             return 0;
         }

@@ -40,9 +40,6 @@ return [
             View\Helper\PluralDaysGenitive::class => InvokableFactory::class,
             View\Helper\FormHelper::class         => InvokableFactory::class,
             View\Helper\PageMessage::class        => InvokableFactory::class,
-            View\Helper\OvertimeAnalysis::class     => InvokableFactory::class,
-            View\Helper\PercentAnalysis::class      => InvokableFactory::class,
-            View\Helper\FigureAnalysis::class       => InvokableFactory::class,
         ],
         'aliases'   => [
             'mainMenu'           => View\Helper\Menu::class,
@@ -63,10 +60,7 @@ return [
             'pluralDays'         => View\Helper\PluralDays::class,
             'pluralDaysGenitive' => View\Helper\PluralDaysGenitive::class,
             'formHelper'         => View\Helper\FormHelper::class,
-            'pageMessage'        => View\Helper\PageMessage::class,
-            'overtimeAnalysis'      => View\Helper\OvertimeAnalysis::class,
-            'percentAnalysis'       => View\Helper\PercentAnalysis::class,
-            'figureAnalysis'        => View\Helper\FigureAnalysis::class,
+            'pageMessage'        => View\Helper\PageMessage::class
         ]
     ],
 

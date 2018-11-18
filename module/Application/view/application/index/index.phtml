@@ -1,0 +1,69 @@
+<?php
+$lisChart = array();
+$i = 0;
+foreach ($this->courses as $course) {
+    $date = $course->getDate();
+    $lisChart[] = '[new Date("' . $date->format('Y m d') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i].','.($this->movingAverage1[$i]*1.22).']';
+    $i++;
+}
+
+$this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
+$this->headScript()->captureStart();
+echo "
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawBasic);
+    
+    function drawBasic() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'X');
+        data.addColumn('number', 'course');
+        data.addColumn('number', 'avg-1');
+        data.addColumn('number', 'avg-2');
+        data.addRows([" . implode(',', $lisChart) . "]);
+        var options = {
+            'height': 200,
+            legend: {position: 'none'},            
+            'language': 'ru',
+            hAxis: {
+              title: 'Time',
+              format: 'd MMM',
+              gridlines: {count: 100}
+            },
+            vAxis: {
+              title: '  '
+            }
+        };
+        
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('date', 'X');
+        data2.addColumn('number', 'course');
+        data2.addColumn('number', 'avg-1');        
+        data2.addColumn('number', 'avg-2');        
+        data2.addRows([" . implode(',', $lisChart) . "]);        
+        
+        var data3 = new google.visualization.DataTable();
+        data3.addColumn('date', 'X');
+        data3.addColumn('number', 'course');
+        data3.addColumn('number', 'avg-1');
+        data3.addColumn('number', 'avg-2');
+        data3.addRows([" . implode(',', $lisChart) . "]);       
+        
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
+        chart2.draw(data2, options);
+        var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
+        chart3.draw(data3, options);
+        
+    }
+    ";
+$this->headScript()->captureEnd();
+?>
+
+<!--Divs that will hold the charts-->
+<div class="row">
+    <div id="chart_div" class="col-md-4"></div>
+    <div id="chart_div2" class="col-md-4"></div>
+    <div id="chart_div3" class="col-md-4"></div>
+</div>

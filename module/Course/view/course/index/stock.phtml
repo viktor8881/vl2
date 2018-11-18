@@ -95,44 +95,7 @@
                     <p><?= $item['dateTrade'] ?></p>
                 </td>
                 <td>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">overtime (<?= count($item['overtime'])?>)</div>
-                        <?php
-                            if (count($item['overtime'])) {
-                                echo '<div class="panel-body">';
-                                foreach ($item['overtime'] as $analysis) {
-                                    echo '<div>' . $this->overtimeAnalysis($analysis) .  '</div>';
-                                }
-                                echo '</div>';
-                            }
-                        ?>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">percent (<?= count($item['percent'])?>)</div>
-                        <?php
-                            if (count($item['percent'])) {
-                                echo '<div class="panel-body">';
-                                foreach ($item['percent'] as $analysis) {
-                                    echo $this->percentAnalysis($analysis);
-                                }
-                                echo '</div>';
-                            }
-                        ?>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">figure (<?= count($item['figure'])?>)</div>
-                        <?php
-                            if (count($item['figure'])) {
-                                echo '<div class="panel-body">';
-                                foreach ($item['figure'] as $analysis) {
-                                    echo '<div>' . $this->figureAnalysis($analysis) .  '</div>';
-                                }
-                                echo '</div>';
-                            }
-                        ?>
-                    </div>
-
+                    <?= $this->blockAnalysis($item)?>
                 </td>
                 <td>&nbsp;
                    <?= ceil($item['weight']) ?>

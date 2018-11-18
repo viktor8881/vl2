@@ -52,7 +52,13 @@ class InvestmentBuyForm extends Form
                 continue;
             }
             if (!isset($dataExchanges[$item->getType()])) {
-                $label = $item->isCurrency() ? 'Валюты' : 'Металы';
+                if ($item->isCurrency()) {
+                    $label = 'Валюты';
+                } elseif ($item->isMetal()) {
+                    $label = 'Металы';
+                } else {
+                    $label = 'Акции';
+                }
                 $dataExchanges[$item->getType()] = ['label' => $label, 'options' => []];
             }
             $dataExchanges[$item->getType()]['options'][$item->getId()] =  $item->getName();

@@ -70,10 +70,18 @@ return [
 
     'view_helpers' => [
         'factories' => [
-            View\Helper\HeaderExchange::class => InvokableFactory::class,
+            View\Helper\HeaderExchange::class       => InvokableFactory::class,
+            View\Helper\BlockAnalysis::class        => InvokableFactory::class,
+            View\Helper\OvertimeAnalysis::class     => InvokableFactory::class,
+            View\Helper\PercentAnalysis::class      => InvokableFactory::class,
+            View\Helper\FigureAnalysis::class       => InvokableFactory::class,
         ],
         'aliases' => [
-            'headerExchange' => View\Helper\HeaderExchange::class,
+            'headerExchange'        => View\Helper\HeaderExchange::class,
+            'blockAnalysis'         => View\Helper\BlockAnalysis::class,
+            'overtimeAnalysis'      => View\Helper\OvertimeAnalysis::class,
+            'percentAnalysis'       => View\Helper\PercentAnalysis::class,
+            'figureAnalysis'        => View\Helper\FigureAnalysis::class
         ]
     ],
 
