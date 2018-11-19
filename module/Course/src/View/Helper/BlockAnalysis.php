@@ -27,18 +27,18 @@ class BlockAnalysis extends AbstractHelper
                 $html .= '</div>';
             }
             if (count($analysis['overtime'])) {
+                $html .= '<div class="col-sm-'.(12/$countBlock).'">';
                 foreach ($analysis['overtime'] as $overtime) {
-                    $html .= '<div class="col-sm-'.(12/$countBlock).'">';
                     $html .= $this->view->overtimeAnalysis($overtime);
-                    $html .= '</div>';
                 }
+                $html .= '</div>';
             }
             if (count($analysis['percent'])) {
+                $html .= '<div class="col-sm-'.(12/$countBlock).'">';
                 foreach ($analysis['percent'] as $percent) {
-                    $html .= '<div class="col-sm-'.(12/$countBlock).'">';
                     $html .= $this->view->percentAnalysis($percent);
-                    $html .= '</div>';
                 }
+                $html .= '</div>';
             }
             $html .= '</div>';
         }
