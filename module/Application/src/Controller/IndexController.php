@@ -4,6 +4,7 @@
 namespace Application\Controller;
 
 
+use Analysis\Service\MoexAnalysisService;
 use Analysis\Service\MovingAverage;
 use Base\Entity\CriterionCollection;
 use Course\Entity\Criterion\CriterionExchange;
@@ -26,21 +27,47 @@ class IndexController extends AbstractActionController
     /** @var MovingAverage */
     private $movingAverage;
 
+    /** @var MoexAnalysisService */
+    private $analisysService;
+
     /**
      * IndexController constructor.
      * @param ExchangeManager $exchangeManager
      * @param CourseManager $courseManager
      * @param MovingAverage $movingAverage
+     * @param MoexAnalysisService $analisysService
      */
-    public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage)
+    public function __construct(ExchangeManager $exchangeManager, CourseManager $courseManager, MovingAverage $movingAverage, MoexAnalysisService $analisysService)
     {
         $this->exchangeManager = $exchangeManager;
         $this->courseManager = $courseManager;
         $this->movingAverage = $movingAverage;
+        $this->analisysService = $analisysService;
     }
 
 
     public function indexAction()
+    {
+        $result = [];
+        $item = null;
+
+        $exchanges = $this->exchangeManager->fetchAllFavoriteStock();
+        if (count($exchanges)) {
+            $result = $this->analisysService->listOrderWeight(
+                $exchanges,
+                $this->params()->fromQuery('refresh', false));
+
+            $id = $this->params()->fromRoute('id', reset($exchanges)->getId());
+            $item = $this->exchangeManager->getStockById($id);
+        }
+
+        return [
+            'exchanges'       => $result,
+            'currentExchange' => $item
+        ];
+    }
+
+    public function aboutAction()
     {
         $dateStart = new \DateTime();
         $dateStart->sub(new \DateInterval('P4M'));
@@ -56,11 +83,6 @@ class IndexController extends AbstractActionController
             'courses' => $courses,
             'movingAverage1'   => $this->movingAverage->listAvgByCourses($courses, 12),
             'movingAverage2'   => $this->movingAverage->listAvgByCourses($courses, 25)
-            ]);
-    }
-
-    public function aboutAction()
-    {
-        return new ViewModel();
+        ]);
     }
 }

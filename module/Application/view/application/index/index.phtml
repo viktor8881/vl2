@@ -1,69 +1,94 @@
 <?php
-$lisChart = array();
-$i = 0;
-foreach ($this->courses as $course) {
-    $date = $course->getDate();
-    $lisChart[] = '[new Date("' . $date->format('Y m d') . '"),' . $course->getValue() . ',' . $this->movingAverage1[$i].','.($this->movingAverage1[$i]*1.22).']';
-    $i++;
+if (!$this->currentExchange) {
+    echo '<h2>Список избранного пуст</h2>';
+    return null;
 }
-
-$this->headScript()->prependFile('https://www.gstatic.com/charts/loader.js');
-$this->headScript()->captureStart();
-echo "
-    google.charts.load('current', {packages: ['corechart', 'line']});
-    google.charts.setOnLoadCallback(drawBasic);
-    
-    function drawBasic() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'X');
-        data.addColumn('number', 'course');
-        data.addColumn('number', 'avg-1');
-        data.addColumn('number', 'avg-2');
-        data.addRows([" . implode(',', $lisChart) . "]);
-        var options = {
-            'height': 200,
-            legend: {position: 'none'},            
-            'language': 'ru',
-            hAxis: {
-              title: 'Time',
-              format: 'd MMM',
-              gridlines: {count: 100}
-            },
-            vAxis: {
-              title: '  '
-            }
-        };
-        
-        var data2 = new google.visualization.DataTable();
-        data2.addColumn('date', 'X');
-        data2.addColumn('number', 'course');
-        data2.addColumn('number', 'avg-1');        
-        data2.addColumn('number', 'avg-2');        
-        data2.addRows([" . implode(',', $lisChart) . "]);        
-        
-        var data3 = new google.visualization.DataTable();
-        data3.addColumn('date', 'X');
-        data3.addColumn('number', 'course');
-        data3.addColumn('number', 'avg-1');
-        data3.addColumn('number', 'avg-2');
-        data3.addRows([" . implode(',', $lisChart) . "]);       
-        
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-        var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
-        chart2.draw(data2, options);
-        var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
-        chart3.draw(data3, options);
-        
-    }
-    ";
-$this->headScript()->captureEnd();
 ?>
 
-<!--Divs that will hold the charts-->
-<div class="row">
-    <div id="chart_div" class="col-md-4"></div>
-    <div id="chart_div2" class="col-md-4"></div>
-    <div id="chart_div3" class="col-md-4"></div>
-</div>
+<?php
+echo '<div id="container" style="height: 400px; min-width: 310px"></div>';
+
+$this->headScript()->prependFile('https://code.jquery.com/jquery-3.1.1.min.js');
+$this->headScript()->prependFile('https://code.highcharts.com/stock/highstock.js');
+$this->headScript()->prependFile('https://code.highcharts.com/stock/modules/exporting.js');
+
+$this->headScript()->captureStart();
+echo "
+        $.getJSON('" . $this->url('course-moex', ['id' => $this->currentExchange->getId()]) . "', function (data) {            
+            Highcharts.stockChart('container', {
+        
+                rangeSelector: { selected: 1 },
+                title: { text: 'MOEX акции ".$this->currentExchange->getName()."' },
+        
+                series: [{
+                name: '".$this->currentExchange->getShortName()."',
+                    data: data,
+                    type: 'area',
+                    threshold: null,
+                    tooltip: {
+                    valueDecimals: 2
+                    },
+                    fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                    }
+                }]
+            });
+        });";
+$this->headScript()->captureEnd();
+
+
+echo '<div class="text-right">            
+            <a href="' . $this->serverUrl(true) . '?refresh=true">обновить</a>
+        </div>';
+
+foreach ($this->exchanges as $item) {
+    if ($item['exchange']->getId() == $this->currentExchange->getId()) {
+        echo $this->partial('course/index/partial/panel-analysis-stock', ['item' => $item]);
+        break;
+    }
+}
+
+?>
+
+<table class="table table-bordered" id="analysis-stock">
+    <thead>
+    <tr>
+        <th>Наименование</th>
+        <th>Анализ</th>
+        <th>Вес</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (count($this->exchanges)) : ?>
+        <?php foreach ($this->exchanges as $item) : ?>
+            <tr>
+                <td>
+                    <a href="<?= $this->url('home', ['id' => (int)$item['exchange']->getCode()]) ?>"><?= $this->escapeHtml($item['exchange']->getName())?></a>
+                    <p><?= $item['dateTrade'] ?></p>
+                </td>
+                <td>
+                    <?= $this->blockAnalysis($item)?>
+                </td>
+                <td>&nbsp;
+                    <?= ceil($item['weight']) ?>
+                </td>
+                <td>&nbsp;
+                    <?= $this->blockAction($item['exchange']) ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr><td colspan="2"><?= $this->escapeHtml('Акции не найдены') ?></td></tr>
+    <?php endif; ?>
+    </tbody>
+</table>

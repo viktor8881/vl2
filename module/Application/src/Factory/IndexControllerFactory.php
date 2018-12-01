@@ -2,6 +2,7 @@
 namespace Application\Factory;
 
 
+use Analysis\Service\MoexAnalysisService;
 use Analysis\Service\MovingAverage;
 use Application\Controller\IndexController;
 use Course\Service\CourseManager;
@@ -20,8 +21,10 @@ class IndexControllerFactory implements FactoryInterface
         $courseManager = $container->get(CourseManager::class);
         /** @var MovingAverage $movingAverage */
         $movingAverage = $container->get(MovingAverage::class);
+        /** @var MoexAnalysisService $analysisService */
+        $analysisService = $container->get(MoexAnalysisService::class);
 
-        return new IndexController($exchangeManager, $courseManager, $movingAverage);
+        return new IndexController($exchangeManager, $courseManager, $movingAverage, $analysisService);
     }
 
 }

@@ -71,6 +71,7 @@ return [
     'view_helpers' => [
         'factories' => [
             View\Helper\HeaderExchange::class       => InvokableFactory::class,
+            View\Helper\BlockAction::class          => InvokableFactory::class,
             View\Helper\BlockAnalysis::class        => InvokableFactory::class,
             View\Helper\OvertimeAnalysis::class     => InvokableFactory::class,
             View\Helper\PercentAnalysis::class      => InvokableFactory::class,
@@ -79,6 +80,7 @@ return [
         'aliases' => [
             'headerExchange'        => View\Helper\HeaderExchange::class,
             'blockAnalysis'         => View\Helper\BlockAnalysis::class,
+            'blockAction'           => View\Helper\BlockAction::class,
             'overtimeAnalysis'      => View\Helper\OvertimeAnalysis::class,
             'percentAnalysis'       => View\Helper\PercentAnalysis::class,
             'figureAnalysis'        => View\Helper\FigureAnalysis::class

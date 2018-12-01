@@ -41,6 +41,45 @@ return [
                         'action' => 'stock',
                     ],
                 ]
+            ],
+            'addFavorite' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/exchange/favorite/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'addFavorite',
+                    ],
+                ]
+            ],
+            'deleteFavorite' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/exchange/unfavorite/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'deleteFavorite',
+                    ],
+                ]
+            ],
+            'hideAnalysis' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/exchange/hide-analysis/:exchangeId',
+                    'constraints' => [
+                        'exchangeId' => '[0-9]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'hideAnalysis',
+                    ],
+                ]
             ]
         ],
     ],

@@ -39,6 +39,10 @@ class Exchange extends AbstractEntity
     protected $shortName;
     /** @ORM\Column(name="moex_secid", type="string", length=10, nullable=true) */
     protected $moexSecId;
+    /** @ORM\Column(name="favorite", type="boolean") */
+    protected $favorite;
+    /** @ORM\Column(name="hide", type="boolean") */
+    protected $hide;
 
     /**
      * @return mixed
@@ -192,6 +196,74 @@ class Exchange extends AbstractEntity
     {
         $this->moexSecId = $moexSecId;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param mixed $favorite
+     * @return Exchange
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHide()
+    {
+        return $this->hide;
+    }
+
+    /**
+     * @param mixed $hide
+     * @return Exchange
+     */
+    public function setHide($hide)
+    {
+        $this->hide = $hide;
+        return $this;
+    }
+
+    /**
+     * @return Exchange
+     */
+    public function hide()
+    {
+        return $this->setHide(true);
+    }
+
+    /**
+     * @return Exchange
+     */
+    public function show()
+    {
+        return $this->setHide(false);
+    }
+
+    /**
+     * @return Exchange
+     */
+    public function favorite()
+    {
+        return $this->setFavorite(true);
+    }
+
+    /**
+     * @return Exchange
+     */
+    public function unFavorite()
+    {
+        return $this->setFavorite(false);
     }
 
 }

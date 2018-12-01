@@ -15,9 +15,12 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type' => 'Segment',
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/[:id]',
+                    'constraints' => [
+                        'id' => '[0-9]*',
+                    ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',

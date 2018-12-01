@@ -304,17 +304,15 @@ class MoexAnalysisService
      * @param Exchange{} $exchanges
      * @return array
      */
-    public function listOrderWeight($exchanges = [])
+    public function listOrderWeight($exchanges = [], $clearCache = false)
     {
-        $keyCacheStorage = date('d.m.Y') . 'listOrderWeight';
-        $keyCacheStorage = md5($keyCacheStorage);
-        $result = $this->cacheStorage->getItem($keyCacheStorage, $success);
-        if (!$success) {
-            /** @var $exchange Exchange */
-            foreach ($exchanges as $exchange) {
-                $exchangeId = $exchange->getId();
+        /** @var $exchange Exchange */
+        foreach ($exchanges as $exchange) {
+            $exchangeId = $exchange->getId();
+            $keyCacheStorage = $exchangeId . 'listOrderWeight';
+            $result[$exchangeId] = $this->cacheStorage->getItem($keyCacheStorage, $success);
+            if ($clearCache || !$success) {
                 $result[$exchangeId] = [
-                    'exchange' => $exchange,
                     'overtime' => [],
                     'percent' => [],
                     'figure' => [],
@@ -367,10 +365,9 @@ class MoexAnalysisService
                         }
                     }
                 }
+                $this->cacheStorage->setItem($keyCacheStorage, $result[$exchangeId]);
             }
-
-//            usort($result, [$this, 'cmp']);
-            $this->cacheStorage->setItem($keyCacheStorage, $result);
+            $result[$exchangeId]['exchange' ] = $exchange;
         }
         usort($result, [$this, 'order']);
         return $result;

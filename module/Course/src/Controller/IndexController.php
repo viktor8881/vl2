@@ -137,7 +137,10 @@ class IndexController extends AbstractActionController
         if (!$item) {
             throw new \Exception('stock not found.');
         }
-        $result = $this->analisysService->listOrderWeight($this->exchangeManager->fetchAllStock());
+        $result = $this->analisysService->listOrderWeight(
+            $this->exchangeManager->fetchAllStock(),
+            $this->params()->fromQuery('refresh', false)
+        );
 
         return [
             'exchanges'       => $result,

@@ -15,6 +15,7 @@ use Base\Entity\OrderCollection;
 use Base\Service\AbstractManager;
 use Course\Service\MoexService;
 use Doctrine\ORM\QueryBuilder;
+use Exchange\Entity\Criterion\ExchangeFavorite;
 use Exchange\Entity\Criterion\ExchangeId;
 use Exchange\Entity\Criterion\ExchangeNotCode;
 use Exchange\Entity\Criterion\ExchangeType;
@@ -157,6 +158,14 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions, null, $order);
     }
 
+    public function fetchAllFavoriteStock(OrderCollection $order = null)
+    {
+        $criterions = new CriterionCollection();
+        $criterions->append(new ExchangeType(Exchange::TYPE_STOCK));
+        $criterions->append(new ExchangeFavorite(true));
+        return $this->fetchAllByCriterions($criterions, null, $order);
+    }
+
     /**
      * @param array $codes
      * @return \Base\Entity\AbstractEntity[]
@@ -193,6 +202,10 @@ class ExchangeManager extends AbstractManager
             case ExchangeType::class:
                 $qb->andWhere($this->entityName . '.type IN (:type)')
                     ->setParameter('type', $criterion->getValues());
+                break;
+            case ExchangeFavorite::class:
+                $qb->andWhere($this->entityName . '.favorite = :favorite')
+                    ->setParameter('favorite', $criterion->getValues());
                 break;
             case ExchangeNotCode::class:
                 $qb->andWhere($this->entityName . '.code NOT IN (:code)')

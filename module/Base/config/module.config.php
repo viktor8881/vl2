@@ -40,6 +40,8 @@ return [
             View\Helper\PluralDaysGenitive::class => InvokableFactory::class,
             View\Helper\FormHelper::class         => InvokableFactory::class,
             View\Helper\PageMessage::class        => InvokableFactory::class,
+            View\Helper\IconFavorite::class       => InvokableFactory::class,
+            View\Helper\IconUnFavorite::class     => InvokableFactory::class,
         ],
         'aliases'   => [
             'mainMenu'           => View\Helper\Menu::class,
@@ -60,7 +62,9 @@ return [
             'pluralDays'         => View\Helper\PluralDays::class,
             'pluralDaysGenitive' => View\Helper\PluralDaysGenitive::class,
             'formHelper'         => View\Helper\FormHelper::class,
-            'pageMessage'        => View\Helper\PageMessage::class
+            'pageMessage'        => View\Helper\PageMessage::class,
+            'iconFavorite'       => View\Helper\IconFavorite::class,
+            'iconUnFavorite'     => View\Helper\IconUnFavorite::class,
         ]
     ],
 
