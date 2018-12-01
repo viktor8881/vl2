@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><?= $item['exchange']->getName() ?></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <?=$this->blockAction($item['exchange'])?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <?php
+                foreach ($item['overtime'] as $analysis) {
+                    echo '<div>' . $this->overtimeAnalysis($analysis) .  '</div>';
+                }
+                ?>
+            </div>
+            <div class="col-md-4">
+                <?php
+                foreach ($item['percent'] as $analysis) {
+                    echo $this->percentAnalysis($analysis);
+                }
+                ?>
+            </div>
+            <div class="col-md-4">
+                <?php
+                foreach ($item['figure'] as $analysis) {
+                    echo '<div>' . $this->figureAnalysis($analysis) .  '</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
