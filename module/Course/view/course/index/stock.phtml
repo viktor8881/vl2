@@ -3,8 +3,6 @@
 ?>
 
 <?php
-    echo '<div id="container" style="height: 400px; min-width: 310px"></div>';
-
     $this->headScript()->prependFile('https://code.jquery.com/jquery-3.1.1.min.js');
     $this->headScript()->prependFile('https://code.highcharts.com/stock/highstock.js');
     $this->headScript()->prependFile('https://code.highcharts.com/stock/modules/exporting.js');
@@ -42,57 +40,36 @@
         });";
     $this->headScript()->captureEnd();
 
+?>
+<div>
 
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#figure" aria-controls="figure" role="tab" data-toggle="tab">По фигурам</a></li>
+        <li role="presentation"><a href="#maxday" aria-controls="maxday" role="tab" data-toggle="tab">По макс. за день</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="figure">
+            <div id="container" style="height: 400px; min-width: 310px"></div>
+<?php
     echo '<div class="text-right">
             <a href="#" onclick="showAllAnalisys(); return false;">show all</a>
             <a href="' . $this->serverUrl(true) . '?refresh=true">обновить</a>
         </div>';
-
     foreach ($this->exchanges as $item) {
         if ($item['exchange']->getId() == $this->currentExchange->getId()) {
             echo $this->partial('course/index/partial/panel-analysis-stock', ['item' => $item]);
             break;
         }
     }
-
+    echo $this->tableStock($this->exchanges);
 ?>
+    </div>
 
-<table class="table table-bordered" id="analysis-stock">
-    <thead>
-    <tr>
-        <th>Наименование</th>
-        <th>Анализ</th>
-        <th>Вес</th>
-        <th>Действия</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php if (count($this->exchanges)) : ?>
-        <?php foreach ($this->exchanges as $item) : ?>
-            <?php
-                $class = '';
-                if ($item['exchange']->getHide()) {
-                    $class = 'hidden';
-                }
-            ?>
-            <tr class="<?=$class?>">
-                <td>
-                    <a href="<?= $this->url('course', ['action' => 'stock', 'id' => (int)$item['exchange']->getCode()]) ?>"><?= $this->escapeHtml($item['exchange']->getName())?></a>
-                    <p><?= $item['dateTrade'] ?></p>
-                </td>
-                <td>
-                    <?= $this->blockAnalysis($item)?>
-                </td>
-                <td>&nbsp;
-                   <?= ceil($item['weight']) ?>
-                </td>
-                <td>&nbsp;
-                    <?= $this->blockAction($item['exchange']) ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <tr><td colspan="2"><?= $this->escapeHtml('Акции не найдены') ?></td></tr>
-    <?php endif; ?>
-    </tbody>
-</table>
+    <div role="tabpanel" class="tab-pane" id="maxday">
+        <?= $this->maxOneDayTableStock($this->exchanges) ?>
+    </div>
+    </div>
+</div>

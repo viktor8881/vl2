@@ -76,6 +76,8 @@ return [
             View\Helper\OvertimeAnalysis::class     => InvokableFactory::class,
             View\Helper\PercentAnalysis::class      => InvokableFactory::class,
             View\Helper\FigureAnalysis::class       => InvokableFactory::class,
+            View\Helper\TableStock::class           => InvokableFactory::class,
+            View\Helper\MaxOneDayTableStock::class  => InvokableFactory::class,
         ],
         'aliases' => [
             'headerExchange'        => View\Helper\HeaderExchange::class,
@@ -83,7 +85,9 @@ return [
             'blockAction'           => View\Helper\BlockAction::class,
             'overtimeAnalysis'      => View\Helper\OvertimeAnalysis::class,
             'percentAnalysis'       => View\Helper\PercentAnalysis::class,
-            'figureAnalysis'        => View\Helper\FigureAnalysis::class
+            'figureAnalysis'        => View\Helper\FigureAnalysis::class,
+            'tableStock'            => View\Helper\TableStock::class,
+            'maxOneDayTableStock'   => View\Helper\MaxOneDayTableStock::class,
         ]
     ],
 
