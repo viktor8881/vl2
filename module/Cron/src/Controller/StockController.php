@@ -78,23 +78,27 @@ class StockController extends AbstractActionController
                         $exchange = $this->exchangeService->getByMoexSecid($row[3]);
                         $this->logger->info('start - '. $exchange->getId());
                         if ($exchange && $row[9]) {
-                            $tradeDate = new \DateTime($row[1]);
-                            $lastEntity = $this->moexService->lastByExchangeId($exchange->getId());
-                            
-                            if (!$lastEntity || $lastEntity->getDate() != $tradeDate) {
-                                $this->logger->info('preparate - '. $exchange->getId());
-                                $entity = new Moex();
-                                $entity->setExchange($exchange)
-                                    ->setSecId($exchange->getMoexSecId())
-                                    ->setRate($row[9])
-                                    ->setTradeDateTime($tradeDate);
-                                $this->moexService->insert($entity);
+                            if (!$exchange->getHide()) {
+                                $tradeDate = new \DateTime($row[1]);
+                                $lastEntity = $this->moexService->lastByExchangeId($exchange->getId());
 
-                                // second step
-                                $this->cacheCourseService->fillingCache($entity);
+                                if (!$lastEntity || $lastEntity->getDate() != $tradeDate) {
+                                    $this->logger->info('preparate - '. $exchange->getId());
+                                    $entity = new Moex();
+                                    $entity->setExchange($exchange)
+                                        ->setSecId($exchange->getMoexSecId())
+                                        ->setRate($row[9])
+                                        ->setTradeDateTime($tradeDate);
+                                    $this->moexService->insert($entity);
 
-                                // third step
-                                $this->analisis($exchange, $tradeDate);
+                                    // second step
+                                    $this->cacheCourseService->fillingCache($entity);
+
+                                    // third step
+                                    $this->analisis($exchange, $tradeDate);
+                                }
+                            } else {
+                                $this->logger->info('skip because is hide on site - '. $exchange->getId());
                             }
                         }
                         $this->logger->info('stop - '. $exchange->getId());
