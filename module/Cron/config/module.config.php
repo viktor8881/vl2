@@ -13,6 +13,7 @@ use Cron\Factory\MoexCacheCourseControllerFactory;
 use Cron\Factory\MoexControllerFactory;
 use Cron\Factory\MoexMessageControllerFactory;
 use Cron\Factory\StockControllerFactory;
+use Cron\Factory\StockUSAControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -218,6 +219,16 @@ return [
                         'action'     => 'index',
                     ],
                 ],
+            ],
+            'stock.usa.moex.index' => [
+                'type' => 'Literal',
+                'options' => [
+                    'route'    => '/cron/moex-usa/stock',
+                    'defaults' => [
+                        'controller' => Controller\StockUSAController::class,
+                        'action'     => 'index',
+                    ],
+                ],
             ]
         ],
     ],
@@ -253,6 +264,9 @@ return [
             ],
             Controller\StockController::class => [
                 ['actions' => '*', 'allow' => '*'],
+            ],
+            Controller\StockUSAController::class => [
+                ['actions' => '*', 'allow' => '*'],
             ]
         ]
     ],
@@ -270,6 +284,7 @@ return [
             Controller\MoexAnalysisController::class => MoexAnalysisControllerFactory::class,
             Controller\MoexMessageController::class  => MoexMessageControllerFactory::class,
             Controller\StockController::class       => StockControllerFactory::class,
+            Controller\StockUSAController::class    => StockUSAControllerFactory::class,
         ]
     ],
 
