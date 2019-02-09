@@ -78,6 +78,13 @@ return [
             View\Helper\FigureAnalysis::class       => InvokableFactory::class,
             View\Helper\TableStock::class           => InvokableFactory::class,
             View\Helper\MaxOneDayTableStock::class  => InvokableFactory::class,
+            View\Helper\ThreeBottomTableStock::class=> InvokableFactory::class,
+            View\Helper\ThreeTopTableStock::class   => InvokableFactory::class,
+            View\Helper\RevertHeadShouldersTableStock::class=> InvokableFactory::class,
+            View\Helper\HeadShouldersTableStock::class=> InvokableFactory::class,
+
+            View\Helper\DoubleBottomTableStock::class=> InvokableFactory::class,
+            View\Helper\DoubleTopTableStock::class   => InvokableFactory::class,
         ],
         'aliases' => [
             'headerExchange'        => View\Helper\HeaderExchange::class,
@@ -88,6 +95,12 @@ return [
             'figureAnalysis'        => View\Helper\FigureAnalysis::class,
             'tableStock'            => View\Helper\TableStock::class,
             'maxOneDayTableStock'   => View\Helper\MaxOneDayTableStock::class,
+            'threeBottomTableStock' => View\Helper\ThreeBottomTableStock::class,
+            'threeTopTableStock'    => View\Helper\ThreeTopTableStock::class,
+            'revertHeadShouldersTableStock'    => View\Helper\RevertHeadShouldersTableStock::class,
+            'headShouldersTableStock'    => View\Helper\HeadShouldersTableStock::class,
+            'doubleBottomTableStock' => View\Helper\DoubleBottomTableStock::class,
+            'doubleTopTableStock'    => View\Helper\DoubleTopTableStock::class,
         ]
     ],
 

@@ -7,11 +7,8 @@ use Zend\View\Helper\AbstractHelper;
 class MaxOneDayTableStock extends AbstractHelper
 {
 
-    const MINIMUM_PERFORMANCE_VALUE = 10;
-
     public function __invoke(array $params)
     {
-        $params = array_slice($params, 0, 20);
         usort($params, [$this, 'order']);
         return $this->view->tableStock($params);
     }

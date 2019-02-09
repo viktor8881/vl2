@@ -46,7 +46,13 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#figure" aria-controls="figure" role="tab" data-toggle="tab">По фигурам</a></li>
-        <li role="presentation"><a href="#maxday" aria-controls="maxday" role="tab" data-toggle="tab">По макс. за день</a></li>
+        <li role="presentation"><a href="#maxday" aria-controls="maxday" role="tab" data-toggle="tab">Max By Day</a></li>
+        <li role="presentation"><a href="#head-shoulders" aria-controls="head-shoulders" role="tab" data-toggle="tab">H&S</a></li>
+        <li role="presentation"><a href="#three-bottom" aria-controls="three-bottom" role="tab" data-toggle="tab">3 Bottom</a></li>
+        <li role="presentation"><a href="#double-bottom" aria-controls="double-bottom" role="tab" data-toggle="tab">2 Bottom</a></li>
+        <li role="presentation"><a href="#revert-head-shoulders" aria-controls="revert-head-shoulders" role="tab" data-toggle="tab">revert H&S</a></li>
+        <li role="presentation"><a href="#three-top" aria-controls="three-top" role="tab" data-toggle="tab">3 Top</a></li>
+        <li role="presentation"><a href="#double-top" aria-controls="double-top" role="tab" data-toggle="tab">2 Top</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -68,8 +74,32 @@
 ?>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="maxday">
-        <?= $this->maxOneDayTableStock($this->exchanges) ?>
-    </div>
+        <div role="tabpanel" class="tab-pane" id="maxday">
+            <?= $this->maxOneDayTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="three-bottom">
+            <?= $this->threeBottomTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="three-top">
+            <?= $this->threeTopTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="revert-head-shoulders">
+            <?= $this->revertHeadShouldersTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="head-shoulders">
+            <?= $this->headShouldersTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="double-bottom">
+            <?= $this->doubleBottomTableStock($this->exchanges) ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="double-top">
+            <?= $this->doubleTopTableStock($this->exchanges) ?>
+        </div>
     </div>
 </div>

@@ -170,6 +170,14 @@ class MoexFigureAnalysis extends AbstractEntity implements FigureAnalysisInterfa
     }
 
     /**
+     * @return CacheCourse
+     */
+    public function getFirstCacheCourse()
+    {
+        return $this->getCacheCourses()->first();
+    }
+
+    /**
      * @return \DateTime|null
      */
     public function getLastDate()
@@ -193,6 +201,75 @@ class MoexFigureAnalysis extends AbstractEntity implements FigureAnalysisInterfa
             return $cacheCourse->getPercent();
         }
         return 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function countDataValues(): int
+    {
+        $result = 0;
+        /** @var $cacheCourse MoexCacheCourse */
+        foreach ($this->getCacheCourses() as $cacheCourse) {
+            $result += $cacheCourse->countDataValue();
+        }
+        return $result;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function countFirstDataValue()
+    {
+        return $this->getFirstCacheCourse()->countDataValue();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTreeBottom(): bool
+    {
+        return $this->getFigure() === self::FIGURE_TRIPLE_BOTTOM;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTreeTop(): bool
+    {
+        return $this->getFigure() === self::FIGURE_TRIPLE_TOP;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDoubleTop(): bool
+    {
+        return $this->getFigure() === self::FIGURE_DOUBLE_TOP;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDoubleBottom(): bool
+    {
+        return $this->getFigure() === self::FIGURE_DOUBLE_BOTTOM;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHeadShoulders(): bool
+    {
+        return $this->getFigure() === self::FIGURE_HEADS_HOULDERS;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRevertHeadShoulders(): bool
+    {
+        return $this->getFigure() === self::FIGURE_RESERVE_HEADS_HOULDERS;
     }
 
 }
