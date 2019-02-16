@@ -55,11 +55,6 @@ return [
             'name'              => 'localhost.localdomain',
             'port'              => 25,
             'host'              => 'smtp-host',
-            'connection_class'  => 'login',
-            'connection_config' => [
-                'username' => 'username',
-                'password' => 'password',
-            ],
         ],
         'addresses'   => ['siteEmail'  => 'valuta@1gb.ru',
                           'adminEmail' => 'ivavictor@mail.ru']
