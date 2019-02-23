@@ -306,6 +306,7 @@ class MoexAnalysisService
      */
     public function listOrderWeight($exchanges = [], $clearCache = false)
     {
+        $dateNow = new \DateTime();
         /** @var $exchange Exchange */
         foreach ($exchanges as $exchange) {
             $exchangeId = $exchange->getId();
@@ -320,7 +321,7 @@ class MoexAnalysisService
                     'weight' => 0
                 ];
                 $moex = $this->courseManager->lastByExchangeId($exchangeId);
-                if ($moex) {
+                if ($moex && $dateNow->diff($moex->getDate(), true)->format('%a') <= 10) {
                     $result[$exchangeId]['dateTrade'] = $moex->getDateFormatDMY();
                     $criterions = new CriterionCollection();
                     $criterions->append(new CriterionDateCreated($moex->getDate()));
