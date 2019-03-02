@@ -8,10 +8,10 @@ use Analysis\Entity\FigureAnalysis;
 use Analysis\Entity\MoexFigureAnalysis;
 use Analysis\Entity\TaskOvertimeAnalysis;
 use Analysis\Entity\TaskPercentAnalysis;
+use Analysis\Validator\СonsiderFigureAnalysis;
 use Base\Entity\CriterionCollection;
 use Base\Service\Math;
 use Course\Entity\Course;
-use Course\Entity\Moex;
 use Course\Entity\MoexCollection;
 use Course\Service\MoexCacheCourseManager;
 use Course\Service\MoexManager;
@@ -307,6 +307,8 @@ class MoexAnalysisService
     public function listOrderWeight($exchanges = [], $clearCache = false)
     {
         $dateNow = new \DateTime();
+
+        $validator = new СonsiderFigureAnalysis();
         /** @var $exchange Exchange */
         foreach ($exchanges as $exchange) {
             $exchangeId = $exchange->getId();
@@ -329,20 +331,25 @@ class MoexAnalysisService
                     foreach ($this->taskOvertimeAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
                         $result[$exchangeId]['overtime'][] = $entity;
                         if ($entity->isQuotesGrowth()) {
-                            $result[$exchangeId]['weight'] += 1 * $entity->countData();
+                            $result[$exchangeId]['weight'] += 1;
                         } else {
-                            $result[$exchangeId]['weight'] -= 1 * $entity->countData();
+                            $result[$exchangeId]['weight'] -= 1;
                         }
                     }
                     foreach ($this->taskPercentAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
                         $result[$exchangeId]['percent'][] = $entity;
                         if ($entity->isQuotesGrowth()) {
-                            $result[$exchangeId]['weight'] += 1 * $entity->getDiffPercent();
+                            $result[$exchangeId]['weight'] += 1;
                         } else {
-                            $result[$exchangeId]['weight'] -= 1 * $entity->getDiffPercent();
+                            $result[$exchangeId]['weight'] -= 1;
                         }
                     }
+
+                    /** @var $entity MoexFigureAnalysis */
                     foreach ($this->figureAnalysisManager->fetchAllByCriterions($criterions) as $entity) {
+                        if (!$validator->isValid($entity)) {
+                            continue;
+                        }
                         $result[$exchangeId]['figure'][] = $entity;
                         switch ($entity->getFigure()) {
                             case MoexFigureAnalysis::FIGURE_DOUBLE_BOTTOM :
@@ -370,7 +377,8 @@ class MoexAnalysisService
             }
             $result[$exchangeId]['exchange' ] = $exchange;
         }
-        usort($result, [$this, 'order']);
+//        usort($result, [$this, 'order']);
+        usort($result, [$this, 'cmpOld']);
         return $result;
     }
 
@@ -409,6 +417,17 @@ class MoexAnalysisService
 
     private function cmp($resultA, $resultB)
     {
+        if ($resultA == $resultB) {
+            return 0;
+        }
+        return ($resultA < $resultB) ? 1 : -1;
+    }
+
+    private function cmpOld($a, $b)
+    {
+        $resultA = $a['weight'];
+        $resultB = $b['weight'];
+
         if ($resultA == $resultB) {
             return 0;
         }
