@@ -168,6 +168,7 @@ class TechnicalAnalysis
         $courses = array_values($courses);
         if (self::compare($courses[1], $courses[0]) == 1
             && self::compare($courses[1], $courses[2]) == 1
+            && self::compare($courses[2], $courses[0]) == 1
             && self::compare($courses[2], $courses[4]) >= 0
             && self::compare($courses[3], $courses[2]) == 1
             && self::compare($courses[3], $courses[4]) == 1
@@ -206,7 +207,8 @@ class TechnicalAnalysis
             return false;
         }
         $courses = array_values($courses);
-        if (self::compare($courses[0], $courses[1]) == 1
+        if (self::compare($courses[0], $courses[2]) == 1
+            && self::compare($courses[0], $courses[1]) == 1
             && self::compare($courses[2], $courses[1]) == 1
             && self::compare($courses[2], $courses[3]) == 1
             && self::compare($courses[4], $courses[3]) == 1
@@ -263,6 +265,7 @@ class TechnicalAnalysis
 
             && self::compare($courses[5], $courses[4]) == 1
             && self::compare($courses[4], $courses[6]) == 1
+            && self::compare($courses[4], $courses[0]) == 1
 
             && self::compare($courses[5], $courses[6]) == 1
         ) {
