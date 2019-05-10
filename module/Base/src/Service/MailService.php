@@ -43,28 +43,59 @@ class MailService
      */
     public function sendAnalysis(MessageInterface $messageService)
     {
-        $this->message->setSubject($messageService->getSubject() . ' - dev');
+        $html = $this->getHtmlBodyEmail($messageService);
 
-        $viewModel = new ViewModel(
-            ['date'                 => $messageService->getDate(),
-             'exchange'             => $messageService->getExchange(),
-             'taskOvertimeAnalysis' => $messageService->getAnalyzesOvertimeTask(),
-             'taskPercentAnalyzes'  => $messageService->getAnalyzesPercentTask(),
-             'taskFigureAnalyzes'   => $messageService->getListAnalyzesFigureTask(),
-             'statusCrossAvg'       => $messageService->getStatusCross(),
-             'srcGraph'             => $messageService->getSrcGraph()
-            ]
-        );
-        $viewModel->setTemplate('mail/analysis.phtml');
-
-        $html = $this->renderer->render($viewModel);
         $htmlMimePart = new MimePart($html);
+        $htmlMimePart->type = "text/html";
+
+        $body = new MimeMessage();
+        $body->addPart($htmlMimePart);
+        $this->message->setSubject($messageService->getSubject() . ' - dev');
+        $this->message->setBody($body);
+        $this->transport->send($this->message);
+    }
+
+    /**
+     * @param MessageInterface $messageService
+     * @param array $exchanges
+     */
+    public function sendAnalysisByExchanges(MessageInterface $messageService, array $exchanges)
+    {
+        $htmlBody = '';
+
+        foreach ($exchanges as $exchange) {
+            $messageService->setExchange($exchange);
+            $htmlBody .= $this->getHtmlBodyEmail($messageService);
+        }
+
+        $this->message->setSubject('Summary - dev');
+        $htmlMimePart = new MimePart($htmlBody);
         $htmlMimePart->type = "text/html";
 
         $body = new MimeMessage();
         $body->addPart($htmlMimePart);
         $this->message->setBody($body);
         $this->transport->send($this->message);
+    }
+
+    /**
+     * @param MessageInterface $messageService
+     * @return string
+     */
+    private function getHtmlBodyEmail(MessageInterface $messageService)
+    {
+        $viewModel = new ViewModel(
+            [   'date'                 => $messageService->getDate(),
+                'exchange'             => $messageService->getExchange(),
+                'taskOvertimeAnalysis' => $messageService->getAnalyzesOvertimeTask(),
+                'taskPercentAnalyzes'  => $messageService->getAnalyzesPercentTask(),
+                'taskFigureAnalyzes'   => $messageService->getListAnalyzesFigureTask(),
+                'statusCrossAvg'       => $messageService->getStatusCross(),
+                'srcGraph'             => $messageService->getSrcGraph()
+            ]
+        );
+        $viewModel->setTemplate('mail/analysis.phtml');
+        return $this->renderer->render($viewModel);
     }
 
 

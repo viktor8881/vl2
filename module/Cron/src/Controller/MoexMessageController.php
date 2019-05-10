@@ -45,10 +45,7 @@ class MoexMessageController extends AbstractActionController
     public function favoriteAction()
     {
         $listExchange = $this->exchangeManager->fetchAllFavorite();
-        foreach ($listExchange as $exchange) {
-            $this->messageService->setExchange($exchange);
-            $this->mailService->sendAnalysis($this->messageService);
-        }
+        $this->mailService->sendAnalysisByExchanges($this->messageService, $listExchange);
         return $this->getResponse();
     }
 
