@@ -73,7 +73,7 @@ foreach ($this->exchanges as $item) {
         <?php foreach ($this->exchanges as $item) : ?>
             <tr>
                 <td>
-                    <a href="<?= $this->url('home', ['id' => (int)$item['exchange']->getCode()]) ?>"><?= $this->escapeHtml($item['exchange']->getName())?></a>
+                    <a href="<?= $this->url('home', ['id' => (int)$item['exchange']->getId()]) ?>"><?= $this->escapeHtml($item['exchange']->getName())?></a>
                     <p><?= $item['dateTrade'] ?></p>
                 </td>
                 <td>

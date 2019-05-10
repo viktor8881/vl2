@@ -158,10 +158,25 @@ class ExchangeManager extends AbstractManager
         return $this->fetchAllByCriterions($criterions, null, $order);
     }
 
+    /**
+     * @param OrderCollection|null $order
+     * @return \Base\Entity\AbstractEntity[]
+     */
     public function fetchAllFavoriteStock(OrderCollection $order = null)
     {
         $criterions = new CriterionCollection();
         $criterions->append(new ExchangeType(Exchange::TYPE_STOCK));
+        $criterions->append(new ExchangeFavorite(true));
+        return $this->fetchAllByCriterions($criterions, null, $order);
+    }
+
+    /**
+     * @param OrderCollection|null $order
+     * @return \Base\Entity\AbstractEntity[]
+     */
+    public function fetchAllFavorite(OrderCollection $order = null)
+    {
+        $criterions = new CriterionCollection();
         $criterions->append(new ExchangeFavorite(true));
         return $this->fetchAllByCriterions($criterions, null, $order);
     }

@@ -127,6 +127,16 @@ return [
                     ],
                 ],
             ],
+            'send-message.moex.senf-favorite' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/cron/send-message/favorite',
+                    'defaults' => [
+                        'controller' => Controller\MoexMessageController::class,
+                        'action'     => 'favorite',
+                    ],
+                ],
+            ],
 
             //            'exp1.index' => [
             //                'type' => Literal::class,

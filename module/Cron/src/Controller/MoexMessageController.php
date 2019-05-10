@@ -40,4 +40,16 @@ class MoexMessageController extends AbstractActionController
         $this->getResponse()->setStatusCode(200);
         return $this->getResponse();
     }
+
+
+    public function favoriteAction()
+    {
+        $listExchange = $this->exchangeManager->fetchAllFavorite();
+        foreach ($listExchange as $exchange) {
+            $this->messageService->setExchange($exchange);
+            $this->mailService->sendAnalysis($this->messageService);
+        }
+        return $this->getResponse();
+    }
+
 }

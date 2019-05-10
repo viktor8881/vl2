@@ -51,14 +51,14 @@ class IndexController extends AbstractActionController
         $result = [];
         $item = null;
 
-        $exchanges = $this->exchangeManager->fetchAllFavoriteStock();
+        $exchanges = $this->exchangeManager->fetchAllFavorite();
         if (count($exchanges)) {
             $result = $this->analisysService->listOrderWeight(
                 $exchanges,
-                $this->params()->fromQuery('refresh', false));
+                $this->params()->fromQuery('refresh', true));
 
             $id = $this->params()->fromRoute('id', reset($exchanges)->getId());
-            $item = $this->exchangeManager->getStockById($id);
+            $item = $this->exchangeManager->get($id);
         }
 
         return [
