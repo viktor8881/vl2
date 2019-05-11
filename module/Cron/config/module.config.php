@@ -270,7 +270,7 @@ return [
                 ['actions' => ['index'], 'allow' => '*'],
             ],
             Controller\MoexMessageController::class => [
-                ['actions' => ['index'], 'allow' => '*'],
+                ['actions' => '*', 'allow' => '*'],
             ],
             Controller\StockController::class => [
                 ['actions' => '*', 'allow' => '*'],
