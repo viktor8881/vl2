@@ -76,8 +76,12 @@ class StockController extends AbstractActionController
                     foreach ($data['history']['data'] as $row) {
                         /** @var $exchange Exchange */
                         $exchange = $this->exchangeService->getByMoexSecid($row[3]);
-                        $this->logger->info('start - '. $exchange->getId());
-                        if ($exchange && $row[9]) {
+                        if (!$exchange) {
+                            $this->logger->debug(json_encode($row));
+                            continue;
+                        }
+                        if ($row[9]) {
+                            $this->logger->info('start - '. $exchange->getId());
                             if (!$exchange->getHide()) {
                                 $tradeDate = new \DateTime($row[1]);
                                 $lastEntity = $this->moexService->lastByExchangeId($exchange->getId());
@@ -100,8 +104,8 @@ class StockController extends AbstractActionController
                             } else {
                                 $this->logger->info('skip because is hide on site - '. $exchange->getId());
                             }
+                            $this->logger->info('stop - '. $exchange->getId());
                         }
-                        $this->logger->info('stop - '. $exchange->getId());
                     }
                 }
             }
