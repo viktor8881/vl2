@@ -174,7 +174,7 @@ class MoexMessageService implements MessageInterface
 
         $courses = $this->courseManager->fetchAllByCriterionsOnUniqDate($criteria);
 
-        if (count($courses) >= 50) {
+        if (count($courses) >= 30) {
             $movingAverage1= $this->movingAverage->listAvgByCourses($courses, 9);
             $movingAverage2= $this->movingAverage->listAvgByCourses($courses, 14);
 
