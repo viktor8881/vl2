@@ -167,11 +167,15 @@ class ExchangeManager extends AbstractManager
      * @param OrderCollection|null $order
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllFavorite(int $page,  OrderCollection $order = null)
+    public function fetchAllFavorite(int $page = null,  OrderCollection $order = null)
     {
-        $paginator = Factory::factory(100, new NullFill());
-        $paginator->setItemCountPerPage(self::COUNT_FAVORITE_PER_PAGE);
-        $paginator->setCurrentPageNumber($page);
+        if ($page) {
+            $paginator = Factory::factory(100, new NullFill());
+            $paginator->setItemCountPerPage(self::COUNT_FAVORITE_PER_PAGE);
+            $paginator->setCurrentPageNumber($page);
+        } else {
+            $paginator = null;
+        }
 
         $criterions = new CriterionCollection();
         $criterions->append(new ExchangeFavorite(true));
