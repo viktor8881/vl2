@@ -22,9 +22,13 @@ use Exchange\Entity\Criterion\ExchangeType;
 use Exchange\Entity\Criterion\MoexSecId;
 use Exchange\Entity\Exchange;
 use Exchange\Entity\Order\OrderName;
+use Zend\Paginator\Adapter\NullFill;
+use Zend\Paginator\Factory;
 
 class ExchangeManager extends AbstractManager
 {
+
+    const COUNT_FAVORITE_PER_PAGE = 5;
 
     const MAP_MOEX_SECID = [
         MoexService::GOLD_SEC_ID => 1,
@@ -159,26 +163,19 @@ class ExchangeManager extends AbstractManager
     }
 
     /**
+     * @param int $page
      * @param OrderCollection|null $order
      * @return \Base\Entity\AbstractEntity[]
      */
-    public function fetchAllFavoriteStock(OrderCollection $order = null)
+    public function fetchAllFavorite(int $page,  OrderCollection $order = null)
     {
-        $criterions = new CriterionCollection();
-        $criterions->append(new ExchangeType(Exchange::TYPE_STOCK));
-        $criterions->append(new ExchangeFavorite(true));
-        return $this->fetchAllByCriterions($criterions, null, $order);
-    }
+        $paginator = Factory::factory(100, new NullFill());
+        $paginator->setItemCountPerPage(self::COUNT_FAVORITE_PER_PAGE);
+        $paginator->setCurrentPageNumber($page);
 
-    /**
-     * @param OrderCollection|null $order
-     * @return \Base\Entity\AbstractEntity[]
-     */
-    public function fetchAllFavorite(OrderCollection $order = null)
-    {
         $criterions = new CriterionCollection();
         $criterions->append(new ExchangeFavorite(true));
-        return $this->fetchAllByCriterions($criterions, null, $order);
+        return $this->fetchAllByCriterions($criterions, $paginator, $order);
     }
 
     /**
